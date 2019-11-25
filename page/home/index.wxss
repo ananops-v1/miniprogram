@@ -1,0 +1,50 @@
+
+.m-menu {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fff;
+  margin: 10rpx;
+}
+
+.m-menu .item {
+  display: block;
+  width: 20%;
+  padding: 20rpx 0;
+}
+
+.m-menu image {
+  display: block;
+  width: 60rpx;
+  height: 60rpx;
+  margin: 0 auto;
+  margin-bottom: 12rpx;
+}
+
+.m-menu text {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1;
+  color: #333;
+}
+
+.kind-list-text{
+  flex: 1;
+  font-weight: 400;
+}
+.list-text{
+  font-size: 25rpx;
+  font-weight: 250;
+}
+.kind-list-img {
+  width: 60rpx;
+  height: 60rpx;
+}
+.kind-list-item-hd {
+  padding: 10rpx;
+  display: flex;
+  align-items: center;
+  transition: opacity .3s;
+}

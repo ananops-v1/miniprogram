@@ -1,0 +1,51 @@
+<import src="../common/head.wxml" />
+
+<view class="container">
+  <template is="userInfo" />
+  <view class="page-body">
+    <block wx:if="{{userRole}}==1">
+      <view class="page-section">
+
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">故障报修</view>
+          <view class="list-text">查看全部工单</view>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+
+        <view class="page-body-line"></view>
+
+        <view class="m-menu">
+          <navigator class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+
+      </view>
+
+      <view class="page-section">
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">我的巡检</view>
+          <view class="list-text">查看全部任务</view>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+        <view class="page-body-line"></view>
+        <view class="m-menu">
+          <navigator class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+
+      </view>
+
+    </block>
+
+    <block wx:elif="{{userRole}}==2">
+    </block>
+
+    <block wx:else="{{userRole}}==3">
+    </block>
+
+  </view>
+</view>
