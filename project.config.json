@@ -39,6 +39,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 1,
 			"list": [
@@ -54,6 +58,26 @@
 					"name": "page/home/index",
 					"pathName": "page/home/index",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/repair/repair",
+					"pathName": "page/repair/repair",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/uploadImage/uploadImage",
+					"pathName": "page/uploadImage/uploadImage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/uploadVideo/uploadVideo",
+					"pathName": "page/uploadVideo/uploadVideo",
 					"scene": null
 				}
 			]

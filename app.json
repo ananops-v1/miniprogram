@@ -2,7 +2,10 @@
   "pages": [
     "page/home/index",
     "page/message/index",
-    "page/my/index"
+    "page/my/index",
+    "page/repair/repair",
+    "page/uploadImage/uploadImage",
+    "page/uploadVideo/uploadVideo"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",
@@ -12,7 +15,7 @@
   },
   "tabBar": {
     "color": "#747474",
-    "selectedColor":"#2D4E95",
+    "selectedColor": "#2D4E95",
     "backgroundColor": "#F8F8F8",
     "borderStyle": "white",
     "list": [
@@ -36,7 +39,7 @@
       }
     ]
   },
-  "debug":false,
+  "debug": false,
   "style": "v2",
   "permission": {
     "scope.userLocation": {

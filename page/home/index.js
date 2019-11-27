@@ -10,7 +10,7 @@ Page({
     userRole: 1,
     repair: [{
         id: "1",
-        url: "",
+        url: "../repair/repair",
         icon_url: "/imgs/icon/repair.png",
         name: "报修"
       },
@@ -53,6 +53,14 @@ Page({
         name: "支行巡检"
       }
     ]
+  },
+  //点击报修事件处理函数
+  clickRepair:function(e){
+    var url=e.currentTarget.dataset.url;
+    wx.navigateTo({
+      url: url
+      //url+'?id='+id传递参数
+    })
   },
 
   /**
