@@ -16,7 +16,7 @@ Page({
       },
       {
         id: "2",
-        url: "",
+        url: "../toBeConfirm/toBeConfirm",
         icon_url: "/imgs/icon/to_be_confirmed.png",
         name: "待确认"
       },

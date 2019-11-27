@@ -5,7 +5,9 @@
     "page/my/index",
     "page/repair/repair",
     "page/uploadImage/uploadImage",
-    "page/uploadVideo/uploadVideo"
+    "page/uploadVideo/uploadVideo",
+    "page/toBeConfirm/toBeConfirm",
+    "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

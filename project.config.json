@@ -78,6 +78,13 @@
 					"id": -1,
 					"name": "page/uploadVideo/uploadVideo",
 					"pathName": "page/uploadVideo/uploadVideo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/toBeConfirm/toBeConfirm",
+					"pathName": "page/toBeConfirm/toBeConfirm",
 					"scene": null
 				}
 			]
