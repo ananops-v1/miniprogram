@@ -7,7 +7,8 @@
     "page/uploadImage/uploadImage",
     "page/uploadVideo/uploadVideo",
     "page/toBeConfirm/toBeConfirm",
-    "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail"
+    "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+    "page/orderDetail/orderDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",
