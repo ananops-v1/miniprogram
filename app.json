@@ -2,7 +2,9 @@
   "pages": [
     "page/home/index",
     "page/message/index",
-    "page/my/index"
+    "page/my/index",
+    "page/home/pages/all-work-orders/all-work-orders",
+    "page/my/pages/login/login"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

@@ -1,7 +1,9 @@
 import {
   Home
 } from 'index_model.js';
-Page({
+let filter = require('../../util/util.js');
+var home = new Home();
+Page(filter.identityFilter({
 
   /**
    * 页面的初始数据
@@ -109,5 +111,9 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  getAllWorkOrders:function() {
+
   }
-})
+}))

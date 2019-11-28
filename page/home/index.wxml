@@ -8,7 +8,7 @@
 
         <view class="kind-list-item-hd" bindtap="kindToggle">
           <view class="kind-list-text">故障报修</view>
-          <view class="list-text">查看全部工单</view>
+          <navigator class="list-text" url="pages/all-work-orders/all-work-orders" >查看全部工单</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
 
