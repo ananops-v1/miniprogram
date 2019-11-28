@@ -47,6 +47,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 3,
 			"list": [
@@ -73,8 +77,50 @@
 				},
 				{
 					"id": -1,
+					"name": "page/repair/repair",
+					"pathName": "page/repair/repair",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
 					"name": "page/my/pages/login/login",
 					"pathName": "page/my/pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/uploadImage/uploadImage",
+					"pathName": "page/uploadImage/uploadImage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/uploadVideo/uploadVideo",
+					"pathName": "page/uploadVideo/uploadVideo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/toBeConfirm/toBeConfirm",
+					"pathName": "page/toBeConfirm/toBeConfirm",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"pathName": "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/orderDetail/orderDetail",
+					"pathName": "page/orderDetail/orderDetail",
 					"scene": null
 				}
 			]
