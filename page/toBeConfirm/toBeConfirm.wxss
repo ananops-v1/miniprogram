@@ -1,0 +1,8 @@
+@import '../common/lib/common.wxss';
+.container{
+  height: 1500rpx;
+  
+}
+.blue {
+  background: blue;
+}

@@ -4,7 +4,13 @@
     "page/message/index",
     "page/my/index",
     "page/home/pages/all-work-orders/all-work-orders",
-    "page/my/pages/login/login"
+    "page/my/pages/login/login",
+    "page/repair/repair",
+    "page/uploadImage/uploadImage",
+    "page/uploadVideo/uploadVideo",
+    "page/toBeConfirm/toBeConfirm",
+    "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+    "page/orderDetail/orderDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",
