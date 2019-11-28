@@ -14,7 +14,7 @@
   },
   "tabBar": {
     "color": "#747474",
-    "selectedColor":"#2D4E95",
+    "selectedColor": "#2D4E95",
     "backgroundColor": "#F8F8F8",
     "borderStyle": "white",
     "list": [
@@ -38,7 +38,7 @@
       }
     ]
   },
-  "debug":false,
+  "debug": false,
   "style": "v2",
   "permission": {
     "scope.userLocation": {
