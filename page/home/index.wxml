@@ -3,22 +3,48 @@
 <view class="container">
   <template is="userInfo" />
   <view class="page-body">
+    <!-- 值机员 -->
     <block wx:if="{{userRole}}==1">
       <view class="page-section">
 
         <view class="kind-list-item-hd" bindtap="kindToggle">
           <view class="kind-list-text">故障报修</view>
-          <navigator class="list-text" url="pages/all-work-orders/all-work-orders" >查看全部工单</navigator>
+          <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
 
         <view class="page-body-line"></view>
 
         <view class="m-menu">
-          <navigator class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
             <text>{{item.name}}</text>
-          </navigator>
+          </view>
+
+
+        </view>
+
+      </view>
+
+
+    </block>
+    <!-- 甲方负责人 -->
+    <block wx:elif="{{userRole}}==2">
+      <view class="page-section">
+
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">故障报修</view>
+          <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+
+        <view class="page-body-line"></view>
+
+        <view class="m-menu">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </view>
         </view>
 
       </view>
@@ -38,14 +64,133 @@
         </view>
 
       </view>
-
     </block>
 
-    <block wx:elif="{{userRole}}==2">
+    <!-- 服务提供商 -->
+    <block wx:elif="{{userRole}}==3">
+      <view class="page-section">
+
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">故障报修</view>
+          <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+
+        <view class="page-body-line"></view>
+
+        <view class="m-menu">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+
+      </view>
+
+      <view class="page-section">
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">我的巡检</view>
+          <view class="list-text">查看全部任务</view>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+        <view class="page-body-line"></view>
+        <view class="m-menu">
+          <navigator class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+
+      </view>
+    </block>
+    <!-- 维修工 -->
+    <block wx:else="{{userRole}}==4">
+      <view class="page-section">
+
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">故障报修</view>
+          <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+
+        <view class="page-body-line"></view>
+
+        <view class="m-menu">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+
+      </view>
+
+      <view class="page-section">
+        <view class="kind-list-item-hd" bindtap="kindToggle">
+          <view class="kind-list-text">我的巡检</view>
+          <view class="list-text">查看全部任务</view>
+          <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        </view>
+        <view class="page-body-line"></view>
+        <view class="m-menu">
+          <navigator class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}">
+            <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+
+      </view>
     </block>
 
-    <block wx:else="{{userRole}}==3">
-    </block>
+    <view class="page-section">
+
+      <view class="kind-list-item-hd" bindtap="kindToggle">
+        <view class="kind-list-text">待办事项</view>
+        <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator>
+        <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+      </view>
+
+      <view class="page-body-line"></view>
+
+
+      <scroll-view scroll-y="true" bindscrolltolower="onReachBottom" bindscrolltoupper="onReachTop" scroll-with-animation="true" lower-threshold="0" upper-threshold="10" class='scroll-view'>
+        <view class='items-list' wx:for="{{infolist}}" wx:key="item">
+          <view class='info-content'>
+            <view>
+              <text class='info-detail'>{{item.pContent}}</text>
+            </view>
+            <view class='showPic'>
+              <block wx:for="{{item.image}}" wx:for-item="img" wx:key="img" class='picture-view'>
+                <image bindtap='imageClick' src='{{img}}' data-src='{{img}}' data-pictures='{{item}}' mode="aspectFill"></image>
+              </block>
+            </view>
+            <text class='info-time'>{{item.timeStamp}}</text>
+            <view class='info-place'>{{item.location}}</view>
+          </view>
+          <view class='info-footer'>
+            <view class='info-uc'>
+              <image class='info-delete' data-infoid="{{item.pId}}" data-index="{{index}}" bindtap='delete' src='/imgs/icon/delete.png'></image>
+            </view>
+          </view>
+          <view class='div'>
+            <view class='uppeople' wx:if="{{item.favoritenum}}">
+              <image src='/imgs/icon/up@success.png'></image>
+              <text>{{item.favoritenum}}</text>
+            </view>
+          </view>
+          <view class='comments' wx:for='{{item.comments}}' wx:key="item">
+            <text class='comment-name'>{{item.nickName}}</text>
+            <text class='comment-content'>: {{item.cContent}}</text>
+          </view>
+
+          <view class='comment-box'>
+            <input wx:if="{{commentTable[item.pId]}}" data-userid="{{item.pId}}" bindconfirm='add' type="text" placeholder='{{content.comment}}' cursor-spacing='10'></input>
+          </view>
+        </view>
+      </scroll-view>
+
+    </view>
+
+
 
   </view>
 </view>

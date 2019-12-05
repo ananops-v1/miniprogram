@@ -32,13 +32,13 @@ Page(filter.identityFilter({
         id: "4",
         url: "",
         icon_url: "/imgs/icon/pending_payment.png",
-        name: "待付款"
+        name: "待验收"
       },
       {
         id: "5",
         url: "",
         icon_url: "/imgs/icon/comment.png",
-        name: "评价"
+        name: "待评价"
       }
 
     ],
