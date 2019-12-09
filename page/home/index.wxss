@@ -9,6 +9,7 @@
 }
 
 .m-menu .item {
+  position: relative;
   display: block;
   width: 20%;
   padding: 20rpx 0;

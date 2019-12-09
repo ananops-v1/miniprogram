@@ -1,64 +1,23 @@
 import {
   Home
 } from 'index_model.js';
+import {
+  Config
+} from '../../config.js';
 let filter = require('../../util/util.js');
 var home = new Home();
+const app = getApp();
 Page(filter.identityFilter({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userRole: 1,
-    repair: [{
-        id: "1",
-        url: "../repair/repair",
-        icon_url: "/imgs/icon/repair.png",
-        name: "报修"
-      },
-      {
-        id: "2",
-        url: "../toBeConfirm/toBeConfirm",
-        icon_url: "/imgs/icon/to_be_confirmed.png",
-        name: "待确认"
-      },
-      {
-        id: "3",
-        url: "",
-        icon_url: "/imgs/icon/in_maintenance.png",
-        name: "维修中"
-      },
-      {
-        id: "4",
-        url: "",
-        icon_url: "/imgs/icon/pending_payment.png",
-        name: "待验收"
-      },
-      {
-        id: "5",
-        url: "",
-        icon_url: "/imgs/icon/comment.png",
-        name: "待评价"
-      }
-
-    ],
-    inspection: [{
-        id: "1",
-        url: "",
-        icon_url: "/imgs/icon/atm_inspection.png",
-        name: "ATM巡检"
-      },
-      {
-        id: "2",
-        url: "",
-        icon_url: "/imgs/icon/bank_inspection.png",
-        name: "支行巡检"
-      }
-    ]
+    orderList:Config.orderList
   },
   //点击报修事件处理函数
-  clickRepair:function(e){
-    var url=e.currentTarget.dataset.url;
+  clickRepair: function(e) {
+    var url = e.currentTarget.dataset.url;
     wx.navigateTo({
       url: url
       //url+'?id='+id传递参数
@@ -69,7 +28,31 @@ Page(filter.identityFilter({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var repair = Config.repair[app.globalData.userRole];
+    repair[1].num = 1;
+    this.setData({
+      userRole: app.globalData.userRole,
+      repair: repair,
+      inspection: Config.inspection[app.globalData.userRole]
+    })
+  },
 
+  upper(e) {
+    console.log(e)
+  },
+
+  lower(e) {
+    console.log(e)
+  },
+
+  scroll(e) {
+    console.log(e)
+  },
+
+  scrollToTop() {
+    this.setAction({
+      scrollTop: 0
+    })
   },
 
   /**
@@ -121,7 +104,12 @@ Page(filter.identityFilter({
 
   },
 
-  getAllWorkOrders:function() {
+  getAllWorkOrders: function() {
 
-  }
+  },
+
+  _loadAllInfo: function (userId) {
+
+  },
+
 }))

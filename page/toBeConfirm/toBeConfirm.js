@@ -1,4 +1,7 @@
 // page/toBeConfirm/toBeConfirm.js
+
+const AUTH = require('../../util/auth')
+
 Page({
 
   /**
@@ -146,7 +149,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    AUTH.checkHasLogined();
   },
 
   /**
