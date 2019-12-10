@@ -38,7 +38,7 @@
         "selectedIconPath": "imgs/tabBar/message@selected.png"
       },
       {
-        "pagePath": "page/my/pages/login/login",
+        "pagePath": "page/my/index",
         "text": "我的",
         "iconPath": "imgs/tabBar/my.png",
         "selectedIconPath": "imgs/tabBar/my@selected.png"

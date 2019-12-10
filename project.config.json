@@ -52,7 +52,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -128,6 +128,13 @@
 					"id": -1,
 					"name": "page/home/pages/inspection/inspection",
 					"pathName": "page/home/pages/inspection/inspection",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/my/index",
+					"pathName": "page/my/index",
 					"scene": null
 				}
 			]
