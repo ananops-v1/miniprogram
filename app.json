@@ -5,12 +5,13 @@
     "page/my/index",
     "page/home/pages/all-work-orders/all-work-orders",
     "page/my/pages/login/login",
-    "page/repair/repair",
-    "page/uploadImage/uploadImage",
-    "page/uploadVideo/uploadVideo",
-    "page/toBeConfirm/toBeConfirm",
-    "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
-    "page/orderDetail/orderDetail"
+    "page/home/pages/repair/repair",
+    "page/home/pages/uploadImage/uploadImage",
+    "page/home/pages/uploadVideo/uploadVideo",
+    "page/home/pages/toBeConfirm/toBeConfirm",
+    "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+    "page/home/pages/orderDetail/orderDetail",
+    "page/home/pages/inspection/inspection"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

@@ -77,8 +77,8 @@
 				},
 				{
 					"id": -1,
-					"name": "page/repair/repair",
-					"pathName": "page/repair/repair",
+					"name": "page/home/pages/repair/repair",
+					"pathName": "page/home/pages/repair/repair",
 					"query": "",
 					"scene": null
 				},
@@ -91,36 +91,43 @@
 				},
 				{
 					"id": -1,
-					"name": "page/uploadImage/uploadImage",
-					"pathName": "page/uploadImage/uploadImage",
+					"name": "page/home/pages/uploadImage/uploadImage",
+					"pathName": "page/home/pages/uploadImage/uploadImage",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "page/uploadVideo/uploadVideo",
-					"pathName": "page/uploadVideo/uploadVideo",
+					"name": "page/home/pages/uploadVideo/uploadVideo",
+					"pathName": "page/home/pages/uploadVideo/uploadVideo",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "page/toBeConfirm/toBeConfirm",
-					"pathName": "page/toBeConfirm/toBeConfirm",
+					"name": "page/home/pages/toBeConfirm/toBeConfirm",
+					"pathName": "page/home/pages/toBeConfirm/toBeConfirm",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
-					"pathName": "page/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"name": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"pathName": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "page/orderDetail/orderDetail",
-					"pathName": "page/orderDetail/orderDetail",
+					"name": "page/home/pages/orderDetail/orderDetail",
+					"pathName": "page/home/pages/orderDetail/orderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/inspection/inspection",
+					"pathName": "page/home/pages/inspection/inspection",
 					"scene": null
 				}
 			]

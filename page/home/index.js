@@ -23,7 +23,14 @@ Page(filter.identityFilter({
       //url+'?id='+id传递参数
     })
   },
-
+  //点击巡检事件处理函数
+  clickInspection:function(e){
+    var url = e.currentTarget.dataset.url;
+    wx.navigateTo({
+      url: url
+      //url+'?id='+id传递参数
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -54,7 +61,12 @@ Page(filter.identityFilter({
       scrollTop: 0
     })
   },
-
+  clickOrder(e){
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

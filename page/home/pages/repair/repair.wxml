@@ -38,8 +38,8 @@
           <view class="weui-cell__bd">语音报修</view>
           <view class="weui-cell__ft">
             <text class="time-small" wx:if="{{hasRecord===true}}">{{showRecordTime}}s</text>
-            <image class="img-microphone" wx:if="{{hasRecord===true}}" src="../../imgs/icon/recoed_voice -{{imgIndex}}.png" bindtap="controlVoice" bindlongpress="clear"></image>
-            <image class="img-microphone" src="../../imgs/icon/microphone.png" bindtap="clickMicrophone"></image>
+            <image class="img-microphone" wx:if="{{hasRecord===true}}" src="../../../../imgs/icon/recoed_voice -{{imgIndex}}.png" bindtap="controlVoice" bindlongpress="clear"></image>
+            <image class="img-microphone" src="../../../../imgs/icon/microphone.png" bindtap="clickMicrophone"></image>
           </view>
         </view>
       </view>
@@ -51,7 +51,7 @@
         </view>
         <view class="page-body-buttons">  
           <view class="page-body-button" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="clear">
-            <image class="img-record" src="../../imgs/icon/microphone.png"></image>
+            <image class="img-record" src="../../../../imgs/icon/microphone.png"></image>
           </view>
         </view>
       </block>

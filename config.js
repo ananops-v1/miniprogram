@@ -7,13 +7,13 @@ Config.baseRequestUrl = "https://ananops.cn/api/v1/";
 Config.repair = [
   [{
       id: "1",
-      url: "../repair/repair",
+      url: "../home/pages/repair/repair",
       icon_url: "/imgs/icon/repair.png",
       name: "报修"
     },
-    {
+    { 
       id: "2",
-      url: "../toBeConfirm/toBeConfirm",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待确认"
     },
@@ -38,33 +38,33 @@ Config.repair = [
   ],
   [{
       id: "1",
-      url: "../repair/repair",
+      url: "../home/pages/repair/repair",
       icon_url: "/imgs/icon/repair.png",
       name: "待审核"
     },
     {
       id: "2",
-      url: "../toBeConfirm/toBeConfirm",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待支付"
     }
   ],
   [{
       id: "1",
-      url: "../repair/repair",
+      url: "../home/pages/repair/repair",
       icon_url: "/imgs/icon/repair.png",
       name: "待接单"
     },
     {
       id: "2",
-      url: "../toBeConfirm/toBeConfirm",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审核"
     }
   ],
   [{
       id: "1",
-      url: "../toBeConfirm/toBeConfirm",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待确认"
     },
@@ -82,57 +82,57 @@ Config.inspection = [
   ],
   [{
     id: "1",
-    url: "../repair/repair",
+    url: "../home/pages/inspection/inspection",
     icon_url: "/imgs/icon/repair.png",
     name: "巡检申请"
   },
   {
     id: "2",
-    url: "../toBeConfirm/toBeConfirm",
+    url: "../home/pages/toBeConfirm/toBeConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "待确认"
   },
     {
       id: "3",
-      url: "../repair/repair",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/repair.png",
       name: "巡检中"
     },
     {
       id: "4",
-      url: "../toBeConfirm/toBeConfirm",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待付款"
     },
     {
       id: "5",
-      url: "../repair/repair",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/repair.png",
       name: "待评价"
     }
   ],
   [{
     id: "1",
-    url: "../repair/repair",
+    url: "../home/pages/repair/repair",
     icon_url: "/imgs/icon/repair.png",
     name: "待接单"
   },
   {
     id: "2",
-    url: "../toBeConfirm/toBeConfirm",
+    url: "../home/pages/toBeConfirm/toBeConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "待审核"
   },
     {
       id: "3",
-      url: "../toBeConfirm/toBeConfirm",
+      url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审查"
     }
   ],
   [{
     id: "1",
-    url: "../toBeConfirm/toBeConfirm",
+    url: "../home/pages/toBeConfirm/toBeConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "待确认"
   },

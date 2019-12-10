@@ -52,7 +52,7 @@
         </view>
         <view class="page-body-line"></view>
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}" data-url="{{item.url}}" bindtap="clickInspection">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>

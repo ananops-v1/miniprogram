@@ -1,0 +1,203 @@
+<!--page/home/pages/inspection/inspection.wxml-->
+<view class="container">
+  <view class="page-body">
+  <!--巡检名称-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{inspectionName}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--选择项目栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">选择项目</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChoosePro" value="{{programIndex}}" range="{{programList}}">
+              <view class="weui-input">{{programList[programIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--选择设备栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">选择设备</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseDevice" value="{{deviceIndex}}" range="{{deviceList}}">
+              <view class="weui-input">{{deviceList[deviceIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title" wx:for="{{addedDeviceList}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">设备名字</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">设备类型</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.type}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检内容</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.content}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检周期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.cycle}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--选择服务商栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">服务商</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
+              <view class="weui-input">{{providerList[providerIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--选择巡检级别栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检级别</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseLevel" value="{{levelIndex}}" range="{{levelList}}">
+              <view class="weui-input">{{levelList[levelIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--日期选择器-->
+    <!--开始时间-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">开始时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{startDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindStartDateChange">
+              <view class="weui-input">{{startDate}}</view>
+            </picker>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{startTime}}" start="09:01" end="21:01" bindchange="bindStartTimeChange">
+              <view class="weui-input">{{startTime}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--结束时间-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">结束时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{endDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindEndDateChange">
+              <view class="weui-input">{{endDate}}</view>
+            </picker>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{endTime}}" start="09:01" end="21:01" bindchange="bindEndTimeChange">
+              <view class="weui-input">{{endTime}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--甲方联系人栏-->
+    <view class="page-section" wx:for="{{partyAPhoneList}}" wx:for-item="item" wx:key="{{item.phone}}" data-id="{{item.phone}}" bindtap="">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">{{item.label}}</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">电话</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.phone}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--乙方联系人栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">乙方联系人</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{partyBObj.name}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">电话</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{partyBObj.phone}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--提交-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="clickSubmit">提交</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
