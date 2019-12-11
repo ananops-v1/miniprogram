@@ -1,6 +1,5 @@
 // page/toBeConfirm/toBeConfirm.js
-
-const AUTH = require('../../../../util/auth')
+const AUTH = require('../../../../../util/auth')
 
 Page({
 

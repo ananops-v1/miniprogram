@@ -32,28 +32,39 @@ Page({
       }
     });
   },
-  bind: function () {
+  login: function () {
     var _this = this;
+    
     if (!_this.data.userid || !_this.data.passwd) {
-      app.showErrorModal('账号及密码不能为空', '提醒');
-      return false;
-    }
-    if (_this.data.userid == '0' && _this.data.passwd == '0') {
       app.globalData.userRole = 0;
-    }
-    else if (_this.data.userid == '1' && _this.data.passwd=='1'){
+      wx.switchTab({
+        url: '/page/my/index',
+      })
+      // app.showErrorModal('账号及密码不能为空', '提醒');
+      // return false;
+    }else if (_this.data.userid == '0' && _this.data.passwd == '0') {
+      app.globalData.userRole = 0;
+      wx.switchTab({
+        url: '/page/my/index',
+      })
+    }else if (_this.data.userid == '1' && _this.data.passwd=='1'){
       app.globalData.userRole=1;
-    }
-    else if (_this.data.userid == '2' && _this.data.passwd == '2'){
+      wx.switchTab({
+        url: '/page/my/index',
+      })
+    }else if (_this.data.userid == '2' && _this.data.passwd == '2'){
       app.globalData.userRole = 2;
-    }
-    else if (_this.data.userid == '3' && _this.data.passwd == '3'){
+      wx.switchTab({
+        url: '/page/my/index',
+      })
+    }else if (_this.data.userid == '3' && _this.data.passwd == '3'){
       app.globalData.userRole = 3;
+      wx.switchTab({
+        url: '/page/my/index',
+      })
     }
-    app.showLoadToast('登录中');
   },
-  useridInput: function (e) {
-    console.log(e.detail.value)
+  getUserId: function (e) {
     this.setData({
       userid: e.detail.value
     });
@@ -61,7 +72,7 @@ Page({
       wx.hideKeyboard();
     }
   },
-  passwdInput: function (e) {
+  getPassword: function (e) {
     this.setData({
       passwd: e.detail.value
     });

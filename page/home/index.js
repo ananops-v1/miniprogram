@@ -4,10 +4,9 @@ import {
 import {
   Config
 } from '../../config.js';
-let filter = require('../../util/util.js');
 var home = new Home();
 const app = getApp();
-Page(filter.identityFilter({
+Page({
 
   /**
    * 页面的初始数据
@@ -124,4 +123,4 @@ Page(filter.identityFilter({
 
   },
 
-}))
+})

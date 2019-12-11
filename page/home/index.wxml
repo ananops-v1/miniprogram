@@ -15,7 +15,7 @@
         <view class="page-body-line"></view>
 
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="item" bindtap="clickRepair" data-url="{{item.url}}">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -35,7 +35,7 @@
         </view>
         <view class="page-body-line"></view>
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="item" bindtap="clickRepair" data-url="{{item.url}}">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -52,7 +52,7 @@
         </view>
         <view class="page-body-line"></view>
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}" data-url="{{item.url}}" bindtap="clickInspection">
+          <view class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="item" data-url="{{item.url}}" bindtap="clickInspection">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -74,7 +74,7 @@
         <view class="page-body-line"></view>
 
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="item" bindtap="clickRepair" data-url="{{item.url}}">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -92,7 +92,7 @@
         </view>
         <view class="page-body-line"></view>
         <view class="m-menu">
-          <navigator class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}">
+          <navigator class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="item">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -113,7 +113,7 @@
         <view class="page-body-line"></view>
 
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{repair}}" wx:key="item" bindtap="clickRepair" data-url="{{item.url}}">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -132,7 +132,7 @@
         <view class="page-body-line"></view>
 
         <view class="m-menu">
-          <view class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="{{item.id}}" bindtap="clickRepair" data-url="{{item.url}}">
+          <view class="item" url="{{item.url}}" wx:for="{{inspection}}" wx:key="item" bindtap="clickRepair" data-url="{{item.url}}">
             <view wx:if="{{item.num != 0 && item.num < 99}}" class='unread-view'>{{item.num}}</view>
             <view wx:elif="{{item.num > 99}}" class='unread-view'>...</view>
             <image wx:if="{{item.icon_url}}" src="{{item.icon_url}}"></image>
@@ -157,7 +157,7 @@
 
       <view class="page-section-spacing">
         <scroll-view scroll-y="true" style="height: 300rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-          <view wx:for="{{orderList}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickOrder">
+          <view wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
             <view slot="title" style="position: relative;margin-right: 10px;">
               <image src="../../imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block" />
             </view>

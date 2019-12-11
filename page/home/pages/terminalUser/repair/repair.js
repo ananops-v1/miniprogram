@@ -1,5 +1,5 @@
 // page/repair/repair.js
-const util = require('../../../../util/util.js')
+const AUTH = require('../../../../../util/auth')
 
 let playTimeInterval
 let recordTimeInterval

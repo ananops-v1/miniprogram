@@ -3,26 +3,26 @@
 <view class="container">
   <block>
     <view class="content">
-      <view class="hd" >
-          <image class="logo" src="/imgs/icon/ananops.png"></image>
+      <view class="hd">
+        <image class="logo" src="/imgs/icon/ananops.png"></image>
       </view>
       <view class="bd">
         <form class="login-form">
           <view class="input-group {{userid_focus ? 'active' : ''}}">
             <text class="input-label">帐号</text>
-            <input type="number" cursor-spacing="30" id="userid" maxlength="7" placeholder="请输入账号" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur"/>
+            <input type="number" cursor-spacing="30" id="userid" maxlength="7" placeholder="请输入账号" bindinput="getUserId" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
           <view class="input-group {{passwd_focus ? 'active' : ''}}">
             <text class="input-label">密码</text>
-            <input password="true" cursor-spacing="30" id="passwd" placeholder="请输入密码" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur"/>
+            <input password="true" cursor-spacing="30" id="passwd" placeholder="请输入密码" bindinput="getPassword" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
           <view class="login-help" bindtap="showHelp">
             <text>帮助</text>
             <image class="login-help-img" src="/imgs/others/help.png"></image>
           </view>
         </form>
-        <view class="confirm-btn" bindtap="bind">
-            <text>登录</text>
+        <view class="confirm-btn" bindtap="login">
+          <text>登录</text>
         </view>
       </view>
 
@@ -49,5 +49,4 @@
 
     </view>
   </block>
-
 </view>
