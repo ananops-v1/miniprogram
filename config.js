@@ -7,70 +7,70 @@ Config.baseRequestUrl = "https://ananops.cn/api/v1/";
 Config.repair = [
   [{//值机员
       id: "1",
-      url: "../home/pages/repair/repair",
+      url: "../home/pages/terminalUser/repair/repair",
       icon_url: "/imgs/icon/repair.png",
       name: "报修"
     },
     { 
       id: "2",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/terminalUser/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待确认"
     },
     {
       id: "3",
-      url: "",
+      url: "../home/pages/terminalUser/repairing/repairing",
       icon_url: "/imgs/icon/in_maintenance.png",
       name: "维修中"
     },
     {
       id: "4",
-      url: "",
+      url: "../home/pages/terminalUser/toBeCheck/toBeCheck",
       icon_url: "/imgs/icon/pending_payment.png",
       name: "待验收"
     },
     {
       id: "5",
-      url: "",
+      url: "../home/pages/terminalUser/toBeComment/toBeComment",
       icon_url: "/imgs/icon/comment.png",
       name: "待评价"
     }
   ],
   [{//管理员
       id: "1",
-      url: "../home/pages/repair/repair",
-      icon_url: "/imgs/icon/repair.png",
+      url: "../home/pages/terminalUser/toBeConfirm/toBeConfirm",
+      icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审核"
     },
     {
       id: "2",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
-      icon_url: "/imgs/icon/to_be_confirmed.png",
+      url: "../home/pages/terminalUser/toBeCheck/toBeCheck",
+      icon_url: "/imgs/icon/pending_payment.png",
       name: "待支付"
     }
   ],
   [{//服务商
       id: "1",
-      url: "../home/pages/repair/repair",
+      url: "../home/pages/serviceProvider/toBeDispatch/toBeDispatch",
       icon_url: "/imgs/icon/repair.png",
       name: "待接单"
     },
     {
       id: "2",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/serviceProvider/toBeCheck/toBeCheck",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审核"
     }
   ],
   [{//工程师
       id: "1",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/serviceEngineer/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待确认"
     },
     {
       id: "2",
-      url: "",
+      url: "../home/pages/serviceEngineer/repairing/repairing",
       icon_url: "/imgs/icon/in_maintenance.png",
       name: "维修中"
     }
@@ -82,69 +82,69 @@ Config.inspection = [
   ],
   [{//管理员
     id: "1",
-    url: "../home/pages/inspection/inspection",
+    url: "../home/pages/terminalUser/inspection/inspection",
     icon_url: "/imgs/icon/repair.png",
     name: "巡检申请"
   },
   {
     id: "2",
-    url: "../home/pages/toBeConfirm/toBeConfirm",
+    url: "../home/pages/terminalUser/inspectionToBeConfirm/inspectionToBeConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "待确认"
   },
     {
       id: "3",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/terminalUser/inspecting/inspecting",
       icon_url: "/imgs/icon/repair.png",
       name: "巡检中"
     },
     {
       id: "4",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/terminalUser/inspectionToBeCheck/inspectionToBeCheck",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待付款"
     },
     {
       id: "5",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",
       icon_url: "/imgs/icon/repair.png",
       name: "待评价"
     }
   ],
   [{//服务商
     id: "1",
-    url: "../home/pages/repair/repair",
+    url: "../home/pages/serviceProvider/inspectionDispatch/inspectionDispatch",
     icon_url: "/imgs/icon/repair.png",
     name: "待接单"
   },
   {
     id: "2",
-    url: "../home/pages/toBeConfirm/toBeConfirm",
+    url: "../home/pages/serviceProvider/inspectionConfirm/inspectionConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",
-    name: "待审核"
+    name: "待审批"
   },
     {
       id: "3",
-      url: "../home/pages/toBeConfirm/toBeConfirm",
+      url: "../home/pages/serviceProvider/inspectionCheck/inspectionCheck",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审查"
     }
   ],
   [{//工程师
     id: "1",
-    url: "../home/pages/toBeConfirm/toBeConfirm",
+    url: "../home/pages/serviceEngineer/inspectionConfirm/inspectionConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "待确认"
   },
   {
     id: "2",
-    url: "",
+    url: "../home/pages/serviceEngineer/inspecting/inspecting",
     icon_url: "/imgs/icon/in_maintenance.png",
-    name: "维修中"
+    name: "巡检中"
     },
     {
       id: "3",
-      url: "",
+      url: "../home/pages/serviceEngineer/inspectionCheck/inspectionCheck",
       icon_url: "/imgs/icon/in_maintenance.png",
       name: "待通过"
     }

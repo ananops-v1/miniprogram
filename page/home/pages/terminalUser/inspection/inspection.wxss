@@ -1,0 +1,7 @@
+/* page/home/pages/terminalUser/inspection/inspection.wxss */
+@import "../../../../common/lib/weui.wxss";
+/* 日期选择器 */
+.picker{
+  padding: 19rpx 26rpx;
+  background-color: #FFFFFF;
+}
