@@ -1,2 +1,41 @@
 <!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+<view class="container more">
+  <view class="user flex-wrp">
+    <view class="avatar flex-item">
+      <open-data type="userAvatarUrl" class="userinfo-avatar" default-avatar="/imgs/icon/ananops.png" background-size="cover"></open-data>
+    </view>
+    <view class="user-info flex-item">
+      <open-data type="userNickName" class="userinfo-nickname"></open-data>
+      <text class="userinfo-nickname">账号:2019112121</text>
+    </view>
+  </view>
+
+  <view class="my">
+    <view class="my-item flex-wrp">
+      <view class="myitem-name flex-item">
+        <text>账户与安全</text>
+      </view>
+    </view>
+    <view class="my-item flex-wrp">
+      <view class="myitem-name flex-item">
+        <text>隐私</text>
+      </view>
+    </view>
+    <view class="my-item flex-wrp">
+      <view class="myitem-name flex-item">
+        <text>通用</text>
+      </view>
+    </view>
+    <view class="my-item flex-wrp">
+      <view class="myitem-name flex-item">
+        <text>问题反馈</text>
+      </view>
+    </view>
+    <view class="my-item flex-wrp">
+      <view class="myitem-name flex-item">
+        <text>关于安安运维</text>
+      </view>
+    </view>
+
+  </view>
+</view>

@@ -6,10 +6,6 @@
 </view>
 <scroll-view scroll-y="true" class="container notify withtab" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <view class="ctnt0" hidden="{{currentNavtab==0 ? '' : true}}">
-    <view class="unread">
-      <text>0 条未读</text>
-      <image src="/imgs/others/allread.png"></image>
-    </view>
     <view class="notify-item flex-wrp">
       <view class="avatar flex-item">
         <image src="/imgs/icon/ananops.png"></image>
@@ -74,11 +70,7 @@
       </view>
     </view>
   </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-    <text>审批通知</text>
-  </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-    <text>支付通知</text>
-  </view>
+
+  
 </scroll-view>
 
