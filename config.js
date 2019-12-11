@@ -5,7 +5,7 @@ class Config {
 Config.baseRequestUrl = "https://ananops.cn/api/v1/";
 
 Config.repair = [
-  [{
+  [{//值机员
       id: "1",
       url: "../home/pages/repair/repair",
       icon_url: "/imgs/icon/repair.png",
@@ -36,7 +36,7 @@ Config.repair = [
       name: "待评价"
     }
   ],
-  [{
+  [{//管理员
       id: "1",
       url: "../home/pages/repair/repair",
       icon_url: "/imgs/icon/repair.png",
@@ -49,7 +49,7 @@ Config.repair = [
       name: "待支付"
     }
   ],
-  [{
+  [{//服务商
       id: "1",
       url: "../home/pages/repair/repair",
       icon_url: "/imgs/icon/repair.png",
@@ -62,7 +62,7 @@ Config.repair = [
       name: "待审核"
     }
   ],
-  [{
+  [{//工程师
       id: "1",
       url: "../home/pages/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
@@ -78,9 +78,9 @@ Config.repair = [
 ]
 
 Config.inspection = [
-  [
+  [//值机员
   ],
-  [{
+  [{//管理员
     id: "1",
     url: "../home/pages/inspection/inspection",
     icon_url: "/imgs/icon/repair.png",
@@ -111,7 +111,7 @@ Config.inspection = [
       name: "待评价"
     }
   ],
-  [{
+  [{//服务商
     id: "1",
     url: "../home/pages/repair/repair",
     icon_url: "/imgs/icon/repair.png",
@@ -130,7 +130,7 @@ Config.inspection = [
       name: "待审查"
     }
   ],
-  [{
+  [{//工程师
     id: "1",
     url: "../home/pages/toBeConfirm/toBeConfirm",
     icon_url: "/imgs/icon/to_be_confirmed.png",

@@ -11,7 +11,8 @@
     "page/home/pages/toBeConfirm/toBeConfirm",
     "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
     "page/home/pages/orderDetail/orderDetail",
-    "page/home/pages/inspection/inspection"
+    "page/home/pages/inspection/inspection",
+    "page/home/pages/inspectionDetail/inspectionDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

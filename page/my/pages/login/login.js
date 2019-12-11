@@ -38,9 +38,22 @@ Page({
       app.showErrorModal('账号及密码不能为空', '提醒');
       return false;
     }
+    if (_this.data.userid == '0' && _this.data.passwd == '0') {
+      app.globalData.userRole = 0;
+    }
+    else if (_this.data.userid == '1' && _this.data.passwd=='1'){
+      app.globalData.userRole=1;
+    }
+    else if (_this.data.userid == '2' && _this.data.passwd == '2'){
+      app.globalData.userRole = 2;
+    }
+    else if (_this.data.userid == '3' && _this.data.passwd == '3'){
+      app.globalData.userRole = 3;
+    }
     app.showLoadToast('登录中');
   },
   useridInput: function (e) {
+    console.log(e.detail.value)
     this.setData({
       userid: e.detail.value
     });
