@@ -146,7 +146,7 @@
 
 
 
-    <view class="page-section">
+    <view wx:if="{{userRole != null}}" class="page-section">
       <view class="kind-list-item-hd" bindtap="kindToggle">
         <view class="kind-list-text">待办事项</view>
         <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator>

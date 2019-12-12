@@ -1,10 +1,11 @@
 <view class="page">
-    <view class="page__bd">
-      <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <view class="page__bd">
+    <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+          <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
         <mp-cells>
             <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickOrder">
                 <view slot="title" style="position: relative;margin-right: 10px;">
-                  <image src="../../../../../imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
+                  <image src="/imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
                 </view>
                 <view>{{order.programName}}</view>
                 <view>{{order.deviceName}}</view>
@@ -13,5 +14,5 @@
             </mp-cell>
         </mp-cells>
       </scroll-view>
-    </view>
+  </view>
 </view>

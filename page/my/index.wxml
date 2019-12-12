@@ -6,13 +6,13 @@
     </view>
     <view class="user-info flex-item">
       <open-data type="userNickName" class="userinfo-nickname"></open-data>
-      <text class="userinfo-nickname">账号:2019112121</text>
+      <text class="userinfo-nickname">账号:{{userRole}}</text>
     </view>
   </view>
 
   <view class="my">
     <view class="my-item flex-wrp">
-      <view class="myitem-name flex-item">
+      <view class="myitem-name flex-item" bindtap="login">
         <text>账户与安全</text>
       </view>
     </view>

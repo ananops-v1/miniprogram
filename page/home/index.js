@@ -34,13 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var repair = Config.repair[app.globalData.userRole];
-    repair[1].num = 1;
-    this.setData({
-      userRole: app.globalData.userRole,
-      repair: repair,
-      inspection: Config.inspection[app.globalData.userRole]
-    })
+
   },
 
   upper(e) {
@@ -66,6 +60,11 @@ Page({
       url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
+  kindToggle:function(e){
+    wx.navigateTo({
+      url: "../../../../home/pages/all-work-inspection/all-work-inspection"
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -77,7 +76,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var repair = Config.repair[app.globalData.userRole];
+    if(repair != null) {
+      repair[1].num = 1;
+    }
+    this.setData({
+      userRole: app.globalData.userRole,
+      repair: repair,
+      inspection: Config.inspection[app.globalData.userRole]
+    })
   },
 
   /**

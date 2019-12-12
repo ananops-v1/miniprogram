@@ -103,7 +103,7 @@ Page({
   clickOrder: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
+      url: "../toBeCommentOrderDetail/toBeCommentOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
