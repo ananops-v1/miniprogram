@@ -100,12 +100,18 @@ Config.inspection = [
     },
     {
       id: "4",
+      url: "../home/pages/terminalUser/inspectionToBeRepair/inspectionToBeRepair",
+      icon_url: "/imgs/icon/to_be_confirmed.png",
+      name: "待审核"
+    },
+    {
+      id: "5",
       url: "../home/pages/terminalUser/inspectionToBeCheck/inspectionToBeCheck",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待付款"
     },
     {
-      id: "5",
+      id: "6",
       url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",
       icon_url: "/imgs/icon/repair.png",
       name: "待评价"
@@ -128,6 +134,12 @@ Config.inspection = [
       url: "../home/pages/serviceProvider/inspectionCheck/inspectionCheck",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审查"
+    },
+    {
+      id: "4",
+      url: "../home/pages/serviceProvider/inspectionFeedback/inspectionFeedback",
+      icon_url: "/imgs/icon/to_be_confirmed.png",
+      name: "巡检反馈"
     }
   ],
   [{//工程师

@@ -29,80 +29,16 @@
         </view>
       </view>
     </view>
-    <!--选择设备栏-->
+    <!--选择巡检周期栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">选择设备</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickChooseDevice" value="{{deviceIndex}}" range="{{deviceList}}">
-              <view class="weui-input">{{deviceList[deviceIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-      <view class="weui-cells weui-cells_after-title" wx:for="{{addedDeviceList}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">设备名字</view>
-          </view>
-          <view class="weui-cell__bd">
-            <view class="weui-input">{{item.name}}</view>
-          </view>
-        </view>
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">设备类型</view>
-          </view>
-          <view class="weui-cell__bd">
-            <view class="weui-input">{{item.type}}</view>
-          </view>
-        </view>
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">巡检内容</view>
-          </view>
-          <view class="weui-cell__bd">
-            <view class="weui-input">{{item.content}}</view>
-          </view>
-        </view>
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检周期</view>
           </view>
           <view class="weui-cell__bd">
-            <view class="weui-input">{{item.cycle}}</view>
-          </view>
-        </view>
-      </view>
-    </view>
-    <!--选择服务商栏-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">服务商</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
-              <view class="weui-input">{{providerList[providerIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view>
-    <!--选择巡检级别栏-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">巡检级别</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickChooseLevel" value="{{levelIndex}}" range="{{levelList}}">
-              <view class="weui-input">{{levelList[levelIndex]}}</view>
+            <picker bindchange="clickChooseCycle" value="{{cycleIndex}}" range="{{cycleList}}">
+              <view class="weui-input">{{cycleList[cycleIndex]}}</view>
             </picker>
           </view>
         </view>
@@ -149,8 +85,86 @@
         </view>
       </view>
     </view>
+    <!--选择服务商栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">服务商</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
+              <view class="weui-input">{{providerList[providerIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--巡检内容栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检内容</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
+              <view class="weui-input">{{providerList[providerIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--巡检备注栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检备注</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
+              <view class="weui-input">{{providerList[providerIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--选择巡检地点栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">添加巡检</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseDevice" value="{{deviceIndex}}" range="{{deviceList}}">
+              <view class="weui-input">{{deviceList[deviceIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title" wx:for="{{addedDeviceList}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检地点</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.loc}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检人员</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{item.staff}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
     <!--甲方联系人栏-->
-    <view class="page-section" wx:for="{{partyAPhoneList}}" wx:for-item="item" wx:key="{{item.phone}}" data-id="{{item.phone}}" bindtap="">
+    <!-- <view class="page-section" wx:for="{{partyAPhoneList}}" wx:for-item="item" wx:key="{{item.phone}}" data-id="{{item.phone}}" bindtap="">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -169,9 +183,9 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--乙方联系人栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -190,7 +204,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--提交-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
