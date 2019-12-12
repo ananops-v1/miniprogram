@@ -65,3 +65,7 @@ page{
 .my .my-item:last-child .myitem-name{
   border-bottom: none;
 }
+
+.exit { 
+  margin: 15rpx 0 0 0;
+}
