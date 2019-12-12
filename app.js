@@ -4,7 +4,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    userRole:1,
+    userRole:null,
   },
   showErrorModal: function (content, title) {
     wx.showModal({
