@@ -11,30 +11,26 @@ Page({
     programList: ['项目1可选', '项目2', '项目3', '项目4', '项目5', '项目6'],
     programIndex: 0,
     //选择设备数据
-    deviceList: ['未选择设备1', '未选择设备2'],
+    deviceList: ['未选择巡检1', '未选择巡检2'],
     deviceIndex: 0,
     addedDeviceList: [
       {
         id: 1,
-        name: '设备1',
-        type: 'ut8164',
-        content: '清灰',
-        cycle: '7'
+        loc: '教三',
+        staff: 'xx维修人员',
       },
       {
         id: 2,
-        name: '设备2',
-        type: 'ut8164',
-        content: '清灰',
-        cycle: '7'
+        loc: '教四',
+        staff: '维修人员',
       }
     ],
     //服务商数据
     providerIndex: 0,
     providerList: ['服务商1可选可修改', '服务商2', '服务商3', '服务商4', '服务商5', '服务商6'],
-    //巡检级别数据
-    levelIndex: 0,
-    levelList: ['可选不可改', '级别1', '级别2', '级别3'],
+    //巡检周期数据
+    cycleIndex: 0,
+    cycleList: ['3个月', '4个月', '5个月', '6个月'],
     //开始日期数据
     startDate: '',
     startTime: '',
@@ -81,10 +77,8 @@ Page({
     //调取设备的详细信息
     var obj = {
       id: 3,
-      name: '未选择设备1',
-      type: 'ut8164',
-      content: '风扇检查',
-      cycle: '7'
+      loc: '新建巡检地点',
+      staff: '新建巡检人员'
     }
     var deviceList = this.data.addedDeviceList
     deviceList.push(obj)
@@ -92,11 +86,11 @@ Page({
       addedDeviceList: deviceList
     })
   },
-  //点击选择巡检级别事件
-  clickChooseLevel: function (e) {
+  //点击选择巡检周期事件
+  clickChooseCycle: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      levelIndex: e.detail.value
+      cycleIndex: e.detail.value
     })
   },
   //日期数据更新事件

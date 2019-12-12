@@ -36,12 +36,12 @@ Page({
     var _this = this;
     
     if (!_this.data.userid || !_this.data.passwd) {
-     app.globalData.userRole = 0;
-      wx.switchTab({
-        url: '/page/home/index',
-      })
-      // app.showErrorModal('账号及密码不能为空', '提醒');
-      // return false;
+    //  app.globalData.userRole = 0;
+    //   wx.switchTab({
+    //     url: '/page/home/index',
+    //   })
+      app.showErrorModal('账号及密码不能为空', '提醒');
+      return false;
     }else if (_this.data.userid == '0' && _this.data.passwd == '0') {
       app.globalData.userRole = 0;
       wx.switchTab({
