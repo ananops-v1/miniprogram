@@ -66,6 +66,11 @@ Page({
       url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
+  kindToggle:function(e){
+    wx.navigateTo({
+      url: "../../../../home/pages/all-work-inspection/all-work-inspection"
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

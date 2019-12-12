@@ -261,13 +261,13 @@ Page({
   //上传图片
   clickUploadImg() {
     wx.navigateTo({
-      url: "../uploadImage/uploadImage",
+      url: "../../uploadImage/uploadImage",
     })
   },
   //上传视频
   clickUploadVideo() {
     wx.navigateTo({
-      url: "../uploadVideo/uploadVideo",
+      url: "../../uploadVideo/uploadVideo",
     })
   },
   //选择审核人

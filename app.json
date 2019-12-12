@@ -44,7 +44,10 @@
     "page/home/pages/serviceEngineer/inspecting/inspecting",
     "page/home/pages/serviceEngineer/inspectionCheck/inspectionCheck",
     "page/home/pages/serviceEngineer/inspectionCheckDetail/inspectionCheckDetail",
-    "page/home/pages/serviceEngineer/inspectingDetail/inspectingDetail"
+    "page/home/pages/serviceEngineer/inspectingDetail/inspectingDetail",
+    "page/home/pages/all-work-inspection/all-work-inspection",
+    "page/home/pages/all-work-orders-Detail/all-work-orders-Detail",
+    "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",
