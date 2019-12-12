@@ -9,7 +9,6 @@ function checkHasLogined() {
       confirmText: '前往登录',
       success: function(res) {
         if (res.confirm) {
-          console.log(123);
           wx.navigateTo({
             url: '/page/my/pages/login/login',
           })

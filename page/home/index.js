@@ -34,13 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var repair = Config.repair[app.globalData.userRole];
-    repair[1].num = 1;
-    this.setData({
-      userRole: app.globalData.userRole,
-      repair: repair,
-      inspection: Config.inspection[app.globalData.userRole]
-    })
+
   },
 
   upper(e) {
@@ -82,7 +76,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var repair = Config.repair[app.globalData.userRole];
+    if(repair != null) {
+      repair[1].num = 1;
+    }
+    this.setData({
+      userRole: app.globalData.userRole,
+      repair: repair,
+      inspection: Config.inspection[app.globalData.userRole]
+    })
   },
 
   /**
