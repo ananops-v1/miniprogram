@@ -25,8 +25,13 @@ Page({
       })
     } else {
       this.setData({
-        userRole: "请登陆"
+        userRole: "请登录"
       })
     }
+  },
+
+  exit: function () {
+    app.globalData.userRole = null;
+    this.onShow();
   }
-})
+}) 
