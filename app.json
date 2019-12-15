@@ -35,8 +35,6 @@
     "page/home/pages/terminalUser/inspectionToBeCommentDetail/inspectionToBeCommentDetail",
     "page/home/pages/serviceProvider/inspectionDispatch/inspectionDispatch",
     "page/home/pages/serviceProvider/inspectionDispatchDetail/inspectionDispatchDetail",
-    "page/home/pages/serviceProvider/inspectionConfirm/inspectionConfirm",
-    "page/home/pages/serviceProvider/inspectionConfirmDetail/inspectionConfirmDetail",
     "page/home/pages/serviceProvider/inspectionCheck/inspectionCheck",
     "page/home/pages/serviceProvider/inspectionCheckDetail/inspectionCheckDetail",
     "page/home/pages/serviceEngineer/inspectionConfirm/inspectionConfirm",
@@ -49,7 +47,8 @@
     "page/home/pages/all-work-orders-Detail/all-work-orders-Detail",
     "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail",
     "page/home/pages/terminalUser/inspectionToBeRepair/inspectionToBeRepair",
-    "page/home/pages/serviceProvider/inspectionFeedback/inspectionFeedback"
+    "page/home/pages/serviceProvider/inspectionFeedback/inspectionFeedback",
+    "page/home/pages/terminalUser/inspectionRepairCheck/inspectionRepairCheck"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",
