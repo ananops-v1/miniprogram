@@ -1,0 +1,2 @@
+<!--page/test/test.wxml-->
+<input bindinput="getname" placeholder="ceshi"></input>

@@ -135,6 +135,13 @@
 					"id": -1,
 					"name": "page/my/index",
 					"pathName": "page/my/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/test/test",
+					"pathName": "page/test/test",
 					"scene": null
 				}
 			]

@@ -1,6 +1,7 @@
 {
   "pages": [
     "page/home/index",
+    "page/test/test",
     "page/message/index",
     "page/my/index",
     "page/home/pages/all-work-orders/all-work-orders",

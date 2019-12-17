@@ -10,8 +10,10 @@ Page({
     help_status: false,
     userid_focus: false,
     passwd_focus: false,
+    imagecode: false,
     userid: '',
     passwd: '',
+    imagecode:'',
     angle: 0
   },
   onReady: function () {
@@ -32,24 +34,22 @@ Page({
       }
     });
   },
+
+  onLoad: function (){
+    this.refreshImagecode();
+  },
   login: function () {
     var _this = this;
-    
-    // if (!_this.data.userid || !_this.data.passwd) {
-    //  app.globalData.userRole = 0;
-    //   wx.switchTab({
-    //     url: '/page/home/index',
-    //   })
-    //   app.showErrorModal('账号及密码不能为空', '提醒');
-    //   return false;
-    // }
-
-    var param = {
-      username: 'admin',
-      password: '123456',
-      imageCode: _this.data.imagecode,
+    if (!_this.data.userid || !_this.data.passwd) {
+      app.showErrorModal('账号及密码不能为空', '提醒');
+      return false;
     }
 
+    var param = {
+      username: _this.data.userid,
+      password: _this.data.passwd,
+      imageCode: _this.data.imagecode,
+    }
     console.log(param);
     var deviceId = this.data.deviceId;
     login.login(deviceId,param,(res) => {
@@ -82,13 +82,15 @@ Page({
     this.setData({
       userid: e.detail.value
     });
-    if (e.detail.value.length >= 7) {
-      wx.hideKeyboard();
-    }
   },
   getPassword: function (e) {
     this.setData({
       passwd: e.detail.value
+    });
+  },
+  getImagecode: function (e) {
+    this.setData({
+      imagecode: e.detail.value
     });
   },
   inputFocus: function (e) {
@@ -100,6 +102,10 @@ Page({
       this.setData({
         'passwd_focus': true
       });
+    } else if (e.target.id == 'imagecode') {
+      this.setData({
+        'imagecode_focus': true
+      });
     }
   },
   inputBlur: function (e) {
@@ -110,6 +116,10 @@ Page({
     } else if (e.target.id == 'passwd') {
       this.setData({
         'passwd_focus': false
+      });
+    } else if (e.target.id == 'passwd') {
+      this.setData({
+        'imagecode_focus': false
       });
     }
   },
@@ -129,14 +139,12 @@ Page({
     });
   },
 
-  getImageCode:function() {
+  refreshImagecode:function() {
     var deviceId = new Date().getTime();
-    console.log(deviceId);
     this.setData({
       deviceId: deviceId
     });
     login.getIamgeCode(deviceId,res=> {
-      console.log(res);
       this.setData({
         imageCode:'data:image/jpg;base64,' + res.result
       })
