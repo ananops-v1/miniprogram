@@ -280,6 +280,15 @@ Page({
   //提交处理事件
   clickSubmit() {
     //检查工单填写情况
+    var param = {
+
+    }
+
+    console.log("param:"+param);
+
+
+
+
     console.log("提交成功")
   },
   /**
