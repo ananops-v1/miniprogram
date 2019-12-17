@@ -35,34 +35,48 @@ Page({
   login: function () {
     var _this = this;
     
-    if (!_this.data.userid || !_this.data.passwd) {
-     app.globalData.userRole = 0;
-      wx.switchTab({
-        url: '/page/home/index',
-      })
-      app.showErrorModal('账号及密码不能为空', '提醒');
-      return false;
-    }else if (_this.data.userid == '0' && _this.data.passwd == '0') {
-      app.globalData.userRole = 0;
-      wx.switchTab({
-        url: '/page/home/index',
-      })
-    }else if (_this.data.userid == '1' && _this.data.passwd=='1'){
-      app.globalData.userRole=1;
-      wx.switchTab({
-        url: '/page/home/index',
-      })
-    }else if (_this.data.userid == '2' && _this.data.passwd == '2'){
-      app.globalData.userRole = 2;
-      wx.switchTab({
-        url: '/page/home/index',
-      })
-    }else if (_this.data.userid == '3' && _this.data.passwd == '3'){
-      app.globalData.userRole = 3;
-      wx.switchTab({
-        url: '/page/home/index',
-      })
+    // if (!_this.data.userid || !_this.data.passwd) {
+    //  app.globalData.userRole = 0;
+    //   wx.switchTab({
+    //     url: '/page/home/index',
+    //   })
+    //   app.showErrorModal('账号及密码不能为空', '提醒');
+    //   return false;
+    // }
+
+    var param = {
+      username: 'admin',
+      password: '123456',
+      imageCode: _this.data.imagecode,
     }
+
+    console.log(param);
+    var deviceId = this.data.deviceId;
+    login.login(deviceId,param,(res) => {
+      console.log(res);
+    });
+
+    // if (_this.data.userid == '0' && _this.data.passwd == '0') {
+    //   app.globalData.userRole = 0;
+    //   wx.switchTab({
+    //     url: '/page/home/index',
+    //   })
+    // }else if (_this.data.userid == '1' && _this.data.passwd=='1'){
+    //   app.globalData.userRole=1;
+    //   wx.switchTab({
+    //     url: '/page/home/index',
+    //   })
+    // }else if (_this.data.userid == '2' && _this.data.passwd == '2'){
+    //   app.globalData.userRole = 2;
+    //   wx.switchTab({
+    //     url: '/page/home/index',
+    //   })
+    // }else if (_this.data.userid == '3' && _this.data.passwd == '3'){
+    //   app.globalData.userRole = 3;
+    //   wx.switchTab({
+    //     url: '/page/home/index',
+    //   })
+    // }
   },
   getUserId: function (e) {
     this.setData({
@@ -114,4 +128,27 @@ Page({
       'help_status': false
     });
   },
+
+  getImageCode:function() {
+    var deviceId = new Date().getTime();
+    console.log(deviceId);
+    this.setData({
+      deviceId: deviceId
+    });
+    login.getIamgeCode(deviceId,res=> {
+      console.log(res);
+      this.setData({
+        imageCode:'data:image/jpg;base64,' + res.result
+      })
+    })
+  },
+
+  imageCode:function(e) {
+    let that = this
+    let imagecode = e.detail.value
+    console.log(111);
+    that.setData({
+      imagecode
+    })
+  }
 });

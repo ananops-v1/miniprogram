@@ -1,4 +1,8 @@
 // page/home/pages/inspection/inspection.js
+import {
+  Inspection
+} from 'inspection_model.js';
+var inspection = new Inspection();
 Page({
 
   /**
@@ -116,6 +120,26 @@ Page({
   },
   clickSubmit(e) {
     console.log('提交')
+    var param={
+      "url":"inspectionItem/save",
+      "actualFinishTime": "2019-12-17T02:52:51.284Z",
+      "actualStartTime": "2019-12-17T02:52:51.284Z",
+      "days": 0,
+      "description": "string",
+      "frequency": 0,
+      "id": 0,
+      "inspectionTaskId": 0,
+      "itemLatitude": 0,
+      "itemLongitude": 0,
+      "itemName": "string",
+      "maintainerId": 0,
+      "result": "string",
+      "scheduledStartTime": "2019-12-17T02:52:51.284Z",
+      "status": 0
+    };
+    inspection.inspectionSave(param,(res)=>{
+
+    })
   },
   /**
    * 生命周期函数--监听页面加载

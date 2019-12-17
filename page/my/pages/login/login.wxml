@@ -1,10 +1,11 @@
 <!--page/my/pages/login/login.wxml-->
 <!--login.wxml-->
-<view class="container">
+<!-- <view class="container">
   <block>
     <view class="content">
       <view class="hd">
         <image class="logo" src="/imgs/icon/ananops.png"></image>
+        <image class="logo" src="{{imageCode}}"></image>
       </view>
       <view class="bd">
         <form class="login-form">
@@ -16,6 +17,8 @@
             <text class="input-label">密码</text>
             <input password="true" cursor-spacing="30" id="passwd" placeholder="请输入密码" bindinput="getPassword" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
+
+          <view  bindtap="getImageCode">123</view>
           <view class="login-help" bindtap="showHelp">
             <text>帮助</text>
             <image class="login-help-img" src="/imgs/others/help.png"></image>
@@ -49,4 +52,14 @@
 
     </view>
   </block>
-</view>
+</view> -->
+
+ <image class="logo" src="{{imageCode}}"></image>
+
+<input bindinput="imageCode" type="text" name = "imagecode"></input>
+
+<view  bindtap="getImageCode">123</view>
+
+        <view class="confirm-btn" bindtap="login">
+          <text>登录</text>
+        </view>
