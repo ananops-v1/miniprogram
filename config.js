@@ -2,7 +2,7 @@ class Config {
   constructor() {}
 }
 
-Config.baseRequestUrl = "https://ananops.cn/api/v1/";
+Config.baseRequestUrl = "http://ananops.com:29995";
 
 Config.repair = [
   [{//值机员

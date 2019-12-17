@@ -11,6 +11,10 @@ class Base {
 
   request(params) {
     var url = this.baseRequestUrl + params.url;
+    var auth =  {
+      'username': 'ananops-client-uac',
+      'password': 'ananopsClientSecret'
+    };
     if (!params.method) {
       params.method = 'GET';
     }
@@ -19,10 +23,15 @@ class Base {
       data: params.data,
       method: params.method,
       header: {
-        'content-type': 'application/json',
-        'token': wx.getStorageSync('token')
+        // 'content-type': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+        // 'token': 'Bearer '+wx.getStorageSync('token'),
+        'Authorization': 'Basic YW5hbm9wcy1jbGllbnQtdWFjOmFuYW5vcHNDbGllbnRTZWNyZXQ=',
+        'deviceId': params.deviceId,
+        
       },
       success: function(res) {
+        console.log(res);
         var code = res.statusCode.toString();
         var startChar = code.charAt(0);
         if (startChar == '2') {
