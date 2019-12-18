@@ -1,4 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
+import {
+  InspectionAll
+} from 'all-work-inspection_model.js';
+var inspectionAll = new InspectionAll();
 Page({
   data: {
     inputShowed: false,
@@ -150,6 +154,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var param={
+      'projectId':1
+    }
+    inspectionAll.getInspectionTaskAll(param,(res)=>{
+      console.log(res);
+    })
     var that = this
     //调用应用实例的方法获取全局数据
     that.refresh();

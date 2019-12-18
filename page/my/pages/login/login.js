@@ -1,8 +1,10 @@
 //login.js
 import {
-  Login
+  Login,
+  GetUserInfo
 } from 'login_model.js';
 var login = new Login();
+var getUserInfo = new GetUserInfo();
 var app = getApp();
 Page({
   data: {
@@ -51,7 +53,7 @@ Page({
       imageCode: _this.data.imagecode,
     }
     console.log(param);
-    var deviceId = this.data.deviceId;
+    var deviceId = _this.data.deviceId;
     login.login(deviceId,param,(res) => {
       console.log(res);
       if(res.code==200){
@@ -60,7 +62,9 @@ Page({
           key: "tokenInfo",//tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
           data: res.result
         })
-        console.log(wx.getStorageSync('tokenInfo'))
+        console.log(wx.getStorageSync('tokenInfo'));
+        _this.getUserInfo(_this.data.userid);
+        _this.getUserObject(res.result.id);
       }
       else{
         console.log("登陆失败")
@@ -88,6 +92,37 @@ Page({
     //     url: '/page/home/index',
     //   })
     // }
+  },
+  getUserInfo:function(loginName){
+    var param ={
+      'loginName':loginName
+    }
+    getUserInfo.getUserInfoByLoginName(param,(res)=>{
+      console.log(res);
+      if (res.code == 200) {
+        wx.setStorage({
+          key: "userInfo",//userInfo为用户信息，包括id、roles角色信息等
+          data: res.result
+        })
+        console.log(wx.getStorageSync('userInfo'));
+      }
+    })
+  },
+  getUserObject:function(userId){
+    var param = {
+      'userId': userId
+    }
+    getUserInfo.getUserObjectByUserId(param,(res)=>{
+      console.log(res);
+      if (res.code == 200) {
+        wx.setStorage({
+          key: "userObject",//userObject为用户完整对象，包括id、groupName、groupId等
+          data: res.result
+        })
+        console.log(wx.getStorageSync('userObject'));
+      }
+    })
+
   },
   getUserId: function (e) {
     this.setData({

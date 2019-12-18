@@ -65,22 +65,13 @@
         </view>
       </view>
     </view>
-    <!--结束时间-->
+    <!--任务立即执行-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">结束时间</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker mode="date" value="{{endDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindEndDateChange">
-              <view class="weui-input">{{endDate}}</view>
-            </picker>
-          </view>
-          <view class="weui-cell__bd">
-            <picker mode="time" value="{{endTime}}" start="09:01" end="21:01" bindchange="bindEndTimeChange">
-              <view class="weui-input">{{endTime}}</view>
-            </picker>
+          <view class="weui-cell__bd">任务立即执行</view>
+          <view class="weui-cell__ft">
+            <image class="img-choose" src="../../../../../imgs/icon/check-{{isStart}}.png" bindtap="clickImgChoose"></image>
           </view>
         </view>
       </view>

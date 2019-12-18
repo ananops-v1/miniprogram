@@ -5,3 +5,8 @@
   padding: 19rpx 26rpx;
   background-color: #FFFFFF;
 }
+.img-choose{
+  width: 47rpx;
+  padding: 3rpx;
+  height: 50rpx;
+}

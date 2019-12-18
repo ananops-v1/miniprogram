@@ -9,7 +9,7 @@ class Inspection extends Base {
   //新建巡检
   inspectionSave(param, callback) {
     var params = {
-      url: '',
+      url: '/imc/inspectionTask/save',
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -32,8 +32,25 @@ class Inspection extends Base {
   }
 
 }
-
+class Project extends Base {
+  constructor() {
+    super()
+  }
+  //根据userId查询所属项目
+  getProjectByUserId(param, callback) {
+    var params = {
+      url: '' + param.userId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+}
 
 export {
-  Inspection
+  Inspection,
+  Project
 }

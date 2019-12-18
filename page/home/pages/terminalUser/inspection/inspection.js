@@ -1,8 +1,10 @@
 // page/home/pages/inspection/inspection.js
 import {
-  Inspection
+  Inspection,
+  Project
 } from 'inspection_model.js';
 var inspection = new Inspection();
+var project = new Project();
 Page({
 
   /**
@@ -38,9 +40,8 @@ Page({
     //开始日期数据
     startDate: '',
     startTime: '',
-    //结束日期数据
-    endDate: '',
-    endTime: '',
+    //立即执行
+    isStart:0,
     //甲方联系人数据
     partyAPhoneList: [
       {
@@ -118,23 +119,46 @@ Page({
       endTime: e.detail.value
     })
   },
+  //点击任务立即执行
+  clickImgChoose(e){
+    if (this.data.isStart==0){
+      this.setData({
+        isStart: 1
+      })
+    }
+    else{
+      this.setData({
+        isStart: 0
+      })
+    }
+  },
+  //点击提交
   clickSubmit(e) {
     console.log('提交')
-    var param={
-      "actualFinishTime": "2019-12-17T02:52:51.284Z",
-      "actualStartTime": "2019-12-17T02:52:51.284Z",
-      "days": 0,
-      "description": "string",
-      "frequency": 0,
-      "id": 0,
-      "inspectionTaskId": 0,
-      "itemLatitude": 0,
-      "itemLongitude": 0,
-      "itemName": "string",
-      "maintainerId": 0,
-      "result": "string",
-      "scheduledStartTime": "2019-12-17T02:52:51.284Z",
-      "status": 0
+    var param = {
+      "days": 1,//周期
+      "facilitatorId": 1,//服务商
+      "frequency": 30, //天数
+      "imcAddInspectionItemDtoList": [
+        {
+          "description": "子巡检任务1的内容",
+          "itemLatitude": 1,
+          "itemLongitude": 1,
+          "itemName": "子巡检任务1",
+          "maintainerId": 1,//维修工
+          "status": 0,
+          "count": 0
+        }
+      ],
+      "inspectionType": 0,//合同0 非1
+      "location": "北邮科研楼",
+      "principalId": 1,//负责人
+      "projectId": 1,
+      "remark": "这是一个备注",//备注
+      "scheduledStartTime": "2019-12-18T06:55:14.100Z",
+      "status": 0,
+      "taskName": "新建",
+      "totalCost": 100//合同总花费
     };
     inspection.inspectionSave(param,(res)=>{
       console.log(res)
@@ -144,7 +168,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var userId = wx.getStorageSync('userInfo').id;
+    var param={
+      'userId':userId
+    }
+    project.getProjectByUserId(param,(res)=>{//拿到用户对应的项目，供用户选择
+      console.log(res)
+    })
   },
 
   /**
