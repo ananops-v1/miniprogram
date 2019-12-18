@@ -121,7 +121,6 @@ Page({
   clickSubmit(e) {
     console.log('提交')
     var param={
-      "url":"inspectionItem/save",
       "actualFinishTime": "2019-12-17T02:52:51.284Z",
       "actualStartTime": "2019-12-17T02:52:51.284Z",
       "days": 0,
@@ -138,7 +137,7 @@ Page({
       "status": 0
     };
     inspection.inspectionSave(param,(res)=>{
-
+      console.log(res)
     })
   },
   /**

@@ -54,6 +54,17 @@ Page({
     var deviceId = this.data.deviceId;
     login.login(deviceId,param,(res) => {
       console.log(res);
+      if(res.code==200){
+        console.log("登陆成功")
+        wx.setStorage({
+          key: "tokenInfo",//tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
+          data: res.result
+        })
+        console.log(wx.getStorageSync('tokenInfo'))
+      }
+      else{
+        console.log("登陆失败")
+      }
     });
 
     // if (_this.data.userid == '0' && _this.data.passwd == '0') {

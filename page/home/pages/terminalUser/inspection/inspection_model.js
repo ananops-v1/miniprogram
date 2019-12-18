@@ -9,7 +9,19 @@ class Inspection extends Base {
   //新建巡检
   inspectionSave(param, callback) {
     var params = {
-      url: param.url,
+      url: '',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //其他接口
+  xxx(param, callback) {
+    var params = {
+      url: '',
       data: param,
       method: 'POST',
       sCallback: function (data) {
