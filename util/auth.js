@@ -1,7 +1,8 @@
 const app = getApp();
 // 检测登录状态，返回 true / false
 function checkHasLogined() {
-  if (app.globalData.userRole == null) {
+  var userInfo = wx.getStorageSync('tokenInfo');
+  if (userInfo == undefined || userInfo == null || userInfo == '') {
     wx.showModal({
       title: '提示',
       content: '本次操作需要您的登录授权',

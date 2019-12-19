@@ -15,20 +15,23 @@ Page({
     imagecode: false,
     userid: '',
     passwd: '',
-    imagecode:'',
+    imagecode: '',
     angle: 0
   },
-  onReady: function () {
+  onReady: function() {
     var _this = this;
-    setTimeout(function () {
+    setTimeout(function() {
       _this.setData({
         remind: ''
       });
     }, 1000);
-    wx.onAccelerometerChange(function (res) {
+    wx.onAccelerometerChange(function(res) {
       var angle = -(res.x * 30).toFixed(1);
-      if (angle > 14) { angle = 14; }
-      else if (angle < -14) { angle = -14; }
+      if (angle > 14) {
+        angle = 14;
+      } else if (angle < -14) {
+        angle = -14;
+      }
       if (_this.data.angle !== angle) {
         _this.setData({
           angle: angle
@@ -37,10 +40,10 @@ Page({
     });
   },
 
-  onLoad: function (){
+  onLoad: function() {
     this.refreshImagecode();
   },
-  login: function () {
+  login: function() {
     var _this = this;
     if (!_this.data.userid || !_this.data.passwd) {
       app.showErrorModal('账号及密码不能为空', '提醒');
@@ -54,69 +57,51 @@ Page({
     }
     console.log(param);
     var deviceId = _this.data.deviceId;
-    login.login(deviceId,param,(res) => {
+    login.login(deviceId, param, (res) => {
       console.log(res);
-      if(res.code==200){
-        console.log("登陆成功")
+      if (res.code == 200) {
+        var userRole = res.result.loginName;
         wx.setStorage({
-          key: "tokenInfo",//tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
+          key: "tokenInfo", //tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
           data: res.result
         })
-        console.log(wx.getStorageSync('tokenInfo'));
         _this.getUserInfo(_this.data.userid);
         _this.getUserObject(res.result.id);
-      }
-      else{
-        console.log("登陆失败")
+        wx.switchTab({
+          url: '/page/home/index',
+        })
+      } else {
+        wx.showToast({
+          title: '登陆失败',
+          // image:'/imgs/others/error.png'
+        })
       }
     });
-
-    // if (_this.data.userid == '0' && _this.data.passwd == '0') {
-    //   app.globalData.userRole = 0;
-    //   wx.switchTab({
-    //     url: '/page/home/index',
-    //   })
-    // }else if (_this.data.userid == '1' && _this.data.passwd=='1'){
-    //   app.globalData.userRole=1;
-    //   wx.switchTab({
-    //     url: '/page/home/index',
-    //   })
-    // }else if (_this.data.userid == '2' && _this.data.passwd == '2'){
-    //   app.globalData.userRole = 2;
-    //   wx.switchTab({
-    //     url: '/page/home/index',
-    //   })
-    // }else if (_this.data.userid == '3' && _this.data.passwd == '3'){
-    //   app.globalData.userRole = 3;
-    //   wx.switchTab({
-    //     url: '/page/home/index',
-    //   })
-    // }
   },
-  getUserInfo:function(loginName){
-    var param ={
-      'loginName':loginName
+  getUserInfo: function(loginName) {
+    var param = {
+      'loginName': loginName
     }
-    getUserInfo.getUserInfoByLoginName(param,(res)=>{
+    getUserInfo.getUserInfoByLoginName(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         wx.setStorage({
-          key: "userInfo",//userInfo为用户信息，包括id、roles角色信息等
+          key: "userInfo", //userInfo为用户信息，包括id、roles角色信息等
           data: res.result
         })
         console.log(wx.getStorageSync('userInfo'));
       }
     })
   },
-  getUserObject:function(userId){
+  getUserObject: function(userId) {
     var param = {
       'userId': userId
     }
-    getUserInfo.getUserObjectByUserId(param,(res)=>{
+    getUserInfo.getUserObjectByUserId(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         wx.setStorage({
-          key: "userObject",//userObject为用户完整对象，包括id、groupName、groupId等
+          key: "userObject", //userObject为用户完整对象，包括id、groupName、groupId等
           data: res.result
         })
         console.log(wx.getStorageSync('userObject'));
@@ -124,22 +109,22 @@ Page({
     })
 
   },
-  getUserId: function (e) {
+  getUserId: function(e) {
     this.setData({
       userid: e.detail.value
     });
   },
-  getPassword: function (e) {
+  getPassword: function(e) {
     this.setData({
       passwd: e.detail.value
     });
   },
-  getImagecode: function (e) {
+  getImagecode: function(e) {
     this.setData({
       imagecode: e.detail.value
     });
   },
-  inputFocus: function (e) {
+  inputFocus: function(e) {
     if (e.target.id == 'userid') {
       this.setData({
         'userid_focus': true
@@ -154,7 +139,7 @@ Page({
       });
     }
   },
-  inputBlur: function (e) {
+  inputBlur: function(e) {
     if (e.target.id == 'userid') {
       this.setData({
         'userid_focus': false
@@ -169,35 +154,35 @@ Page({
       });
     }
   },
-  tapHelp: function (e) {
+  tapHelp: function(e) {
     if (e.target.id == 'help') {
       this.hideHelp();
     }
   },
-  showHelp: function (e) {
+  showHelp: function(e) {
     this.setData({
       'help_status': true
     });
   },
-  hideHelp: function (e) {
+  hideHelp: function(e) {
     this.setData({
       'help_status': false
     });
   },
 
-  refreshImagecode:function() {
+  refreshImagecode: function() {
     var deviceId = new Date().getTime();
     this.setData({
       deviceId: deviceId
     });
-    login.getIamgeCode(deviceId,res=> {
+    login.getIamgeCode(deviceId, res => {
       this.setData({
-        imageCode:'data:image/jpg;base64,' + res.result
+        imageCode: 'data:image/jpg;base64,' + res.result
       })
     })
   },
 
-  imageCode:function(e) {
+  imageCode: function(e) {
     let that = this
     let imagecode = e.detail.value
     console.log(111);
