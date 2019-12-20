@@ -69,7 +69,6 @@ Page({
           data: res.result
         })
         _this.getUserInfo(_this.data.userid);
-        _this.getUserObject(res.result.id);
         wx.switchTab({
           url: '/page/home/index',
         })
@@ -82,6 +81,7 @@ Page({
     });
   },
   getUserInfo: function(loginName) {
+    var _this=this
     var param = {
       'loginName': loginName
     }
@@ -93,6 +93,7 @@ Page({
           data: res.result
         })
         console.log(wx.getStorageSync('userInfo'));
+        _this.getUserObject(res.result.id);
       }
       else{
         console.log('获取userInfo失败')
