@@ -19,7 +19,7 @@
 
           <view class="input-group {{imagecode_focus ? 'active' : ''}}">
             <text class="input-label">验证码</text>
-            <input type="number" password="true" cursor-spacing="30" id=imagecode" placeholder="请输入验证码" bindinput="getImagecode" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input type="number" cursor-spacing="30" id=imagecode" placeholder="请输入验证码" bindinput="getImagecode" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
           
           <view class="imagecode-view">

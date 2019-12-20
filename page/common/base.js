@@ -52,7 +52,6 @@ class Base {
       method: params.method,
       header: header,
       success: function(res) {
-        console.log(res);
         var code = res.statusCode.toString();
         var startChar = code.charAt(0);
         if (startChar == '2') {

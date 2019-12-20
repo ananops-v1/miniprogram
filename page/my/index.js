@@ -13,15 +13,17 @@ Page({
     })
   },
   onLoad: function () {
+    
   },
   login:function () {
     AUTH.checkHasLogined();
   },
   onShow: function () {
-    console.log(app.globalData.userRole);
-    if (app.globalData.userRole != null) {
+    var userInfo = wx.getStorageSync('tokenInfo');
+    console.log(userInfo);
+    if (userInfo != undefined && userInfo != null && userInfo != '') {
       this.setData({
-        userRole: app.globalData.userRole
+        userRole: userInfo.loginName
       })
     } else {
       this.setData({
@@ -31,7 +33,16 @@ Page({
   },
 
   exit: function () {
-    app.globalData.userRole = null;
-    this.onShow();
+    var _this = this;
+    var userInfo = wx.getStorageSync('tokenInfo');
+    if(userInfo != undefined) {
+      wx.removeStorage({
+        key: 'tokenInfo',
+        success(res) {
+          console.log(res);
+        }
+      })
+    }
+    _this.onShow();
   }
 }) 
