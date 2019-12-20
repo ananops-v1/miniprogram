@@ -1,17 +1,22 @@
-//discovery.js
+// page/home/pages/all-work-orders/all-work-orders.js
 import {
-  InspectionDetail
-} from 'all-work-inspection-Detail_model.js';
-var inspectionDetail = new InspectionDetail();
+  ProjectAll
+} from 'all-work-project_model.js';
+import {
+  Project
+} from '../terminalUser/inspection/inspection_model.js';
+var projectAll = new ProjectAll();
+var project = new Project();
 Page({
   data: {
-    //巡检Id
-    inspectionId:0,
-    //巡检详情tabbar
-    navTab: ["巡检信息", "进度条", "网点", "备品备件"],
-    currentNavtab: "3",
-    //巡检详情信息
-    inspectionDetail:{},
+    inputShowed: false,
+    inputVal: "",
+    i: 0,
+    //所有项目数据
+    allProjectInfo:[],
+    //所有巡检列表
+    inspectionListLength: 0,
+    inspectionList: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -103,6 +108,43 @@ Page({
       }
     ]
   },
+  search: function (value) {
+    return new Promise((resolve, reject) => {
+      if (this.data.i % 2 === 0) {
+        setTimeout(() => {
+          resolve([{ text: '搜索结果', value: 1 }, { text: '搜索结果2', value: 2 }])
+        }, 200)
+      } else {
+        setTimeout(() => {
+          resolve([])
+        }, 200)
+
+      }
+      this.setData({
+        i: this.data.i + 1
+      })
+    })
+  },
+  selectResult: function (e) {
+    console.log('select result', e.detail)
+  },
+  //点击进入详情
+  clickProject: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    var targetId = e.currentTarget.dataset.id
+    var allProjectInfo=this.data.allProjectInfo
+    var targetProject={}
+    for (var i = 0; i < allProjectInfo.length;i++){
+      if (allProjectInfo[i].id == targetId){
+        targetProject = allProjectInfo[i]
+        break
+      }
+    }
+    console.log(targetProject)
+    wx.navigateTo({
+      url: "../all-work-project-detail/all-work-project-detail?project=" + JSON.stringify(targetProject),
+    })
+  },
   //下拉刷新
   lower: function (e) {
     console.log("lower")
@@ -127,53 +169,31 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
-  clickNetwork:function(e){
-    wx.navigateTo({
-      url: '../networkDetail/networkDetail?networkId=',
-    })
-  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function (options) {
-    var that = this
-    that.setData({
-      inspectionId:options.inspectionId
-    })
-    //调用应用实例的方法获取全局数据
-    that.refresh();
-  },
-  switchTab: function (e) {
-    var index = e.currentTarget.dataset.idx;
-    var _this=this;
-    if (index==0){
-      console.log("进入巡检信息页")
-      if(_this.data.inspectionDetail.id==undefined){
-        var param = {
-          'taskId': _this.data.inspectionId
-        }
-        inspectionDetail.getInspectionDetail(param, (res) => {
-          console.log(res)
-          if (res.code == 200) {
-            console.log("获取巡检详情成功")
-            _this.setData({
-              inspectionDetail: res.result
-            })
-          }
-          else {
-            console.log("获取巡检详情失败")
-          }
+    var _this=this
+    console.log("项目页")
+    var paramGroupId = {
+      'groupId': 1000////wx.getStorageSync('userObject').groupId
+    }
+    project.getProjectByGroupId(paramGroupId, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        console.log("获取项目列表成功")
+        _this.setData({
+          allProjectInfo:res.result
         })
       }
-    }
-    else if (index == 1){
-
-    }
-    else if (index == 2) {
-
-    }
-    else if (index == 3) {
-
-    }
+      else {
+        console.log("获取项目列表失败")
+      }
+    })
+    //调用应用实例的方法获取全局数据
+    _this.refresh();
     _this.setData({
-      currentNavtab: index
-    });
-  },
+      search: _this.search.bind(_this)
+    })
+  }
 });

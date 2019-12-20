@@ -201,6 +201,21 @@ Page({
     };
     inspection.inspectionSave(param,(res)=>{
       console.log(res)
+      if (res.code==200){
+        console.log("申请巡检成功")
+        wx.redirectTo({
+          url: 'page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
+        })
+      }
+      else{
+        console.log("申请巡检失败")
+      }
+    })
+  },
+  jump:function(e){
+    console.log("跳转")
+    wx.redirectTo({
+      url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + "785265413784080384"
     })
   },
   /**

@@ -3,14 +3,14 @@
     <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
           <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
         <mp-cells>
-            <mp-cell wx:for="{{inspectionList}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickInspection">
+            <mp-cell wx:for="{{allProjectInfo}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickProject">
                 <view slot="title" style="position: relative;margin-right: 10px;">
                   <image src="/imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
                 </view>
-                <view>{{order.taskName}}</view>
-                <view>每{{order.frequency}}天</view>
-                <view style="font-size: 13px;color: #888888;">开始时间:{{order.scheduledStartTime}}</view>
-                <view style="font-size: 13px;color: #888888;">计划时间:{{order.days}}天</view>
+                <view>{{order.projectName}}</view>
+                <view>{{order.projectType}}</view>
+                <view style="font-size: 13px;color: #888888;">开始时间:{{order.startTime}}</view>
+                <view style="font-size: 13px;color: #888888;">结束时间:{{order.endTime}}</view>
             </mp-cell>
         </mp-cells>
       </scroll-view>

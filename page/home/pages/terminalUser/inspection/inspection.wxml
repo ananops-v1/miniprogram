@@ -266,5 +266,12 @@
         </view>
       </view>
     </view>
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="jump">跳转</button>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
