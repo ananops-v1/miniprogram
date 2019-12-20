@@ -1,0 +1,62 @@
+<!-- 顶部tabbar -->
+<view class="top-tab flex-wrp flex-tab " >
+  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
+    {{itemName}}
+  </view>
+</view>
+<!-- tabbar对应的内容 -->.
+<view>
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+    <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="项目名" footer="{{projectInfo.projectName}}"></mp-cell>
+            <mp-cell value="项目类型" footer="{{projectInfo.projectType}}"></mp-cell>
+            <mp-cell value="开始时间" footer="{{projectInfo.startTime}}"></mp-cell>
+            <mp-cell value="结束时间" footer="{{projectInfo.endTime}}"></mp-cell>
+        </mp-cells>
+    </view>
+  </view>
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+    <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="甲方" footer="{{projectInfo.partyAName}}"></mp-cell>
+            <mp-cell value="甲方负责人1" footer="{{projectInfo.aoneName}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyAOne}}"></mp-cell>
+            <mp-cell value="甲方负责人2" footer="{{projectInfo.atwoName}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyATwo}}"></mp-cell>
+            <mp-cell value="甲方负责人3" footer="{{projectInfo.athreeName}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyAThree}}"></mp-cell>
+            <mp-cell value="乙方" footer="{{projectInfo.partyBName}}"></mp-cell>
+            <mp-cell value="乙方负责人" footer="{{projectInfo.bname}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyBPhone}}"></mp-cell>
+        </mp-cells>
+    </view>
+  </view>
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
+    <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="项目名" footer="{{}}"></mp-cell>
+            <mp-cell value="项目类型" footer="{{}}"></mp-cell>
+            <mp-cell value="开始时间" footer="{{}}"></mp-cell>
+            <mp-cell value="结束时间" footer="{{}}"></mp-cell>
+        </mp-cells>
+    </view>
+  </view>
+  <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+    <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="项目名" footer="{{}}"></mp-cell>
+            <mp-cell value="项目类型" footer="{{}}"></mp-cell>
+            <mp-cell value="开始时间" footer="{{}}"></mp-cell>
+            <mp-cell value="结束时间" footer="{{}}"></mp-cell>
+        </mp-cells>
+    </view>
+  </view>
+  <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="clickAllInspection">进入全部巡检</button>
+        </view>
+      </view>
+    </view>
+</view>

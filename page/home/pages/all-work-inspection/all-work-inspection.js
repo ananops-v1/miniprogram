@@ -2,12 +2,21 @@
 import {
   InspectionAll
 } from 'all-work-inspection_model.js';
+import {
+  Project
+} from '../terminalUser/inspection/inspection_model.js';
 var inspectionAll = new InspectionAll();
+var project = new Project();
 Page({
   data: {
     inputShowed: false,
     inputVal: "",
     i: 0,
+    //所有巡检列表
+    inspectionListLength:0,
+    inspectionList:[],
+    //项目id
+    projectId:0,
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -150,17 +159,35 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
+  clickInspection:function(e){
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + e.currentTarget.dataset.id,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    var param={
-      'projectId':1
-    }
-    inspectionAll.getInspectionTaskAll(param,(res)=>{
-      console.log(res);
-    })
+  onLoad: function (options) {  
     var that = this
+    that.setData({
+      projectId: options.projectId
+    })
+    var paramProjectId={
+      'projectId': options.projectId
+    }
+    inspectionAll.getInspectionTaskAll(paramProjectId, (res) => {
+      console.log(res);
+      if(res.code==200){
+        console.log("获取巡检列表成功");
+        that.setData({
+          inspectionList:res.result
+        })
+      }
+      else{
+        console.log("获取巡检列表失败");
+      }
+    })
     //调用应用实例的方法获取全局数据
     that.refresh();
     that.setData({

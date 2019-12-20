@@ -61,8 +61,9 @@ Page({
     })
   },
   kindToggle:function(e){
+    console.log(e)
     wx.navigateTo({
-      url: "../../../../home/pages/all-work-inspection/all-work-inspection"
+      url: e.currentTarget.dataset.url
     })
   },
   /**

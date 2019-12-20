@@ -13,6 +13,9 @@ Page({
     userid_focus: false,
     passwd_focus: false,
     imagecode: false,
+    userid: 'admin',
+    passwd: '123456',
+    imagecode:'',
     userid: '',
     passwd: '',
     imagecode: '',
@@ -66,7 +69,6 @@ Page({
           data: res.result
         })
         _this.getUserInfo(_this.data.userid);
-        _this.getUserObject(res.result.id);
         wx.switchTab({
           url: '/page/home/index',
         })
@@ -79,6 +81,7 @@ Page({
     });
   },
   getUserInfo: function(loginName) {
+    var _this=this
     var param = {
       'loginName': loginName
     }
@@ -90,6 +93,10 @@ Page({
           data: res.result
         })
         console.log(wx.getStorageSync('userInfo'));
+        _this.getUserObject(res.result.id);
+      }
+      else{
+        console.log('获取userInfo失败')
       }
     })
   },
@@ -105,6 +112,9 @@ Page({
           data: res.result
         })
         console.log(wx.getStorageSync('userObject'));
+      }
+      else{
+        console.log('获取userObject失败')
       }
     })
 

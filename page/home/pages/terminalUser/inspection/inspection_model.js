@@ -18,6 +18,18 @@ class Inspection extends Base {
     };
     this.request(params);
   }
+  //根据项目Id获取某个巡检任务
+  getTasksByProjectId(param, callback) {
+    var params = {
+      url: '/pmc/InspectDevice/getTasksByProjectId/' + param.projectId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //其他接口
   xxx(param, callback) {
     var params = {
@@ -36,10 +48,10 @@ class Project extends Base {
   constructor() {
     super()
   }
-  //根据userId查询所属项目
-  getProjectByUserId(param, callback) {
+  //根据groupId查询所属项目
+  getProjectByGroupId(param, callback) {
     var params = {
-      url: '' + param.userId,
+      url: '/pmc/project/getProjectListByGroupId/' + param.groupId,
       //data: param,
       method: 'POST',
       sCallback: function (data) {
