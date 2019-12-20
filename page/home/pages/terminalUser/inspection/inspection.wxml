@@ -1,19 +1,6 @@
 <!--page/home/pages/inspection/inspection.wxml-->
 <view class="container">
   <view class="page-body">
-  <!--巡检名称-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">巡检名称</view>
-          </view>
-          <view class="weui-cell__bd">
-            <view class="weui-input">{{inspectionName}}</view>
-          </view>
-        </view>
-      </view>
-    </view>
     <!--选择项目栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -22,31 +9,108 @@
             <view class="weui-label">选择项目</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="clickChoosePro" value="{{programIndex}}" range="{{programList}}">
-              <view class="weui-input">{{programList[programIndex]}}</view>
+            <picker bindchange="clickChoosePro" value="{{programIndex}}" range="{{programNameList}}">
+              <view class="weui-input">{{programList[programIndex].projectName}}</view>
             </picker>
           </view>
+          <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
     </view>
-    <!--选择巡检周期栏-->
+    <!--巡检名称-->
     <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseInspection" value="{{inspectionIndex}}" range="{{inspectionNameList}}">
+              <view class="weui-input">{{inspectionList[inspectionIndex].taskName}}</view>
+            </picker>
+          </view>
+          <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
+        </view>
+      </view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检周期</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="clickChooseCycle" value="{{cycleIndex}}" range="{{cycleList}}">
-              <view class="weui-input">{{cycleList[cycleIndex]}}</view>
-            </picker>
+            <view class="weui-input">{{cycleTime}}天</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">开始时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{startDate}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">计划时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{scheduledFinishTime}}天</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检内容</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{inspectionContent}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检备注</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{inspectionRemark}}</view>
           </view>
         </view>
       </view>
     </view>
+    <!--选择巡检周期栏-->
+    <!-- <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检周期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{cycleTime}}</view>
+          </view>
+        </view>
+      </view>
+    </view> -->
     <!--日期选择器-->
     <!--开始时间-->
-    <view class="page-section">
+    <!-- <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">开始时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{startDate}}</view>
+          </view>
+        </view>
+      </view>
+    </view> -->
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -64,10 +128,10 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--任务立即执行-->
     <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cells weui-cells_after-title" bindtap="clickImgChoose">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__bd">任务立即执行</view>
           <view class="weui-cell__ft">
@@ -84,55 +148,53 @@
             <view class="weui-label">服务商</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
-              <view class="weui-input">{{providerList[providerIndex]}}</view>
+            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerNameList}}">
+              <view class="weui-input">{{programList[providerIndex].partyBName}}</view>
             </picker>
           </view>
+          <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
     </view>
     <!--巡检内容栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检内容</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
-              <view class="weui-input">{{providerList[providerIndex]}}</view>
-            </picker>
+            <view class="weui-input">{{inspectionContent}}</view>
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--巡检备注栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检备注</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerList}}">
-              <view class="weui-input">{{providerList[providerIndex]}}</view>
-            </picker>
+            <view class="weui-input">{{inspectionRemark}}</view>
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--选择巡检地点栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">添加巡检</view>
+            <view class="weui-label">添加网点</view>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="clickChooseDevice" value="{{deviceIndex}}" range="{{deviceList}}">
               <view class="weui-input">{{deviceList[deviceIndex]}}</view>
             </picker>
           </view>
+          <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
       <view class="weui-cells weui-cells_after-title" wx:for="{{addedDeviceList}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">

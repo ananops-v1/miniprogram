@@ -10,3 +10,8 @@
   padding: 3rpx;
   height: 50rpx;
 }
+.img-list{
+  width: 35rpx;
+  padding: 3rpx;
+  height: 35rpx;
+}

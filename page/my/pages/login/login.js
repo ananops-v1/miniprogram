@@ -13,8 +13,8 @@ Page({
     userid_focus: false,
     passwd_focus: false,
     imagecode: false,
-    userid: '',
-    passwd: '',
+    userid: 'admin',
+    passwd: '123456',
     imagecode:'',
     angle: 0
   },
@@ -106,6 +106,9 @@ Page({
         })
         console.log(wx.getStorageSync('userInfo'));
       }
+      else{
+        console.log('获取userInfo失败')
+      }
     })
   },
   getUserObject:function(userId){
@@ -120,6 +123,9 @@ Page({
           data: res.result
         })
         console.log(wx.getStorageSync('userObject'));
+      }
+      else{
+        console.log('获取userObject失败')
       }
     })
 

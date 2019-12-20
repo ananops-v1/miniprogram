@@ -1,5 +1,8 @@
 // page/home/pages/inspection/inspection.js
 import {
+  formatTime
+} from '../../../../../util/util.js'
+import {
   Inspection,
   Project
 } from 'inspection_model.js';
@@ -12,10 +15,14 @@ Page({
    */
   data: {
     //巡检名称数据
-    inspectionName: '提供默认并可改',
+    inspectionList: [],
+    inspectionNameList: [],
+    inspectionIndex:0,
     //项目数据
-    programList: ['项目1可选', '项目2', '项目3', '项目4', '项目5', '项目6'],
+    programList: [],
+    programNameList: [],
     programIndex: 0,
+    programId:0,
     //选择设备数据
     deviceList: ['未选择巡检1', '未选择巡检2'],
     deviceIndex: 0,
@@ -33,15 +40,25 @@ Page({
     ],
     //服务商数据
     providerIndex: 0,
-    providerList: ['服务商1可选可修改', '服务商2', '服务商3', '服务商4', '服务商5', '服务商6'],
+    providerId:0,
+    //providerList: [],服务商其他信息在项目列表中
+    providerNameList: [],
     //巡检周期数据
-    cycleIndex: 0,
-    cycleList: ['3个月', '4个月', '5个月', '6个月'],
+    cycleTime: 0,
     //开始日期数据
     startDate: '',
-    startTime: '',
+    //计划完成时间
+    scheduledFinishTime:0,
+    //巡检内容
+    inspectionContent:'',
+    //巡检备注
+    inspectionRemark: '',
     //立即执行
     isStart:0,
+    //网点数据
+    networksAll:[],
+    networksNameAll:[],
+    choosedNetworks:[],
     //甲方联系人数据
     partyAPhoneList: [
       {
@@ -70,8 +87,31 @@ Page({
   clickChooseProvider: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
+      providerIndex: e.detail.value,
+      providerId: programList[e.detail.value].partyBId
+    })
+  },
+  //选择项目事件
+  clickChoosePro:function(e){
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var programId = this.data.programList[e.detail.value].id;
+    this.setData({
+      programIndex: e.detail.value,
+      programId: programId,
+      providerId: this.data.programList[e.detail.value].partyBId,
       providerIndex: e.detail.value
     })
+    this.initTable(programId);
+  },
+  //选择巡检名称事件
+  clickChooseInspection:function(e){
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var choosedInspection = this.data.inspectionList[e.detail.value];
+    this.setData({
+      inspectionIndex: e.detail.value
+    })
+    this.initInspectionInfo(choosedInspection)
+    //这里需要添加获取所有未选择网点信息
   },
   //选择设备事件
   clickChooseDevice: function (e) {
@@ -136,28 +176,27 @@ Page({
   clickSubmit(e) {
     console.log('提交')
     var param = {
-      "days": 1,//周期
-      "facilitatorId": 1,//服务商
-      "frequency": 30, //天数
+      "days": this.data.scheduledFinishTime,//周期
+      "facilitatorId": this.data.providerId,//服务商
+      "frequency": this.data.cycleTime, //天数
       "imcAddInspectionItemDtoList": [
         {
-          "description": "子巡检任务1的内容",
-          "itemLatitude": 1,
-          "itemLongitude": 1,
-          "itemName": "子巡检任务1",
+          "description": this.data.inspectionContent,
+          "itemLatitude": 1,//默认
+          "itemLongitude": 1,//默认
+          "itemName": "天信楼支行",
           "maintainerId": 1,//维修工
           "status": 0,
           "count": 0
         }
       ],
-      "inspectionType": 0,//合同0 非1
-      "location": "北邮科研楼",
+      "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
       "principalId": 1,//负责人
-      "projectId": 1,
-      "remark": "这是一个备注",//备注
-      "scheduledStartTime": "2019-12-18T06:55:14.100Z",
+      "projectId": this.data.programId,
+      "remark": this.data.inspectionRemark,//备注
+      "scheduledStartTime": this.data.startDate,
       "status": 0,
-      "taskName": "新建",
+      "taskName": this.data.inspectionNameList[this.data.inspectionIndex],
       "totalCost": 100//合同总花费
     };
     inspection.inspectionSave(param,(res)=>{
@@ -168,15 +207,60 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var userId = wx.getStorageSync('userInfo').id;
+    var this_=this;
+    var groupId = wx.getStorageSync('userObject').groupId;
     var param={
-      'userId':userId
+      'groupId':1000//groupId
     }
-    project.getProjectByUserId(param,(res)=>{//拿到用户对应的项目，供用户选择
-      console.log(res)
+    project.getProjectByGroupId(param,(res)=>{//拿到用户对应的项目，供用户选择
+      console.log(res);
+      var programNameList=[];
+      var providerNameList = [];
+      var res = res.result;
+      for(var i=0;i<res.length;i++){
+        programNameList.push(res[i].projectName);
+        providerNameList.push(res[i].partyBName);
+      }
+      this_.setData({
+        programList: res,
+        programNameList:programNameList,
+        programId:res[0].id,
+        providerNameList: providerNameList,
+        providerIndex:0,
+        providerId: res[0].partyBId
+      })
+      this_.initTable(res[0].id)
     })
   },
-
+  initTable: function (projectId){
+    var param={
+      projectId:1
+    }
+    inspection.getTasksByProjectId(param,(res)=>{
+      console.log(res);
+      var inspectionNameList = [];
+      var res = res.result;
+      for (var i = 0; i < res.length; i++) {
+        inspectionNameList.push(res[i].taskName)
+      }
+      this.setData({
+        inspectionList: res,
+        inspectionNameList: inspectionNameList,
+        inspectionIndex:0
+      })
+      this.initInspectionInfo(res[0])
+    })
+  },
+  initInspectionInfo:function(choosedInspection){
+    this.setData({
+      cycleTime: choosedInspection.cycleTime,
+      startDate: formatTime(choosedInspection.scheduledStartTime),
+      inspectionContent: choosedInspection.inspectionContent,
+      inspectionRemark: choosedInspection.description,
+      isStart: choosedInspection.isNow,
+      scheduledFinishTime: choosedInspection.scheduledFinishTime
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
