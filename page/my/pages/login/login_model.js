@@ -19,6 +19,9 @@ class Login extends Base {
       method: 'POST',
       sCallback: function (data) {
         callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
       }
     };
     this.request(params);

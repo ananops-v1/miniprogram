@@ -3,6 +3,7 @@ class Config {
 }
 
 Config.baseRequestUrl = "http://ananops.com:29995";
+// Config.baseRequestUrl = "http://10.217.64.253:7979";
 
 Config.repair = [
   [{//值机员

@@ -199,6 +199,7 @@ Page({
       "taskName": this.data.inspectionNameList[this.data.inspectionIndex],
       "totalCost": 100//合同总花费
     };
+    console.log(param);
     inspection.inspectionSave(param,(res)=>{
       console.log(res)
       if (res.code==200){

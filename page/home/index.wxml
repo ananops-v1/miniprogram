@@ -6,7 +6,7 @@
     <!-- 值机员 -->
     <block wx:if="{{userRole == 0}}">
       <view class="page-section">
-        <view class="kind-list-item-hd" bindtap="kindToggle">
+        <view class="kind-list-item-hd">
           <view class="kind-list-text">故障报修</view>
           <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
@@ -28,7 +28,7 @@
     <!-- 甲方负责人 -->
     <block wx:elif="{{userRole == 1}}">
       <view class="page-section">
-        <view class="kind-list-item-hd" bindtap="kindToggle">
+        <view class="kind-list-item-hd">
           <view class="kind-list-text">故障报修</view>
           <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
@@ -47,7 +47,7 @@
       <view class="page-section">
         <view class="kind-list-item-hd">
           <view class="kind-list-text">我的巡检</view>
-          <view class="list-text" data-url="pages/all-work-project/all-work-project" bindtap="kindToggle">查看全部任务</view>
+          <navigator class="list-text" data-url="pages/all-work-project/all-work-project">查看全部任务</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
         <view class="page-body-line"></view>
@@ -65,7 +65,7 @@
     <!-- 服务提供商 -->
     <block wx:elif="{{userRole == 2}}">
       <view class="page-section">
-        <view class="kind-list-item-hd" bindtap="kindToggle">
+        <view class="kind-list-item-hd">
           <view class="kind-list-text">故障报修</view>
           <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部工单</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
@@ -85,9 +85,9 @@
       </view>
 
       <view class="page-section">
-        <view class="kind-list-item-hd" bindtap="kindToggle">
+        <view class="kind-list-item-hd">
           <view class="kind-list-text">我的巡检</view>
-          <view class="list-text">查看全部任务</view>
+          <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部任务</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
         <view class="page-body-line"></view>
@@ -145,9 +145,9 @@
 
 
 
-
+<!-- 
     <view wx:if="{{userRole != null}}" class="page-section">
-      <view class="kind-list-item-hd" bindtap="kindToggle">
+      <view class="kind-list-item-hd">
         <view class="kind-list-text">待办事项</view>
         <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator>
         <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
@@ -173,24 +173,8 @@
         </scroll-view>
       </view>
 
-
-<!-- 
-      <view class="upcoming">
-        <scroll-view scroll-y="true">
-          <view wx:for="{{orderList}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickOrder">
-            <view slot="title" style="position: relative;margin-right: 10px;">
-              <image src="../../imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block" />
-            </view>
-            <view>{{order.programName}}</view>
-            <view>{{order.deviceName}}</view>
-            <view style="font-size: 13px;color: #888888;">设备位置:{{order.malfunctionLoc}}</view>
-            <view style="font-size: 13px;color: #888888;">报修时间:{{order.malfunctionDate}}</view>
-          </view>
-        </scroll-view>
-      </view>  -->
-
       
-    </view>
+    </view> -->
 
   </view>
 

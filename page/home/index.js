@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderList:Config.orderList
+    orderList: Config.orderList
   },
   //点击报修事件处理函数
   clickRepair: function(e) {
@@ -23,7 +23,7 @@ Page({
     })
   },
   //点击巡检事件处理函数
-  clickInspection:function(e){
+  clickInspection: function(e) {
     var url = e.currentTarget.dataset.url;
     wx.navigateTo({
       url: url
@@ -54,18 +54,18 @@ Page({
       scrollTop: 0
     })
   },
-  clickOrder(e){
+  clickOrder(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
-  kindToggle:function(e){
-    console.log(e)
-    wx.navigateTo({
-      url: e.currentTarget.dataset.url
-    })
-  },
+  // kindToggle: function(e) {
+  //   console.log(e)
+  //   wx.navigateTo({
+  //     url: e.currentTarget.dataset.url
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -77,15 +77,40 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var repair = Config.repair[app.globalData.userRole];
-    if(repair != null) {
-      repair[1].num = 1;
+    var userInfo = wx.getStorageSync('userInfo');
+    if (userInfo != '') {
+      var userRole = userInfo.roles[0].roleCode;
+      console.log(userRole);
+      if (userRole == 'user_watcher') {
+        app.globalData.userRole = 0;
+      } else if (userRole == 'user_manager') {
+        app.globalData.userRole = 1;
+      } else if (userRole == 'fac_manager') {
+        app.globalData.userRole = 2;
+      } else if (userRole == 'engineer') {
+        app.globalData.userRole = 3;
+      }
+      this.setData({
+        userRole: app.globalData.userRole
+      })
+
+      var repair = Config.repair[app.globalData.userRole];
+      if (repair != null) {
+        repair[1].num = 1;
+      }
+      this.setData({
+        userRole: app.globalData.userRole,
+        repair: repair,
+        inspection: Config.inspection[app.globalData.userRole]
+      })
+    } else {
+      app.globalData.userRole = null;
+      this.setData({
+        userRole: app.globalData.userRole,
+        repair: null,
+        inspection: null
+      })
     }
-    this.setData({
-      userRole: app.globalData.userRole,
-      repair: repair,
-      inspection: Config.inspection[app.globalData.userRole]
-    })
   },
 
   /**
@@ -127,7 +152,7 @@ Page({
 
   },
 
-  _loadAllInfo: function (userId) {
+  _loadAllInfo: function(userId) {
 
   },
 

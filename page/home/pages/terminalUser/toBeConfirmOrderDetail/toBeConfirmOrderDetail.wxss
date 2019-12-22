@@ -30,3 +30,72 @@
   font-size: 28rpx;
   padding: 80rpx 0;
 }
+
+.order_process {
+display: flex;
+flex-wrap: nowrap;
+padding: 10rpx 10rpx 20rpx 10rpx;
+background-color: #fff;
+}
+.process_wrap {
+display: flex;
+flex-direction: column;
+flex: 1;
+align-items: center;
+}
+.process {
+display: flex;
+align-items: center;
+width: 100%;
+}
+.process_icon {
+width: 50rpx;
+height: 50rpx;
+}
+.process_line {
+background: #eff3f6;
+flex: 1;
+height: 5rpx;
+}
+.process_name {
+font-size: 24rpx;
+}
+
+/* progress */
+.edit_content .progress{
+  width:494rpx;
+  height: 60rpx;
+  margin:auto;
+  position: relative;
+  display: -webkit-flex;
+  align-items: center;
+}
+.progress .pro_border{
+  width:100%;
+}
+.progress .radius{
+  position: absolute;
+  width:60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 50%;
+  background: #E0E2E7;
+  font-family: PingFangSC-Semibold;
+  font-size: 30rpx;
+  color: #737586;
+  text-align:center;
+  top:0;
+}
+.progress .radius_active{
+  background: #F86221;
+  color:#fff;
+}
+.progress .rad_1{
+  left:0;
+}
+.progress .rad_2{
+  left:217rpx;
+}
+.progress .rad_3{
+  right:0;
+}

@@ -3,6 +3,7 @@ import {
   Login,
   GetUserInfo
 } from 'login_model.js';
+const AUTH = require('../../../../util/auth')
 var login = new Login();
 var getUserInfo = new GetUserInfo();
 var app = getApp();
@@ -15,7 +16,7 @@ Page({
     imagecode: false,
     userid: 'admin',
     passwd: '123456',
-    imagecode:'',
+    imagecode: '',
     userid: '',
     passwd: '',
     imagecode: '',
@@ -52,51 +53,55 @@ Page({
       app.showErrorModal('账号及密码不能为空', '提醒');
       return false;
     }
-
     var param = {
       username: _this.data.userid,
       password: _this.data.passwd,
       imageCode: _this.data.imagecode,
     }
-    console.log(param);
     var deviceId = _this.data.deviceId;
     login.login(deviceId, param, (res) => {
-      console.log(res);
-      if (res.code == 200) {
-        var userRole = res.result.loginName;
+      if (res != null && res.code == 200) {
         wx.setStorage({
           key: "tokenInfo", //tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
           data: res.result
         })
         _this.getUserInfo(_this.data.userid);
-        wx.switchTab({
-          url: '/page/home/index',
-        })
       } else {
+        _this.setData({
+          imagecode: ''
+        });
+        _this.refreshImagecode();
         wx.showToast({
-          title: '登陆失败',
-          // image:'/imgs/others/error.png'
+          title: res.data.message,
+          icon: 'none',
+          duration: 2000
         })
       }
     });
   },
   getUserInfo: function(loginName) {
-    var _this=this
+    var _this = this
     var param = {
       'loginName': loginName
     }
     getUserInfo.getUserInfoByLoginName(param, (res) => {
-      console.log(res);
       if (res.code == 200) {
         wx.setStorage({
           key: "userInfo", //userInfo为用户信息，包括id、roles角色信息等
           data: res.result
         })
-        console.log(wx.getStorageSync('userInfo'));
         _this.getUserObject(res.result.id);
-      }
-      else{
-        console.log('获取userInfo失败')
+      } else {
+        AUTH.exit();
+        _this.setData({
+          imagecode: ''
+        });
+        _this.refreshImagecode();
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
@@ -105,19 +110,27 @@ Page({
       'userId': userId
     }
     getUserInfo.getUserObjectByUserId(param, (res) => {
-      console.log(res);
       if (res.code == 200) {
         wx.setStorage({
           key: "userObject", //userObject为用户完整对象，包括id、groupName、groupId等
           data: res.result
         })
-        console.log(wx.getStorageSync('userObject'));
-      }
-      else{
-        console.log('获取userObject失败')
+        wx.switchTab({
+          url: '/page/home/index',
+        })
+      } else {
+        AUTH.exit();
+        _this.setData({
+          imagecode: ''
+        });
+        _this.refreshImagecode();
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
-
   },
   getUserId: function(e) {
     this.setData({
@@ -182,12 +195,14 @@ Page({
 
   refreshImagecode: function() {
     var deviceId = new Date().getTime();
+    console.log(deviceId);
     this.setData({
       deviceId: deviceId
     });
     login.getIamgeCode(deviceId, res => {
+      var base64 = res.result;
       this.setData({
-        imageCode: 'data:image/jpg;base64,' + res.result
+        imageCode: "data:image/jpg;base64," + base64
       })
     })
   },

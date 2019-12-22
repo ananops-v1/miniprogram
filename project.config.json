@@ -76,9 +76,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "page/home/pages/repair/repair",
-					"pathName": "page/home/pages/repair/repair",
+					"id": 3,
+					"name": "page/home/pages/terminalUser/repair/repair",
+					"pathName": "page/home/pages/terminalUser/repair/repair",
 					"query": "",
 					"scene": null
 				},
@@ -149,6 +149,34 @@
 					"id": -1,
 					"name": "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail",
 					"pathName": "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"pathName": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
+					"pathName": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/serviceEngineer/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"pathName": "page/home/pages/serviceEngineer/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"pathName": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
 					"query": "",
 					"scene": null
 				}

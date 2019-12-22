@@ -20,7 +20,6 @@ Page({
   },
   onShow: function () {
     var userInfo = wx.getStorageSync('tokenInfo');
-    console.log(userInfo);
     if (userInfo != undefined && userInfo != null && userInfo != '') {
       this.setData({
         userRole: userInfo.loginName
@@ -33,16 +32,7 @@ Page({
   },
 
   exit: function () {
-    var _this = this;
-    var userInfo = wx.getStorageSync('tokenInfo');
-    if(userInfo != undefined) {
-      wx.removeStorage({
-        key: 'tokenInfo',
-        success(res) {
-          console.log(res);
-        }
-      })
-    }
-    _this.onShow();
+    AUTH.exit();
+    this.onShow();
   }
 }) 

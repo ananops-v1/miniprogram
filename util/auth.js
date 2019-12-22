@@ -23,6 +23,34 @@ function checkHasLogined() {
   }
 }
 
+function exit() {
+  var tokenInfo = wx.getStorageSync('tokenInfo');
+  wx.removeStorage({
+    key: 'tokenInfo',
+    success(res) {
+      console.log(res);
+    }
+  })
+
+  var userInfo = wx.getStorageSync('userInfo');
+  wx.removeStorage({
+    key: 'userInfo',
+    success(res) {
+      console.log(res);
+    }
+  })
+
+
+  var userObject = wx.getStorageSync('userObject');
+  wx.removeStorage({
+    key: 'userObject',
+    success(res) {
+      console.log(res);
+    }
+  })
+}
+
 module.exports = {
-  checkHasLogined: checkHasLogined
+  checkHasLogined: checkHasLogined,
+  exit:exit
 }
