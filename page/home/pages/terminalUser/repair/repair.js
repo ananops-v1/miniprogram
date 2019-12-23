@@ -1,14 +1,15 @@
 // page/repair/repair.js
-const AUTH = require('../../../../../util/auth')
-
-let playTimeInterval
-let recordTimeInterval
+const AUTH = require('../../../../../util/auth.js')
+import {
+  Repair
+} from 'repair_model.js';
+var repair = new Repair();
 Page({
   data: {
+    hiddenmodalput: true,
     //项目数据
     //programList: ['项目1', '项目2', '项目3', '项目4', '项目5', '项目6'],
     //programIndex: 0,
-    program:'不可更改',
     //设备数据
     //deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
     //deviceIndex: 0,
@@ -56,14 +57,14 @@ Page({
     reviewerIndex: 0,
   },
   //选择项目处理事件
-  clickChoosePro: function (e) {
+  clickChoosePro: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       programIndex: e.detail.value
     })
   },
   //选择设备处理事件
-  clickChooseDev: function (e) {
+  clickChooseDev: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       deviceIndex: e.detail.value
@@ -81,7 +82,7 @@ Page({
     })
   },
   //录音相关事件
-  clickMicrophone: function () {
+  clickMicrophone: function() {
     console.log("显示录音按键");
     this.setData({
       showRecoder: true,
@@ -102,7 +103,7 @@ Page({
       recordTime: 0
     })
     const that = this
-    recordTimeInterval = setInterval(function () {
+    recordTimeInterval = setInterval(function() {
       const recordTime = that.data.recordTime + 1;
       that.setData({
         recordTime: recordTime,
@@ -142,14 +143,13 @@ Page({
       }
     })
   },
-  controlVoice: function () {
+  controlVoice: function() {
     this.setData({
       playing: !this.data.playing
     })
     if (this.data.playing === true) {
       this.playVoice();
-    }
-    else {
+    } else {
       this.pauseVoice();
     }
   },
@@ -182,11 +182,11 @@ Page({
     })
   },
   //麦克风帧动画  
-  speaking: function () {
+  speaking: function() {
     var _this = this;
     //话筒帧动画  
     var i = 0;
-    _this.timer = setInterval(function () {
+    _this.timer = setInterval(function() {
       i++;
       i = i % 3;
       _this.setData({
@@ -195,27 +195,27 @@ Page({
     }, 200);
   },
   //修改联系电话
-  setPhoneNumber: function (e) {
+  setPhoneNumber: function(e) {
     this.setData({
       phoneNumber: e.detail.value
     })
   },
   //选择故障类型
-  clickMalfunctionType: function (e) {
+  clickMalfunctionType: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionTypeIndex: e.detail.value
     })
   },
   //选择故障位置
-  clickMalfunctionLoc: function (e) {
+  clickMalfunctionLoc: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionLocIndex: e.detail.value
     })
   },
   //选择故障名称
-  clickMalfunctionName: function (e) {
+  clickMalfunctionName: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionNameIndex: e.detail.value
@@ -228,36 +228,59 @@ Page({
       success(res) {
         console.log(res)
         that.setData({
-          mapLocation: res.address
+          mapLocation: res.address,
+          latitude:res.latitude,
+          longitude:res.longitude
         })
       }
     })
   },
   //选择紧急程度
-  clickUrgentType: function (e) {
+  clickUrgentType: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       urgentTypeIndex: e.detail.value
     })
   },
   //选择故障等级
-  clickMalfunctionRank: function (e) {
+  clickMalfunctionRank: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionRankIndex: e.detail.value
     })
   },
   //选择服务商
-  clickServiceProvider: function (e) {
+  clickServiceProvider: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       serviceProviderIndex: e.detail.value
     })
   },
   //添加故障描述
-  chooseDescribe: function (e) {
+  chooseDescribe: function(e) {
     //添加弹出文本框
+    this.setData({
+      hiddenmodalput:false
+    })
   },
+  cancel: function() {
+    this.setData({
+      hiddenmodalput: true,
+      describe: ''
+    })
+  },
+  confirm:function(e) {
+    this.setData({
+      hiddenmodalput: true
+    })
+  },
+
+  describe:function(e) {
+    this.setData({
+      describe:e.detail.value
+    })
+  },
+
   //上传图片
   clickUploadImg() {
     wx.navigateTo({
@@ -280,13 +303,41 @@ Page({
   //提交处理事件
   clickSubmit() {
     //检查工单填写情况
-    var param = {
+    // var param = {
 
+    // }
+
+    var param = {
+      "appointTime": "2019-12-22T12:38:09.396Z",
+      "contractId": 0,
+      "facilitatorId": 0,
+      "id": 0,
+      "level": 0,
+      "mdmcAddTaskItemDtoList": [{
+        "description": "string",
+        "deviceId": 0,
+        "deviceLatitude": 0,
+        "deviceLongitude": 0,
+        "deviceType": "string",
+        "id": 0,
+        "level": "string",
+        "taskId": 0,
+        "troubleType": 0
+      }],
+      "principalId": 0,
+      "projectId": 0,
+      "result": 0,
+      "suggestion": "string",
+      "title": "string",
+      "totalCost": 0,
+      "userId": 0
     }
 
-    console.log("param:"+param);
+    console.log("param:" + param);
 
-
+    repair.createRepair(param, (res) => {
+      console.log(res);
+    })
 
 
     console.log("提交成功")
@@ -294,56 +345,52 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    var this_ = this;
+    var userObject = wx.getStorageSync('userObject');
+    var groupId = wx.getStorageSync('userObject').groupId;
+    var param = {
+      'groupId': 1000
+    }
+    repair.getProjectByGroupId(param, (res) => { //拿到用户对应的项目，供用户选择
+      console.log(res);
+      var project = res.result;
+      this.setData({
+        program: project[0].projectName,
+        projectId: project[0].id
+      })
+      //   var programNameList = [];
+      //   var providerNameList = [];
+      //   var res = res.result;
+      //   for (var i = 0; i < res.length; i++) {
+      //     programNameList.push(res[i].projectName);
+      //     providerNameList.push(res[i].partyBName);
+      //   }
+      //   this_.setData({
+      //     programList: res,
+      //     programNameList: programNameList,
+      //     programId: res[0].id,
+      //     providerNameList: providerNameList,
+      //     providerIndex: 0,
+      //     providerId: res[0].partyBId
+      //   })
+      //   this_.initTable(res[0].id)
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

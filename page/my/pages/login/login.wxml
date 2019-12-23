@@ -10,7 +10,7 @@
         <form class="login-form">
           <view class="input-group {{userid_focus ? 'active' : ''}}">
             <text class="input-label">帐号</text>
-            <input type="text" cursor-spacing="30" id="userid" maxlength="7" placeholder="请输入账号" bindinput="getUserId" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input type="text" cursor-spacing="30" id="userid" placeholder="请输入账号" bindinput="getUserId" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
           <view class="input-group {{passwd_focus ? 'active' : ''}}">
             <text class="input-label">密码</text>
@@ -19,7 +19,7 @@
 
           <view class="input-group {{imagecode_focus ? 'active' : ''}}">
             <text class="input-label">验证码</text>
-            <input type="number" cursor-spacing="30" id=imagecode" placeholder="请输入验证码" bindinput="getImagecode" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input type="number" cursor-spacing="30" id=imagecode" placeholder="请输入验证码" bindinput="getImagecode" bindfocus="inputFocus" bindblur="inputBlur" value="{{imagecode}}"/>
           </view>
           
           <view class="imagecode-view">

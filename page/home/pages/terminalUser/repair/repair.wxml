@@ -1,4 +1,3 @@
-<!--page/repair/repair.wxml-->
 <view class="container">
   <view class="page-body">
     <!--选择项目栏-->
@@ -16,6 +15,31 @@
         </view>
       </view>
     </view> -->
+    <!--语音报修栏-->
+    <!-- <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_switch">
+          <view class="weui-cell__bd">语音报修</view>
+          <view class="weui-cell__ft">
+            <text class="time-small" wx:if="{{hasRecord===true}}">{{showRecordTime}}s</text>
+            <image class="img-microphone" wx:if="{{hasRecord===true}}" src="../../../../../imgs/icon/recoed_voice -{{imgIndex}}.png" bindtap="controlVoice" bindlongpress="clear"></image>
+            <image class="img-microphone" src="../../../../../imgs/icon/microphone.png" bindtap="clickMicrophone"></image>
+          </view>
+        </view>
+      </view>
+    </view> -->
+    <!-- <view class="page-section" wx:if="{{showRecoder===true}}">
+      <block>
+        <view class="page-body-time">
+          <text class="time-big">{{recordTime}}</text>
+        </view>
+        <view class="page-body-buttons">  
+          <view class="page-body-button" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="clear">
+            <image class="img-record" src="../../../../../imgs/icon/microphone.png"></image>
+          </view>
+        </view>
+      </block>
+    </view> -->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
@@ -28,52 +52,12 @@
         </view>
       </view>
     </view>
-    <!--选择设备栏-->
-    <!-- <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">选择设备</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickChooseDev" value="{{deviceIndex}}" range="{{deviceList}}">
-              <view class="weui-input">{{deviceList[deviceIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view> -->
-    <!--语音报修栏-->
+    <!--日期选择器-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_switch">
-          <view class="weui-cell__bd">语音报修</view>
-          <view class="weui-cell__ft">
-            <text class="time-small" wx:if="{{hasRecord===true}}">{{showRecordTime}}s</text>
-            <image class="img-microphone" wx:if="{{hasRecord===true}}" src="../../../../../imgs/icon/recoed_voice -{{imgIndex}}.png" bindtap="controlVoice" bindlongpress="clear"></image>
-            <image class="img-microphone" src="../../../../../imgs/icon/microphone.png" bindtap="clickMicrophone"></image>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="page-section" wx:if="{{showRecoder===true}}">
-      <block>
-        <view class="page-body-time">
-          <text class="time-big">{{recordTime}}</text>
-        </view>
-        <view class="page-body-buttons">  
-          <view class="page-body-button" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="clear">
-            <image class="img-record" src="../../../../../imgs/icon/microphone.png"></image>
-          </view>
-        </view>
-      </block>
-    </view>
-    <!--日期选择器-->
-    <!-- <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">发生时间</view>
+            <view class="weui-label">预约时间</view>
           </view>
           <view class="weui-cell__bd">
             <picker mode="date" value="{{date}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
@@ -87,9 +71,74 @@
           </view>
         </view>
       </view>
-    </view> -->
-    <!--报修人栏-->
+    </view>
+
+    <!--选择服务商栏-->
     <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">选择服务商</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickServiceProvider" value="{{serviceProviderIndex}}" range="{{serviceProviderList}}">
+              <view class="weui-input">{{serviceProviderList[serviceProviderIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--紧急程度栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">紧急程度</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickUrgentType" value="{{urgentTypeIndex}}" range="{{urgentTypeList}}">
+              <view class="weui-input">{{urgentTypeList[urgentTypeIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--故障名称栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">故障名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickMalfunctionName" value="{{malfunctionNameIndex}}" range="{{malfunctionNameList}}">
+              <view class="weui-input">{{malfunctionNameList[malfunctionNameIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--选择审核人-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">审核人</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChoosereviewer" value="{{reviewerIndex}}" range="{{reviewerList}}">
+              <view class="weui-input">{{reviewerList[reviewerIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--报修人栏-->
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -100,9 +149,9 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--联系电话栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -113,9 +162,9 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--单位栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -126,7 +175,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--故障类型栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -142,6 +191,23 @@
         </view>
       </view>
     </view>
+
+    <!--选择设备栏-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">选择设备</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseDev" value="{{deviceIndex}}" range="{{deviceList}}">
+              <view class="weui-input">{{deviceList[deviceIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
     <!--故障位置栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -152,21 +218,6 @@
           <view class="weui-cell__bd">
             <picker bindchange="clickMalfunctionLoc" value="{{malfunctionLocIndex}}" range="{{malfunctionLocList}}">
               <view class="weui-input">{{malfunctionLocList[malfunctionLocIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view>
-    <!--故障名称栏-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">故障名称</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickMalfunctionName" value="{{malfunctionNameIndex}}" range="{{malfunctionNameList}}">
-              <view class="weui-input">{{malfunctionNameList[malfunctionNameIndex]}}</view>
             </picker>
           </view>
         </view>
@@ -185,21 +236,7 @@
         </view>
       </view>
     </view>
-    <!--紧急程度栏-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">紧急程度</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickUrgentType" value="{{urgentTypeIndex}}" range="{{urgentTypeList}}">
-              <view class="weui-input">{{urgentTypeList[urgentTypeIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view>
+
     <!--故障等级栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -215,21 +252,7 @@
         </view>
       </view>
     </view>
-    <!--选择服务商栏-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">选择服务商</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickServiceProvider" value="{{serviceProviderIndex}}" range="{{serviceProviderList}}">
-              <view class="weui-input">{{serviceProviderList[serviceProviderIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view>
+
     <!--故障描述栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -238,13 +261,18 @@
             <view class="weui-label">故障描述</view>
           </view>
           <view class="weui-cell__bd" bindtap="chooseDescribe">
-            <view class="weui-input">{{textContent}}</view>
+            <view wx:if="{{describe}}" class="weui-input">{{describe}}</view>
+            <view wx:else class="weui-input">{{textContent}}</view>
           </view>
         </view>
       </view>
     </view>
+
+    <modal id="modal" hidden="{{hiddenmodalput}}" title="故障描述" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <textarea placeholder="请输入信息详细故障描述" bindinput="describe" value="{{describe}}"></textarea>
+    </modal>
     <!--附件栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -257,23 +285,9 @@
             <view class="weui-input">上传视频</view>
           </view>
         </view>
-      </view>
-    </view>
-    <!--选择审核人-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">审核人</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickChoosereviewer" value="{{reviewerIndex}}" range="{{reviewerList}}">
-              <view class="weui-input">{{reviewerList[reviewerIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view>
+      </view> -->
+    <!-- </view> -->
+
     <!--提交-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -284,4 +298,3 @@
     </view>
   </view>
 </view>
-
