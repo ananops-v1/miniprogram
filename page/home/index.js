@@ -60,20 +60,17 @@ Page({
       url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
-<<<<<<< HEAD
   kindToggle:function(e){
     wx.navigateTo({
       url: e.currentTarget.dataset.url
     })
   },
-=======
   // kindToggle: function(e) {
   //   console.log(e)
   //   wx.navigateTo({
   //     url: e.currentTarget.dataset.url
   //   })
   // },
->>>>>>> 6ef197da3718c6ad541e64c916b62526c4885adb
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -86,7 +83,7 @@ Page({
    */
   onShow: function() {
     var userInfo = wx.getStorageSync('userInfo');
-    if (userInfo != '') {
+    if (userInfo != '') { 
       var userRole = userInfo.roles[0].roleCode;
       console.log(userRole);
       if (userRole == 'user_watcher') {

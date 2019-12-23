@@ -200,15 +200,9 @@ Page({
       deviceId: deviceId
     });
     login.getIamgeCode(deviceId, res => {
-<<<<<<< HEAD
       var imageCode = res.result
       this.setData({
         imageCode: 'data:image/jpg;base64,'+imageCode
-=======
-      var base64 = res.result;
-      this.setData({
-        imageCode: "data:image/jpg;base64," + base64
->>>>>>> 6ef197da3718c6ad541e64c916b62526c4885adb
       })
       console.log(this.data.imageCode)
     })
