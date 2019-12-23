@@ -2,7 +2,7 @@
 Page({
   data: {
     navTab: ["处理进度", "工单详情", "维修详情", "备品备件", "审核详情"],
-    currentNavtab: "3",
+    currentNavtab: "0",
     hiddenmodalput: true
   },
   onLoad: function () {

@@ -1,8 +1,8 @@
 //discovery.js
 Page({
   data: {
-    navTab: ["项目信息", "设备信息", "故障信息", "审核信息"],
-    currentNavtab: "3",
+    navTab: ["设备信息", "故障信息", "维修信息","审核信息"],
+    currentNavtab: "0",
   },
   onLoad: function () {
   },

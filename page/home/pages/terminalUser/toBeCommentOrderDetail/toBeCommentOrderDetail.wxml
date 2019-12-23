@@ -1,25 +1,21 @@
-<!--星星评价-->
-<view class="container">
-  <view class="comment1-description">
-    <view class="star-pos" style="display:flex;flex-direction:row;">
-      <view class="stars  {{flag>=1? 'on': ''}}" bindtap="changeColor1"></view>
-      <view class="stars  {{flag>=2? 'on': ''}}" bindtap="changeColor2"></view>
-      <view class="stars  {{flag>=3? 'on': ''}}" bindtap="changeColor3"></view>
-      <view class="stars  {{flag>=4? 'on': ''}}" bindtap="changeColor4"></view>
-      <view class="stars  {{flag>=5? 'on': ''}}" bindtap="changeColor5"></view>
+<view class="star_view">服务评价：</view>
+<block wx:for="{{starYellow}}" wx:key="index">
+  <image catchtap='score' id='{{index+1}}' data-in='yellow' src='/imgs/others/star@yellow.png'></image>
+</block>
+<block wx:for="{{starGrey}}" wx:key="index">
+  <image catchtap='score' id='{{index+1}}' data-in='grey' src='/imgs/others/star@grey.png'></image>
+</block>
+
+<view class="weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="请给出您的宝贵意见，我们会做的更好" style="height: 8em" value="{{content}}" maxlength="{{noteMaxLen}}" focus />
+      <view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
     </view>
   </view>
-<!--文本域  -->
-  <view class="weui-cells_after-title">
-    <view class="weui-cell">
-      <view class="weui-cell__bd">
-        <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="请给出请假意见，我们会做的更好" style="height: 8em" value="{{info}}" maxlength="{{noteMaxLen}}" focus />
-        <view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
-      </view>
-    </view>
-  </view>
-<!--提交按钮  -->
-<view class="btnSf">
-<button bindtap="bindSubmit">提交</button>
 </view>
+
+
+<view class="btnSf">
+  <button bindtap="bindSubmit">提交</button>
 </view>

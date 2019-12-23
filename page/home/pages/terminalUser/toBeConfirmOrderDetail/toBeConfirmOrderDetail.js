@@ -1,7 +1,7 @@
 //discovery.js
 Page({
   data: {
-    navTab: ["处理进度", "工单详情", "维修详情", "备品备件","审核详情"],
+    navTab: ["设备信息", "故障信息", "审核信息"],
     currentNavtab: "0",
     processData: [{
       name: '提交工单',

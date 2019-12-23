@@ -2,16 +2,20 @@
 
 const AUTH = require('../../../../../util/auth')
 
-Page({
+import {
+  ToBeConfirm
+} from 'toBeConfirm_model.js';
+var toBeConfirm = new ToBeConfirm();
+var app = getApp();
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
     //待确认工单列表
     orderListLength: 8,
-    orderList: [
-      {
+    orderList: [{
         id: 1,
         programName: "工商西直门分行ATM维修项目",
         deviceName: "012ATM机",
@@ -68,8 +72,7 @@ Page({
         malfunctionDate: "2019-11-27 19:37:49"
       },
     ],
-    nextdata: [
-      {
+    nextdata: [{
         id: 13,
         programName: "刷新项",
         deviceName: "012ATM机",
@@ -100,21 +103,24 @@ Page({
     ],
   },
   //点击进入详情
-  clickOrder: function (e) {
+  clickOrder: function(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: "../toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
-  lower: function (e) {
+  lower: function(e) {
     wx.showNavigationBarLoading();
     var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+    setTimeout(function() {
+      wx.hideNavigationBarLoading();
+      that.nextLoad();
+    }, 1000);
     console.log("lower")
   },
   //使用本地 fake 数据实现刷新效果
-  refresh: function () {
+  refresh: function() {
     var feed_data = this.data.orderList;
     this.setData({
       orderList: feed_data,
@@ -122,7 +128,7 @@ Page({
     });
   },
   //使用本地 fake 数据实现继续加载效果
-  nextLoad: function () {
+  nextLoad: function() {
     var next_data = this.data.nextdata;
     this.setData({
       orderList: this.data.orderList.concat(next_data),
@@ -132,7 +138,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var _this = this
     //调用应用实例的方法获取全局数据
     // this.refresh();
@@ -141,20 +147,33 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     AUTH.checkHasLogined();
+    this.getToBeConfirmRepairOrder();
   },
 
-  getToBeConfirmRepairOrder:function() {
-    this.setData({
-      toBeConfirmRepair:123
+  getToBeConfirmRepairOrder: function() {
+    var param = {
+      "facilitatorId": 0,
+      "maintainerId": 0,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 0,
+      "principalId": 0,
+      "projectId": 0,
+      "status": 0,
+      "taskId": 0,
+      "userId": 0
+    }
+    toBeConfirm.getToBeConfirmRepairOrder(param, (res) => {
+      console.log(res);
     })
   }
 })
