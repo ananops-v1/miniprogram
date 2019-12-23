@@ -1,9 +1,7 @@
 class Config {
   constructor() {}
 }
-
-Config.baseRequestUrl = "http://ananops.com:29995";
-// Config.baseRequestUrl = "http://10.217.64.253:7979";
+Config.baseRequestUrl = "https://ananops.com/api";
 
 Config.repair = [
   [{//值机员
@@ -89,7 +87,7 @@ Config.inspection = [
   },
   {
     id: "2",
-    url: "../home/pages/terminalUser/inspectionToBeConfirm/inspectionToBeConfirm",
+    url: "../home/pages/terminalUser/inspectionToBeReceive/inspectionToBeReceive",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "待接单"
   },
@@ -101,7 +99,7 @@ Config.inspection = [
     },
     {
       id: "4",
-      url: "../home/pages/terminalUser/inspectionToBeRepair/inspectionToBeRepair",
+      url: "../home/pages/terminalUser/inspectionToBeConfirm/inspectionToBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "结果确认"
     },

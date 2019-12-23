@@ -60,6 +60,11 @@ Page({
       url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
+  kindToggle:function(e){
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
+  },
   // kindToggle: function(e) {
   //   console.log(e)
   //   wx.navigateTo({
@@ -78,7 +83,7 @@ Page({
    */
   onShow: function() {
     var userInfo = wx.getStorageSync('userInfo');
-    if (userInfo != '') {
+    if (userInfo != '') { 
       var userRole = userInfo.roles[0].roleCode;
       console.log(userRole);
       if (userRole == 'user_watcher') {
