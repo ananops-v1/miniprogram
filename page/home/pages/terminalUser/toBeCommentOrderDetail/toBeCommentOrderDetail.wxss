@@ -1,32 +1,41 @@
-@import '../../../../common/lib/common.wxss';
-.container{
-  height: 1500rpx;
+.comment1-description{
+  padding:30rpx 0;
+  display:flex;
+  flex-direction:row;
 }
-.top-tab{
-  width: 750rpx;
-  height: 100rpx;
-  background: #2D4E95;
-  color: #8CCEFD;
-  font-size: 28rpx;
-  line-height: 100rpx;
-  box-shadow: 0 2px 2px #bebebe;
-  margin: 0 0 8rpx 0;
-  z-index: 9999;
+.stars{
+    background:url(../../../imgs/others/star@grey.png);
+    width: 50rpx;
+    height: 50rpx;
+    background-size: 50rpx 50rpx;
+    margin-left: 30rpx;
+    transition: 600ms;
+}
+.on{
+    background:url("http://外链图片地址/Xin.png（正常）");
+    width: 50rpx;
+    height: 50rpx;
+    background-size: 50rpx 50rpx;
+    transition: 1s;
+    transform: scale(1,1)
+}
+.weui-cells_after-title{
+  width: 92%;
+  margin:0 auto;
+  border:1px solid #ddd;
 }
 
-.toptab.active{
-  color: #ffffff;
-  border-bottom: solid 2px #ffffff;
+.btnSf{
+  width: 92%;
+  margin:30rpx auto;
+  
 }
-.activity{
-  width: 750rpx;
-  height: 375rpx;
+.btnSf button{
+    background: #57B6BA;
+    color: #fff;
 }
-.activity image{
-  width: 750rpx;
-  height: 375rpx;
-}
-.placehold{
-  font-size: 28rpx;
-  padding: 80rpx 0;
+
+.btnSf button:active{
+  background: #5BC2C6;
+  color: #fff;
 }

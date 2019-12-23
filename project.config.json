@@ -179,6 +179,12 @@
 					"pathName": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
+					"pathName": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
+					"scene": null
 				}
 			]
 		}
