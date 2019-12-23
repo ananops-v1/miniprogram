@@ -1,7 +1,7 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
   InspectionFilter
-} from 'inspectionToBeConfirm_model.js';
+} from 'inspectionToBeReceive_model.js';
 // import {
 //   Project
 // } from '../terminalUser/inspection/inspection_model.js';
@@ -172,7 +172,7 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status': 3
+      'status':1
     }
     inspectionFilter.getInspectionTaskByStatus(param, (res) => {
       console.log(res);

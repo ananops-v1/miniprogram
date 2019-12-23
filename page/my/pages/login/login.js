@@ -186,12 +186,13 @@ Page({
       deviceId: deviceId
     });
     login.getIamgeCode(deviceId, res => {
+      var imageCode = res.result
       this.setData({
-        imageCode: 'data:image/jpg;base64,' + res.result
+        imageCode: 'data:image/jpg;base64,'+imageCode
       })
+      console.log(this.data.imageCode)
     })
   },
-
   imageCode: function(e) {
     let that = this
     let imagecode = e.detail.value

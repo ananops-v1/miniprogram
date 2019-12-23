@@ -179,6 +179,7 @@ Page({
       "days": this.data.scheduledFinishTime,//周期
       "facilitatorId": this.data.providerId,//服务商
       "frequency": this.data.cycleTime, //天数
+      "userId": wx.getStorageSync('userInfo').id,
       "imcAddInspectionItemDtoList": [
         {
           "description": this.data.inspectionContent,
@@ -187,7 +188,8 @@ Page({
           "itemName": "天信楼支行",
           "maintainerId": 1,//维修工
           "status": 0,
-          "count": 0
+          "count": 0,
+          "userId": wx.getStorageSync('userInfo').id
         }
       ],
       "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
@@ -203,12 +205,22 @@ Page({
       console.log(res)
       if (res.code==200){
         console.log("申请巡检成功")
+        wx.showToast({
+          title: '申请巡检成功',
+          icon: 'success',
+          duration: 2000//持续的时间
+        })
         wx.redirectTo({
-          url: 'page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
+          url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
         })
       }
       else{
         console.log("申请巡检失败")
+        wx.showToast({
+          title: '申请巡检失败',
+          icon: 'fail',
+          duration: 2000//持续的时间
+        })
       }
     })
   },

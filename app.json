@@ -47,12 +47,12 @@
     "page/home/pages/all-work-inspection/all-work-inspection",
     "page/home/pages/all-work-orders-Detail/all-work-orders-Detail",
     "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail",
-    "page/home/pages/terminalUser/inspectionToBeRepair/inspectionToBeRepair",
     "page/home/pages/serviceProvider/inspectionFeedback/inspectionFeedback",
     "page/home/pages/terminalUser/inspectionRepairCheck/inspectionRepairCheck",
     "page/home/pages/all-work-project/all-work-project",
     "page/home/pages/all-work-project-detail/all-work-project-detail",
-    "page/home/pages/networkDetail/networkDetail"
+    "page/home/pages/networkDetail/networkDetail",
+    "page/home/pages/terminalUser/inspectionToBeReceive/inspectionToBeReceive"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",
