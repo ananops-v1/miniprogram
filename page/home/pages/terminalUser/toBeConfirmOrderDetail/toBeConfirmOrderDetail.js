@@ -1,4 +1,10 @@
 //discovery.js
+import {
+  Common
+} from '../../../../common/base_model.js'
+
+var common = new Common();
+
 Page({
   data: {
     navTab: ["设备信息", "故障信息", "审核信息"],
@@ -34,7 +40,9 @@ Page({
       icon: '/imgs/others/process_1.png'
     }],
   },
-  onLoad: function () {
+  onLoad: function (e) {
+    console.log(e);
+    var taskId = e.id;
   },
   switchTab: function (e) {
     this.setData({
@@ -69,4 +77,8 @@ Page({
       processData: processArr
     })
   },
+
+  getTaskById:function() {
+    
+  }
 });

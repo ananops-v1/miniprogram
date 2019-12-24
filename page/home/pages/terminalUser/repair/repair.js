@@ -1,5 +1,6 @@
 // page/repair/repair.js
 const AUTH = require('../../../../../util/auth.js')
+const UTIL = require('../../../../../util/util.js')
 import {
   Repair
 } from 'repair_model.js';
@@ -11,10 +12,10 @@ Page({
     //programList: ['项目1', '项目2', '项目3', '项目4', '项目5', '项目6'],
     //programIndex: 0,
     //设备数据
-    //deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
+    deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
     //deviceIndex: 0,
     //日期数据
-    date: '2016-09-01',
+    date: '2019-12-24',
     time: '12:01',
     //录音数据
     showRecoder: false,
@@ -38,11 +39,12 @@ Page({
     malfunctionLocIndex: 0,
     //故障名称数据
     malfunctionNameList: ["待确定", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
+    deviceTypeList:['ATM机','摄像头','监控'],
     malfunctionNameIndex: 0,
     //故障定位数据
     mapLocation: '点击此处选择位置',
     //紧急程度数据
-    urgentTypeList: ['紧急', '一般', '其他'],
+    urgentTypeList: ['紧急', '中等','一般'],
     urgentTypeIndex: 0,
     //故障等级数据
     malfunctionRankList: ['p0', 'p1', '其他'],
@@ -300,43 +302,75 @@ Page({
       reviewerIndex: e.detail.value
     })
   },
+  clickDeviceType(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      deviceTypeIndex: e.detail.value
+    })
+  },
   //提交处理事件
   clickSubmit() {
     //检查工单填写情况
     // var param = {
 
     // }
+    var _this = this;
+    var date = this.data.date;
+    var time = this.data.time;
+    var program = this.data.program;
+    var facilitatorId = serviceProviderList[_this.data.serviceProviderIndex]
+    var level = urgentTypeList[_this.data.urgentTypeIndex];
+    var principalId = reviewerList[_this.data.reviewerIndex];
+    var projectId = this.data.projectId;
+    var userId = wx.getStorageSync('userInfo').id;
+    var description = this.data.textContent;
+    var latitude = this.data.latitude;
+    var longitude = this.data.longitude;
+    var malfunctionRank = malfunctionRankList[_this.data.malfunctionRankIndex];
+    var malfunctionType = malfunctionTypeList[this.data.malfunctionTypeIndex];
+    var deviceType = deviceTypeList[_this.data.deviceTypeIndex];
 
     var param = {
-      "appointTime": "2019-12-22T12:38:09.396Z",
-      "contractId": 0,
-      "facilitatorId": 0,
+      "appointTime": date + time,
+      "contractId": projectId,
+      "facilitatorId": facilitatorId,
       "id": 0,
-      "level": 0,
-      "mdmcAddTaskItemDtoList": [{
-        "description": "string",
-        "deviceId": 0,
-        "deviceLatitude": 0,
-        "deviceLongitude": 0,
-        "deviceType": "string",
-        "id": 0,
-        "level": "string",
-        "taskId": 0,
-        "troubleType": 0
-      }],
-      "principalId": 0,
-      "projectId": 0,
+      "level": level,
+      "principalId": principalId,
+      "projectId": projectId,
       "result": 0,
       "suggestion": "string",
       "title": "string",
       "totalCost": 0,
-      "userId": 0
+      "userId": 0,
+      "mdmcAddTaskItemDtoList": [{
+        "description": description,
+        "deviceId": 0,
+        "deviceLatitude": latitude,
+        "deviceLongitude": longitude,
+        "deviceType": deviceType,
+        "id": 0,
+        "level": malfunctionRank,
+        "taskId": 0,
+        "troubleType": malfunctionType
+      }],
     }
 
-    console.log("param:" + param);
+    console.log("param:" + JSON.stringify(param));
 
     repair.createRepair(param, (res) => {
       console.log(res);
+      if(res.statusCode == 200) {
+        wx.showToast({
+          title: '操作成功',
+        })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+          duration:2000
+        })
+      }
     })
 
 

@@ -156,7 +156,7 @@ Page({
    */
   onShow: function() {
     AUTH.checkHasLogined();
-    this.getToBeConfirmRepairOrder();
+    // this.getToBeConfirmRepairOrder();
   },
 
   getToBeConfirmRepairOrder: function() {

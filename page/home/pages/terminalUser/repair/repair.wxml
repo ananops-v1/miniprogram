@@ -105,22 +105,6 @@
       </view>
     </view>
 
-    <!--故障名称栏-->
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">故障名称</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker bindchange="clickMalfunctionName" value="{{malfunctionNameIndex}}" range="{{malfunctionNameList}}">
-              <view class="weui-input">{{malfunctionNameList[malfunctionNameIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-      </view>
-    </view>
-
     <!--选择审核人-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -202,6 +186,38 @@
           <view class="weui-cell__bd">
             <picker bindchange="clickChooseDev" value="{{deviceIndex}}" range="{{deviceList}}">
               <view class="weui-input">{{deviceList[deviceIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+        <!--故障名称栏-->
+    <!-- <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">故障名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickMalfunctionName" value="{{malfunctionNameIndex}}" range="{{malfunctionNameList}}">
+              <view class="weui-input">{{malfunctionNameList[malfunctionNameIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view> -->
+
+    <!--设备类型-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">设备类型</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickDeviceType" value="{{deviceTypeIndex}}" range="{{deviceTypeList}}">
+              <view class="weui-input">{{deviceTypeList[deviceTypeIndex]}}</view>
             </picker>
           </view>
         </view>

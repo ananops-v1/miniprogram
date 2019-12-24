@@ -16,7 +16,11 @@ Page({
     noteNowLen: 0, //备注当前字数
   },
   onLoad: function(options) {
-
+    var taskId = options.id;
+    console.log(taskId);
+    this.setData({
+      taskId:taskId
+    })
   },
 
   //用户评分
