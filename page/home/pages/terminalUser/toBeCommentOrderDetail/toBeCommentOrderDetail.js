@@ -55,14 +55,13 @@ Page({
     var _this = this;
     var param = {
       "contents": _this.data.content,
-      "principalId": 0,
       "score": _this.data.starYellow,
-      "taskId": 0,
-      "userId": 0
+      "taskId": 314,
+      "userId": "782517846944000001"
     }
     console.log(param);
-    // comment.comment(param,(res) => {
-    //   console.log(res);
-    // });
+    comment.comment(param,(res) => {
+      console.log(res);
+    });
   },
 })

@@ -4,6 +4,11 @@ import {
 import {
   Config
 } from '../../config.js';
+import {
+  Common
+} from '../common/base_model.js';
+const AUTH = require('../../util/auth')
+var common = new Common();
 var home = new Home();
 const app = getApp();
 Page({
@@ -14,27 +19,65 @@ Page({
   data: {
     orderList: Config.orderList
   },
-  //点击报修事件处理函数
-  clickRepair: function(e) {
-    var url = e.currentTarget.dataset.url;
-    wx.navigateTo({
-      url: url
-      //url+'?id='+id传递参数
-    })
-  },
-  //点击巡检事件处理函数
-  clickInspection: function(e) {
-    var url = e.currentTarget.dataset.url;
-    wx.navigateTo({
-      url: url
-      //url+'?id='+id传递参数
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
 
+    console.log('Bearer ' + wx.getStorageSync('tokenInfo').access_token);
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    this.getAllstatusOrder();
+  },
+
+  getAllstatusOrder:function () {
+    var _this = this;
+    var userInfo = wx.getStorageSync('userInfo');
+    if (userInfo != '') {
+      var userRole = userInfo.roles[0].roleCode;
+      console.log(userRole);
+      if (userRole == 'user_watcher') {
+        app.globalData.userRole = 0;
+      } else if (userRole == 'user_manager') {
+        app.globalData.userRole = 1;
+      } else if (userRole == 'fac_manager') {
+        app.globalData.userRole = 2;
+      } else if (userRole == 'engineer') {
+        app.globalData.userRole = 3;
+      }
+    } else {
+      app.globalData.userRole = null;
+    }
+
+    if (userInfo != '') {
+      var param = {
+        "id": userInfo.id,
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 0,
+        "roleCode": userInfo.roles[0].roleCode,
+        "status": null
+      };
+      console.log(param);
+      common.getTaskListByIdAndStatus(param, (res) => {
+        var allRepairerOrder = res.result;
+        console.log(allRepairerOrder);
+        AUTH.homeInitial(allRepairerOrder);
+        var userRole = userInfo.roles[0].roleCode;
+        if (userRole != null) {
+          _this.setData({
+            userRole: app.globalData.userRole,
+            repair: Config.repair[app.globalData.userRole],
+            inspection: Config.inspection[app.globalData.userRole]
+          })
+        }
+      });
+    }
   },
 
   upper(e) {
@@ -60,7 +103,7 @@ Page({
       url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
-  kindToggle:function(e){
+  kindToggle: function(e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url
     })
@@ -71,72 +114,21 @@ Page({
   //     url: e.currentTarget.dataset.url
   //   })
   // },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  //点击报修事件处理函数
+  clickRepair: function(e) {
+    var url = e.currentTarget.dataset.url;
+    wx.navigateTo({
+      url: url
+      //url+'?id='+id传递参数
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    var userInfo = wx.getStorageSync('userInfo');
-    if (userInfo != '') { 
-      var userRole = userInfo.roles[0].roleCode;
-      console.log(userRole);
-      if (userRole == 'user_watcher') {
-        app.globalData.userRole = 0;
-      } else if (userRole == 'user_manager') {
-        app.globalData.userRole = 1;
-      } else if (userRole == 'fac_manager') {
-        app.globalData.userRole = 2;
-      } else if (userRole == 'engineer') {
-        app.globalData.userRole = 3;
-      }
-      this.setData({
-        userRole: app.globalData.userRole
-      })
-
-      var repair = Config.repair[app.globalData.userRole];
-      if (repair != null) {
-        repair[1].num = 1;
-      }
-      this.setData({
-        userRole: app.globalData.userRole,
-        repair: repair,
-        inspection: Config.inspection[app.globalData.userRole]
-      })
-    } else {
-      app.globalData.userRole = null;
-      this.setData({
-        userRole: app.globalData.userRole,
-        repair: null,
-        inspection: null
-      })
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
+  //点击巡检事件处理函数
+  clickInspection: function(e) {
+    var url = e.currentTarget.dataset.url;
+    wx.navigateTo({
+      url: url
+      //url+'?id='+id传递参数
+    })
   },
 
   /**

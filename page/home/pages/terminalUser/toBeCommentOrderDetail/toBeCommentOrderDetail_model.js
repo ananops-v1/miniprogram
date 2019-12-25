@@ -11,10 +11,9 @@ class Comment extends Base {
     super()
   }
 
-  comment(deviceId, param, callback) {
+  comment(param, callback) {
     var params = {
-      url: '/mdmcReview/save',
-      deviceId: deviceId,
+      url: '/mdmc/mdmcReview/save',
       data: param,
       method: 'POST',
       sCallback: function (data) {

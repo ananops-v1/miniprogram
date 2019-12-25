@@ -32,6 +32,7 @@ class Login extends Base {
       deviceId: deviceId,
       url: '/uac/auth/code/image',
       method: 'POST',
+      responseType: 'arraybuffer',
       sCallback: function (data) {
         callback && callback(data);
       }

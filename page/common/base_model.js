@@ -12,10 +12,9 @@ class Common extends Base {
   }
 
 //返回全部工单列表
-  getTaskList(deviceId, param, callback) {
+  getTask(param, callback) {
     var params = {
       url: '/mdmcTask/getTaskList',
-      deviceId: deviceId,
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -29,10 +28,9 @@ class Common extends Base {
   }
 
 //根据任务id获取任务详情
-  getTaskList(deviceId, taskId, callback) {
+  getTaskByTaskId(taskId, callback) {
     var params = {
-      url: `/mdmcTask/getTaskByTaskId/{taskId}`,
-      deviceId: deviceId,
+      url: `/mdmc/mdmcTask/getTaskByTaskId/${taskId}`,
       sCallback: function (data) {
         callback && callback(data);
       },
@@ -43,20 +41,22 @@ class Common extends Base {
     this.request(params);
   }
 
-getTaskByTaskId(deviceId, taskId, callback) {
-  var params = {
-    url: `/mdmcTask/getTaskByTaskId/{taskId}`,
-    deviceId: deviceId,
-    method: 'POST',
-    sCallback: function (data) {
-      callback && callback(data);
-    },
-    fCallback: function (data) {
-      callback && callback(data);
-    }
-  };
-  this.request(params);
-}
+  //根据员工id和状态查询工单
+  getTaskListByIdAndStatus(param, callback) {
+    var params = {
+      url: `/mdmc/mdmcTask/getTaskListByIdAndStatus`,
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
 }
 
 export {

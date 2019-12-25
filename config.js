@@ -2,6 +2,7 @@ class Config {
   constructor() {}
 }
 Config.baseRequestUrl = "https://ananops.com/api";
+// Config.baseRequestUrl =  "http://10.112.9.107:7979";
 
 Config.repair = [
   [{//值机员
@@ -14,45 +15,52 @@ Config.repair = [
       id: "2",
       url: "../home/pages/terminalUser/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
-      name: "待确认"
+      name: "待确认",
+      num:0,
     },
     {
       id: "3",
       url: "../home/pages/terminalUser/repairing/repairing",
       icon_url: "/imgs/icon/in_maintenance.png",
-      name: "维修中"
+      name: "维修中",
+      num: 0,
     },
     {
       id: "4",
       url: "../home/pages/terminalUser/toBeCheck/toBeCheck",
       icon_url: "/imgs/icon/pending_payment.png",
-      name: "待验收"
+      name: "待验收",
+      num: 0,
     },
     {
       id: "5",
       url: "../home/pages/terminalUser/toBeComment/toBeComment",
       icon_url: "/imgs/icon/comment.png",
-      name: "待评价"
+      name: "待评价",
+      num: 0,
     }
   ],
   [{//管理员
       id: "1",
       url: "../home/pages/terminalUser/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
-      name: "待审核"
+      name: "待审核",
+      num:0,
     },
     {
       id: "2",
       url: "../home/pages/terminalUser/toBeCheck/toBeCheck",
       icon_url: "/imgs/icon/pending_payment.png",
-      name: "待支付"
+      name: "待支付",
+      num: 0,
     }
   ],
   [{//服务商
       id: "1",
       url: "../home/pages/serviceProvider/toBeDispatch/toBeDispatch",
       icon_url: "/imgs/icon/repair.png",
-      name: "待接单"
+      name: "待接单",
+      num: 0,
     },
     {
       id: "2",
@@ -65,7 +73,7 @@ Config.repair = [
       id: "1",
       url: "../home/pages/serviceEngineer/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
-      name: "待确认"
+      name: "待接单"
     },
     {
       id: "2",

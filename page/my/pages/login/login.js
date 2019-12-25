@@ -195,16 +195,14 @@ Page({
 
   refreshImagecode: function() {
     var deviceId = new Date().getTime();
-    console.log(deviceId);
     this.setData({
       deviceId: deviceId
     });
     login.getIamgeCode(deviceId, res => {
-      var imageCode = res.result
+      var imageCode = res.result;
       this.setData({
-        imageCode: 'data:image/jpg;base64,'+imageCode
+        imageCode: imageCode
       })
-      console.log(this.data.imageCode)
     })
   },
   imageCode: function(e) {

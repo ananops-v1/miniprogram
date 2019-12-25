@@ -1,4 +1,4 @@
-// page/test/test.js
+// page/my/pages/contact/contact.js
 Page({
 
   /**
@@ -62,8 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  getname: function (e) {
-    console.log(e);
   }
 })

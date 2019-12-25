@@ -13,7 +13,7 @@ class Repair extends Base {
 
   createRepair(param, callback) {
     var params = {
-      url: '/mdmcTask/save',
+      url: '/mdmc/mdmcTask/save',
       data: param,
       method: 'POST',
       sCallback: function(data) {
@@ -30,6 +30,7 @@ class Repair extends Base {
   getProjectByGroupId(param, callback) {
     var params = {
       url: '/pmc/project/getProjectListByGroupId/' + param.groupId,
+      data:param,
       method: 'POST',
       sCallback: function (data) {
         callback && callback(data);

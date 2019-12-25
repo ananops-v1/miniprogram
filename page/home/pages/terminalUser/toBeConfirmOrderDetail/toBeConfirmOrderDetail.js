@@ -43,6 +43,10 @@ Page({
   onLoad: function (e) {
     console.log(e);
     var taskId = e.id;
+    common.getTaskByTaskId(taskId,(res) => {
+      var orderInfo = res.result;
+      console.log(orderInfo);
+    })
   },
   switchTab: function (e) {
     this.setData({
@@ -79,6 +83,6 @@ Page({
   },
 
   getTaskById:function() {
-    
+
   }
 });

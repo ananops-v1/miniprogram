@@ -7,18 +7,16 @@ Page({
     userInfo: {}
   },
   //事件处理函数
-  bindViewTap: function () {
+  bindViewTap: function() {
     wx.navigateTo({
       url: ''
     })
   },
-  onLoad: function () {
-    
+  onLoad: function() {
+
   },
-  login:function () {
-    AUTH.checkHasLogined();
-  },
-  onShow: function () {
+
+  onShow: function() {
     var userInfo = wx.getStorageSync('tokenInfo');
     if (userInfo != undefined && userInfo != null && userInfo != '') {
       this.setData({
@@ -31,8 +29,29 @@ Page({
     }
   },
 
-  exit: function () {
+  exit: function() {
     AUTH.exit();
     this.onShow();
-  }
-}) 
+  },
+
+  accountsAndSecurity: function() {
+    AUTH.checkHasLogined();
+  },
+  configPrivacy: function() {
+    AUTH.checkHasLogined();
+  },
+  configUniversal: function() {
+    AUTH.checkHasLogined();
+  },
+  configFeedback: function() {
+    AUTH.checkHasLogined();
+  },
+
+  aboutUs: function() {
+    console.log(123);
+    // AUTH.checkHasLogined();
+    wx.navigateTo({
+      url: "../../../../my/pages/aboutus/aboutus",
+    })
+  },
+})

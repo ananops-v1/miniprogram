@@ -1,0 +1,14 @@
+<!--page/my/pages/contact/contact.wxml-->
+<view class='container'>
+  <view class='contact-title'>
+    <text>"如果您有任何想法或建议，请联系我：）"</text>
+  </view>
+  <view class='contact-email'>
+    <view class='title'></view>
+    <text class='address' selectable='true'>duanby@ananops.com</text>
+  </view>
+  <view class='contact-bottom'>
+    <text class='create'>Created By ananops</text> 
+  </view>
+  
+</view>

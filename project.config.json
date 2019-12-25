@@ -52,15 +52,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": -1,
 			"list": [
-				{
-					"id": -1,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
 				{
 					"id": 1,
 					"name": "page/home/index",
@@ -140,13 +133,6 @@
 				},
 				{
 					"id": -1,
-					"name": "page/test/test",
-					"pathName": "page/test/test",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail",
 					"pathName": "page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail",
 					"query": "",
@@ -184,6 +170,14 @@
 					"id": -1,
 					"name": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
 					"pathName": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/my/pages/contact/contact",
+					"pathName": "page/my/pages/contact/contact",
+					"query": "",
 					"scene": null
 				}
 			]

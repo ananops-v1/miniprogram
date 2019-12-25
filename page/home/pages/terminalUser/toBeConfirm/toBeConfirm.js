@@ -1,11 +1,17 @@
 // page/toBeConfirm/toBeConfirm.js
 
 const AUTH = require('../../../../../util/auth')
+const UTIL = require('../../../../../util/util')
+
+import {
+ Common
+} from '../../../../common/base_model.js';
 
 import {
   ToBeConfirm
 } from 'toBeConfirm_model.js';
 var toBeConfirm = new ToBeConfirm();
+var common = new Common();
 var app = getApp();
 
 Page({
@@ -13,94 +19,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //待确认工单列表
-    orderListLength: 8,
-    orderList: [{
-        id: 1,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 2,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 3,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 4,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 5,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 6,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 7,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 8,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-    ],
-    nextdata: [{
-        id: 13,
-        programName: "刷新项",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 14,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 15,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 16,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      }
-    ],
+    orderList:[],
+
   },
   //点击进入详情
   clickOrder: function(e) {
@@ -139,7 +59,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var _this = this
     //调用应用实例的方法获取全局数据
     // this.refresh();
   },
@@ -156,24 +75,44 @@ Page({
    */
   onShow: function() {
     AUTH.checkHasLogined();
-    // this.getToBeConfirmRepairOrder();
+    this.getOrderByStatus(1);
   },
 
-  getToBeConfirmRepairOrder: function() {
+
+  getOrderByStatus: function(status) {
+    var _this = this;
+    var userInfo = wx.getStorageSync('userInfo');
     var param = {
-      "facilitatorId": 0,
-      "maintainerId": 0,
+      "id": userInfo.id,
       "orderBy": "string",
       "pageNum": 0,
       "pageSize": 0,
-      "principalId": 0,
-      "projectId": 0,
-      "status": 0,
-      "taskId": 0,
-      "userId": 0
-    }
-    toBeConfirm.getToBeConfirmRepairOrder(param, (res) => {
-      console.log(res);
+      "roleCode": userInfo.roles[0].roleCode,
+      "status": status
+    };
+
+    common.getTaskListByIdAndStatus(param, (res) => {
+      var orderList = res.result;
+      if (orderList != null && orderList.length > 0) {
+        this.setData({
+          orderList:orderList
+        })
+      } else {
+        wx.showToast({
+          title: "没有相关工单",
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack({//返回
+                delta: 1
+              })
+            }, 2000)
+          }
+        })
+      }
     })
   }
+
+
 })
