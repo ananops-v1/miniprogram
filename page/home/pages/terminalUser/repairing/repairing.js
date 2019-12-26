@@ -3,6 +3,11 @@
 const AUTH = require('../../../../../util/auth')
 const UTIL = require('../../../../../util/util')
 
+import {
+  Common
+} from '../../../../common/base_model.js'
+var common = new Common();
+
 Page({
 
   /**
@@ -55,8 +60,9 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    this.getOrderByStatus();
+    this.getOrderByStatus(5);
   },
+
 
   getOrderByStatus: function (status) {
     var _this = this;

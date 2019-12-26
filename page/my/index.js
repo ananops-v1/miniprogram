@@ -44,12 +44,12 @@ Page({
     AUTH.checkHasLogined();
   },
   configFeedback: function() {
-    AUTH.checkHasLogined();
+    wx.navigateTo({
+      url: "../../../../my/pages/contact/contact",
+    })
   },
 
   aboutUs: function() {
-    console.log(123);
-    // AUTH.checkHasLogined();
     wx.navigateTo({
       url: "../../../../my/pages/aboutus/aboutus",
     })

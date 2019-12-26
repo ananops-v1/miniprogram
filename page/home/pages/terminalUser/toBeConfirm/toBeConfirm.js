@@ -4,13 +4,9 @@ const AUTH = require('../../../../../util/auth')
 const UTIL = require('../../../../../util/util')
 
 import {
- Common
+  Common
 } from '../../../../common/base_model.js';
 
-import {
-  ToBeConfirm
-} from 'toBeConfirm_model.js';
-var toBeConfirm = new ToBeConfirm();
 var common = new Common();
 var app = getApp();
 
@@ -19,46 +15,50 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderList:[],
+    orderList: [],
 
   },
   //点击进入详情
-  clickOrder: function(e) {
+  clickOrder: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: "../toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
-  //下拉刷新
-  lower: function(e) {
-    wx.showNavigationBarLoading();
-    var that = this;
-    setTimeout(function() {
-      wx.hideNavigationBarLoading();
-      that.nextLoad();
-    }, 1000);
-    console.log("lower")
-  },
-  //使用本地 fake 数据实现刷新效果
-  refresh: function() {
-    var feed_data = this.data.orderList;
-    this.setData({
-      orderList: feed_data,
-      orderListLength: feed_data.length
-    });
-  },
-  //使用本地 fake 数据实现继续加载效果
-  nextLoad: function() {
-    var next_data = this.data.nextdata;
-    this.setData({
-      orderList: this.data.orderList.concat(next_data),
-      orderListLength: this.data.orderListLength + next_data.length
-    });
-  },
+
+
+  // //下拉刷新
+  // lower: function(e) {
+  //   wx.showNavigationBarLoading();
+  //   var that = this;
+  //   setTimeout(function() {
+  //     wx.hideNavigationBarLoading();
+  //     that.nextLoad();
+  //   }, 1000);
+  //   console.log("lower")
+  // },
+  // //使用本地 fake 数据实现刷新效果
+  // refresh: function() {
+  //   var feed_data = this.data.orderList;
+  //   this.setData({
+  //     orderList: feed_data,
+  //     orderListLength: feed_data.length
+  //   });
+  // },
+  // //使用本地 fake 数据实现继续加载效果
+  // nextLoad: function() {
+  //   var next_data = this.data.nextdata;
+  //   this.setData({
+  //     orderList: this.data.orderList.concat(next_data),
+  //     orderListLength: this.data.orderListLength + next_data.length
+  //   });
+  // },
+
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     //调用应用实例的方法获取全局数据
     // this.refresh();
   },
@@ -66,20 +66,21 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     AUTH.checkHasLogined();
-    this.getOrderByStatus(1);
+    var statusArray = [2,6,10];
+    this.getOrderByStatus(statusArray);
   },
 
 
-  getOrderByStatus: function(status) {
+  getOrderByStatus: function (statusArray) {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');
     var param = {
@@ -88,14 +89,24 @@ Page({
       "pageNum": 0,
       "pageSize": 0,
       "roleCode": userInfo.roles[0].roleCode,
-      "status": status
+      "status": statusArray
     };
 
-    common.getTaskListByIdAndStatus(param, (res) => {
+    common.getTaskListByIdAndStatusArrary(param, (res) => {
       var orderList = res.result;
+      var orderListArray = [];
+      console.log(orderList);
       if (orderList != null && orderList.length > 0) {
+        for (var i = 0; i < orderList.length; i++) {
+          var taskList = orderList[i].taskList;
+          for (var j = 0; j < taskList.length; j++) {
+            orderListArray.push(taskList[j]);
+          }
+        }
+        console.log(orderListArray);
+
         this.setData({
-          orderList:orderList
+          orderList: orderListArray
         })
       } else {
         wx.showToast({

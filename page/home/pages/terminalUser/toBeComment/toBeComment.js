@@ -3,29 +3,37 @@
 const AUTH = require('../../../../../util/auth')
 const UTIL = require('../../../../../util/util')
 
+import {
+  Common
+} from '../../../../common/base_model.js'
+
+var common = new Common;
+
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-  },
+  data: {},
   //点击进入详情
-  clickOrder: function (e) {
+  clickOrder: function(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: "../toBeCommentOrderDetail/toBeCommentOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
-  lower: function (e) {
+  lower: function(e) {
     wx.showNavigationBarLoading();
     var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+    setTimeout(function() {
+      wx.hideNavigationBarLoading();
+      that.nextLoad();
+    }, 1000);
     console.log("lower")
   },
   //使用本地 fake 数据实现刷新效果
-  refresh: function () {
+  refresh: function() {
     var feed_data = this.data.orderList;
     this.setData({
       orderList: feed_data,
@@ -33,7 +41,7 @@ Page({
     });
   },
   //使用本地 fake 数据实现继续加载效果
-  nextLoad: function () {
+  nextLoad: function() {
     var next_data = this.data.nextdata;
     this.setData({
       orderList: this.data.orderList.concat(next_data),
@@ -43,7 +51,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // var that = this
     // //调用应用实例的方法获取全局数据
     // this.refresh();
@@ -52,19 +60,20 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     AUTH.checkHasLogined();
-    this.getOrderByStatus();
+    this.getOrderByStatus(12);
   },
 
-  getOrderByStatus: function (status) {
+
+  getOrderByStatus: function(status) {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');
     var param = {
@@ -78,18 +87,22 @@ Page({
 
     common.getTaskListByIdAndStatus(param, (res) => {
       var orderList = res.result;
+      console.log(orderList);
       if (orderList != null && orderList.length > 0) {
         this.setData({
           orderList: orderList
         })
       } else {
+        this.setData({
+          orderList: orderList
+        })
         wx.showToast({
           title: "没有相关工单",
           icon: 'none',
           duration: 2000,
-          success: function () {
-            setTimeout(function () {
-              wx.navigateBack({//返回
+          success: function() {
+            setTimeout(function() {
+              wx.navigateBack({ //返回
                 delta: 1
               })
             }, 2000)
@@ -99,38 +112,39 @@ Page({
     })
   },
 
+
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

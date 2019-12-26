@@ -503,3 +503,19 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.mp-cell-title {
+  position: relative;
+  margin-right: 20rpx;
+}
+
+.mp-cell-image {
+  width: 150rpx; 
+  height: 150rpx; 
+  display: block
+}
+
+.mp-cell-view {
+  font-size: 30rpx;
+  color: #888888;
+}

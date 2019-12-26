@@ -105,13 +105,6 @@
 				},
 				{
 					"id": -1,
-					"name": "page/home/pages/inspection/inspection",
-					"pathName": "page/home/pages/inspection/inspection",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "page/my/index",
 					"pathName": "page/my/index",
 					"query": "",
@@ -163,6 +156,13 @@
 					"id": -1,
 					"name": "page/my/pages/contact/contact",
 					"pathName": "page/my/pages/contact/contact",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/serviceProvider/toBeCheck/toBeCheck",
+					"pathName": "page/home/pages/serviceProvider/toBeCheck/toBeCheck",
 					"query": "",
 					"scene": null
 				}

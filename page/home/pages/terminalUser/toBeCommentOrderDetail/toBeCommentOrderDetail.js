@@ -62,6 +62,17 @@ Page({
     console.log(param);
     comment.comment(param,(res) => {
       console.log(res);
+      if(res.code == 200) {
+        wx.showToast({
+          title: res.message,
+          duration: 1500,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1500)
+          }
+        })
+      }
     });
   },
 })

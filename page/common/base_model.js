@@ -71,6 +71,22 @@ class Common extends Base {
     this.request(params);
   }
 
+  //根据id和设备状态组查询列表
+  getTaskListByIdAndStatusArrary(param, callback) {
+    var params = {
+      url: `/mdmc/mdmcTask/getTaskListByIdAndStatusArrary`,
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
 }
 
 export {

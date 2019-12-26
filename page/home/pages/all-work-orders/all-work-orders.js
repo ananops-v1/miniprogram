@@ -1,99 +1,18 @@
 // page/home/pages/all-work-orders/all-work-orders.js
+
+const AUTH = require('../../../../util/auth')
+const UTIL = require('../../../../util/util')
+
+import {
+  Common
+} from '../../../common/base_model.js';
+
+var common = new Common();
+var app = getApp();
 Page({
   data: {
     inputShowed: false,
-    inputVal: "",
-    i: 0,
-    //待确认工单列表
-    orderListLength: 8,
-    orderList: [
-      {
-        id: 1,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 2,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 3,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 4,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 5,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 6,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 7,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 8,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-    ],
-    nextdata: [
-      {
-        id: 13,
-        programName: "刷新项",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 14,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 15,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 16,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      }
-    ]
+    inputVal: ""
   },
   onLoad() {
     this.setData({
@@ -120,42 +39,66 @@ Page({
   selectResult: function (e) {
     console.log('select result', e.detail)
   },
-  //点击进入详情
-  clickOrder: function (e) {
-    console.log(e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: "../all-work-orders-Detail/all-work-orders-Detail?id=" + e.currentTarget.dataset.id,
-    })
-  },
-  //下拉刷新
-  lower: function (e) {
-    wx.showNavigationBarLoading();
-    var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
-  },
-  //使用本地 fake 数据实现刷新效果
-  refresh: function () {
-    var feed_data = this.data.orderList;
-    this.setData({
-      orderList: feed_data,
-      orderListLength: feed_data.length
-    });
-  },
-  //使用本地 fake 数据实现继续加载效果
-  nextLoad: function () {
-    var next_data = this.data.nextdata;
-    this.setData({
-      orderList: this.data.orderList.concat(next_data),
-      orderListLength: this.data.orderListLength + next_data.length
-    });
-  },
+
   /**
-   * 生命周期函数--监听页面加载
+  * 生命周期函数--监听页面加载
+  */
+  // onLoad: function (options) {
+  //   //调用应用实例的方法获取全局数据
+  //   // this.refresh();
+  // },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
    */
-  onLoad: function (options) {
-    var that = this
-    //调用应用实例的方法获取全局数据
-    this.refresh();
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    AUTH.checkHasLogined();
+    this.getOrderByStatus(null);
+  },
+
+
+  getOrderByStatus: function (status) {
+    var _this = this;
+    var userInfo = wx.getStorageSync('userInfo');
+    var param = {
+      "id": userInfo.id,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 0,
+      "roleCode": userInfo.roles[0].roleCode,
+      "status": status
+    };
+
+    common.getTaskListByIdAndStatus(param, (res) => {
+      var orderList = res.result;
+      console.log(orderList);
+      if (orderList != null && orderList.length > 0) {
+        this.setData({
+          orderList: orderList
+        })
+      } else {
+        wx.showToast({
+          title: "没有工单",
+          icon: 'none',
+          duration: 2000,
+          // success: function () {
+          //   setTimeout(function () {
+          //     wx.navigateBack({//返回
+          //       delta: 1
+          //     })
+          //   }, 2000)
+          // }
+        })
+      }
+    })
   }
+
+  
 });

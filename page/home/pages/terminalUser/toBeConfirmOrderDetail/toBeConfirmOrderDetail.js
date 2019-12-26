@@ -8,68 +8,56 @@ var common = new Common();
 Page({
   data: {
     navTab: ["设备信息", "故障信息", "审核信息"],
-    currentNavtab: "0",
-    processData: [{
-      name: '提交工单',
-      start: '#fff',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '已接单',
-      start: '#EFF3F6',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '开始维修',
-      start: '#EFF3F6',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '维修结束',
-      start: '#EFF3F6',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '已确认',
-      start: '#EFF3F6',
-      end: '#fff',
-      icon: '/imgs/others/process_1.png'
-    }],
+    currentNavtab: "0"
   },
-  onLoad: function (e) {
-    console.log(e);
+
+  onLoad: function(e) {
     var taskId = e.id;
-    common.getTaskByTaskId(taskId,(res) => {
-      if (res.statusCode == 200) {
+    this.setData({
+      taskId:taskId
+    })
+  },
+
+  onShow: function() {
+    this.getTaskByTaskId();
+  },
+
+
+  getTaskByTaskId: function() {
+
+    var taskId = this.data.taskId;
+
+    common.getTaskByTaskId(taskId, (res) => {
+      console.log(res);
+      if (res.code == 200) {
         var orderInfo = res.result;
+        console.log(orderInfo);
         this.setData({
           orderInfo: orderInfo
         })
-        console.log(orderInfo);
       }
     });
-    common.getTaskLogsByTaskId(taskId,(res) => {
-      if (res.statusCode == 200) {
-        console.log(res);
+    common.getTaskLogsByTaskId(taskId, (res) => {
+      if (res.code == 200) {
+        console.log(res.result);
         this.setData({
           orderLogs: res.result
         })
       }
     })
+
+
   },
-  switchTab: function (e) {
+
+  switchTab: function(e) {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
 
   //进度条的状态
-  setPeocessIcon: function () {
-    var index = 0//记录状态为1的最后的位置
+  setPeocessIcon: function() {
+    var index = 0 //记录状态为1的最后的位置
     var processArr = this.data.processData
     // console.log("progress", this.data.detailData.progress)
     for (var i = 0; i < this.data.detailData.progress.length; i++) {
@@ -95,7 +83,7 @@ Page({
     })
   },
 
-  getTaskById:function() {
+  getTaskById: function() {
 
   }
 });
