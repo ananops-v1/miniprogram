@@ -44,8 +44,21 @@ Page({
     console.log(e);
     var taskId = e.id;
     common.getTaskByTaskId(taskId,(res) => {
-      var orderInfo = res.result;
-      console.log(orderInfo);
+      if (res.statusCode == 200) {
+        var orderInfo = res.result;
+        this.setData({
+          orderInfo: orderInfo
+        })
+        console.log(orderInfo);
+      }
+    });
+    common.getTaskLogsByTaskId(taskId,(res) => {
+      if (res.statusCode == 200) {
+        console.log(res);
+        this.setData({
+          orderLogs: res.result
+        })
+      }
     })
   },
   switchTab: function (e) {

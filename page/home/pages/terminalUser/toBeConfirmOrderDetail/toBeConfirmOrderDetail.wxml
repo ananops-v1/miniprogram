@@ -7,34 +7,30 @@
 <!-- tabbar对应的内容 -->
 <view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
-
+ <view class="page__bd">
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="设备编号" footer="{{}}"></mp-cell>
+        <mp-cell value="设备名称" footer="{{}}"></mp-cell>
+        <mp-cell value="设备位置" footer="{{}}"></mp-cell>
+      </mp-cells>
+    </view>
+  </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
-        <mp-cell value="项目编号" footer="{{}}"></mp-cell>
-        <mp-cell value="项目名称" footer="{{}}"></mp-cell>
-        <mp-cell value="故障程度" footer="{{}}"></mp-cell>
-        <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-        <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-        <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-        <mp-cell value="设备编号" footer="{{}}"></mp-cell>
-        <mp-cell value="设备名称" footer="{{}}"></mp-cell>
-        <mp-cell value="设备位置" footer="{{}}"></mp-cell>
-        <mp-cell value="报修人" footer="{{}}"></mp-cell>
-        <mp-cell value="联系电话" footer="{{}}"></mp-cell>
+        <mp-cell value="项目编号" footer="{{orderInfo.projectId}}"></mp-cell>
+        <mp-cell value="项目名称" footer="{{orderInfo.projectId}}"></mp-cell>
+        <mp-cell value="故障程度" footer="{{orderInfo.level}}"></mp-cell>
+        <mp-cell value="故障等级" footer="{{orderInfo.projectId}}"></mp-cell>
+        <mp-cell value="故障类别" footer="{{orderInfo.projectId}}"></mp-cell>
+        <mp-cell value="故障描述" footer="{{orderInfo.projectId}}"></mp-cell>
+        <mp-cell value="报修人" footer="{{orderInfo.userId}}"></mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.call}}"></mp-cell>
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-    <view class="page__bd">
-    </view>
-  </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
-    <view class="page__bd">
-    </view>
-  </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==4 ? '' : true}}">
+  <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="单据状态" footer="{{}}"></mp-cell>
@@ -46,7 +42,6 @@
         <mp-cell value="处理意见" footer="{{}}"></mp-cell>
       </mp-cells>
     </view>
-  </view>
 </view>
 <!-- 
 <view class='order_process'>

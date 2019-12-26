@@ -57,6 +57,20 @@ class Common extends Base {
     this.request(params);
   }
 
+  //根据任务id获取任务日志
+  getTaskLogsByTaskId(taskId, callback) {
+    var params = {
+      url: `/mdmc/mdmcTask/getTaskLogs/${taskId}`,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
 }
 
 export {

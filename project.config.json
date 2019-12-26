@@ -91,20 +91,6 @@
 				},
 				{
 					"id": -1,
-					"name": "page/home/pages/uploadVideo/uploadVideo",
-					"pathName": "page/home/pages/uploadVideo/uploadVideo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "page/home/pages/toBeConfirm/toBeConfirm",
-					"pathName": "page/home/pages/toBeConfirm/toBeConfirm",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
 					"pathName": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
 					"query": "",

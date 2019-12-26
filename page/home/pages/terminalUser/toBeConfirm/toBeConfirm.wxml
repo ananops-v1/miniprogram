@@ -8,8 +8,8 @@
                 </view>
                 <view>{{order.programName}}</view>
                 <view>{{order.deviceName}}</view>
-                <view style="font-size: 13px;color: #888888;">设备位置:{{order.malfunctionLoc}}</view>
-                <view style="font-size: 13px;color: #888888;">报修时间:{{order.malfunctionDate}}</view>
+                <view style="font-size: 13px;color: #888888;">设备位置:{{order.address_name}}</view>
+                <view style="font-size: 13px;color: #888888;">报修时间:{{order.appointTime}}</view>
             </mp-cell>
         </mp-cells>
       </scroll-view>
