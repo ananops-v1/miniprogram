@@ -87,6 +87,22 @@ class Common extends Base {
     this.request(params);
   }
 
+  //修改任务状态
+  modifyTaskStatusByTaskId(taskId,param, callback) {
+    var params = {
+      url: `/mdmc/mdmcTask/modifyTaskStatusByTaskId/${taskId}`,
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
 }
 
 export {

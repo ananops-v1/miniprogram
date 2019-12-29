@@ -52,6 +52,11 @@ Page({
       }
     } else {
       app.globalData.userRole = null;
+      _this.setData({
+        userRole: app.globalData.userRole,
+        repair: null,
+        inspection: null
+      })
     }
 
     if (userInfo != '') {

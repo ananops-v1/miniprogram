@@ -143,6 +143,8 @@
       </view>
     </block>
 
+    <!-- <block wx:else>登录查看更多信息</block> -->
+
 
 
 <!-- 

@@ -1,12 +1,12 @@
 <!-- 顶部tabbar -->
-<view class="top-tab flex-wrp flex-tab " >
-  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
+<view class="top-tab flex-wrp flex-tab ">
+  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="idx" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
   </view>
 </view>
 <!-- tabbar对应的内容 -->.
 <view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+  <!-- <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
         <mp-cells ext-class="my-cells">
             <mp-cell value="项目编号" footer="{{}}"></mp-cell>
@@ -18,39 +18,48 @@
             <mp-cell value="联系电话" footer="{{}}"></mp-cell>
         </mp-cells>
     </view>
+  </view> -->
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+    <view class="page__bd">
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="设备编号" footer="{{}}">{{}}</mp-cell>
+        <mp-cell value="设备名称" footer="{{}}"></mp-cell>
+        <mp-cell value="设备位置" footer="{{orderInfo.address_name}}">{{orderInfo.address_name}}</mp-cell>
+
+      </mp-cells>
+    </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="设备编号" footer="{{}}"></mp-cell>
-            <mp-cell value="设备名称" footer="{{}}"></mp-cell>
-            <mp-cell value="设备位置" footer="{{}}"></mp-cell>
-            <mp-cell value="报修人" footer="{{}}"></mp-cell>
-            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
-        </mp-cells>
-    </view>
-  </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-    <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="故障程度" footer="{{}}"></mp-cell>
-            <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-            <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-            <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-        </mp-cells>
-    </view>
-  </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
-    <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="单据状态" footer="{{}}"></mp-cell>
-            <mp-cell value="报修单号" footer="{{}}"></mp-cell>
-            <mp-cell value="审核人" footer="{{}}"></mp-cell>
-            <mp-cell value="审核意见" footer="{{}}"></mp-cell>
-            <mp-cell value="维修人员" footer="{{}}"></mp-cell>
-            <mp-cell value="计划时间" footer="{{}}"></mp-cell>
-            <mp-cell value="处理意见" footer="{{}}"></mp-cell>
-        </mp-cells>
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="紧急程度" footer="{{orderInfo.level}}">{{orderInfo.level}}</mp-cell>
+        <mp-cell value="故障等级" footer="{{}}"></mp-cell>
+        <mp-cell value="故障类别" footer="{{}}"></mp-cell>
+        <mp-cell value="故障描述" footer="{{}}"></mp-cell>
+        <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
+        <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
+      </mp-cells>
     </view>
   </view>
 </view>
+
+<view class="page-section">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <button type="default" plain="true" bindtap="pass">接单</button>
+    </view>
+  </view>
+</view>
+
+<view class="page-section">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <button type="default" plain="true" bindtap="reject">拒接</button>
+    </view>
+  </view>
+</view>
+
+    <modal id="modal" hidden="{{hiddenmodalput}}" title="拒接原因" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <textarea placeholder="请输入拒接单原因" bindinput="reason" value="{{reason}}"></textarea>
+    </modal>

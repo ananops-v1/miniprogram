@@ -38,6 +38,7 @@ Page({
       }
     });
     common.getTaskLogsByTaskId(taskId, (res) => {
+      console.log(res);
       if (res.code == 200) {
         console.log(res.result);
         this.setData({

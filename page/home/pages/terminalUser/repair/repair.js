@@ -7,6 +7,7 @@ import {
 var repair = new Repair();
 Page({
   data: {
+    deviceNum: 1,
     hiddenmodalput: true,
     //项目数据
     programIndex: 0,
@@ -31,14 +32,14 @@ Page({
     //单位数据
     unit: '北京邮电大学',
     //故障类型数据
-    malfunctionTypeList: ['机器故障', '电气故障', '其他'],
+    malfunctionTypeList: ['摄像机', '监视器', 'NVR', '拾音器', '报警', '门禁', '电源', '其他'],
     malfunctionTypeIndex: 0,
     //故障位置数据
     malfunctionLocList: ["大门", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
     malfunctionLocIndex: 0,
     //故障名称数据
     malfunctionNameList: ["待确定", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
-    deviceTypeList: ['ATM机', '摄像头', '监控'],
+    deviceTypeList: ['摄像机', '监视器'],
     deviceTypeIndex: 0,
     malfunctionNameIndex: 0,
     //故障定位数据
@@ -64,6 +65,7 @@ Page({
       programIndex: index,
       serviceProvider: programList[index].partyBName,
       reviewer: programList[index].aoneName,
+      reviewerId: programList[index].aleaderId,
     })
   },
   //选择设备处理事件
@@ -328,7 +330,7 @@ Page({
     // this.data.malfunctionTypeList[
     var malfunctionType = _this.data.malfunctionTypeIndex;
     var deviceType = this.data.deviceTypeList[_this.data.deviceTypeIndex];
-    
+
 
     var phoneNumber = this.data.phoneNumber;
     var programList = this.data.programList;
@@ -336,7 +338,7 @@ Page({
     var contractId = programList[programIndex].contractId;
     var facilitatorId = programList[programIndex].partyBId;
     var projectId = programList[programIndex].id;
-    var principalId = _this.data.reviewer;
+    var principalId = _this.data.reviewerId;
 
     var param = {
       "appointTime": newDate,
@@ -344,7 +346,7 @@ Page({
       "facilitatorId": facilitatorId,
       "id": null,
       "level": level,
-      "principalId": '782524300140750849',
+      "principalId": principalId,
       "projectId": projectId,
       "call": phoneNumber,
       "result": 0,
@@ -364,6 +366,9 @@ Page({
         "troubleType": malfunctionType
       }],
     }
+
+    console.log(param);
+
     repair.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
@@ -372,13 +377,13 @@ Page({
         })
       } else {
         wx.showToast({
-          title: res.data.message,
+          title: '工单创建失败',
           icon: 'none',
           duration: 2000
         })
       }
     })
-    // console.log("提交成功")
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -419,7 +424,8 @@ Page({
           programList: project,
           programNameList: programNameList,
           serviceProvider: project[0].partyBName,
-          reviewer: project[0].aoneName
+          reviewer: project[0].aoneName,
+          reviewerId: project[0].aleaderId,
         })
       }
     })
@@ -431,6 +437,25 @@ Page({
     var userInfo = wx.getStorageSync('userInfo');
     console.log(userInfo);
   },
+
+  adddevice: function() {
+    var deviceNum = this.data.deviceNum;
+    deviceNum++;
+    console.log(deviceNum);
+    this.setData({
+      deviceNum: deviceNum
+    })
+  },
+
+  removedevice: function() {
+    var deviceNum = this.data.deviceNum;
+    deviceNum--;
+    if (deviceNum > 0) {
+      this.setData({
+        deviceNum: deviceNum
+      })
+    }
+  }
 
 
 })
