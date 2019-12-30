@@ -36,12 +36,27 @@ Page({
 
   accountsAndSecurity: function() {
     AUTH.checkHasLogined();
+    wx.showToast({
+      title: "相关功能开发中",
+      icon: 'none',
+      duration: 2000,
+    })
   },
   configPrivacy: function() {
     AUTH.checkHasLogined();
+    wx.showToast({
+      title: "相关功能开发中",
+      icon: 'none',
+      duration: 2000,
+    })
   },
   configUniversal: function() {
     AUTH.checkHasLogined();
+    wx.showToast({
+      title: "相关功能开发中",
+      icon: 'none',
+      duration: 2000,
+    })
   },
   configFeedback: function() {
     wx.navigateTo({

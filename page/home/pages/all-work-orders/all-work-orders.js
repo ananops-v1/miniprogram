@@ -88,13 +88,11 @@ Page({
           title: "没有工单",
           icon: 'none',
           duration: 2000,
-          // success: function () {
-          //   setTimeout(function () {
-          //     wx.navigateBack({//返回
-          //       delta: 1
-          //     })
-          //   }, 2000)
-          // }
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 2000)
+          }
         })
       }
     })

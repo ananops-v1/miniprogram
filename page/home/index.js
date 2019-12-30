@@ -71,6 +71,9 @@ Page({
       console.log(param);
       common.getTaskListByIdAndStatus(param, (res) => {
         var allRepairerOrder = res.result;
+        _this.setData({
+          allRepairerOrder: allRepairerOrder
+        })
         console.log(allRepairerOrder);
         AUTH.homeInitial(allRepairerOrder);
         var userRole = userInfo.roles[0].roleCode;

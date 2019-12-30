@@ -91,13 +91,6 @@
 				},
 				{
 					"id": -1,
-					"name": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
-					"pathName": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "page/home/pages/orderDetail/orderDetail",
 					"pathName": "page/home/pages/orderDetail/orderDetail",
 					"query": "",

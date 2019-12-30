@@ -33,7 +33,7 @@
   <view class="page__bd">
     <mp-cells ext-class="my-cells">
     <mp-cell value="报修单号" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-      <mp-cell value="单据状态" footer="{{orderInfo.status}}">{{orderInfo.status}}</mp-cell>
+      <mp-cell value="单据状态" footer="{{workOrderStatus[orderInfo.status]}}">{{workOrderStatus[orderInfo.status]}}</mp-cell>
       <mp-cell value="审核人" footer="{{}}"></mp-cell>
       <mp-cell value="审核意见" footer="{{}}"></mp-cell>
       <mp-cell value="维修人员" footer="{{orderInfo.maintainerId}}">{{orderInfo.maintainerId}}</mp-cell>

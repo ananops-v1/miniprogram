@@ -3,12 +3,17 @@ import {
   Common
 } from '../../../../common/base_model.js'
 
+import {
+  Config
+} from '../../../../../config.js';
+
 var common = new Common();
 
 Page({
   data: {
     navTab: ["设备信息", "故障信息", "审核信息"],
-    currentNavtab: "0"
+    currentNavtab: "0",
+    workOrderStatus: Config.workOrderStatus
   },
 
   onLoad: function(e) {

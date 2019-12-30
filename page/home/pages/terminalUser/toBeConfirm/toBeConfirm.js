@@ -7,6 +7,10 @@ import {
   Common
 } from '../../../../common/base_model.js';
 
+import {
+  Config
+} from '../../../../../config.js';
+
 var common = new Common();
 var app = getApp();
 
@@ -16,6 +20,7 @@ Page({
    */
   data: {
     orderList: [],
+    workOrderStatus: Config.workOrderStatus
 
   },
   //点击进入详情
