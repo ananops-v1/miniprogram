@@ -9,6 +9,7 @@ Page({
   data: {
     navTab: ["设备信息", "故障信息", "维修信息"],
     currentNavtab: "0",
+    hiddenmodalput: true
   },
   onLoad: function (e) {
     var taskId = e.id;
@@ -47,6 +48,35 @@ Page({
     })
 
 
+  },
+
+  //添加故障描述
+  chooseSuggestion: function (e) {
+    //添加弹出文本框
+    this.setData({
+      hiddenmodalput: false
+    })
+  },
+  cancel: function () {
+    this.setData({
+      hiddenmodalput: true,
+      suggestion: ''
+    })
+  },
+  confirm: function (e) {
+    console.log(this.data.suggestion);
+    this.setData({
+      hiddenmodalput: true
+    })
+  },
+
+  suggestion: function (e) {
+    var orderInfo = this.data.orderInfo;
+    orderInfo.suggestion = e.detail.value;
+    this.setData({
+      suggestion: e.detail.value,
+      orderInfo:orderInfo
+    })
   },
 
   switchTab: function (e) {

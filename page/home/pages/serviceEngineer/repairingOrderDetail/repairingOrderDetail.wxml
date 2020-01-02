@@ -32,8 +32,15 @@
       <mp-cells ext-class="my-cells">
         <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
         <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-        <mp-cell value="维修建议" footer="{{orderInfo.suggestion}}">
-          <view class="page-section">
+        <mp-cell value="维修建议" footer="{{orderInfo.suggestion}}" bindtap="chooseSuggestion">
+          {{orderInfo.suggestion}}
+        </mp-cell>
+
+                <modal id="modal" hidden="{{hiddenmodalput}}" title="维修建议" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+          <textarea placeholder="请输入维修建议" bindinput="suggestion" value="{{suggestion}}"></textarea>
+        </modal>
+
+        <!-- <view class="page-section">
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
@@ -45,8 +52,8 @@
                 </view>
               </view>
             </view>
-          </view>
-        </mp-cell>
+          </view> -->
+
         <mp-cell value="备品备件" footer="{{orderInfo.result}}">
           <view class="page-section">
             <view class="weui-cells weui-cells_after-title">

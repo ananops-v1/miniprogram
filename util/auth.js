@@ -26,6 +26,8 @@ function checkHasLogined() {
         }
       }
     })
+  } else {
+    return true;
   }
 }
 

@@ -263,6 +263,7 @@ Page({
   },
   //添加故障描述
   chooseDescribe: function(e) {
+    console.log(123);
     //添加弹出文本框
     this.setData({
       hiddenmodalput: false
