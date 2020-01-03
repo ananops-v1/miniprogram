@@ -96,7 +96,6 @@ Page({
       var orderList = res.result;
       var orderListArray = [];
       console.log(orderList);
-      console.log(orderList.length)
       if (orderList != null && orderList.length > 0) {
         for (var i = 0; i < orderList.length; i++) {
           var taskList = orderList[i].taskList;
