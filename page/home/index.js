@@ -23,9 +23,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
     console.log('Bearer ' + wx.getStorageSync('tokenInfo').access_token);
-    
+
   },
 
   /**
@@ -33,9 +32,23 @@ Page({
    */
   onShow: function() {
     this.getAllstatusOrder();
+    var userInfo = wx.getStorageSync('userInfo');
+    var userRole = userInfo.roles[0].roleCode;
+    var statusArray = new Array();
+    if (userRole == 'user_watcher') {
+      statusArray = [12];
+    } else if (userRole == 'user_manager') {
+      statusArray = [2,6,10,12];
+    } else if (userRole == 'fac_manager') {
+      statusArray = [2,6,10,11];
+    } else if (userRole == 'engineer') {
+      statusArray = [5,6,7];
+    }
+   
+    this.getOrderByStatus(statusArray);
   },
 
-  getAllstatusOrder:function () {
+  getAllstatusOrder: function() {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');
     if (userInfo != '') {
@@ -49,6 +62,13 @@ Page({
         app.globalData.userRole = 2;
       } else if (userRole == 'engineer') {
         app.globalData.userRole = 3;
+      } else {
+        app.globalData.userRole = null;
+        _this.setData({
+          userRole: app.globalData.userRole,
+          repair: null,
+          inspection: null
+        })
       }
     } else {
       app.globalData.userRole = null;
@@ -88,23 +108,55 @@ Page({
     }
   },
 
-  upper(e) {
-    console.log(e)
-  },
+  getOrderByStatus: function (statusArray) {
+    var _this = this;
+    var userInfo = wx.getStorageSync('userInfo');
+    var param = {
+      "id": userInfo.id,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 0,
+      "roleCode": userInfo.roles[0].roleCode,
+      "status": statusArray
+    };
 
-  lower(e) {
-    console.log(e)
-  },
-
-  scroll(e) {
-    console.log(e)
-  },
-
-  scrollToTop() {
-    this.setAction({
-      scrollTop: 0
+    common.getTaskListByIdAndStatusArrary(param, (res) => {
+      var orderList = res.result;
+      var orderListArray = [];
+      console.log(orderList);
+      if (orderList != null && orderList.length > 0) {
+        for (var i = 0; i < orderList.length; i++) {
+          var taskList = orderList[i].taskList;
+          for (var j = 0; j < taskList.length; j++) {
+            orderListArray.push(taskList[j]);
+          }
+        }
+      }
+      console.log(orderListArray);
+      this.setData({
+        orderList: orderListArray
+      })
     })
   },
+
+  // upper(e) {
+  //   console.log(e)
+  // },
+
+  // lower(e) {
+  //   console.log(e)
+  // },
+
+  // scroll(e) {
+  //   console.log(e)
+  // },
+
+  // scrollToTop() {
+  //   this.setAction({
+  //     scrollTop: 0
+  //   })
+  // },
+
   clickOrder(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({

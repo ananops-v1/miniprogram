@@ -361,7 +361,7 @@ Page({
         "deviceLatitude": latitude,
         "deviceLongitude": longitude,
         "deviceType": deviceType,
-        "id": 0,
+        "id": null,
         "level": malfunctionRank,
         "taskId": 0,
         "troubleType": malfunctionType

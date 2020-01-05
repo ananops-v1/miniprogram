@@ -103,6 +103,22 @@ class Common extends Base {
     this.request(params);
   }
 
+//根据项目Id获取工程师列表
+  getEngineersByProjectId(projectId,callBack) {
+    var params = {
+      url: `/spc/api/engineer/getEngineersByProjectId/${projectId}`,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+
 }
 
 export {

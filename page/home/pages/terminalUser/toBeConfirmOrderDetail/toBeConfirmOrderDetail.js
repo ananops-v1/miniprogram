@@ -13,7 +13,9 @@ Page({
   data: {
     navTab: ["设备信息", "故障信息", "审核信息"],
     currentNavtab: "0",
-    workOrderStatus: Config.workOrderStatus
+    workOrderStatus: Config.workOrderStatus,
+    urgentLevel: Config.urgentLevel,
+    faultLevel: Config.faultLevel
   },
 
   onLoad: function(e) {

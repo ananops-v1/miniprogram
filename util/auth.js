@@ -117,8 +117,9 @@ function homeInitial(allRepairerOrder) {
   //值机员
   Config.repair[0][1].num = answer.quxiao + answer.shenhezhong1 + answer.jiedan1 + answer.jiedan2;
   Config.repair[0][2].num = answer.zhixing;
-  Config.repair[0][3].num = answer.daiqueren;
-  Config.repair[0][4].num = answer.daipingjia;
+  Config.repair[0][3].num = answer.daipingjia;
+  // Config.repair[0][3].num = answer.daiqueren;
+  // Config.repair[0][4].num = answer.daipingjia;
   //甲方负责人
   Config.repair[1][0].num = answer.shenhezhong1 + answer.beijian + answer.daiqueren;
   Config.repair[1][1].num = answer.daizhifu;

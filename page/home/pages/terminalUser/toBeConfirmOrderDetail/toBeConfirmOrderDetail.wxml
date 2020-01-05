@@ -20,10 +20,11 @@
 <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
   <view class="page__bd">
     <mp-cells ext-class="my-cells">
-      <mp-cell value="紧急程度" footer="{{orderInfo.level}}">{{orderInfo.level}}</mp-cell>
+      <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
       <mp-cell value="故障等级" footer="{{}}"></mp-cell>
       <mp-cell value="故障类别" footer="{{}}"></mp-cell>
       <mp-cell value="故障描述" footer="{{}}"></mp-cell>
+      <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
       <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
       <mp-cell value="联系电话" footer="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
     </mp-cells>
