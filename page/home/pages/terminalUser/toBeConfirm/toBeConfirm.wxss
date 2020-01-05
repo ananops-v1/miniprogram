@@ -1,8 +1,27 @@
 @import '../../../../common/lib/common.wxss';
-.container{
-  height: 1500rpx;
-  
+
+.container {
 }
+
 .blue {
   background: blue;
+}
+
+.operation_view {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  padding: 10rpx 10rpx 10rpx;
+  height: auto !important;
+  overflow: hidden;
+}
+
+.operation_button {
+  width: 120rpx;
+  border-radius: 38rpx;
+  border: 1rpx solid rgb(102, 102, 102);
+  color: grey;
+  background-color: white;
+  text-align: center;
+  margin: 5rpx;
 }

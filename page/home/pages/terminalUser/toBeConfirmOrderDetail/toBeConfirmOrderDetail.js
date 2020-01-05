@@ -1,50 +1,71 @@
 //discovery.js
+import {
+  Common
+} from '../../../../common/base_model.js'
+
+import {
+  Config
+} from '../../../../../config.js';
+
+var common = new Common();
+
 Page({
   data: {
-    navTab: ["处理进度", "工单详情", "维修详情", "备品备件","审核详情"],
+    navTab: ["设备信息", "故障信息", "审核信息"],
     currentNavtab: "0",
-    processData: [{
-      name: '提交工单',
-      start: '#fff',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '已接单',
-      start: '#EFF3F6',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '开始维修',
-      start: '#EFF3F6',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '维修结束',
-      start: '#EFF3F6',
-      end: '#EFF3F6',
-      icon: '/imgs/others/process_1.png'
-    },
-    {
-      name: '已确认',
-      start: '#EFF3F6',
-      end: '#fff',
-      icon: '/imgs/others/process_1.png'
-    }],
+    workOrderStatus: Config.workOrderStatus,
+    urgentLevel: Config.urgentLevel,
+    faultLevel: Config.faultLevel
   },
-  onLoad: function () {
+
+  onLoad: function(e) {
+    var taskId = e.id;
+    this.setData({
+      taskId:taskId
+    })
   },
-  switchTab: function (e) {
+
+  onShow: function() {
+    this.getTaskByTaskId();
+  },
+
+
+  getTaskByTaskId: function() {
+
+    var taskId = this.data.taskId;
+
+    common.getTaskByTaskId(taskId, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        var orderInfo = res.result;
+        console.log(orderInfo);
+        this.setData({
+          orderInfo: orderInfo
+        })
+      }
+    });
+    common.getTaskLogsByTaskId(taskId, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log(res.result);
+        this.setData({
+          orderLogs: res.result
+        })
+      }
+    })
+
+
+  },
+
+  switchTab: function(e) {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
 
   //进度条的状态
-  setPeocessIcon: function () {
-    var index = 0//记录状态为1的最后的位置
+  setPeocessIcon: function() {
+    var index = 0 //记录状态为1的最后的位置
     var processArr = this.data.processData
     // console.log("progress", this.data.detailData.progress)
     for (var i = 0; i < this.data.detailData.progress.length; i++) {
@@ -69,4 +90,8 @@ Page({
       processData: processArr
     })
   },
+
+  getTaskById: function() {
+
+  }
 });

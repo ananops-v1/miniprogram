@@ -1,6 +1,12 @@
 // page/toBeConfirm/toBeConfirm.js
 
 const AUTH = require('../../../../../util/auth')
+const UTIL = require('../../../../../util/util')
+
+import {
+  Common
+} from '../../../../common/base_model.js'
+var common = new Common();
 
 Page({
 
@@ -8,96 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //待确认工单列表
-    orderListLength: 8,
-    orderList: [
-      {
-        id: 1,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 2,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 3,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 4,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 5,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 6,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 7,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 8,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-    ],
-    nextdata: [
-      {
-        id: 13,
-        programName: "刷新项",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 14,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 15,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      },
-      {
-        id: 16,
-        programName: "工商西直门分行ATM维修项目",
-        deviceName: "012ATM机",
-        malfunctionLoc: "前门左侧",
-        malfunctionDate: "2019-11-27 19:37:49"
-      }
-    ],
+    
   },
   //点击进入详情
   clickOrder: function (e) {
@@ -133,16 +50,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
+    // var that = this
     //调用应用实例的方法获取全局数据
-    this.refresh();
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+    // this.refresh();
   },
 
   /**
@@ -150,33 +60,49 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
+    this.getOrderByStatus(5);
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
 
-  },
+  getOrderByStatus: function (status) {
+    var _this = this;
+    var userInfo = wx.getStorageSync('userInfo');
+    var param = {
+      "id": userInfo.id,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 0,
+      "roleCode": userInfo.roles[0].roleCode,
+      "status": status
+    };
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+    common.getTaskListByIdAndStatus(param, (res) => {
+      var orderList = res.result;
+      if (orderList != null && orderList.length > 0) {
+        this.setData({
+          orderList: orderList
+        })
+      } else {
+        wx.showToast({
+          title: "没有相关工单",
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack({//返回
+                delta: 1
+              })
+            }, 2000)
+          }
+        })
+      }
+    })
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

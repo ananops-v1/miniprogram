@@ -49,3 +49,15 @@
   border-radius: 130rpx;
   margin: 0 auto;
 }
+
+.title-view {
+  display: flex;
+  font-size: 40rpx;
+  margin: 20rpx
+}
+
+.title-view image {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+}

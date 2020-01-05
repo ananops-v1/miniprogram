@@ -143,42 +143,37 @@
       </view>
     </block>
 
-
-
-<!-- 
-    <view wx:if="{{userRole != null}}" class="page-section">
+    <!-- <block wx:else>登录查看更多信息</block> -->
+ <!-- class="page-section" -->
+    <view wx:if="{{orderList != null}}" class="upcoming_view">
       <view class="kind-list-item-hd">
         <view class="kind-list-text">待办事项</view>
-        <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator>
-        <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
+        <!-- <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator> -->
+        <!-- <image class="kind-list-img" src="/imgs/icon/arrow.png"></image> -->
       </view>
 
       <view class="page-body-line"></view>
 
-      <view class="page-section-spacing">
-        <scroll-view scroll-y="true" style="height: 300rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-          <view wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
-            <view slot="title" style="position: relative;margin-right: 10px;">
-              <image src="../../imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block" />
-            </view>
-            <view>{{order.programName}}</view>
-            <view>{{order.deviceName}}</view>
-            <view style="font-size: 13px;color: #888888;">设备位置:{{order.malfunctionLoc}}</view>
-            <view style="font-size: 13px;color: #888888;">报修时间:{{order.malfunctionDate}}</view>
-          
-          <view class="page-body-line"></view>
-
-          </view>
-
-        </scroll-view>
+      <view class="page">
+        <view class="page__bd">
+          <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
+          <scroll-view scroll-y="true" class="container discovery">
+            <mp-cells>
+              <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{orderList.id}}" bindtap="clickOrder">
+                <view slot="title" class="mp-cell-title">
+                  <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
+                </view>
+                <view>{{order.programName}}</view>
+                <view>{{order.deviceName}}</view>
+                <view class="mp-cell-view">设备位置:{{order.address_name}}</view>
+                <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
+              </mp-cell>
+            </mp-cells>
+          </scroll-view>
+        </view>
       </view>
 
-      
-    </view> -->
-
+    </view>
   </view>
-
-
-
 
 </view>

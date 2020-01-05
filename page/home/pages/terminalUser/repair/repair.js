@@ -1,20 +1,21 @@
 // page/repair/repair.js
 const AUTH = require('../../../../../util/auth.js')
+const UTIL = require('../../../../../util/util.js')
 import {
   Repair
 } from 'repair_model.js';
 var repair = new Repair();
 Page({
   data: {
+    deviceNum: 1,
     hiddenmodalput: true,
     //项目数据
-    //programList: ['项目1', '项目2', '项目3', '项目4', '项目5', '项目6'],
-    //programIndex: 0,
+    programIndex: 0,
     //设备数据
-    //deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
+    deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
     //deviceIndex: 0,
     //日期数据
-    date: '2016-09-01',
+    date: '2019-12-24',
     time: '12:01',
     //录音数据
     showRecoder: false,
@@ -31,25 +32,24 @@ Page({
     //单位数据
     unit: '北京邮电大学',
     //故障类型数据
-    malfunctionTypeList: ['机器故障', '电气故障', '其他'],
+    malfunctionTypeList: ['摄像机', '监视器', 'NVR', '拾音器', '报警', '门禁', '电源', '其他'],
     malfunctionTypeIndex: 0,
     //故障位置数据
     malfunctionLocList: ["大门", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
     malfunctionLocIndex: 0,
     //故障名称数据
     malfunctionNameList: ["待确定", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
+    deviceTypeList: ['摄像机', '监视器'],
+    deviceTypeIndex: 0,
     malfunctionNameIndex: 0,
     //故障定位数据
     mapLocation: '点击此处选择位置',
     //紧急程度数据
-    urgentTypeList: ['紧急', '一般', '其他'],
+    urgentTypeList: ['紧急', '中等', '一般'],
     urgentTypeIndex: 0,
     //故障等级数据
     malfunctionRankList: ['p0', 'p1', '其他'],
     malfunctionRankIndex: 0,
-    //服务提供商数据 具备默认服务提供商
-    serviceProviderList: ['服务提供商1', '服务提供商2', '服务提供商3'],
-    serviceProviderIndex: 0,
     //故障描述数据
     textContent: '点击此处添加内容',
     //审核人数据
@@ -59,8 +59,13 @@ Page({
   //选择项目处理事件
   clickChoosePro: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    var index = e.detail.value;
+    var programList = this.data.programList;
     this.setData({
-      programIndex: e.detail.value
+      programIndex: index,
+      serviceProvider: programList[index].partyBName,
+      reviewer: programList[index].aoneName,
+      reviewerId: programList[index].aleaderId,
     })
   },
   //选择设备处理事件
@@ -229,8 +234,8 @@ Page({
         console.log(res)
         that.setData({
           mapLocation: res.address,
-          latitude:res.latitude,
-          longitude:res.longitude
+          latitude: res.latitude,
+          longitude: res.longitude
         })
       }
     })
@@ -258,9 +263,10 @@ Page({
   },
   //添加故障描述
   chooseDescribe: function(e) {
+    console.log(123);
     //添加弹出文本框
     this.setData({
-      hiddenmodalput:false
+      hiddenmodalput: false
     })
   },
   cancel: function() {
@@ -269,15 +275,15 @@ Page({
       describe: ''
     })
   },
-  confirm:function(e) {
+  confirm: function(e) {
     this.setData({
       hiddenmodalput: true
     })
   },
 
-  describe:function(e) {
+  describe: function(e) {
     this.setData({
-      describe:e.detail.value
+      describe: e.detail.value
     })
   },
 
@@ -300,97 +306,157 @@ Page({
       reviewerIndex: e.detail.value
     })
   },
+  clickDeviceType(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      deviceTypeIndex: e.detail.value
+    })
+  },
   //提交处理事件
   clickSubmit() {
     //检查工单填写情况
-    // var param = {
+    var _this = this;
+    var date = this.data.date + " " + this.data.time;
+    var newDate = new Date(date);
+    // this.data.urgentTypeList[
+    var level = _this.data.urgentTypeIndex;
+    var userId = wx.getStorageSync('userInfo').id;
+    var description = this.data.textContent;
+    if (description == "点击此处添加内容") {
+      description = "";
+    }
+    var latitude = this.data.latitude;
+    var longitude = this.data.longitude;
+    var malfunctionRank = this.data.malfunctionRankList[_this.data.malfunctionRankIndex];
+    // this.data.malfunctionTypeList[
+    var malfunctionType = _this.data.malfunctionTypeIndex;
+    var deviceType = this.data.deviceTypeList[_this.data.deviceTypeIndex];
 
-    // }
+
+    var phoneNumber = this.data.phoneNumber;
+    var programList = this.data.programList;
+    var programIndex = this.data.programIndex;
+    var contractId = programList[programIndex].contractId;
+    var facilitatorId = programList[programIndex].partyBId;
+    var projectId = programList[programIndex].id;
+    var principalId = _this.data.reviewerId;
 
     var param = {
-      "appointTime": "2019-12-22T12:38:09.396Z",
-      "contractId": 0,
-      "facilitatorId": 0,
-      "id": 0,
-      "level": 0,
-      "mdmcAddTaskItemDtoList": [{
-        "description": "string",
-        "deviceId": 0,
-        "deviceLatitude": 0,
-        "deviceLongitude": 0,
-        "deviceType": "string",
-        "id": 0,
-        "level": "string",
-        "taskId": 0,
-        "troubleType": 0
-      }],
-      "principalId": 0,
-      "projectId": 0,
+      "appointTime": newDate,
+      "contractId": contractId,
+      "facilitatorId": facilitatorId,
+      "id": null,
+      "level": level,
+      "principalId": principalId,
+      "projectId": projectId,
+      "call": phoneNumber,
       "result": 0,
-      "suggestion": "string",
-      "title": "string",
+      "suggestion": "",
+      "title": "",
       "totalCost": 0,
-      "userId": 0
+      "userId": userId,
+      "mdmcAddTaskItemDtoList": [{
+        "description": description,
+        "deviceId": 0,
+        "deviceLatitude": latitude,
+        "deviceLongitude": longitude,
+        "deviceType": deviceType,
+        "id": null,
+        "level": malfunctionRank,
+        "taskId": 0,
+        "troubleType": malfunctionType
+      }],
     }
 
-    console.log("param:" + param);
+    console.log(param);
 
     repair.createRepair(param, (res) => {
       console.log(res);
+      if (res.code == 200) {
+        wx.showToast({
+          title: '添加成功',
+        })
+      } else {
+        wx.showToast({
+          title: '工单创建失败',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     })
 
-
-    console.log("提交成功")
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var this_ = this;
-    var userObject = wx.getStorageSync('userObject');
-    var groupId = wx.getStorageSync('userObject').groupId;
-    var param = {
-      'groupId': 1000
-    }
-    repair.getProjectByGroupId(param, (res) => { //拿到用户对应的项目，供用户选择
-      console.log(res);
-      var project = res.result;
-      this.setData({
-        program: project[0].projectName,
-        projectId: project[0].id
-      })
-      //   var programNameList = [];
-      //   var providerNameList = [];
-      //   var res = res.result;
-      //   for (var i = 0; i < res.length; i++) {
-      //     programNameList.push(res[i].projectName);
-      //     providerNameList.push(res[i].partyBName);
-      //   }
-      //   this_.setData({
-      //     programList: res,
-      //     programNameList: programNameList,
-      //     programId: res[0].id,
-      //     providerNameList: providerNameList,
-      //     providerIndex: 0,
-      //     providerId: res[0].partyBId
-      //   })
-      //   this_.initTable(res[0].id)
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
 
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    AUTH.checkHasLogined();
+    var userObject = wx.getStorageSync('userObject');
+    this.setData({
+      phoneNumber: userObject.mobileNo
+    })
+    this.gerProject();
   },
+
+  //获取项目相关信息
+  gerProject: function() {
+    var this_ = this;
+    var userObject = wx.getStorageSync('userObject');
+    console.log(userObject);
+    var groupId = wx.getStorageSync('userObject').groupId;
+    var param = {
+      'groupId': groupId
+    }
+    repair.getProjectByGroupId(param, (res) => { //拿到用户对应的项目，供用户选择
+      console.log(res);
+      var project = res.result;
+      if (project.length > 0) {
+        var programNameList = [];
+        for (var i = 0; i < project.length; i++) {
+          programNameList.push(project[i].projectName);
+        }
+        this.setData({
+          programList: project,
+          programNameList: programNameList,
+          serviceProvider: project[0].partyBName,
+          reviewer: project[0].aoneName,
+          reviewerId: project[0].aleaderId,
+        })
+      }
+    })
+  },
+
+  //获取服务商相关信息
+
+  getServiceProvider: function() {
+    var userInfo = wx.getStorageSync('userInfo');
+    console.log(userInfo);
+  },
+
+  adddevice: function() {
+    var deviceNum = this.data.deviceNum;
+    deviceNum++;
+    console.log(deviceNum);
+    this.setData({
+      deviceNum: deviceNum
+    })
+  },
+
+  removedevice: function() {
+    var deviceNum = this.data.deviceNum;
+    deviceNum--;
+    if (deviceNum > 0) {
+      this.setData({
+        deviceNum: deviceNum
+      })
+    }
+  }
 
 
 })

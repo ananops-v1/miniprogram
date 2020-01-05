@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.10.0",
 	"appid": "wxbce429dfe2ff1791",
 	"projectname": "ananops",
 	"debugOptions": {
@@ -52,15 +52,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": -1,
 			"list": [
-				{
-					"id": -1,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
 				{
 					"id": 1,
 					"name": "page/home/index",
@@ -98,27 +91,6 @@
 				},
 				{
 					"id": -1,
-					"name": "page/home/pages/uploadVideo/uploadVideo",
-					"pathName": "page/home/pages/uploadVideo/uploadVideo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "page/home/pages/toBeConfirm/toBeConfirm",
-					"pathName": "page/home/pages/toBeConfirm/toBeConfirm",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
-					"pathName": "page/home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "page/home/pages/orderDetail/orderDetail",
 					"pathName": "page/home/pages/orderDetail/orderDetail",
 					"query": "",
@@ -126,22 +98,8 @@
 				},
 				{
 					"id": -1,
-					"name": "page/home/pages/inspection/inspection",
-					"pathName": "page/home/pages/inspection/inspection",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "page/my/index",
 					"pathName": "page/my/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "page/test/test",
-					"pathName": "page/test/test",
 					"query": "",
 					"scene": null
 				},
@@ -184,6 +142,21 @@
 					"id": -1,
 					"name": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
 					"pathName": "page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/my/pages/contact/contact",
+					"pathName": "page/my/pages/contact/contact",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/serviceProvider/toBeCheck/toBeCheck",
+					"pathName": "page/home/pages/serviceProvider/toBeCheck/toBeCheck",
+					"query": "",
 					"scene": null
 				}
 			]

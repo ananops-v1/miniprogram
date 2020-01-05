@@ -91,6 +91,7 @@ icon {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
+            white-space: nowrap;
 }
 .weui-cell__ft {
   text-align: right;

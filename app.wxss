@@ -274,7 +274,7 @@ input {
 
 .userinfo {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   margin: 13rpx 13rpx;
 }
@@ -502,4 +502,20 @@ input {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.mp-cell-title {
+  position: relative;
+  margin-right: 20rpx;
+}
+
+.mp-cell-image {
+  width: 150rpx; 
+  height: 150rpx; 
+  display: block
+}
+
+.mp-cell-view {
+  font-size: 30rpx;
+  color: #888888;
 }

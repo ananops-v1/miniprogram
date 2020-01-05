@@ -1,10 +1,12 @@
-// page/test/test.js
+// page/my/pages/aboutus/aboutus.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+
+    aboutus:"安安运维（北京）科技有限公司是在北京安全防范行业协会各级领导的指导下成立，是国内首家以维修维护为核心业务的安防系统效能提升和综合解决方案服务平台。"
 
   },
 
@@ -62,8 +64,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  getname: function (e) {
-    console.log(e);
   }
 })

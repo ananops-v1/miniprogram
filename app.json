@@ -1,11 +1,12 @@
 {
   "pages": [
     "page/home/index",
-    "page/test/test",
     "page/message/index",
     "page/my/index",
-    "page/home/pages/all-work-orders/all-work-orders",
+    "page/my/pages/aboutus/aboutus",
     "page/my/pages/login/login",
+    "page/my/pages/contact/contact",
+    "page/home/pages/all-work-orders/all-work-orders",
     "page/home/pages/uploadImage/uploadImage",
     "page/home/pages/uploadVideo/uploadVideo",
     "page/home/pages/terminalUser/repair/repair",

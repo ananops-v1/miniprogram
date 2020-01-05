@@ -12,27 +12,27 @@
 
   <view class="my">
     <view class="my-item flex-wrp">
-      <view class="myitem-name flex-item" bindtap="login">
+      <view class="myitem-name flex-item" bindtap="accountsAndSecurity">
         <text>账户与安全</text>
       </view>
     </view>
     <view class="my-item flex-wrp">
-      <view class="myitem-name flex-item">
+      <view class="myitem-name flex-item" bindtap="configPrivacy">
         <text>隐私</text>
       </view>
     </view>
     <view class="my-item flex-wrp">
-      <view class="myitem-name flex-item">
+      <view class="myitem-name flex-item" bindtap="configUniversal">
         <text>通用</text>
       </view>
     </view>
     <view class="my-item flex-wrp">
-      <view class="myitem-name flex-item">
+      <view class="myitem-name flex-item" bindtap="configFeedback">
         <text>问题反馈</text>
       </view>
     </view>
     <view class="my-item flex-wrp">
-      <view class="myitem-name flex-item">
+      <view class="myitem-name flex-item" bindtap="aboutUs">
         <text>关于安安运维</text>
       </view>
     </view>

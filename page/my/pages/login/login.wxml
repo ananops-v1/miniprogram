@@ -23,7 +23,7 @@
           </view>
           
           <view class="imagecode-view">
-          <image class="imageCode" src="{{imageCode}}"></image>
+          <image class="imageCode" src="data:image/png;charset=utf-8;base64, {{imageCode}}"></image>
           <view bindtap = "refreshImagecode">刷新</view>
           </view>
 

@@ -7,18 +7,16 @@ Page({
     userInfo: {}
   },
   //事件处理函数
-  bindViewTap: function () {
+  bindViewTap: function() {
     wx.navigateTo({
       url: ''
     })
   },
-  onLoad: function () {
-    
+  onLoad: function() {
+
   },
-  login:function () {
-    AUTH.checkHasLogined();
-  },
-  onShow: function () {
+
+  onShow: function() {
     var userInfo = wx.getStorageSync('tokenInfo');
     if (userInfo != undefined && userInfo != null && userInfo != '') {
       this.setData({
@@ -31,8 +29,48 @@ Page({
     }
   },
 
-  exit: function () {
+  exit: function() {
     AUTH.exit();
     this.onShow();
-  }
-}) 
+  },
+
+  accountsAndSecurity: function() {
+    if (AUTH.checkHasLogined()) {
+      wx.showToast({
+        title: "相关功能开发中",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+
+  },
+  configPrivacy: function() {
+    if (AUTH.checkHasLogined()) {
+      wx.showToast({
+        title: "相关功能开发中",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+  },
+  configUniversal: function() {
+    if (AUTH.checkHasLogined()) {
+      wx.showToast({
+        title: "相关功能开发中",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+  },
+  configFeedback: function() {
+    wx.navigateTo({
+      url: "../../../../my/pages/contact/contact",
+    })
+  },
+
+  aboutUs: function() {
+    wx.navigateTo({
+      url: "../../../../my/pages/aboutus/aboutus",
+    })
+  },
+})

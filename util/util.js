@@ -1,3 +1,8 @@
+import {
+  Common
+} from '../page/common/base_model.js';
+var common = new Common();
+
 const formatTime = timestamp => {
   var date = new Date(timestamp);
   var Y = date.getFullYear() + '-';
@@ -105,6 +110,39 @@ function compareVersion(v1, v2) {
   return 0
 }
 
+function getOrderByStatus(status) {
+  var _this = this;
+  var userInfo = wx.getStorageSync('userInfo');
+  var param = {
+    "id": userInfo.id,
+    "orderBy": "string",
+    "pageNum": 0,
+    "pageSize": 0,
+    "roleCode": userInfo.roles[0].roleCode,
+    "status": status
+  };
+
+  common.getTaskListByIdAndStatus(param, (res) => {
+    var orderList = res.result;
+    if (orderList != null && orderList.length > 0) {
+      
+    } else {
+      wx.showToast({
+        title: "没有相关工单",
+        icon: 'none',
+        duration: 2000,
+        success: function () {
+          setTimeout(function () {
+            wx.navigateBack({//返回
+              delta: 1
+            })
+          }, 2000)
+        }
+      })
+    }
+  })
+}
+
 
 module.exports = {
   formatTime,
@@ -112,5 +150,6 @@ module.exports = {
   fib,
   formatDateTime,
   compareVersion,
-  identityFilter
+  identityFilter,
+  getOrderByStatus
 }
