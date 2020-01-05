@@ -9,6 +9,17 @@
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
         <mp-cells ext-class="my-cells">
+            <mp-cell value="巡检名称" footer="{{inspectionDetail.taskName}}"></mp-cell>
+            <mp-cell value="巡检周期" footer="{{inspectionDetail.frequency}}天"></mp-cell>
+            <mp-cell value="开始时间" footer="{{inspectionDetail.scheduledStartTime}}"></mp-cell>
+            <mp-cell value="计划完成时间" footer="{{inspectionDetail.days}}天"></mp-cell>
+            <mp-cell value="巡检内容" footer="{{xxxx}}"></mp-cell>
+            <mp-cell value="巡检备注" footer="{{inspectionDetail.remark}}"></mp-cell>
+            <mp-cell value="服务商" footer="{{xxxx}}"></mp-cell>
+        </mp-cells>
+    </view>
+    <!-- <view class="page__bd">
+        <mp-cells ext-class="my-cells">
             <mp-cell value="项目编号" footer="{{}}"></mp-cell>
             <mp-cell value="项目名称" footer="{{}}"></mp-cell>
             <mp-cell value="甲方" footer="{{}}"></mp-cell>
@@ -17,27 +28,39 @@
             <mp-cell value="乙方" footer="{{}}"></mp-cell>
             <mp-cell value="联系电话" footer="{{}}"></mp-cell>
         </mp-cells>
-    </view>
+    </view> -->
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
-        <mp-cells ext-class="my-cells">
+        <!-- <mp-cells ext-class="my-cells">
             <mp-cell value="设备编号" footer="{{}}"></mp-cell>
             <mp-cell value="设备名称" footer="{{}}"></mp-cell>
             <mp-cell value="设备位置" footer="{{}}"></mp-cell>
             <mp-cell value="报修人" footer="{{}}"></mp-cell>
             <mp-cell value="联系电话" footer="{{}}"></mp-cell>
-        </mp-cells>
+        </mp-cells> -->
     </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
-        <mp-cells ext-class="my-cells">
+      <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <mp-cells>
+            <mp-cell wx:for="{{networks}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}">
+                <view slot="title" style="position: relative;margin-right: 10px;">
+                  <image src="/imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
+                </view>
+                <view style="font-size: 13px;color: #888888;">设备位置:{{order.itemName}}</view>
+                <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
+                <view style="font-size: 13px;color: #888888;">维修工程师:{{order.scheduledStartTime}}</view>
+            </mp-cell>
+        </mp-cells>
+      </scroll-view>
+        <!-- <mp-cells ext-class="my-cells">
             <mp-cell value="故障程度" footer="{{}}"></mp-cell>
             <mp-cell value="故障等级" footer="{{}}"></mp-cell>
             <mp-cell value="故障类别" footer="{{}}"></mp-cell>
             <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-        </mp-cells>
+        </mp-cells> -->
     </view>
   </view>
   <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
@@ -52,5 +75,15 @@
             <mp-cell value="处理意见" footer="{{}}"></mp-cell>
         </mp-cells>
     </view>
+  </view>
+  <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="clickAccept">接单</button>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="clickNotAccept">驳回</button>
+        </view>
+      </view>
   </view>
 </view>

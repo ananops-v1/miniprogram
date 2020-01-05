@@ -82,50 +82,50 @@ Config.inspection = [
   [{//管理员
     id: "1",
     url: "../home/pages/terminalUser/inspection/inspection",
-    icon_url: "/imgs/icon/repair.png",
+    icon_url: "/imgs/icon/inspection_edit.png",
     name: "巡检申请"
   },
   {
     id: "2",
     url: "../home/pages/terminalUser/inspectionToBeReceive/inspectionToBeReceive",
-    icon_url: "/imgs/icon/to_be_confirmed.png",
+    icon_url: "/imgs/icon/dispatching.png",
     name: "待接单"
   },
     {
       id: "3",
       url: "../home/pages/terminalUser/inspecting/inspecting",
-      icon_url: "/imgs/icon/repair.png",
+      icon_url: "/imgs/icon/inspecting.png",
       name: "巡检中"
     },
     {
       id: "4",
       url: "../home/pages/terminalUser/inspectionToBeConfirm/inspectionToBeConfirm",
-      icon_url: "/imgs/icon/to_be_confirmed.png",
+      icon_url: "/imgs/icon/inspection_confirm.png",
       name: "结果确认"
     },
     {
       id: "5",
       url: "../home/pages/terminalUser/inspectionToBeCheck/inspectionToBeCheck",
-      icon_url: "/imgs/icon/to_be_confirmed.png",
+      icon_url: "/imgs/icon/inspection_pay.png",
       name: "待付款"
     },
     {
       id: "6",
       url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",
-      icon_url: "/imgs/icon/repair.png",
+      icon_url: "/imgs/icon/inspection_comment.png",
       name: "待评价"
     },
     {
       id: "7",
       url: "../home/pages/terminalUser/inspectionRepairCheck/inspectionRepairCheck",
-      icon_url: "/imgs/icon/repair.png",
+      icon_url: "/imgs/icon/plan_check.png",
       name: "工单审批"
     }
   ],
   [{//服务商
     id: "1",
     url: "../home/pages/serviceProvider/inspectionDispatch/inspectionDispatch",
-    icon_url: "/imgs/icon/repair.png",
+    icon_url: "/imgs/icon/dispatching.png",
     name: "待接单"
   },
     {
@@ -137,26 +137,26 @@ Config.inspection = [
     {
       id: "3",
       url: "../home/pages/serviceProvider/inspectionFeedback/inspectionFeedback",
-      icon_url: "/imgs/icon/to_be_confirmed.png",
+      icon_url: "/imgs/icon/feedback.png",
       name: "巡检反馈"
     }
   ],
   [{//工程师
     id: "1",
     url: "../home/pages/serviceEngineer/inspectionConfirm/inspectionConfirm",
-    icon_url: "/imgs/icon/to_be_confirmed.png",
+    icon_url: "/imgs/icon/inspection_confirm.png",
     name: "待确认"
   },
   {
     id: "2",
     url: "../home/pages/serviceEngineer/inspecting/inspecting",
-    icon_url: "/imgs/icon/in_maintenance.png",
+    icon_url: "/imgs/icon/inspecting.png",
     name: "巡检中"
     },
     {
       id: "3",
       url: "../home/pages/serviceEngineer/inspectionCheck/inspectionCheck",
-      icon_url: "/imgs/icon/in_maintenance.png",
+      icon_url: "/imgs/icon/inspection_pay.png",
       name: "待通过"
     }
   ]

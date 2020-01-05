@@ -174,7 +174,10 @@ Page({
       projectId: options.projectId
     })
     var paramProjectId={
-      'projectId': options.projectId
+      'projectId': options.projectId,
+      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2,
+      'status':0,
+      'userId': wx.getStorageSync('userInfo').id
     }
     inspectionAll.getInspectionTaskAll(paramProjectId, (res) => {
       console.log(res);

@@ -58,5 +58,5 @@
           <button type="default" plain="true" bindtap="clickAllInspection">进入全部巡检</button>
         </view>
       </view>
-    </view>
+  </view>
 </view>

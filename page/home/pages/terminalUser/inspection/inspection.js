@@ -58,6 +58,7 @@ Page({
     //网点数据
     networksAll:[],
     networksNameAll:[],
+    networkIndex:0,
     choosedNetworks:[],
     //甲方联系人数据
     partyAPhoneList: [
@@ -111,24 +112,26 @@ Page({
       inspectionIndex: e.detail.value
     })
     this.initInspectionInfo(choosedInspection)
+    this.initWebsiteInfo(choosedInspection)
     //这里需要添加获取所有未选择网点信息
   },
   //选择设备事件
   clickChooseDevice: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      deviceIndex: e.detail.value
+      networkIndex: e.detail.value
     })
-    //调取设备的详细信息
-    var obj = {
-      id: 3,
-      loc: '新建巡检地点',
-      staff: '新建巡检人员'
-    }
-    var deviceList = this.data.addedDeviceList
-    deviceList.push(obj)
+    var obj = this.data.networksAll[e.detail.value]
+    var networksAll = this.data.networksAll
+    networksAll.splice(e.detail.value,1)
+    var networksNameAll=this.data.networksNameAll
+    networksNameAll.splice(e.detail.value, 1)
+    var choosedNetworks = this.data.choosedNetworks
+    choosedNetworks.push(obj)
     this.setData({
-      addedDeviceList: deviceList
+      choosedNetworks: choosedNetworks,
+      networksAll: networksAll,
+      networksNameAll: networksNameAll,
     })
   },
   //点击选择巡检周期事件
@@ -174,24 +177,41 @@ Page({
   },
   //点击提交
   clickSubmit(e) {
-    console.log('提交')
+    console.log('提交');
+    var choosedNetworks=this.data.choosedNetworks;
+    var newNetworks=[];
+    var tempNetwork={};
+    for (var i = 0; i < choosedNetworks.length;i++){
+      tempNetwork["description"] = choosedNetworks[i]["description"]
+      tempNetwork["itemLatitude"] =1
+      tempNetwork["itemLongitude"] =1
+      tempNetwork["itemName"] = choosedNetworks[i]["itemName"]
+      tempNetwork["maintainerId"] = choosedNetworks[i]["maintainerId"]
+      tempNetwork["status"] =0
+      tempNetwork["count"] =0
+      tempNetwork["userId"] = wx.getStorageSync('userInfo').id
+      newNetworks.push(tempNetwork);
+    }
+    console.log(newNetworks);
     var param = {
       "days": this.data.scheduledFinishTime,//周期
       "facilitatorId": this.data.providerId,//服务商
+      "facilitatorGroupId": this.data.providerId,
+      "facilitatorManagerId": wx.getStorageSync('userInfo').id,//发起巡检的管理员
       "frequency": this.data.cycleTime, //天数
       "userId": wx.getStorageSync('userInfo').id,
-      "imcAddInspectionItemDtoList": [
-        {
-          "description": this.data.inspectionContent,
-          "itemLatitude": 1,//默认
-          "itemLongitude": 1,//默认
-          "itemName": "天信楼支行",
-          "maintainerId": 1,//维修工
-          "status": 0,
-          "count": 0,
-          "userId": wx.getStorageSync('userInfo').id
-        }
-      ],
+      "imcAddInspectionItemDtoList": newNetworks,//[
+      //   {
+      //     "description": this.data.inspectionContent,
+      //     "itemLatitude": 1,//默认
+      //     "itemLongitude": 1,//默认
+      //     "itemName": "天信楼支行",
+      //     "maintainerId": 1,//维修工
+      //     "status": 0, 
+      //     "count": 0,
+      //     "userId": wx.getStorageSync('userInfo').id
+      //   }
+      // ],
       "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
       "principalId": 1,//负责人
       "projectId": this.data.programId,
@@ -238,7 +258,7 @@ Page({
     var this_=this;
     var groupId = wx.getStorageSync('userObject').groupId;
     var param={
-      'groupId':1000//groupId
+      'groupId':groupId
     }
     project.getProjectByGroupId(param,(res)=>{//拿到用户对应的项目，供用户选择
       console.log(res);
@@ -262,7 +282,7 @@ Page({
   },
   initTable: function (projectId){
     var param={
-      projectId:1
+      projectId: projectId
     }
     inspection.getTasksByProjectId(param,(res)=>{
       console.log(res);
@@ -277,6 +297,7 @@ Page({
         inspectionIndex:0
       })
       this.initInspectionInfo(res[0])
+      this.initWebsiteInfo(res[0])
     })
   },
   initInspectionInfo:function(choosedInspection){
@@ -287,6 +308,24 @@ Page({
       inspectionRemark: choosedInspection.description,
       isStart: choosedInspection.isNow,
       scheduledFinishTime: choosedInspection.scheduledFinishTime
+    })
+  },
+  initWebsiteInfo: function (choosedInspection){
+    var param={
+      'inspectId': choosedInspection.id
+    }
+    inspection.getWebsiteByInspectionId(param,(res)=>{
+      console.log(res);
+      var networksNameAll = [];
+      var res = res.result;
+      for (var i = 0; i < res.length; i++) {
+        networksNameAll.push(res[i].name)
+      }
+      this.setData({
+        networksAll: res,
+        networksNameAll: networksNameAll,
+        choosedNetworks:[]
+      })
     })
   },
   /**

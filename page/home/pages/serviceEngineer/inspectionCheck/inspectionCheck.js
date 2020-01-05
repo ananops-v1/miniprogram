@@ -1,6 +1,10 @@
 // page/toBeConfirm/toBeConfirm.js
 
 const AUTH = require('../../../../../util/auth')
+import {
+  InspectionItemFilter
+} from '../inspectionConfirm/inspectionConfirm_model.js';
+var inspectionItemFilter = new InspectionItemFilter();
 
 Page({
 
@@ -8,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //巡检子项数据
+    inspectionItems: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -100,10 +106,10 @@ Page({
     ],
   },
   //点击进入详情
-  clickOrder: function (e) {
+  clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../inspectionCheckDetail/inspectionCheckDetail?id=" + e.currentTarget.dataset.id,
+      url: "../../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
@@ -134,6 +140,22 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    var param = {
+      'maintainerId': wx.getStorageSync('userInfo').id,
+      'status': 3
+    }
+    inspectionItemFilter.getInspectionItem(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log("获取巡检子项列表成功");
+        that.setData({
+          inspectionItems: res.result
+        })
+      }
+      else {
+        console.log("获取巡检子项列表失败");
+      }
+    })
     //调用应用实例的方法获取全局数据
     this.refresh();
   },

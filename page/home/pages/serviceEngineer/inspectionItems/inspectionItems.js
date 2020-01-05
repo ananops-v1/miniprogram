@@ -1,19 +1,16 @@
-// page/home/pages/all-work-orders/all-work-orders.js
+// page/toBeConfirm/toBeConfirm.js
+const AUTH = require('../../../../../util/auth')
 import {
-  InspectionFilter
-} from 'inspectionToBeComment_model.js';
-// import {
-//   Project
-// } from '../terminalUser/inspection/inspection_model.js';
-var inspectionFilter = new InspectionFilter();
-//var project = new Project();
+  InspectionItemAll
+} from 'inspectionItems_model.js';
+var inspectionItemAll = new InspectionItemAll();
 Page({
+  /**
+   * 页面的初始数据
+   */
   data: {
-    //所有巡检列表
-    inspectionListLength: 0,
-    inspectionList: [],
-    //用户id
-    userId: 0,
+    //巡检子项数据
+    inspectionItems:[],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -103,38 +100,17 @@ Page({
         malfunctionLoc: "前门左侧",
         malfunctionDate: "2019-11-27 19:37:49"
       }
-    ]
-  },
-  search: function (value) {
-    return new Promise((resolve, reject) => {
-      if (this.data.i % 2 === 0) {
-        setTimeout(() => {
-          resolve([{ text: '搜索结果', value: 1 }, { text: '搜索结果2', value: 2 }])
-        }, 200)
-      } else {
-        setTimeout(() => {
-          resolve([])
-        }, 200)
-
-      }
-      this.setData({
-        i: this.data.i + 1
-      })
-    })
-  },
-  selectResult: function (e) {
-    console.log('select result', e.detail)
+    ],
   },
   //点击进入详情
-  clickOrder: function (e) {
+  clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../all-work-inspection-Detail/all-work-inspection-Detail?id=" + e.currentTarget.dataset.id,
+      url: "../../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
   lower: function (e) {
-    console.log("lower")
     wx.showNavigationBarLoading();
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
@@ -156,41 +132,76 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
-  clickInspection: function (e) {
-    console.log(e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: '../../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + e.currentTarget.dataset.id,
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this
-    that.setData({
-      userId: wx.getStorageSync('userInfo').id
-    })
-    var param = {
-      'userId': that.data.userId,
-      'status': 5,
-      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
+    //调用应用实例的方法获取全局数据
+    this.refresh();
+    var param={
+      "maintainerId": wx.getStorageSync("userInfo")['id']
     }
-    inspectionFilter.getInspectionTaskByStatus(param, (res) => {
-      console.log(res);
+    inspectionItemAll.getItemByMaintainerId(param,(res)=>{
+      console.log(res)
       if (res.code == 200) {
-        console.log("获取巡检列表成功");
+        console.log("获取巡检子项列表成功");
         that.setData({
-          inspectionList: res.result
+          inspectionItems: res.result
         })
       }
       else {
-        console.log("获取巡检列表失败");
+        console.log("获取巡检子项列表失败");
       }
     })
-    //调用应用实例的方法获取全局数据
-    that.refresh();
-    that.setData({
-      search: that.search.bind(that)
-    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    AUTH.checkHasLogined();
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
-});
+})

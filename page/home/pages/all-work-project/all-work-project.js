@@ -176,7 +176,7 @@ Page({
     var _this=this
     console.log("项目页")
     var paramGroupId = {
-      'groupId': 1000////wx.getStorageSync('userObject').groupId
+      'groupId': 2//wx.getStorageSync('userObject').groupId
     }
     project.getProjectByGroupId(paramGroupId, (res) => {
       console.log(res)

@@ -190,20 +190,20 @@
             <view class="weui-label">添加网点</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="clickChooseDevice" value="{{deviceIndex}}" range="{{deviceList}}">
-              <view class="weui-input">{{deviceList[deviceIndex]}}</view>
+            <picker bindchange="clickChooseDevice" value="{{networkIndex}}" range="{{networksNameAll}}">
+              <view class="weui-input">{{networksAll[networkIndex].name}}</view>
             </picker>
           </view>
           <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
-      <view class="weui-cells weui-cells_after-title" wx:for="{{addedDeviceList}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">
+      <view class="weui-cells weui-cells_after-title" wx:for="{{choosedNetworks}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检地点</view>
           </view>
           <view class="weui-cell__bd">
-            <view class="weui-input">{{item.loc}}</view>
+            <view class="weui-input">{{item.itemName}}</view>
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -211,7 +211,7 @@
             <view class="weui-label">巡检人员</view>
           </view>
           <view class="weui-cell__bd">
-            <view class="weui-input">{{item.staff}}</view>
+            <view class="weui-input">{{item.maintainerName}}</view>
           </view>
         </view>
       </view>

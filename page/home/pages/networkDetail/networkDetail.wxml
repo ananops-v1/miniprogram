@@ -9,13 +9,11 @@
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
         <mp-cells ext-class="my-cells">
-            <mp-cell value="项目编号" footer="{{}}"></mp-cell>
-            <mp-cell value="项目名称" footer="{{}}"></mp-cell>
-            <mp-cell value="甲方" footer="{{}}"></mp-cell>
-            <mp-cell value="甲方负责人" footer="{{}}"></mp-cell>
-            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
-            <mp-cell value="乙方" footer="{{}}"></mp-cell>
-            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
+            <mp-cell value="网点名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
+            <mp-cell value="巡检名称" footer="{{inspectionItem['inspectionTaskId']}}"></mp-cell>
+            <mp-cell value="工程师" footer="{{inspectionItem['maintainerId']}}"></mp-cell>
+            <mp-cell value="周期" footer="{{inspectionItem['frequency']}}天每次"></mp-cell>
+            <mp-cell value="持续时长" footer="{{inspectionItem['days']}}天"></mp-cell>
         </mp-cells>
     </view>
   </view>

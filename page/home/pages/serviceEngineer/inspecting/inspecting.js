@@ -1,6 +1,10 @@
 // page/toBeConfirm/toBeConfirm.js
 
 const AUTH = require('../../../../../util/auth')
+import {
+  InspectionItemFilter
+} from '../inspectionConfirm/inspectionConfirm_model.js';
+var inspectionItemFilter = new InspectionItemFilter();
 
 Page({
 
@@ -8,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //巡检子项数据
+    inspectionItems: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -100,10 +106,10 @@ Page({
     ],
   },
   //点击进入详情
-  clickOrder: function (e) {
+  clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../inspectingDetail/inspectingDetail?id=" + e.currentTarget.dataset.id,
+      url: "../../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
@@ -129,11 +135,73 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
+  clickAccept: function (e) {
+    console.log(e)
+    var _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定接单已完成吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          var param = {
+            'itemId': e.currentTarget.dataset.id,
+            'status': 3,
+            'statusMsg': '等待甲方负责人审核'
+          }
+          inspectionItemFilter.modifyItemStatusByItemId(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
+          wx.redirectTo({
+            url: '../inspecting/inspecting',
+          })
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  clickNotAccept: function (e) {
+    console.log("拒绝接单")
+    wx.showModal({
+      title: '提示',
+      content: '确定要驳回吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          console.log('用户要求驳回');
+          wx.navigateBack();
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this
+    var param = {
+      'maintainerId': wx.getStorageSync('userInfo').id,
+      'status': 2
+    }
+    inspectionItemFilter.getInspectionItem(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log("获取巡检子项列表成功");
+        that.setData({
+          inspectionItems: res.result
+        })
+      }
+      else {
+        console.log("获取巡检子项列表失败");
+      }
+    })
     //调用应用实例的方法获取全局数据
     this.refresh();
   },

@@ -1,15 +1,15 @@
 import {
   Base
-} from '../../../common/base.js'
+} from '../../../../common/base.js'
 
-class InspectionAll extends Base {
+class InspectionItemAll extends Base {
   constructor() {
     super()
   }
-  //根据项目查询对应的所有巡检任务
-  getInspectionTaskAll(param, callback) {
+  //查询工程师下的全部巡检任务子项
+  getItemByMaintainerId(param, callback) {
     var params = {
-      url: '/imc/inspectionTask/getTaskByProjectId',
+      url: '/imc/inspectionItem/getItemByMaintainerId',
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -33,7 +33,6 @@ class InspectionAll extends Base {
 
 }
 
-
 export {
-  InspectionAll
+  InspectionItemAll
 }

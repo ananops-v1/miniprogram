@@ -90,7 +90,7 @@ Page({
         app.globalData.userRole = 0;
       } else if (userRole == 'user_manager') {
         app.globalData.userRole = 1;
-      } else if (userRole == 'fac_manager') {
+      } else if (userRole == 'fac_leader') {
         app.globalData.userRole = 2;
       } else if (userRole == 'engineer') {
         app.globalData.userRole = 3;

@@ -1,4 +1,4 @@
-// page/home/pages/serviceProvider/inspectionFeedback/inspectionFeedback.js
+// page/home/pages/serviceProvider/inspectionFeedback/inspectionFeedback.js 待确定
 Page({
 
   /**

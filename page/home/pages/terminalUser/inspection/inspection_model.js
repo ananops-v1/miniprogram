@@ -30,6 +30,17 @@ class Inspection extends Base {
     };
     this.request(params);
   }
+  getWebsiteByInspectionId(param, callback){
+    var params = {
+      url: '/pmc/inspectDetail/getInspectDetailList/' + param.inspectId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //其他接口
   xxx(param, callback) {
     var params = {
