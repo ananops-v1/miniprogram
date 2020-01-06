@@ -1,6 +1,6 @@
 import {
   Base
-} from '../../../../common/base.js'
+} from '../../../common/base.js'
 
 class InspectionItemAll extends Base {
   constructor() {

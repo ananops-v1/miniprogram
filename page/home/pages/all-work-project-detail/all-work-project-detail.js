@@ -18,7 +18,7 @@ Page({
     });
   },
   clickAllInspection:function(e){
-    wx.navigateTo({
+    wx.reLaunch({
       url: '../all-work-inspection/all-work-inspection?projectId='+this.data.projectInfo.id,
     })
   },

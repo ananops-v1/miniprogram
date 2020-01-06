@@ -6,12 +6,14 @@ var inspectionDetail = new InspectionDetail();
 Page({
   data: {
     //巡检Id
-    inspectionId:0,
+    inspectionId: 0,
     //巡检详情tabbar
     navTab: ["巡检信息", "进度条", "网点", "备品备件"],
     currentNavtab: "3",
     //巡检详情信息
-    inspectionDetail:{},
+    inspectionDetail: {},
+    //巡检网点信息
+    networks: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -127,25 +129,22 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
-  clickNetwork:function(e){
-    wx.navigateTo({
-      url: '../networkDetail/networkDetail?networkId=',
-    })
+  clickNetwork: function (e) {
   },
   onLoad: function (options) {
     var that = this
     that.setData({
-      inspectionId:options.inspectionId
+      inspectionId: options.inspectionId
     })
     //调用应用实例的方法获取全局数据
     that.refresh();
   },
   switchTab: function (e) {
     var index = e.currentTarget.dataset.idx;
-    var _this=this;
-    if (index==0){
+    var _this = this;
+    if (index == 0) {
       console.log("进入巡检信息页")
-      if(_this.data.inspectionDetail.id==undefined){
+      if (_this.data.inspectionDetail.id == undefined) {
         var param = {
           'taskId': _this.data.inspectionId
         }
@@ -163,11 +162,26 @@ Page({
         })
       }
     }
-    else if (index == 1){
+    else if (index == 1) {
 
     }
     else if (index == 2) {
-
+      console.log("进入网点页")
+      var param = {
+        'taskId': _this.data.inspectionId
+      }
+      inspectionDetail.getAllItemByTaskId(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取巡检子项成功")
+          _this.setData({
+            networks: res.result
+          })
+        }
+        else {
+          console.log("获取巡检子项失败")
+        }
+      })
     }
     else if (index == 3) {
 

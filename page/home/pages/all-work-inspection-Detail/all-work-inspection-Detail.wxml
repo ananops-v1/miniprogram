@@ -45,14 +45,13 @@
     <view class="page__bd">
       <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
         <mp-cells>
-            <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickNetwork">
+            <mp-cell wx:for="{{networks}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}">
                 <view slot="title" style="position: relative;margin-right: 10px;">
                   <image src="/imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
                 </view>
-                <view>{{order.programName}}</view>
-                <view>{{order.deviceName}}</view>
-                <view style="font-size: 13px;color: #888888;">设备位置:{{order.malfunctionLoc}}</view>
-                <view style="font-size: 13px;color: #888888;">报修时间:{{order.malfunctionDate}}</view>
+                <view style="font-size: 13px;color: #888888;">设备位置:{{order.itemName}}</view>
+                <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
+                <view style="font-size: 13px;color: #888888;">维修工程师:{{order.scheduledStartTime}}</view>
             </mp-cell>
         </mp-cells>
       </scroll-view>
@@ -76,12 +75,5 @@
             <mp-cell value="处理意见" footer="{{}}"></mp-cell>
         </mp-cells>
     </view>
-  </view>
-  <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <button type="default" plain="true" bindtap="clickCancelInspection">取消巡检</button>
-        </view>
-      </view>
   </view>
 </view>
