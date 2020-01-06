@@ -26,14 +26,14 @@
       <mp-cell value="故障描述" footer="{{}}"></mp-cell>
       <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
       <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-      <mp-cell value="联系电话" footer="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
+      <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
     </mp-cells>
   </view>
 </view>
 <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
   <view class="page__bd">
     <mp-cells ext-class="my-cells">
-    <mp-cell value="报修单号" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
+      <mp-cell value="报修单号" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
       <mp-cell value="单据状态" footer="{{workOrderStatus[orderInfo.status]}}">{{workOrderStatus[orderInfo.status]}}</mp-cell>
       <mp-cell value="审核人" footer="{{}}"></mp-cell>
       <mp-cell value="审核意见" footer="{{}}"></mp-cell>

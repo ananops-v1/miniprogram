@@ -128,6 +128,13 @@ Page({
         })
       }
     })
+  },
+
+  pass:function(e) {
+    var taskId = e.currentTarget.dataset.id;
+  },
+  exit:function(e) {
+    var taskId = e.currentTarget.dataset.id;
   }
 
 

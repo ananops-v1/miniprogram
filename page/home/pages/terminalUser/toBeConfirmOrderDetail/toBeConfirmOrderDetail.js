@@ -7,6 +7,10 @@ import {
   Config
 } from '../../../../../config.js';
 
+import {
+  Util
+} from '../../../../../util/util.js';
+
 var common = new Common();
 
 Page({
@@ -93,5 +97,13 @@ Page({
 
   getTaskById: function() {
 
+  },
+
+  makePhone: function(e) {
+    console.log(e);
+    var phone = e.currentTarget.dataset.phone;
+    wx.makePhoneCall({
+      phoneNumber: phone
+    })
   }
 });

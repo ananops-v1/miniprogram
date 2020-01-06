@@ -52,6 +52,7 @@ class Base {
       }
     })
   }
+
 }
 export {
   Base
