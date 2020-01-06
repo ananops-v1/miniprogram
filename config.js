@@ -42,14 +42,14 @@ Config.repair = [
   ],
   [{ //管理员
       id: "1",
-      url: "../home/pages/terminalUser/toBeConfirm/toBeConfirm",
+      url: "../home/pages/terminalUserManager/toBeConfirm/toBeConfirm",
       icon_url: "/imgs/icon/to_be_confirmed.png",
       name: "待审核",
       num: 0,
     },
     {
       id: "2",
-      url: "../home/pages/terminalUser/toBeCheck/toBeCheck",
+      url: "../home/pages/terminalUserManager/toBePay/toBePay",
       icon_url: "/imgs/icon/pending_payment.png",
       name: "待支付",
       num: 0,

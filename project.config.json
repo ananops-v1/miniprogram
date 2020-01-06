@@ -158,6 +158,19 @@
 					"pathName": "page/home/pages/serviceProvider/toBeCheck/toBeCheck",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"pathName": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"pathName": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"scene": null
 				}
 			]
 		}

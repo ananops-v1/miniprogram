@@ -1,0 +1,9 @@
+@import '../../../../common/lib/common.wxss';
+
+.container {
+}
+
+.blue {
+  background: blue;
+}
+

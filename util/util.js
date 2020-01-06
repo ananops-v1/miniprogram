@@ -143,7 +143,6 @@ function getOrderByStatus(status) {
   })
 }
 
-
 module.exports = {
   formatTime,
   formatLocation,
