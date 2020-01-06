@@ -80,7 +80,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2,6,10];
+    var statusArray = [2, 6, 10];
     this.getOrderByStatus(statusArray);
   },
 
@@ -126,6 +126,30 @@ Page({
             }, 2000)
           }
         })
+      }
+    })
+  },
+
+  pay: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    common.getAmountByWorkId(taskId,(res) => {
+      console.log(res);
+    })
+
+  },
+  reject: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    var param = {
+      "status": 17,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
       }
     })
   }

@@ -7,10 +7,6 @@ import {
   Common
 } from '../../../../common/base_model.js';
 
-import {
-  Config
-} from '../../../../../config.js';
-
 var common = new Common();
 var app = getApp();
 
@@ -20,14 +16,13 @@ Page({
    */
   data: {
     orderList: [],
-    workOrderStatus: Config.workOrderStatus
 
   },
   //点击进入详情
   clickOrder: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
+      url: "../toBeConfirmDetail/toBeConfirmDetail?id=" + e.currentTarget.dataset.id,
     })
   },
 
@@ -80,7 +75,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2,6,10];
+    var statusArray = [2];
     this.getOrderByStatus(statusArray);
   },
 
@@ -109,6 +104,20 @@ Page({
           }
         }
         console.log(orderListArray);
+        if (orderListArray.length == 0) {
+          wx.showToast({
+            title: "没有相关工单",
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              setTimeout(function () {
+                wx.navigateBack({ //返回
+                  delta: 1
+                })
+              }, 2000)
+            }
+          })
+        }
 
         this.setData({
           orderList: orderListArray
@@ -120,12 +129,42 @@ Page({
           duration: 2000,
           success: function () {
             setTimeout(function () {
-              wx.navigateBack({//返回
+              wx.navigateBack({ //返回
                 delta: 1
               })
             }, 2000)
           }
         })
+      }
+    })
+  },
+  pass: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var param = {
+      "status": 3,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
+      }
+    })
+  },
+  reject: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var param = {
+      "status": 1,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
       }
     })
   }

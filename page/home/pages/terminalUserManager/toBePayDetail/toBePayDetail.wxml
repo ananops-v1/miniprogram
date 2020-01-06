@@ -33,15 +33,40 @@
 <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
   <view class="page__bd">
     <mp-cells ext-class="my-cells">
-      <mp-cell value="报修单号" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-      <mp-cell value="单据状态" footer="{{workOrderStatus[orderInfo.status]}}">{{workOrderStatus[orderInfo.status]}}</mp-cell>
-      <mp-cell value="审核人" footer="{{}}"></mp-cell>
-      <mp-cell value="审核意见" footer="{{}}"></mp-cell>
-      <mp-cell value="维修人员" footer="{{orderInfo.maintainerId}}">{{orderInfo.maintainerId}}</mp-cell>
+      <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
+      <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
+      <mp-cell value="维修建议" footer="{{orderInfo.suggestion}}">{{orderInfo.suggestion}}</mp-cell>
+      <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
     </mp-cells>
   </view>
 </view>
 
+<view class="ctnt3 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+  <view class="page__bd">
+    <mp-cells ext-class="my-cells">
+      <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
+      <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
+      <mp-cell value="维修建议" footer="{{orderInfo.suggestion}}">{{orderInfo.suggestion}}</mp-cell>
+      <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
+    </mp-cells>
+  </view>
+</view>
+
+<view class="page-section">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <button type="default" plain="true" bindtap="pay">支付</button>
+    </view>
+  </view>
+</view>
+
+<view class="page-section">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <button type="default" plain="true" bindtap="reject">拒绝</button>
+    </view>
+  </view>
+</view>
 
 <!-- 
 <view class='order_process'>

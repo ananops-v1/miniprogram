@@ -15,7 +15,7 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "审核信息"],
+    navTab: ["设备信息", "故障信息", "维修信息","备品备件"],
     currentNavtab: "0",
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
@@ -23,19 +23,19 @@ Page({
     hiddenmodalput: true
   },
 
-  onLoad: function(e) {
+  onLoad: function (e) {
     var taskId = e.id;
     this.setData({
       taskId: taskId
     })
   },
 
-  onShow: function() {
+  onShow: function () {
     this.getTaskByTaskId();
   },
 
 
-  getTaskByTaskId: function() {
+  getTaskByTaskId: function () {
 
     var taskId = this.data.taskId;
 
@@ -60,14 +60,14 @@ Page({
     })
   },
 
-  switchTab: function(e) {
+  switchTab: function (e) {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
 
   //进度条的状态
-  setPeocessIcon: function() {
+  setPeocessIcon: function () {
     var index = 0 //记录状态为1的最后的位置
     var processArr = this.data.processData
     // console.log("progress", this.data.detailData.progress)
@@ -94,15 +94,46 @@ Page({
     })
   },
 
-  getTaskById: function() {
+  getTaskById: function () {
 
   },
 
-  makePhone: function(e) {
+  makePhone: function (e) {
     console.log(e);
     var phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
       phoneNumber: phone
+    })
+  },
+  
+  pass: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var param = {
+      "status": 3,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        wx.navigateBack();
+      }
+    })
+  },
+  reject: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var param = {
+      "status": 1,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        wx.navigateBack();
+      }
     })
   }
 

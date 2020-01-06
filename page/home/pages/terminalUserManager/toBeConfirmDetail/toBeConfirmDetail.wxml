@@ -42,6 +42,21 @@
   </view>
 </view>
 
+<view class="page-section">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <button type="default" plain="true" bindtap="pass">通过</button>
+    </view>
+  </view>
+</view>
+
+<view class="page-section">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <button type="default" plain="true" bindtap="reject">驳回</button>
+    </view>
+  </view>
+</view>
 
 <!-- 
 <view class='order_process'>

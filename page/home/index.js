@@ -33,19 +33,27 @@ Page({
   onShow: function() {
     this.getAllstatusOrder();
     var userInfo = wx.getStorageSync('userInfo');
-    var userRole = userInfo.roles[0].roleCode;
-    var statusArray = new Array();
-    if (userRole == 'user_watcher') {
-      statusArray = [12];
-    } else if (userRole == 'user_manager') {
-      statusArray = [2,6,10,12];
-    } else if (userRole == 'fac_manager') {
-      statusArray = [2,6,10,11];
-    } else if (userRole == 'engineer') {
-      statusArray = [5,6,7];
+    console.log(userInfo);
+    if (userInfo == "") {
+      this.setData({
+        orderList: null
+      })
+    } else {
+      var userRole = userInfo.roles[0].roleCode;
+      var statusArray = new Array();
+      if (userRole == 'user_watcher') {
+        statusArray = [12];
+      } else if (userRole == 'user_manager') {
+        statusArray = [2, 6, 10, 12];
+      } else if (userRole == 'fac_manager') {
+        statusArray = [2, 6, 10, 11];
+      } else if (userRole == 'engineer') {
+        statusArray = [5, 6, 7];
+      }
+
+      this.getOrderByStatus(statusArray);
     }
-   
-    this.getOrderByStatus(statusArray);
+
   },
 
   getAllstatusOrder: function() {
@@ -108,7 +116,7 @@ Page({
     }
   },
 
-  getOrderByStatus: function (statusArray) {
+  getOrderByStatus: function(statusArray) {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');
     var param = {
