@@ -164,6 +164,7 @@ function homeInitInspections(allInspections) {
   Config.inspection[1][4].num = answer.toBePay;
   Config.inspection[1][5].num = answer.toBeComment;
   //服务商
+  console.log(answer.toBeAccept)
   Config.inspection[2][0].num = answer.toBeAccept;
 }
 function homeInitItems(allItems) {

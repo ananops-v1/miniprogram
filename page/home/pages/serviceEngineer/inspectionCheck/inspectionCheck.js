@@ -142,7 +142,7 @@ Page({
     var that = this
     var param = {
       'maintainerId': wx.getStorageSync('userInfo').id,
-      'status': 3
+      'status': 4
     }
     inspectionItemFilter.getInspectionItem(param, (res) => {
       console.log(res);

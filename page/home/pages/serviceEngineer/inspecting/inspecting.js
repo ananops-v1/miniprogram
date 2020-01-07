@@ -145,7 +145,7 @@ Page({
         if (sm.confirm) {
           var param = {
             'itemId': e.currentTarget.dataset.id,
-            'status': 3,
+            'status': 4,
             'statusMsg': '等待甲方负责人审核'
           }
           inspectionItemFilter.modifyItemStatusByItemId(param, (res) => {
@@ -188,7 +188,7 @@ Page({
     var that = this
     var param = {
       'maintainerId': wx.getStorageSync('userInfo').id,
-      'status': 2
+      'status': 3
     }
     inspectionItemFilter.getInspectionItem(param, (res) => {
       console.log(res);

@@ -145,7 +145,7 @@ Page({
         if (sm.confirm) {
           var param = {
             'itemId': e.currentTarget.dataset.id,
-            'status': 2,
+            'status': 3,
             'statusMsg': '巡检工执行中'
           }
           inspectionItemFilter.modifyItemStatusByItemId(param, (res) => {
@@ -188,7 +188,7 @@ Page({
     var that = this
     var param = {
       'maintainerId': wx.getStorageSync('userInfo').id,
-      'status': 1
+      'status': 2
     }
     inspectionItemFilter.getInspectionItem(param, (res) => {
       console.log(res);

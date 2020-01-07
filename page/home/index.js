@@ -150,9 +150,10 @@ Page({
     if (userInfo != '') {
       if (userRole == 'fac_manager' || userRole == 'user_manager') {
         var param = {
-          "role": userRole == 'user_manager'?1:2,
-          "userId": userInfo.id
+          "role": userRole == 'user_manager'?1:4,
+          "userId": userRole == 'user_manager' ? userInfo.id : wx.getStorageSync('userObject').groupId
         };
+        console.log(param)
         inspection.getAllInspection(param,(res)=>{
           console.log(res)
           AUTH.homeInitInspections(res.result);
