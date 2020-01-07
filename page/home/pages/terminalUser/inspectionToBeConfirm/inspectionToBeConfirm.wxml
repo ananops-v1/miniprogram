@@ -10,6 +10,10 @@
                 <view>每{{order.frequency}}天</view>
                 <view style="font-size: 13px;color: #888888;">开始时间:{{order.scheduledStartTime}}</view>
                 <view style="font-size: 13px;color: #888888;">计划时间:{{order.days}}天</view>
+                <view class="operation_view">
+                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickAccept">通过</view>
+                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickNotAccept">驳回</view>
+                </view>
             </mp-cell>
         </mp-cells>
       </scroll-view>

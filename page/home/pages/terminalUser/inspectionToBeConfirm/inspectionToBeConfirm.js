@@ -2,11 +2,7 @@
 import {
   InspectionFilter
 } from 'inspectionToBeConfirm_model.js';
-// import {
-//   Project
-// } from '../terminalUser/inspection/inspection_model.js';
 var inspectionFilter = new InspectionFilter();
-//var project = new Project();
 Page({
   data: {
     //所有巡检列表
@@ -160,6 +156,52 @@ Page({
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + e.currentTarget.dataset.id,
+    })
+  },
+  clickAccept: function (e) {
+    console.log(e)
+    var _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定巡检通过吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          var param = {
+            'taskId': e.currentTarget.dataset.id,
+            'status': 4,
+            'statusMsg': '巡检待付款'
+          }
+          inspectionFilter.modifyTaskStatus(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
+          wx.redirectTo({
+            url: '../inspectionToBeConfirm/inspectionToBeConfirm',
+          })
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  clickNotAccept: function (e) {
+    console.log("结果不通过")
+    wx.showModal({
+      title: '提示',
+      content: '确定要驳回吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          console.log('用户要求驳回');
+          wx.navigateBack();
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
     })
   },
   /**

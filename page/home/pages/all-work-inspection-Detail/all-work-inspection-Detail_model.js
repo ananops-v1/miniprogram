@@ -18,6 +18,18 @@ class InspectionDetail extends Base {
     };
     this.request(params);
   }
+  //根据巡检任务ID，获取其对应的全部任务子项
+  getAllItemByTaskId(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/getAllItemByTaskId',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //其他接口
   xxx(param, callback) {
     var params = {

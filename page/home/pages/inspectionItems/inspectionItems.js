@@ -1,5 +1,5 @@
 // page/toBeConfirm/toBeConfirm.js
-const AUTH = require('../../../../../util/auth')
+const AUTH = require('../../../../util/auth')
 import {
   InspectionItemAll
 } from 'inspectionItems_model.js';
@@ -10,7 +10,7 @@ Page({
    */
   data: {
     //巡检子项数据
-    inspectionItems:[],
+    inspectionItems: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -106,7 +106,7 @@ Page({
   clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
+      url: "../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
@@ -139,10 +139,10 @@ Page({
     var that = this
     //调用应用实例的方法获取全局数据
     this.refresh();
-    var param={
+    var param = {
       "maintainerId": wx.getStorageSync("userInfo")['id']
     }
-    inspectionItemAll.getItemByMaintainerId(param,(res)=>{
+    inspectionItemAll.getItemByMaintainerId(param, (res) => {
       console.log(res)
       if (res.code == 200) {
         console.log("获取巡检子项列表成功");

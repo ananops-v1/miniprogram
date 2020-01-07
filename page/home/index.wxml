@@ -125,7 +125,7 @@
       <view class="page-section">
         <view class="kind-list-item-hd">
           <view class="kind-list-text">我的巡检</view>
-          <navigator class="list-text" url="pages/serviceEngineer/inspectionItems/inspectionItems">查看全部任务</navigator>
+          <navigator class="list-text" url="pages/inspectionItems/inspectionItems">查看全部任务</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
 

@@ -2,11 +2,7 @@
 import {
   InspectionFilter
 } from 'inspectionDispatch_model.js';
-// import {
-//   Project
-// } from '../terminalUser/inspection/inspection_model.js';
 var inspectionFilter = new InspectionFilter();
-//var project = new Project();
 Page({
   data: {
     //所有巡检列表
@@ -126,10 +122,10 @@ Page({
     console.log('select result', e.detail)
   },
   //点击进入详情
-  clickOrder: function (e) {
+  clickInspection: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../all-work-inspection-Detail/all-work-inspection-Detail?id=" + e.currentTarget.dataset.id,
+      url: "../../all-work-inspection-Detail/all-work-inspection-Detail?id=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
@@ -156,10 +152,50 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
-  clickInspection: function (e) {
-    console.log(e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: '../inspectionDispatchDetail/inspectionDispatchDetail?inspectionId=' + e.currentTarget.dataset.id,
+  clickAccept: function (e) {
+    console.log(e)
+    var _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要接单吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          var param = {
+            'taskId': e.currentTarget.dataset.id,
+            'status': 2,
+            'statusMsg': '巡检工执行中'
+          }
+          inspectionFilter.modifyTaskStatus(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
+          wx.redirectTo({
+            url: '../inspectionDispatch/inspectionDispatch',
+          })
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  clickNotAccept: function (e) {
+    console.log("拒绝接单")
+    wx.showModal({
+      title: '提示',
+      content: '确定要驳回吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          console.log('用户要求驳回');
+          wx.navigateBack();
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
     })
   },
   /**
