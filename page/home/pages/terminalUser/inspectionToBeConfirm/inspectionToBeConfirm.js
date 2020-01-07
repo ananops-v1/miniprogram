@@ -168,7 +168,7 @@ Page({
         if (sm.confirm) {
           var param = {
             'taskId': e.currentTarget.dataset.id,
-            'status': 4,
+            'status': 5,
             'statusMsg': '巡检待付款'
           }
           inspectionFilter.modifyTaskStatus(param, (res) => {
@@ -214,7 +214,7 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status': 3,
+      'status': 4,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
     }
     inspectionFilter.getInspectionTaskByStatus(param, (res) => {

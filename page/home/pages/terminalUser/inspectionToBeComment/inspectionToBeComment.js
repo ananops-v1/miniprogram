@@ -162,6 +162,13 @@ Page({
       url: '../../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + e.currentTarget.dataset.id,
     })
   },
+  clickToDoComment: function (e) {
+    console.log(e)
+    var _this = this
+    wx.navigateTo({
+      url: '../inspectionComment/inspectionComment?id=' + e.currentTarget.dataset.id,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -172,7 +179,7 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status': 5,
+      'status': 6,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
     }
     inspectionFilter.getInspectionTaskByStatus(param, (res) => {

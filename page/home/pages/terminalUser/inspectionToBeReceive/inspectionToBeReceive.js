@@ -172,7 +172,7 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status':1,
+      'status':2,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode=='user_manager'?1:2
     }
     inspectionFilter.getInspectionTaskByStatus(param, (res) => {

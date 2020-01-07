@@ -1,0 +1,38 @@
+.comment1-description {
+  padding: 30rpx 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.weui-cells_after-title {
+  width: 92%;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+}
+
+.btnSf {
+  width: 92%;
+  margin: 30rpx auto;
+}
+
+.btnSf button {
+  background: #57b6ba;
+  color: #fff;
+}
+
+.btnSf button:active {
+  background: #5bc2c6;
+  color: #fff;
+}
+
+image{
+  height: 60rpx;
+  width: 60rpx;
+  display: inline-block
+}
+
+.star_view {
+  margin-top:30px;
+  margin-left: 10rpx;
+  font-size: 40rpx;
+}
