@@ -121,7 +121,7 @@ class Common extends Base {
   //根据项目Id获取工程师列表
   getAmountByWorkId(workId, callBack) {
     var params = {
-      url: `/bill/bill/getamountbyworkorder/${workId}`,
+      url: `/bill/bill/getamountbyworkorder/${workId}?workorderid=` + workId,
       sCallback: function (data) {
         callback && callback(data);
       },

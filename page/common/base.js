@@ -32,6 +32,7 @@ class Base {
         'Authorization': 'Bearer ' + wx.getStorageSync('tokenInfo').access_token,
       }
     }
+    console.log(url);
     wx.request({
       url: url,
       data: params.data,
