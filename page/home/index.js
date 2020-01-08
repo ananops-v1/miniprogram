@@ -57,7 +57,6 @@ Page({
       } else if (userRole == 'engineer') {
         statusArray = [5, 6, 7];
       }
-
       this.getOrderByStatus(statusArray);
     }
 
