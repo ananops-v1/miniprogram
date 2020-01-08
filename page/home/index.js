@@ -1,5 +1,6 @@
 import {
-  Home
+  Home,
+  Inspection
 } from 'index_model.js';
 import {
   Config
@@ -10,6 +11,7 @@ import {
 const AUTH = require('../../util/auth')
 var common = new Common();
 var home = new Home();
+var inspection = new Inspection();
 const app = getApp();
 Page({
 
@@ -32,6 +34,7 @@ Page({
    */
   onShow: function() {
     this.getAllstatusOrder();
+    this.getAllstatusInspection();
     var userInfo = wx.getStorageSync('userInfo');
     console.log(userInfo);
     if (userInfo == "") {
@@ -115,7 +118,67 @@ Page({
       });
     }
   },
-
+  getAllstatusInspection:function(){
+    var _this = this;
+    var userInfo = wx.getStorageSync('userInfo');
+    var userRole = userInfo.roles[0].roleCode;
+    if (userInfo != '') {
+      if (userRole == 'user_watcher') {
+        app.globalData.userRole = 0;
+      } else if (userRole == 'user_manager') {
+        app.globalData.userRole = 1;
+      } else if (userRole == 'fac_manager') {
+        app.globalData.userRole = 2;
+      } else if (userRole == 'engineer') {
+        app.globalData.userRole = 3;
+      } else {
+        app.globalData.userRole = null;
+        _this.setData({
+          userRole: app.globalData.userRole,
+          repair: null,
+          inspection: null
+        })
+      }
+    } else {
+      app.globalData.userRole = null;
+      _this.setData({
+        userRole: app.globalData.userRole,
+        repair: null,
+        inspection: null
+      })
+    }
+    if (userInfo != '') {
+      if (userRole == 'fac_manager' || userRole == 'user_manager') {
+        var param = {
+          "role": userRole == 'user_manager'?1:4,
+          "userId": userRole == 'user_manager' ? userInfo.id : wx.getStorageSync('userObject').groupId
+        };
+        console.log(param)
+        inspection.getAllInspection(param,(res)=>{
+          console.log(res)
+          AUTH.homeInitInspections(res.result);
+          _this.setData({
+            userRole: app.globalData.userRole,
+            repair: Config.repair[app.globalData.userRole],
+            inspection: Config.inspection[app.globalData.userRole]
+          })
+        })
+      } else if (userRole == 'engineer') {
+        var param = {
+          "userId": userInfo.id
+        };
+        inspection.getAllItems(param,(res)=>{
+          console.log(res)
+          AUTH.homeInitItems(res.result);
+          _this.setData({
+            userRole: app.globalData.userRole,
+            repair: Config.repair[app.globalData.userRole],
+            inspection: Config.inspection[app.globalData.userRole]
+          })
+        })
+      }
+    }
+  },
   getOrderByStatus: function(statusArray) {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');

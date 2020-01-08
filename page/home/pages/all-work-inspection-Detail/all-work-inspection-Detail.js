@@ -1,8 +1,8 @@
 //discovery.js
 import {
-  InspectionDetail
-} from 'all-work-inspection-Detail_model.js';
-var inspectionDetail = new InspectionDetail();
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     //巡检Id
@@ -148,7 +148,7 @@ Page({
         var param = {
           'taskId': _this.data.inspectionId
         }
-        inspectionDetail.getInspectionDetail(param, (res) => {
+        common.getInspectionDetail(param, (res) => {
           console.log(res)
           if (res.code == 200) {
             console.log("获取巡检详情成功")
@@ -170,7 +170,7 @@ Page({
       var param = {
         'taskId': _this.data.inspectionId
       }
-      inspectionDetail.getAllItemByTaskId(param, (res) => {
+      common.getAllItemByTaskId(param, (res) => {
         console.log(res)
         if (res.code == 200) {
           console.log("获取巡检子项成功")

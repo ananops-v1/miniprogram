@@ -1,8 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
-  InspectionFilter
-} from 'inspectionToBeConfirm_model.js';
-var inspectionFilter = new InspectionFilter();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     //所有巡检列表
@@ -168,10 +168,10 @@ Page({
         if (sm.confirm) {
           var param = {
             'taskId': e.currentTarget.dataset.id,
-            'status': 4,
+            'status': 5,
             'statusMsg': '巡检待付款'
           }
-          inspectionFilter.modifyTaskStatus(param, (res) => {
+          common.modifyTaskStatus(param, (res) => {
             console.log(res)
             if (res.code == 200) {
               console.log("修改巡检状态成功")
@@ -214,10 +214,10 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status': 3,
+      'status': 4,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
     }
-    inspectionFilter.getInspectionTaskByStatus(param, (res) => {
+    common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检列表成功");

@@ -3,11 +3,9 @@ import {
   formatTime
 } from '../../../../../util/util.js'
 import {
-  Inspection,
-  Project
-} from 'inspection_model.js';
-var inspection = new Inspection();
-var project = new Project();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 Page({
 
   /**
@@ -222,7 +220,7 @@ Page({
       "totalCost": 100//合同总花费
     };
     console.log(param);
-    inspection.inspectionSave(param,(res)=>{
+    common.inspectionSave(param,(res)=>{
       console.log(res)
       if (res.code==200){
         console.log("申请巡检成功")
@@ -245,12 +243,6 @@ Page({
       }
     })
   },
-  jump:function(e){
-    console.log("跳转")
-    wx.redirectTo({
-      url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + "785265413784080384"
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -260,7 +252,7 @@ Page({
     var param={
       'groupId':groupId
     }
-    project.getProjectByGroupId(param,(res)=>{//拿到用户对应的项目，供用户选择
+    common.getProjectByGroupId(param,(res)=>{//拿到用户对应的项目，供用户选择
       console.log(res);
       var programNameList=[];
       var providerNameList = [];
@@ -284,7 +276,7 @@ Page({
     var param={
       projectId: projectId
     }
-    inspection.getTasksByProjectId(param,(res)=>{
+    common.getTasksByProjectId(param,(res)=>{
       console.log(res);
       var inspectionNameList = [];
       var res = res.result;
@@ -314,7 +306,7 @@ Page({
     var param={
       'inspectId': choosedInspection.id
     }
-    inspection.getWebsiteByInspectionId(param,(res)=>{
+    common.getWebsiteByInspectionId(param,(res)=>{
       console.log(res);
       var networksNameAll = [];
       var res = res.result;

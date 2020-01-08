@@ -145,18 +145,25 @@ Config.inspection = [
     name: "待确认",
     num: 0
   },
-  {
-    id: "2",
-    url: "../home/pages/serviceEngineer/inspecting/inspecting",
-    icon_url: "/imgs/icon/inspecting.png",
-    name: "巡检中",
-    num: 0
+    {
+      id: "2",
+      url: "../home/pages/serviceEngineer/inspecting/inspecting",
+      icon_url: "/imgs/icon/inspecting.png",
+      name: "巡检中",
+      num: 0
     },
     {
       id: "3",
       url: "../home/pages/serviceEngineer/inspectionCheck/inspectionCheck",
       icon_url: "/imgs/icon/inspection_pay.png",
       name: "待通过",
+      num: 0
+    },
+    {
+      id: "4",
+      url: "../home/pages/serviceEngineer/inspectionChecked/inspectionChecked",
+      icon_url: "/imgs/icon/inspectionItemChecked.png",
+      name: "已通过",
       num: 0
     }
   ]

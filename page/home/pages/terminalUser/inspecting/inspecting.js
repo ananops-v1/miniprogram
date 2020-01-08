@@ -1,12 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
-  InspectionFilter
-} from 'inspecting_model.js';
-// import {
-//   Project
-// } from '../terminalUser/inspection/inspection_model.js';
-var inspectionFilter = new InspectionFilter();
-//var project = new Project();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     //所有巡检列表
@@ -172,10 +168,10 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status': 2,
+      'status': 3,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
     }
-    inspectionFilter.getInspectionTaskByStatus(param, (res) => {
+    common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检列表成功");

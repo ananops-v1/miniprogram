@@ -47,7 +47,9 @@
     "page/home/pages/all-work-project-detail/all-work-project-detail",
     "page/home/pages/networkDetail/networkDetail",
     "page/home/pages/terminalUser/inspectionToBeReceive/inspectionToBeReceive",
-    "page/home/pages/inspectionItems/inspectionItems"
+    "page/home/pages/inspectionItems/inspectionItems",
+    "page/home/pages/terminalUser/inspectionComment/inspectionComment",
+    "page/home/pages/serviceEngineer/inspectionChecked/inspectionChecked"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

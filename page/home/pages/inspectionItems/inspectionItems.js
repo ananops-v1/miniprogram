@@ -1,9 +1,9 @@
 // page/toBeConfirm/toBeConfirm.js
 const AUTH = require('../../../../util/auth')
 import {
-  InspectionItemAll
-} from 'inspectionItems_model.js';
-var inspectionItemAll = new InspectionItemAll();
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   /**
    * 页面的初始数据
@@ -142,7 +142,7 @@ Page({
     var param = {
       "maintainerId": wx.getStorageSync("userInfo")['id']
     }
-    inspectionItemAll.getItemByMaintainerId(param, (res) => {
+    common.getItemByMaintainerId(param, (res) => {
       console.log(res)
       if (res.code == 200) {
         console.log("获取巡检子项列表成功");

@@ -130,9 +130,77 @@ function homeInitial(allRepairerOrder) {
   Config.repair[3][0].num = answer.jiedan2;
   Config.repair[3][1].num = answer.zhixing + answer.beijian + answer.zhixing2;
 }
+function homeInitInspections(allInspections) {
+  var answer = {
+    'toBeDispatch':0,
+    'toBeAccept': 0,
+    'inspecting': 0,
+    'toBeConfirm': 0,
+    'toBePay': 0,
+    'toBeComment': 0
+  };
+  if (allInspections != null && allInspections.length > 0) {
+    allInspections.forEach(function (e) {
+      if (e.status == 1){
+        answer.toBeDispatch++;
+      }
+      else if (e.status == 2) {
+        answer.toBeAccept++;
+      } else if (e.status == 3) {
+        answer.inspecting++;
+      } else if (e.status == 4) {
+        answer.toBeConfirm++;
+      } else if (e.status == 5) {
+        answer.toBePay++;
+      } else if (e.status == 6) {
+        answer.toBeComment++;
+      }
+    });
+  }
+  //甲方负责人
+  Config.inspection[1][1].num = answer.toBeAccept;
+  Config.inspection[1][2].num = answer.inspecting;
+  Config.inspection[1][3].num = answer.toBeConfirm;
+  Config.inspection[1][4].num = answer.toBePay;
+  Config.inspection[1][5].num = answer.toBeComment;
+  //服务商
+  console.log(answer.toBeAccept)
+  Config.inspection[2][0].num = answer.toBeAccept;
+}
+function homeInitItems(allItems) {
+  var answer = {
+    'toBeDispatch': 0,
+    'toBeAccept': 0,
+    'inspecting': 0,
+    'toBeCheck': 0,
+    'checked': 0
+  };
+  if (allItems != null && allItems.length > 0) {
+    allItems.forEach(function (e) {
+      if (e.status == 1) {
+        answer.toBeDispatch++;
+      } else if (e.status == 2) {
+        answer.toBeAccept++;
+      } else if (e.status == 3) {
+        answer.inspecting++;
+      } else if (e.status == 4) {
+        answer.toBeCheck++;
+      } else if (e.status == 5) {
+        answer.checked++;
+      }
+    });
+  }
+  //维修工
+  Config.inspection[3][0].num = answer.toBeAccept;
+  Config.inspection[3][1].num = answer.inspecting;
+  Config.inspection[3][2].num = answer.toBeCheck;
+  Config.inspection[3][3].num = answer.checked;
+}
 
 module.exports = {
   checkHasLogined: checkHasLogined,
   exit: exit,
   homeInitial: homeInitial,
+  homeInitInspections: homeInitInspections,
+  homeInitItems: homeInitItems
 }

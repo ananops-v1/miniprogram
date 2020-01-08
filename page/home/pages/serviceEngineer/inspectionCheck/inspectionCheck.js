@@ -2,9 +2,9 @@
 
 const AUTH = require('../../../../../util/auth')
 import {
-  InspectionItemFilter
-} from '../inspectionConfirm/inspectionConfirm_model.js';
-var inspectionItemFilter = new InspectionItemFilter();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 
 Page({
 
@@ -142,9 +142,9 @@ Page({
     var that = this
     var param = {
       'maintainerId': wx.getStorageSync('userInfo').id,
-      'status': 3
+      'status': 4
     }
-    inspectionItemFilter.getInspectionItem(param, (res) => {
+    common.getInspectionItem(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检子项列表成功");

@@ -1,12 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
-  InspectionFilter
-} from 'inspectionToBeCheck_model.js';
-// import {
-//   Project
-// } from '../terminalUser/inspection/inspection_model.js';
-var inspectionFilter = new InspectionFilter();
-//var project = new Project();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     //所有巡检列表
@@ -162,6 +158,52 @@ Page({
       url: '../../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + e.currentTarget.dataset.id,
     })
   },
+  clickAccept: function (e) {
+    console.log(e)
+    var _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定付款完成吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          var param = {
+            'taskId': e.currentTarget.dataset.id,
+            'status': 6,
+            'statusMsg': '待评价'
+          }
+          common.modifyTaskStatus(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
+          wx.redirectTo({
+            url: '../inspectionToBeCheck/inspectionToBeCheck',
+          })
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  clickNotAccept: function (e) {
+    console.log("拒付")
+    wx.showModal({
+      title: '提示',
+      content: '确定要驳回吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          console.log('用户要求驳回');
+          wx.navigateBack();
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -172,10 +214,10 @@ Page({
     })
     var param = {
       'userId': that.data.userId,
-      'status': 4,
+      'status': 5,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
     }
-    inspectionFilter.getInspectionTaskByStatus(param, (res) => {
+    common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检列表成功");
