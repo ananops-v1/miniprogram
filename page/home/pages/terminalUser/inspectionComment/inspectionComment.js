@@ -1,7 +1,7 @@
 import {
-  Comment
-} from 'inspectionComment_model.js';
-var comment = new Comment();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 var app = getApp();
 
 Page({
@@ -59,7 +59,7 @@ Page({
       "inspectionTaskId": _this.data.taskId,
       "principalId": wx.getStorageSync('userInfo').id
     }
-    comment.saveComment(param, (res) => {
+    common.saveComment(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("评价成功")
@@ -68,7 +68,7 @@ Page({
           'status': 7,
           'statusMsg': '已评价'
         }
-        comment.modifyTaskStatus(param, (res) => {
+        common.modifyTaskStatus(param, (res) => {
           console.log(res)
           if (res.code == 200) {
             console.log("修改巡检状态成功")

@@ -1,12 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
-  ProjectAll
-} from 'all-work-project_model.js';
-import {
-  Project
-} from '../terminalUser/inspection/inspection_model.js';
-var projectAll = new ProjectAll();
-var project = new Project();
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     inputShowed: false,
@@ -178,7 +174,7 @@ Page({
     var paramGroupId = {
       'groupId': 2//wx.getStorageSync('userObject').groupId
     }
-    project.getProjectByGroupId(paramGroupId, (res) => {
+    common.getProjectByGroupId(paramGroupId, (res) => {
       console.log(res)
       if (res.code == 200) {
         console.log("获取项目列表成功")

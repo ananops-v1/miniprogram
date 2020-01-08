@@ -1,12 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
-  InspectionAll
-} from 'all-work-inspection_model.js';
-import {
-  Project
-} from '../terminalUser/inspection/inspection_model.js';
-var inspectionAll = new InspectionAll();
-var project = new Project();
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     inputShowed: false,
@@ -179,7 +175,7 @@ Page({
       'status':0,
       'userId': wx.getStorageSync('userInfo').id
     }
-    inspectionAll.getInspectionTaskAll(paramProjectId, (res) => {
+    common.getInspectionTaskAll(paramProjectId, (res) => {
       console.log(res);
       if(res.code==200){
         console.log("获取巡检列表成功");

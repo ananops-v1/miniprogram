@@ -1,8 +1,8 @@
 // page/home/pages/all-work-orders/all-work-orders.js
 import {
-  InspectionFilter
-} from 'inspectionToBeCheck_model.js';
-var inspectionFilter = new InspectionFilter();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     //所有巡检列表
@@ -171,7 +171,7 @@ Page({
             'status': 6,
             'statusMsg': '待评价'
           }
-          inspectionFilter.modifyTaskStatus(param, (res) => {
+          common.modifyTaskStatus(param, (res) => {
             console.log(res)
             if (res.code == 200) {
               console.log("修改巡检状态成功")
@@ -217,7 +217,7 @@ Page({
       'status': 5,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
     }
-    inspectionFilter.getInspectionTaskByStatus(param, (res) => {
+    common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检列表成功");

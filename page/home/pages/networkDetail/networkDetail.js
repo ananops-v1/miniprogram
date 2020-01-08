@@ -1,8 +1,8 @@
 //discovery.js
 import {
-  InspectionItem
-} from 'networkDetail_model.js';
-var inspectionItem = new InspectionItem();
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 Page({
   data: {
     //巡检子项数据
@@ -19,7 +19,7 @@ Page({
     var param={
       'itemId': that.data.inspectionItemId
     }
-    inspectionItem.getItemByItemId(param,(res)=>{
+    common.getItemByItemId(param,(res)=>{
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检列表成功");

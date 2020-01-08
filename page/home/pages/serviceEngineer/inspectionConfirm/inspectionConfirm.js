@@ -1,10 +1,9 @@
 // page/toBeConfirm/toBeConfirm.js
-
 const AUTH = require('../../../../../util/auth')
 import {
-  InspectionItemFilter
-} from 'inspectionConfirm_model.js';
-var inspectionItemFilter = new InspectionItemFilter();
+  Common
+} from '../../../../../page/common/base_model.js';
+var common = new Common();
 
 Page({
 
@@ -148,7 +147,7 @@ Page({
             'status': 3,
             'statusMsg': '巡检工执行中'
           }
-          inspectionItemFilter.modifyItemStatusByItemId(param, (res) => {
+          common.modifyItemStatusByItemId(param, (res) => {
             console.log(res)
             if (res.code == 200) {
               console.log("修改巡检状态成功")
@@ -190,7 +189,7 @@ Page({
       'maintainerId': wx.getStorageSync('userInfo').id,
       'status': 2
     }
-    inspectionItemFilter.getInspectionItem(param, (res) => {
+    common.getInspectionItem(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检子项列表成功");
