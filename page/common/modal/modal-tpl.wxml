@@ -1,0 +1,38 @@
+
+
+<!--调色灯模板-->
+<template name="bill">
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showBill}}"></view>
+  <view class="modal-dialog" wx:if="{{showBill}}">
+    <view class="modal-title">账单详情</view>
+    <view class="modal-content">
+      <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="section section_gap">
+          <view class="section__title">总金额：</view>
+          <view>{{totalMoney}}.00元</view>
+        </view>
+        <view class="modal-footer">
+          <button class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</button>
+          <button formType="confirmPay" class="btn-confirm">确定</button>
+        </view>
+      </form>
+    </view>
+  </view>
+</template>
+
+<!--修改设备名弹窗-->
+<template name="changeName">
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showEdit}}"></view>
+  <view class="modal-dialog" wx:if="{{showEdit}}">
+    <view class="modal-title">{{content.title}}</view>
+    <view class="modal-content">
+      <view class="modal-input">
+        <input placeholder-class="input-holder" type="text" maxlength="20" focus="true" bindinput="inputChange" class="input" placeholder="{{content.placeholder}}"></input>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="confirmPay" data-status="confirm">确定</view>
+    </view>
+  </view>
+</template>

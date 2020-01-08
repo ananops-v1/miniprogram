@@ -75,7 +75,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2, 6, 10];
+    var statusArray = [3,4,14];
     this.getOrderByStatus(statusArray);
   },
 
@@ -123,7 +123,44 @@ Page({
         })
       }
     })
-  }
+  },
+
+  rejectOrder: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    var param = {
+      "status": 4,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
+      }
+    })
+  },
+
+  receiveOrder: function (e) {
+    console.log(e);
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    var projectId = e.currentTarget.dataset.projectid;
+    common.getEngineersByProjectId(projectId,(res) => {
+      console.log(res);
+    });
+    // var param = {
+    //   "status": 17,
+    //   "statusMsg": "string",
+    //   "taskId": taskId
+    // }
+    // common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+    //   console.log(res);
+    //   if (res.code == 200) {
+    //     _this.onShow();
+    //   }
+    // })
+  },
 
 
 })

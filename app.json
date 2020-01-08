@@ -6,6 +6,7 @@
     "page/my/pages/aboutus/aboutus",
     "page/my/pages/login/login",
     "page/my/pages/contact/contact",
+    "page/my/pages/ananops/ananops",
     "page/home/pages/all-work-orders/all-work-orders",
     "page/home/pages/uploadImage/uploadImage",
     "page/home/pages/uploadVideo/uploadVideo",
@@ -65,6 +66,12 @@
         "text": "首页",
         "iconPath": "imgs/tabBar/home.png",
         "selectedIconPath": "imgs/tabBar/home@selected.png"
+      },
+      {
+        "pagePath": "page/message/index",
+        "text": "消息",
+        "iconPath": "imgs/tabBar/message.png",
+        "selectedIconPath": "imgs/tabBar/message@selected.png"
       },
       {
         "pagePath": "page/my/index",

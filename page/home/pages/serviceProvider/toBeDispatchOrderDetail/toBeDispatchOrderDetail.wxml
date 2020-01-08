@@ -38,28 +38,41 @@
         <mp-cell value="故障描述" footer="{{}}"></mp-cell>
         <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
         <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-        <mp-cell value="联系电话" footer="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
       </mp-cells>
     </view>
   </view>
 </view>
 
-<view class="page-section">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
-      <button type="default" plain="true" bindtap="pass">接单</button>
+<view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
+  <view class="page__bd">
+    <mp-cells ext-class="my-cells">
+      <mp-cell value="报修单号" footer="{{}}"></mp-cell>
+      <mp-cell value="单据状态" footer="{{}}"></mp-cell>
+      <mp-cell value="维修人员" footer="{{}}"></mp-cell>
+    </mp-cells>
+  </view>
+  </view>
+
+  <view wx:if="{{orderInfo.status != 14}}">
+
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="receiveOrder">派单</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <button type="default" plain="true" bindtap="reject">拒接</button>
+        </view>
+      </view>
     </view>
   </view>
-</view>
 
-<view class="page-section">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
-      <button type="default" plain="true" bindtap="reject">拒接</button>
-    </view>
-  </view>
-</view>
-
-    <modal id="modal" hidden="{{hiddenmodalput}}" title="拒接原因" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-      <textarea placeholder="请输入拒接单原因" bindinput="reason" value="{{reason}}"></textarea>
-    </modal>
+  <modal id="modal" hidden="{{hiddenmodalput}}" title="拒接原因" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <textarea placeholder="请输入拒接单原因" bindinput="reason" value="{{reason}}"></textarea>
+  </modal>

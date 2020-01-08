@@ -44,9 +44,9 @@ Page({
       if (userRole == 'user_watcher') {
         statusArray = [12];
       } else if (userRole == 'user_manager') {
-        statusArray = [2, 6, 10, 12];
+        statusArray = [2, 6,11];
       } else if (userRole == 'fac_manager') {
-        statusArray = [2, 6, 10, 11];
+        statusArray = [2, 6, 10];
       } else if (userRole == 'engineer') {
         statusArray = [5, 6, 7];
       }

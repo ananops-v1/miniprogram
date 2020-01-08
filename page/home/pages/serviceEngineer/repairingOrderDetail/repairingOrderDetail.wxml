@@ -23,7 +23,7 @@
         <mp-cell value="故障类别" footer="{{}}"></mp-cell>
         <mp-cell value="故障描述" footer="{{}}"></mp-cell>
         <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-        <mp-cell value="联系电话" footer="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
       </mp-cells>
     </view>
   </view>
@@ -72,7 +72,7 @@
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+  <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="单据状态" footer="{{}}"></mp-cell>

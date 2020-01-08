@@ -137,7 +137,40 @@ Page({
         })
       }
     })
-  }
+  },
+
+
+  rejectOrder: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    var param = {
+      "status": 15,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
+      }
+    })
+  },
+
+  receiveOrder: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    var param = {
+      "status": 5,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
+      }
+    })
+  },
 
 
 })

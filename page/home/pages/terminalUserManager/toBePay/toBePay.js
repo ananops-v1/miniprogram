@@ -20,14 +20,15 @@ Page({
    */
   data: {
     orderList: [],
-    workOrderStatus: Config.workOrderStatus
+    workOrderStatus: Config.workOrderStatus,
+    showBill: false,
 
   },
   //点击进入详情
   clickOrder: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
+      url: "../toBePayDetail/toBePayDetail?id=" + e.currentTarget.dataset.id,
     })
   },
 
@@ -80,7 +81,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2, 6, 10];
+    var statusArray = [11];
     this.getOrderByStatus(statusArray);
   },
 
@@ -135,7 +136,11 @@ Page({
     var taskId = e.currentTarget.dataset.id;
     common.getAmountByWorkId(taskId,(res) => {
       console.log(res);
-    })
+      _this.setData({
+        totalMoney:res.result,
+        showBill:true
+      })
+    });
 
   },
   reject: function (e) {
@@ -151,6 +156,33 @@ Page({
       if (res.code == 200) {
         _this.onShow();
       }
+    })
+  },
+
+  /**
+ * 隐藏模态对话框
+ */
+  hideModal: function () {
+    this.setData({
+      showBill: false,
+    });
+  },
+
+  /**
+ * 对话框取消按钮点击事件
+ */
+  onCancel: function () {
+    this.hideModal();
+  },
+
+  confirmPay:function () {
+    console.log(123);
+    wx.requestPayment({
+      timeStamp: new Date(),
+      nonceStr: '',
+      package: '',
+      signType: '',
+      paySign: '',
     })
   }
 

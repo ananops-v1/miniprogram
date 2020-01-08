@@ -170,6 +170,20 @@
 					"id": -1,
 					"name": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
 					"pathName": "page/home/pages/terminalUser/toBeConfirm/toBeConfirm",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/serviceProvider/toBeDispatch/toBeDispatch",
+					"pathName": "page/home/pages/serviceProvider/toBeDispatch/toBeDispatch",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/my/pages/aboutus/aboutus",
+					"pathName": "page/my/pages/aboutus/aboutus",
 					"scene": null
 				}
 			]

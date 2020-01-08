@@ -43,6 +43,11 @@ input {
   justify-content: space-between;
   font-size: 32rpx;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  padding: 0;
+  color: #000;
+  align-items: center;
+  box-sizing: border-box;
+  background: #f0f4f3;
 }
 
 .page-head {
@@ -295,16 +300,7 @@ input {
 
 /**app.wxss**/
 
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  /*padding: 200rpx 0;*/
-  box-sizing: border-box;
-  background: #f0f4f3;
-}
+
 
 .container.withtab {
   margin: 105rpx 0 0 0;
@@ -345,11 +341,7 @@ input {
   border-bottom: solid 2px #fff;
 }
 
-.container {
-  padding: 0;
-  /* font-size: 14rpx; */
-  color: #000;
-}
+
 
 .container .feed-item {
   width: 690rpx;

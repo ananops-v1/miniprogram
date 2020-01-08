@@ -14,10 +14,3 @@ App({
     });
   }
 })
-
-      // {
-      //   "pagePath": "page/message/index",
-      //   "text": "消息",
-      //   "iconPath": "imgs/tabBar/message.png",
-      //   "selectedIconPath": "imgs/tabBar/message@selected.png"
-      // },
