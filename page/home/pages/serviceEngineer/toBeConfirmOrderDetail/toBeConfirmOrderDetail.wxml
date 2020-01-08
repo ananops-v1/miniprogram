@@ -1,24 +1,11 @@
 <!-- 顶部tabbar -->
 <view class="top-tab flex-wrp flex-tab ">
-  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="idx" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
+  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="key" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
   </view>
 </view>
-<!-- tabbar对应的内容 -->.
+<!-- tabbar对应的内容 -->
 <view>
-  <!-- <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
-    <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="项目编号" footer="{{}}"></mp-cell>
-            <mp-cell value="项目名称" footer="{{}}"></mp-cell>
-            <mp-cell value="甲方" footer="{{}}"></mp-cell>
-            <mp-cell value="甲方负责人" footer="{{}}"></mp-cell>
-            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
-            <mp-cell value="乙方" footer="{{}}"></mp-cell>
-            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
-        </mp-cells>
-    </view>
-  </view> -->
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
@@ -29,20 +16,21 @@
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-    <view class="page__bd">
-      <mp-cells ext-class="my-cells">
-        <mp-cell value="紧急程度" footer="{{orderInfo.level}}">{{orderInfo.level}}</mp-cell>
-        <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-        <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-        <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-        <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
-        <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-        <mp-cell value="联系电话" footer="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
-      </mp-cells>
-    </view>
+</view>
+<view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+  <view class="page__bd">
+    <mp-cells ext-class="my-cells">
+      <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
+      <mp-cell value="故障等级" footer="{{}}"></mp-cell>
+      <mp-cell value="故障类别" footer="{{}}"></mp-cell>
+      <mp-cell value="故障描述" footer="{{}}"></mp-cell>
+      <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
+      <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
+      <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
+    </mp-cells>
   </view>
 </view>
+
 
 <view class="page-section">
   <view class="weui-cells weui-cells_after-title">
@@ -55,11 +43,41 @@
 <view class="page-section">
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
-      <button type="default" plain="true" bindtap="reject">拒接</button>
+      <button type="default" plain="true" bindtap="reject">拒绝</button>
     </view>
   </view>
 </view>
 
-    <modal id="modal" hidden="{{hiddenmodalput}}" title="拒接原因" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-      <textarea placeholder="请输入拒接单原因" bindinput="reason" value="{{reason}}"></textarea>
-    </modal>
+<!-- 
+<view class='order_process'>
+  <view class='process_wrap' wx:for="{{processData}}" wx:key="">
+    <view class='process'>
+      <view class='process_line' style="background:{{item.start}}"></view>
+      <image class='process_icon' src="{{item.icon}}"></image>
+      <view class='process_line' style="background:{{item.end}}"></view>
+    </view>
+    <text class='process_name'>{{item.name}}</text>
+  </view>
+</view> -->
+
+<!-- <view class="page-body">
+    <view class="page-section page-section-gap">
+
+      <view class="progress-box">
+        <progress percent="20" show-info stroke-width="3"/>
+      </view>
+
+      <view class="progress-box">
+        <progress percent="40" active stroke-width="3" />
+        <icon class="progress-cancel" type="cancel"></icon>
+      </view>
+
+      <view class="progress-box">
+        <progress percent="60" active stroke-width="3" />
+      </view>
+
+      <view class="progress-box">
+        <progress percent="80" color="#10AEFF" active stroke-width="3" />
+      </view>
+    </view>
+  </view> -->

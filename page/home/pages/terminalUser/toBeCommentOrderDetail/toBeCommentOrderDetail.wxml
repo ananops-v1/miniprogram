@@ -1,10 +1,14 @@
-<view class="star_view">服务评价：</view>
-<block wx:for="{{starYellow}}" wx:key="index">
-  <image catchtap='score' id='{{index+1}}' data-in='yellow' src='/imgs/others/star@yellow.png'></image>
-</block>
-<block wx:for="{{starGrey}}" wx:key="index">
-  <image catchtap='score' id='{{index+1}}' data-in='grey' src='/imgs/others/star@grey.png'></image>
-</block>
+<view class="comment_title">
+  <view>服务评价：</view>
+  <view>
+    <block wx:for="{{starYellow}}" wx:key="index">
+      <image catchtap='score' id='{{index+1}}' data-in='yellow' src='/imgs/others/star@yellow.png'></image>
+    </block>
+    <block wx:for="{{starGrey}}" wx:key="index">
+      <image catchtap='score' id='{{index+1}}' data-in='grey' src='/imgs/others/star@grey.png'></image>
+    </block>
+  </view>
+</view>
 
 <view class="weui-cells_after-title">
   <view class="weui-cell">

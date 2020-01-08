@@ -1,18 +1,22 @@
 <view class="page">
-    <view class="page__bd">
-     <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
-      <scroll-view scroll-y="true" class="container discovery" >
-        <mp-cells>
-            <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
-                <view slot="title" class="mp-cell-title">
-                  <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image"/>
-                </view>
-                <view>{{order.programName}}</view>
-                <view>{{order.deviceName}}</view>
-                <view class="mp-cell-view">设备位置:{{order.address_name}}</view>
-                <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
-            </mp-cell>
-        </mp-cells>
-      </scroll-view>
-    </view>
+  <view class="page__bd">
+    <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
+    <scroll-view scroll-y="true" class="container discovery">
+      <mp-cells>
+        <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
+          <view slot="title" class="mp-cell-title">
+            <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
+          </view>
+          <view>{{order.programName}}</view>
+          <view>{{order.deviceName}}</view>
+          <view class="mp-cell-view">设备位置:{{order.address_name}}</view>
+          <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
+          <view wx:if="{{order.status!=14}}" class="operation_view">
+            <view class="operation_button" catchtap="receiveOrder" data-id="{{order.id}}" data-projectid="{{order.projectId}}">派单</view>
+            <view class="operation_button" catchtap="rejectOrder" data-id="{{order.id}}">拒绝</view>
+          </view>
+        </mp-cell>
+      </mp-cells>
+    </scroll-view>
+  </view>
 </view>

@@ -121,10 +121,10 @@ function homeInitial(allRepairerOrder) {
   // Config.repair[0][3].num = answer.daiqueren;
   // Config.repair[0][4].num = answer.daipingjia;
   //甲方负责人
-  Config.repair[1][0].num = answer.shenhezhong1 + answer.beijian + answer.daiqueren;
+  Config.repair[1][0].num = answer.shenhezhong1 + answer.beijian;
   Config.repair[1][1].num = answer.daizhifu;
   //服务商
-  Config.repair[2][0].num = answer.jiedan1 + answer.jiedan2;
+  Config.repair[2][0].num = answer.jiedan1 + answer.jiedan2 + answer.reject1;
   Config.repair[2][1].num = answer.shenhezhong2;
   //维修工
   Config.repair[3][0].num = answer.jiedan2;

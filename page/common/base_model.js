@@ -104,7 +104,7 @@ class Common extends Base {
   }
 
 //根据项目Id获取工程师列表
-  getEngineersByProjectId(projectId,callBack) {
+  getEngineersByProjectId(projectId, callback) {
     var params = {
       url: `/spc/api/engineer/getEngineersByProjectId/${projectId}`,
       method: 'POST',
@@ -119,9 +119,9 @@ class Common extends Base {
   }
 
   //根据项目Id获取工程师列表
-  getAmountByWorkId(workId, callBack) {
+  getAmountByWorkId(workId, callback) {
     var params = {
-      url: `/bill/bill/getamountbyworkorder/${workId}?workorderid=` + workId,
+      url: `/bill/api/bill/getAmountByWorkOrderId/${workId}`,
       sCallback: function (data) {
         callback && callback(data);
       },

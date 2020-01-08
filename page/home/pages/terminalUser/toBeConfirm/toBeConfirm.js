@@ -80,7 +80,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2,6,10];
+    var statusArray = [1,2,3,4];
     this.getOrderByStatus(statusArray);
   },
 
