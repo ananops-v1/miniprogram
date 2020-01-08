@@ -14,6 +14,8 @@ Page({
     inspectionDetail: {},
     //巡检网点信息
     networks: [],
+    //巡检日志信息
+    inspectionLogs: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -163,7 +165,22 @@ Page({
       }
     }
     else if (index == 1) {
-
+      console.log("进入进度条页面")
+      var param = {
+        'taskId': _this.data.inspectionId
+      }
+      common.getTaskLogs(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取日志成功")
+          _this.setData({
+            inspectionLogs:res.result
+          })
+        }
+        else {
+          console.log("获取日志失败")
+        }
+      })
     }
     else if (index == 2) {
       console.log("进入网点页")

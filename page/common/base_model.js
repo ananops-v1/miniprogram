@@ -268,6 +268,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //根据巡检任务ID查询任务的日志
+  getTaskLogs(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/getTaskLogs',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 // <---------------------巡检子项相关api------------------>
   //查询工程师下的全部巡检任务子项
   getItemByMaintainerId(param, callback) {
