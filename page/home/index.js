@@ -33,15 +33,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getAllstatusOrder();
-    this.getAllstatusInspection();
     var userInfo = wx.getStorageSync('userInfo');
     console.log(userInfo);
+    app.globalData.userRole = null;
     if (userInfo == "") {
       this.setData({
-        orderList: null
+        orderList: null,
+        userRole: app.globalData.userRole,
+        repair: null,
+        inspection: null
       })
     } else {
+      this.getAllstatusOrder();
+      this.getAllstatusInspection();
       var userRole = userInfo.roles[0].roleCode;
       var statusArray = new Array();
       if (userRole == 'user_watcher') {
