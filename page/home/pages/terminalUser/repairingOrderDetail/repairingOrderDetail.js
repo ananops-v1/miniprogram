@@ -50,8 +50,6 @@ Page({
         })
       }
     })
-
-
   },
 
   switchTab: function (e) {

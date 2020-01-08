@@ -184,6 +184,13 @@
 					"id": -1,
 					"name": "page/my/pages/aboutus/aboutus",
 					"pathName": "page/my/pages/aboutus/aboutus",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/repairingOrderDetail/repairingOrderDetail",
+					"pathName": "page/home/pages/terminalUser/repairingOrderDetail/repairingOrderDetail",
 					"scene": null
 				}
 			]

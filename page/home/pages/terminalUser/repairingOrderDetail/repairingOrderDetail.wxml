@@ -6,7 +6,7 @@
 </view>
 <!-- tabbar对应的内容 -->.
 <view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+  <view class="placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="设备编号" footer="{{}}">{{}}</mp-cell>
@@ -15,7 +15,7 @@
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+  <view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="故障程度" footer="{{}}"></mp-cell>
@@ -28,7 +28,7 @@
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
+  <view class="placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
@@ -38,15 +38,18 @@
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
-    <view class="page__bd">
-      <mp-cells ext-class="my-cells">
-        <mp-cell value="报修单号" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-        <mp-cell value="单据状态" footer="{{workOrderStatus[orderInfo.status]}}">{{workOrderStatus[orderInfo.status]}}</mp-cell>
-        <mp-cell value="审核人" footer="{{}}"></mp-cell>
-        <mp-cell value="审核意见" footer="{{}}"></mp-cell>
-        <mp-cell value="处理意见" footer="{{}}"></mp-cell>
-      </mp-cells>
+  <view class="placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+
+    <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
+      <view class="orderlog_time">{{item.createdTime}}</view>
+      <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+      <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
     </view>
+
+
   </view>
+
+
+
+
 </view>
