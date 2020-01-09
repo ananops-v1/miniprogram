@@ -22,7 +22,27 @@ Page({
     orderList: [],
     workOrderStatus: Config.workOrderStatus,
     showBill: false,
-
+    showSpareParts: true,
+    spareParts:[
+      {
+        'name':"test1"
+      },
+      {
+        'name': "test1"
+      },
+      {
+        'name': "test1"
+      },
+      {
+        'name': "test1"
+      },
+      {
+        'name': "test1"
+      },
+      {
+        'name': "test1"
+      },
+    ]
   },
   //点击进入详情
   clickOrder: function (e) {
