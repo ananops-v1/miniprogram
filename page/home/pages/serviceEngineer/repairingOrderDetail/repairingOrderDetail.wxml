@@ -72,7 +72,7 @@
       </mp-cells>
     </view>
   </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
+  <!-- <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="单据状态" footer="{{}}"></mp-cell>
@@ -84,5 +84,5 @@
         <mp-cell value="处理意见" footer="{{}}"></mp-cell>
       </mp-cells>
     </view>
-  </view>
+  </view> -->
 </view>

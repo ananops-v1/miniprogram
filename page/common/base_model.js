@@ -11,6 +11,21 @@ class Common extends Base {
     super()
   }
 
+  createRepair(param, callback) {
+    var params = {
+      url: '/mdmc/mdmcTask/save',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
 //返回全部工单列表
   getTask(param, callback) {
     var params = {
