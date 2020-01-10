@@ -12,11 +12,6 @@ Page({
     remind: '加载中',
     help_status: false,
     userid_focus: false,
-    passwd_focus: false,
-    imagecode: false,
-    userid: 'admin',
-    passwd: '123456',
-    imagecode: '',
     userid: '',
     passwd: '',
     imagecode: '',
@@ -201,16 +196,8 @@ Page({
     login.getIamgeCode(deviceId, res => {
       var imageCode = res.result;
       this.setData({
-        imageCode: imageCode
+        imageCode: "data:image/png;charset=utf-8;base64,"+imageCode
       })
-    })
-  },
-  imageCode: function(e) {
-    let that = this
-    let imagecode = e.detail.value
-    console.log(111);
-    that.setData({
-      imagecode
     })
   }
 });
