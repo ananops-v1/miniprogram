@@ -280,6 +280,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //服务商拒单（巡检任务）
+  refuseImcTaskByTaskId(param, callback) {
+    var params = {
+      url: '/imc/api/task/refuseImcTaskByTaskId',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 // <---------------------巡检子项相关api------------------>
   //查询工程师下的全部巡检任务子项
   getItemByMaintainerId(param, callback) {
@@ -321,6 +333,18 @@ class Common extends Base {
   modifyItemStatusByItemId(param, callback) {
     var params = {
       url: '/imc/inspectionItem/modifyItemStatusByItemId',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据巡检任务子项的ID查询对应的日志
+  getItemLogs(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/getItemLogs',
       data: param,
       method: 'POST',
       sCallback: function (data) {

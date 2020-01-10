@@ -127,6 +127,13 @@ Config.inspection = [
       icon_url: "/imgs/icon/inspection_comment.png",
       name: "待评价",
       num: 0
+    },
+    {
+      id: "7",
+      url: "../home/pages/terminalUser/inspectionToBeVerify/inspectionToBeVerify",
+      icon_url: "/imgs/icon/inspection_comment.png",
+      name: "待审核",
+      num: 0
     }
   ],
   [

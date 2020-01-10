@@ -55,3 +55,24 @@
   font-size: 26rpx;
   color: #888;
 }
+.orderlog_view {
+  display: flex;
+  justify-content: center;
+  font-size: 35rpx;
+  margin: 21rpx;
+}
+.orderlog_time {
+  width: 200rpx;
+}
+.orderlog_content {
+  color: grey;
+  width: 400rpx;
+}
+.orderlog_content.first {
+  color: orange;
+  width: 400rpx;
+}
+.orderlog_image {
+  width: 100rpx;
+  height: 100rpx;
+}

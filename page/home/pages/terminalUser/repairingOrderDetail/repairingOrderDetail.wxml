@@ -45,8 +45,7 @@
       <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
       <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
     </view>
-
-
+    
   </view>
 
 

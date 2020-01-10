@@ -137,11 +137,15 @@ function homeInitInspections(allInspections) {
     'inspecting': 0,
     'toBeConfirm': 0,
     'toBePay': 0,
-    'toBeComment': 0
+    'toBeComment': 0,
+    'toBeVerify': 0
   };
   if (allInspections != null && allInspections.length > 0) {
     allInspections.forEach(function (e) {
-      if (e.status == 1){
+      if (e.status == 0){
+        answer.toBeVerify++;
+      }
+      else if (e.status == 1){
         answer.toBeDispatch++;
       }
       else if (e.status == 2) {
@@ -157,17 +161,25 @@ function homeInitInspections(allInspections) {
       }
     });
   }
+  console.log(answer.toBeAccept)
+  console.log(answer.inspecting)
+  console.log(answer.toBeConfirm)
+  console.log(answer.toBePay)
+  console.log(answer.toBeComment)
+  console.log(allInspections)
   //甲方负责人
   Config.inspection[1][1].num = answer.toBeAccept;
   Config.inspection[1][2].num = answer.inspecting;
   Config.inspection[1][3].num = answer.toBeConfirm;
   Config.inspection[1][4].num = answer.toBePay;
   Config.inspection[1][5].num = answer.toBeComment;
+  Config.inspection[1][6].num = answer.toBeVerify;
   //服务商
   console.log(answer.toBeAccept)
   Config.inspection[2][0].num = answer.toBeAccept;
 }
 function homeInitItems(allItems) {
+  console.log(allItems)
   var answer = {
     'toBeDispatch': 0,
     'toBeAccept': 0,
