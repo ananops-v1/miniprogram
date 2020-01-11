@@ -49,7 +49,8 @@
     "page/home/pages/terminalUser/inspectionToBeReceive/inspectionToBeReceive",
     "page/home/pages/inspectionItems/inspectionItems",
     "page/home/pages/terminalUser/inspectionComment/inspectionComment",
-    "page/home/pages/serviceEngineer/inspectionChecked/inspectionChecked"
+    "page/home/pages/serviceEngineer/inspectionChecked/inspectionChecked",
+    "page/home/pages/terminalUser/inspectionToBeVerify/inspectionToBeVerify"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

@@ -18,15 +18,11 @@
     </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-    <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="设备编号" footer="{{}}"></mp-cell>
-            <mp-cell value="设备名称" footer="{{}}"></mp-cell>
-            <mp-cell value="设备位置" footer="{{}}"></mp-cell>
-            <mp-cell value="报修人" footer="{{}}"></mp-cell>
-            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
-        </mp-cells>
-    </view>
+        <view wx:for="{{inspectionItemLogs}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" class="orderlog_view">
+          <view class="orderlog_time">{{order.updateTime}}</view>
+          <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+          <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
+        </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">

@@ -125,7 +125,7 @@ Page({
   clickInspection: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../../all-work-inspection-Detail/all-work-inspection-Detail?id=" + e.currentTarget.dataset.id,
+      url: "../../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新
@@ -191,7 +191,21 @@ Page({
       success: function (sm) {
         if (sm.confirm) {
           console.log('用户要求驳回');
-          wx.navigateBack();
+          var param = {
+            'taskId': e.currentTarget.dataset.id,
+          }
+          common.refuseImcTaskByTaskId(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("拒单成功")
+            }
+            else {
+              console.log("拒单失败")
+            }
+          })
+          wx.redirectTo({
+            url: '../inspectionDispatch/inspectionDispatch',
+          })
         } else if (sm.cancel) {
           console.log('用户点击取消');
         }

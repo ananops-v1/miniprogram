@@ -33,8 +33,33 @@ Page({
     })
   },
   switchTab: function (e) {
-    this.setData({
-      currentNavtab: e.currentTarget.dataset.idx
+    var index = e.currentTarget.dataset.idx;
+    var _this = this;
+    if (index == 0) {
+      console.log("进入子项信息页")
+    }
+    else if (index == 1) {
+      console.log("进入进度条页面")
+      var param = {
+        'itemId': _this.data.inspectionItemId
+      }
+      common.getItemLogs(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取日志成功")
+          _this.setData({
+            inspectionItemLogs: res.result
+          })
+        }
+        else {
+          console.log("获取日志失败")
+        }
+      })
+    }
+    else if (index == 2) {
+    }
+    _this.setData({
+      currentNavtab: index
     });
   },
 });

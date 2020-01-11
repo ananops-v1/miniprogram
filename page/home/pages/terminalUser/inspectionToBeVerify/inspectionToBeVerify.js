@@ -1,21 +1,15 @@
-//discovery.js
+// page/home/pages/all-work-orders/all-work-orders.js
 import {
   Common
-} from '../../../../page/common/base_model.js';
+} from '../../../../../page/common/base_model.js';
 var common = new Common();
 Page({
   data: {
-    //巡检Id
-    inspectionId: 0,
-    //巡检详情tabbar
-    navTab: ["巡检信息", "进度条", "网点", "备品备件"],
-    currentNavtab: "3",
-    //巡检详情信息
-    inspectionDetail: {},
-    //巡检网点信息
-    networks: [],
-    //巡检日志信息
-    inspectionLogs: [],
+    //所有巡检列表
+    inspectionListLength: 0,
+    inspectionList: [],
+    //用户id
+    userId: 0,
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -107,6 +101,33 @@ Page({
       }
     ]
   },
+  search: function (value) {
+    return new Promise((resolve, reject) => {
+      if (this.data.i % 2 === 0) {
+        setTimeout(() => {
+          resolve([{ text: '搜索结果', value: 1 }, { text: '搜索结果2', value: 2 }])
+        }, 200)
+      } else {
+        setTimeout(() => {
+          resolve([])
+        }, 200)
+
+      }
+      this.setData({
+        i: this.data.i + 1
+      })
+    })
+  },
+  selectResult: function (e) {
+    console.log('select result', e.detail)
+  },
+  //点击进入详情
+  clickOrder: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: "../all-work-inspection-Detail/all-work-inspection-Detail?id=" + e.currentTarget.dataset.id,
+    })
+  },
   //下拉刷新
   lower: function (e) {
     console.log("lower")
@@ -131,80 +152,87 @@ Page({
       orderListLength: this.data.orderListLength + next_data.length
     });
   },
-  clickNetwork: function (e) {
+  clickInspection: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + e.currentTarget.dataset.id,
+    })
   },
+  clickAccept: function (e) {
+    console.log(e)
+    var _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定巡检通过吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          var param = {
+            'taskId': e.currentTarget.dataset.id,
+            'status': 2,
+            'statusMsg': '巡检待付款'
+          }
+          common.modifyTaskStatus(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
+          wx.redirectTo({
+            url: '../inspectionToBeConfirm/inspectionToBeConfirm',
+          })
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  clickNotAccept: function (e) {
+    console.log("结果不通过")
+    wx.showModal({
+      title: '提示',
+      content: '确定要驳回吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          console.log('用户要求驳回');
+          wx.navigateBack();
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function (options) {
     var that = this
     that.setData({
-      inspectionId: options.inspectionId
+      userId: wx.getStorageSync('userInfo').id
+    })
+    var param = {
+      'userId': that.data.userId,
+      'status': 0,
+      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
+    }
+    common.getInspectionTaskByStatus(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log("获取巡检列表成功");
+        that.setData({
+          inspectionList: res.result
+        })
+      }
+      else {
+        console.log("获取巡检列表失败");
+      }
     })
     //调用应用实例的方法获取全局数据
     that.refresh();
-  },
-  switchTab: function (e) {
-    var index = e.currentTarget.dataset.idx;
-    var _this = this;
-    if (index == 0) {
-      console.log("进入巡检信息页")
-      if (_this.data.inspectionDetail.id == undefined) {
-        var param = {
-          'taskId': _this.data.inspectionId
-        }
-        common.getInspectionDetail(param, (res) => {
-          console.log(res)
-          if (res.code == 200) {
-            console.log("获取巡检详情成功")
-            _this.setData({
-              inspectionDetail: res.result
-            })
-          }
-          else {
-            console.log("获取巡检详情失败")
-          }
-        })
-      }
-    }
-    else if (index == 1) {
-      console.log("进入进度条页面" + _this.data.inspectionId)
-      var param = {
-        'taskId': _this.data.inspectionId
-      }
-      common.getTaskLogs(param, (res) => {
-        console.log(res)
-        if (res.code == 200) {
-          console.log("获取日志成功")
-          _this.setData({
-            inspectionLogs:res.result
-          })
-        }
-        else {
-          console.log("获取日志失败")
-        }
-      })
-    }
-    else if (index == 2) {
-      console.log("进入网点页")
-      var param = {
-        'taskId': _this.data.inspectionId
-      }
-      common.getAllItemByTaskId(param, (res) => {
-        console.log(res)
-        if (res.code == 200) {
-          console.log("获取巡检子项成功")
-          _this.setData({
-            networks: res.result
-          })
-        }
-        else {
-          console.log("获取巡检子项失败")
-        }
-      })
-    }
-    else if (index == 3) {
-
-    }
-    _this.setData({
-      currentNavtab: index
-    });
-  },
+    that.setData({
+      search: that.search.bind(that)
+    })
+  }
 });

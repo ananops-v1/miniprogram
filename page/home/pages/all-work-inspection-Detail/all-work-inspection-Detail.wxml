@@ -32,13 +32,10 @@
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
-        <view class="icon-box" wx:for="{{inspectionLogs}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}">
-          <image class="icon-box-img" src="/imgs/icon/processItem.png"></image>
-          <view class="icon-box-ctn">
-            <view class="icon-box-title">当前状态</view>
-            <view class="icon-box-desc">{{order.updateTime}}</view>
-            <view class="icon-box-desc">{{order.movement}}</view>
-          </view>
+        <view wx:for="{{inspectionLogs}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" class="orderlog_view">
+          <view class="orderlog_time">{{order.updateTime}}</view>
+          <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+          <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
         </view>
     </view>
   </view>

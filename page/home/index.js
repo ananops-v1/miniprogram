@@ -159,6 +159,7 @@ Page({
         console.log(param)
         inspection.getAllInspection(param,(res)=>{
           console.log(res)
+          console.log("Hello")
           AUTH.homeInitInspections(res.result);
           _this.setData({
             userRole: app.globalData.userRole,
@@ -168,7 +169,7 @@ Page({
         })
       } else if (userRole == 'engineer') {
         var param = {
-          "userId": userInfo.id
+          "maintainerId": userInfo.id
         };
         inspection.getAllItems(param,(res)=>{
           console.log(res)
