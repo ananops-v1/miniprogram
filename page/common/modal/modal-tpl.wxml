@@ -57,24 +57,19 @@
 
           <view class='section_gap'>
             <view class='section__title sceneDeviceName'>选择备品备件</view>
+
             <checkbox-group name="linkage">
               <view wx:for="{{allDevices}}" wx:key="item" class="sectiongap">
 
                 <checkbox value="{{item.id}},{{index}},{{item.manufacture}},{{item.model}},{{item.deviceType}}" /> {{item.name}}
                 <view class="store">库存:{{item.store}}</view>
-
-
-                  <view class="num-box">
-                    <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
-                    <view class="num-input">
-                      <input type="number" value="{{buyNumber}}" disabled/>
-                    </view>
-                    <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
+                <view>
+                  <view bindtap="numJianTap">-</view>
+                  <view class="">
+                    <input type="number" value="{{buyNumber}}" disabled/>
                   </view>
-
-
-
-
+                  <view bindtap="numJiaTap">+</view>
+                </view>
               </view>
             </checkbox-group>
           </view>

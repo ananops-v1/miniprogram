@@ -46,6 +46,15 @@
       </mp-cells>
     </view>
   </view>
+
+  <view class="placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+    <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
+      <view class="orderlog_time">{{item.createdTime}}</view>
+      <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+      <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
+    </view>
+  </view>
+
 </view>
 
 <template is="onAddSpareParts" data="{{showSpareParts,deviceOrderCount,deviceOrderList,allDevices}}">

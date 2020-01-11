@@ -145,7 +145,7 @@
 
     <!-- <block wx:else>登录查看更多信息</block> -->
  <!-- class="page-section" -->
-    <view wx:if="{{orderList != null}}" class="upcoming_view">
+    <view wx:if="{{orderList != null && orderList.length > 0}}" class="upcoming_view">
       <view class="kind-list-item-hd">
         <view class="kind-list-text">待办事项</view>
         <!-- <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator> -->

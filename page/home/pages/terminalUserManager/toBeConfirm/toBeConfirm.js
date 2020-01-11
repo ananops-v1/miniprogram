@@ -26,35 +26,6 @@ Page({
     })
   },
 
-
-  // //下拉刷新
-  // lower: function(e) {
-  //   wx.showNavigationBarLoading();
-  //   var that = this;
-  //   setTimeout(function() {
-  //     wx.hideNavigationBarLoading();
-  //     that.nextLoad();
-  //   }, 1000);
-  //   console.log("lower")
-  // },
-  // //使用本地 fake 数据实现刷新效果
-  // refresh: function() {
-  //   var feed_data = this.data.orderList;
-  //   this.setData({
-  //     orderList: feed_data,
-  //     orderListLength: feed_data.length
-  //   });
-  // },
-  // //使用本地 fake 数据实现继续加载效果
-  // nextLoad: function() {
-  //   var next_data = this.data.nextdata;
-  //   this.setData({
-  //     orderList: this.data.orderList.concat(next_data),
-  //     orderListLength: this.data.orderListLength + next_data.length
-  //   });
-  // },
-
-
   /**
    * 生命周期函数--监听页面加载
    */

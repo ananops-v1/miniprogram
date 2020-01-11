@@ -9,7 +9,7 @@
   overflow: hidden;
   z-index: 9000;
   color: #fff;
-}
+} 
 
 .modal-dialog {
   width: 540rpx;
@@ -128,10 +128,11 @@ input-holder {
 .store {
   margin: 0 10rpx 0 10rpx;
 }
-/* 
 .buy-num-box .num-box{
      display: flex;
 }
+/* 
+
 .buy-num-box .num-box .num-jian,
 .buy-num-box .num-box .num-input,
 .buy-num-box .num-box .num-jia{

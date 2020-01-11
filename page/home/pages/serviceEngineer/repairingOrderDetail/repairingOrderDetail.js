@@ -7,8 +7,8 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "维修信息"],
-    currentNavtab: "0",
+    navTab: ["设备信息", "故障信息", "维修信息","流程详情"],
+    currentNavtab: "2",
     hiddenmodalput: true,
     showSpareParts: false,
   },

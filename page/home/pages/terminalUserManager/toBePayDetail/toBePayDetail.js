@@ -15,7 +15,7 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "维修信息","备品备件"],
+    navTab: ["设备信息", "故障信息", "维修信息","流程详情","备品备件"],
     currentNavtab: "0",
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
