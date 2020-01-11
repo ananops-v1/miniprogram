@@ -1,4 +1,3 @@
-//discovery.js
 import {
   Common
 } from '../../../../common/base_model.js'
@@ -13,7 +12,8 @@ Page({
   data: {
     navTab: ["设备信息", "故障信息", "维修信息","流程详情"],
     currentNavtab: "0",
-    workOrderStatus: Config.workOrderStatus
+    workOrderStatus: Config.workOrderStatus,
+    showAllSuggestion:false
   },
   onLoad: function (e) {
     var taskId = e.id;
@@ -35,9 +35,14 @@ Page({
     common.getTaskByTaskId(taskId, (res) => {
       if (res.code == 200) {
         var orderInfo = res.result;
-        console.log(orderInfo);
+        var suggestionOne = orderInfo.suggestion;
+        if (suggestionOne != null && suggestionOne.length > 15) {
+          suggestionOne = suggestionOne.substring(0, 15);
+        }
+        console.log(suggestionOne);
         this.setData({
-          orderInfo: orderInfo
+          orderInfo: orderInfo,
+          suggestionOne: suggestionOne
         })
       }
     });
@@ -56,5 +61,29 @@ Page({
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
+  },
+
+  showAllSuggestion: function (e) {
+    var orderInfo = this.data.orderInfo;
+    this.setData({
+      showAllSuggestion:true,
+      allSuggestion:orderInfo.suggestion
+    })
+  },
+
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function () {
+    this.setData({
+      showAllSuggestion: false,
+    });
+  },
+
+  /**
+   * 对话框取消按钮点击事件
+   */
+  onCancel: function () {
+    this.hideModal();
   },
 });

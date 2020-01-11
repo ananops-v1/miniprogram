@@ -242,12 +242,7 @@ Page({
       url: e.currentTarget.dataset.url
     })
   },
-  // kindToggle: function(e) {
-  //   console.log(e)
-  //   wx.navigateTo({
-  //     url: e.currentTarget.dataset.url
-  //   })
-  // },
+
   //点击报修事件处理函数
   clickRepair: function(e) {
     var url = e.currentTarget.dataset.url;

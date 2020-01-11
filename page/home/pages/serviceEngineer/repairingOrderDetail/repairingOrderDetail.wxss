@@ -1,12 +1,15 @@
 @import '../../../../common/lib/common.wxss';
-.container{
+@import "../../../../common/modal/modal-tpl.wxss";
+
+.container {
   height: 1500rpx;
 }
-.top-tab{
+
+.top-tab {
   width: 750rpx;
   height: 100rpx;
-  background: #2D4E95;
-  color: #8CCEFD;
+  background: #2d4e95;
+  color: #8ccefd;
   font-size: 28rpx;
   line-height: 100rpx;
   box-shadow: 0 2px 2px #bebebe;
@@ -14,19 +17,28 @@
   z-index: 9999;
 }
 
-.toptab.active{
-  color: #ffffff;
-  border-bottom: solid 2px #ffffff;
+.toptab.active {
+  color: #fff;
+  border-bottom: solid 2px #fff;
 }
-.activity{
+
+.activity {
   width: 750rpx;
   height: 375rpx;
 }
-.activity image{
+
+.activity image {
   width: 750rpx;
   height: 375rpx;
 }
-.placehold{
+
+.placehold {
   font-size: 28rpx;
   padding: 80rpx 0;
+}
+
+mp-cell {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

@@ -111,10 +111,9 @@ Page({
     var taskId = this.data.taskId;
     var param = {
       "status": 4,
-      "statusMsg": "string",
-      "taskId": taskId
+      "id": taskId
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+    common.createRepair(taskId, param, (res) => {
       console.log(res);
       if (res.code == 200) {
         wx.navigateBack();
@@ -126,10 +125,9 @@ Page({
     var taskId = this.data.taskId;
     var param = {
       "status": 15,
-      "statusMsg": "string",
-      "taskId": taskId
+      "id": taskId
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+    common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         wx.navigateBack();

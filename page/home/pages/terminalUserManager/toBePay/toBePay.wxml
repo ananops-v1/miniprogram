@@ -24,6 +24,3 @@
 
   <template is="bill" data="{{showBill,totalMoney}}">
   </template>
-
-  <template is="onAddSpareParts" data="{{showSpareParts,spareParts}}">
-  </template>

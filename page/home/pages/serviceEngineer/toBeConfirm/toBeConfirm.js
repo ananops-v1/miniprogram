@@ -26,35 +26,6 @@ Page({
     })
   },
 
-
-  // //下拉刷新
-  // lower: function(e) {
-  //   wx.showNavigationBarLoading();
-  //   var that = this;
-  //   setTimeout(function() {
-  //     wx.hideNavigationBarLoading();
-  //     that.nextLoad();
-  //   }, 1000);
-  //   console.log("lower")
-  // },
-  // //使用本地 fake 数据实现刷新效果
-  // refresh: function() {
-  //   var feed_data = this.data.orderList;
-  //   this.setData({
-  //     orderList: feed_data,
-  //     orderListLength: feed_data.length
-  //   });
-  // },
-  // //使用本地 fake 数据实现继续加载效果
-  // nextLoad: function() {
-  //   var next_data = this.data.nextdata;
-  //   this.setData({
-  //     orderList: this.data.orderList.concat(next_data),
-  //     orderListLength: this.data.orderListLength + next_data.length
-  //   });
-  // },
-
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -140,15 +111,14 @@ Page({
   },
 
 
-  rejectOrder: function (e) {
+  rejectOrder: function(e) {
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     var param = {
       "status": 15,
-      "statusMsg": "string",
-      "taskId": taskId
+      "id": taskId
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+    common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         _this.onShow();
@@ -156,7 +126,7 @@ Page({
     })
   },
 
-  receiveOrder: function (e) {
+  receiveOrder: function(e) {
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     var param = {
@@ -164,15 +134,12 @@ Page({
       "id": taskId
     }
 
-    common.createRepair(param,(res)=> {
+    common.createRepair(param, (res) => {
       console.log(res);
+      if (res.code == 200) {
+        _this.onShow();
+      }
     })
-    // common.modifyTaskStatusByTaskId(taskId, param, (res) => {
-    //   console.log(res);
-    //   if (res.code == 200) {
-    //     _this.onShow();
-    //   }
-    // })
   },
 
 

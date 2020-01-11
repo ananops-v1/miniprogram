@@ -1,6 +1,4 @@
-
-
-<!--调色灯模板-->
+<!--账单支付-->
 <template name="bill">
   <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showBill}}"></view>
   <view class="modal-dialog" wx:if="{{showBill}}">
@@ -36,6 +34,7 @@
     </view>
   </view>
 </template>
+
 <!-- 添加备品备件-->
 <template name="onAddSpareParts">
   <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showSpareParts}}"></view>
@@ -44,23 +43,55 @@
     <view class="modal-content">
       <form bindsubmit="onAddSpareParts" report-submit='true' bindreset="formReset">
         <scroll-view scroll-y="true" scroll-with-animation="true" class='scroll-view'>
+
+          <view class='section_gap'>
+            <view class='section__title sceneDeviceName' wx:if="{{deviceOrderCount > 0}}">已选备品备件</view>
+            <checkbox-group name="linkage">
+              <view wx:for="{{deviceOrderList}}" wx:key="item" class="sectiongap">
+                <label>
+                  <view> {{item.name}} </view>
+                </label>
+              </view>
+            </checkbox-group>
+          </view>
+
           <view class='section_gap'>
             <view class='section__title sceneDeviceName'>选择备品备件</view>
             <checkbox-group name="linkage">
-              <view wx:for="{{spareParts}}" wx:key="item" class="sectiongap">
-                <label>
-                  <checkbox value="{{item.id}},{{index}},{{item.manufacture}},{{item.model}},{{item.deviceType}}" />
-                  {{item.name}}
-                </label>
+              <view wx:for="{{allDevices}}" wx:key="item" class="sectiongap">
+
+                <checkbox value="{{item.id}},{{index}},{{item.manufacture}},{{item.model}},{{item.deviceType}}" /> {{item.name}}
+                <view class="store">库存:{{item.store}}</view>
+
+
+                  <view class="num-box">
+                    <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
+                    <view class="num-input">
+                      <input type="number" value="{{buyNumber}}" disabled/>
+                    </view>
+                    <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
+                  </view>
+
+
+
+
               </view>
             </checkbox-group>
           </view>
         </scroll-view>
         <view class="modal-footer ">
           <button class="btn-cancel" bindtap="onCancel" data-status="cancel ">取消</button>
-          <button formType="submit" class="btn-confirm">确定</button>
+          <button formType="submit" class="addSpareParts">确定</button>
         </view>
       </form>
     </view>
+  </view>
+</template>
+
+<!-- 显示备品备件详情 -->
+<template name="showAllSuggestion">
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showAllSuggestion}}"></view>
+  <view class="modal-dialog" wx:if="{{showAllSuggestion}}">
+    <view class="modal-title">{{allSuggestion}}</view>
   </view>
 </template>

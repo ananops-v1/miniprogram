@@ -1,4 +1,5 @@
 <!-- 顶部tabbar -->
+<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab ">
   <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="itemName" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
@@ -33,7 +34,7 @@
       <mp-cells ext-class="my-cells">
         <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
         <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-        <mp-cell value="维修建议" footer="{{orderInfo.suggestion}}">{{orderInfo.suggestion}}</mp-cell>
+        <mp-cell value="维修建议" footer="{{suggestionOne}}" bindtap="showAllSuggestion">{{suggestionOne}}</mp-cell>
         <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
       </mp-cells>
     </view>
@@ -45,11 +46,8 @@
       <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
       <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
     </view>
-
-
   </view>
-
-
-
-
 </view>
+
+<template is="showAllSuggestion" data="{{showAllSuggestion,allSuggestion}}">
+</template>

@@ -146,6 +146,37 @@ class Common extends Base {
     };
     this.request(params);
   }
+
+
+  //获取备件库所有设备
+  getAllDevices(callback) {
+    var params = {
+      url: `/rdc/deviceOrder/devices`,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+  //获取备件库所有设备
+  getDeviceById(objectId,objectType,callback) {
+    var params = {
+      url: `/rdc/deviceOrder/all/object/${objectId}/${objectType}`,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+
 // <---------------------合同相关api------------------>
   //根据groupId查询所属项目
   getProjectByGroupId(param, callback) {
