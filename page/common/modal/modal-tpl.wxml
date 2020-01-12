@@ -63,12 +63,12 @@
 
                 <checkbox value="{{item.id}},{{index}},{{item.manufacture}},{{item.model}},{{item.deviceType}}" /> {{item.name}}
                 <view class="store">库存:{{item.store}}</view>
-                <view>
-                  <view bindtap="numJianTap">-</view>
-                  <view class="">
-                    <input type="number" value="{{buyNumber}}" disabled/>
+                <view class="num_operate">
+                  <view class="num-jian" bindtap="numJianTap">-</view>
+                  <view class="num-input" >
+                    <input type="number" value="{{item.store}}"/>
                   </view>
-                  <view bindtap="numJiaTap">+</view>
+                  <view class="num-jia" bindtap="numJiaTap">+</view>
                 </view>
               </view>
             </checkbox-group>

@@ -9,7 +9,7 @@
   overflow: hidden;
   z-index: 9000;
   color: #fff;
-} 
+}
 
 .modal-dialog {
   width: 540rpx;
@@ -24,7 +24,7 @@
   min-height: 300rpx;
 }
 
-.modaldialog{
+.modaldialog {
   width: 100%;
   overflow: hidden;
   position: fixed;
@@ -56,7 +56,7 @@
   margin-bottom: 30rpx;
 }
 
-.scene-input{
+.scene-input {
   display: flex;
   background: #fff;
   border: 2rpx solid #ddd;
@@ -64,7 +64,6 @@
   padding: 10rpx;
   font-size: 30rpx;
 }
-
 
 .input {
   width: 100%;
@@ -99,26 +98,27 @@ input-holder {
 
 .btn-confirm {
   width: 50%;
-  color: #2D4E95;
+  color: #2d4e95;
   text-align: center;
 }
 
-.scroll-view{
+.scroll-view {
   height: 600rpx;
 }
 
-.sceneDeviceName{
+.sceneDeviceName {
   font-size: 30rpx;
-  color: #2D4E95
+  color: #2d4e95;
 }
 
-.sectiongap{
-  margin-top:10rpx!important;
-  margin-bottom: 10rpx; 
-  display: flex
+.sectiongap {
+  margin-top: 10rpx !important;
+  margin-bottom: 10rpx;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.sceneDetail_gap{
+.sceneDetail_gap {
   display: flex;
   flex-direction: row;
   height: 86rpx;
@@ -128,20 +128,39 @@ input-holder {
 .store {
   margin: 0 10rpx 0 10rpx;
 }
-.buy-num-box .num-box{
-     display: flex;
+
+.buy-num-box .num-box {
+  display: flex;
 }
+
+.num_operate {
+  display: flex;
+  margin: 0 10rpx 0 10rpx;
+}
+
+.num-jia {
+  width: 45rpx;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.num-jian {
+  width: 45rpx;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.num-input {
+  width: 45rpx;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
 /* 
 
 .buy-num-box .num-box .num-jian,
 .buy-num-box .num-box .num-input,
-.buy-num-box .num-box .num-jia{
-  width: 80rpx;
-  height: 64rpx;
-  line-height: 62rpx;
-  text-align: center;
-  border: 1px solid #eee;
-}
+
 .buy-num-box .num-box .num-input{
   font-size: 28rpx;
 }
