@@ -19,15 +19,18 @@
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
-        <mp-cell value="故障程度" footer="{{}}"></mp-cell>
+        <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
         <mp-cell value="故障等级" footer="{{}}"></mp-cell>
         <mp-cell value="故障类别" footer="{{}}"></mp-cell>
         <mp-cell value="故障描述" footer="{{}}"></mp-cell>
+        <mp-cell value="故障位置" footer="{{}}"></mp-cell>
+        <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
         <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
         <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
       </mp-cells>
     </view>
   </view>
+
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
@@ -37,7 +40,7 @@
           {{suggestionOne}}
         </mp-cell>
         <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts">
-
+          <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
         </mp-cell>
 
         <modal id="modal" hidden="{{hiddenmodalput}}" title="维修建议" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
@@ -57,5 +60,5 @@
 
 </view>
 
-<template is="onAddSpareParts" data="{{showSpareParts,deviceOrderCount,deviceOrderList,allDevices}}">
+<template is="onAddSpareParts" data="{{showSpareParts,deviceOrderCount,allDeviceOrderList,allDevices,allDevicesArray}}">
 </template>

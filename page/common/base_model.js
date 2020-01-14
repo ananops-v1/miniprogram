@@ -176,6 +176,21 @@ class Common extends Base {
     this.request(params);
   }
 
+  //创建备品备件订单
+  createDeviceOrder(param, callback) {
+    var params = {
+      url: `/rdc/deviceOrder/create`,
+      method: 'POST',
+      data:param,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 
 // <---------------------合同相关api------------------>
   //根据groupId查询所属项目

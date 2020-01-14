@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  top: 0;
+  top: 0; 
   left: 0;
   background: #000;
   opacity: 0.5;
@@ -125,8 +125,13 @@ input-holder {
   line-height: 86rpx;
 }
 
+.device_name {
+  font-size: 35rpx;
+  color:  darkblue
+}
+
 .store {
-  margin: 0 10rpx 0 10rpx;
+  margin: 0 25rpx 0 21rpx;
 }
 
 .buy-num-box .num-box {
@@ -135,7 +140,7 @@ input-holder {
 
 .num_operate {
   display: flex;
-  margin: 0 10rpx 0 10rpx;
+  margin: 0 21rpx 0 21rpx;
 }
 
 .num-jia {
@@ -151,31 +156,7 @@ input-holder {
 }
 
 .num-input {
-  width: 45rpx;
+  width: 60rpx;
   text-align: center;
   border: 1px solid #eee;
 }
-
-/* 
-
-.buy-num-box .num-box .num-jian,
-.buy-num-box .num-box .num-input,
-
-.buy-num-box .num-box .num-input{
-  font-size: 28rpx;
-}
-.buy-num-box .num-box .num-input input{
-  height: 100%;
-}
-.popup-join-btn{
-  width: 100%;
-  height: 89rpx;
-  text-align: center;
-  line-height: 89rpx;
-  font-size:34rpx;
-  color:#ffffff;
-  background-color: #e64340;
-}
-.buy-num-box .num-box .hui{
-  background-color: #f5f5f9;
-} */

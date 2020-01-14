@@ -317,7 +317,7 @@ Page({
     //检查工单填写情况
     var _this = this;
     var date = this.data.date + " " + this.data.time;
-    var newDate = new Date(date);
+    var newDate = new Date(date).getTime();
     // this.data.urgentTypeList[
     var level = _this.data.urgentTypeIndex;
     var userId = wx.getStorageSync('userInfo').id;
@@ -327,11 +327,11 @@ Page({
     }
     var latitude = this.data.latitude;
     var longitude = this.data.longitude;
+    var mapLocation = this.data.mapLocation;
     var malfunctionRank = this.data.malfunctionRankList[_this.data.malfunctionRankIndex];
     // this.data.malfunctionTypeList[
     var malfunctionType = _this.data.malfunctionTypeIndex;
     var deviceType = this.data.deviceTypeList[_this.data.deviceTypeIndex];
-
 
     var phoneNumber = this.data.phoneNumber;
     var programList = this.data.programList;
@@ -342,7 +342,8 @@ Page({
     var principalId = _this.data.reviewerId;
 
     var param = {
-      "appointTime": newDate,
+      "addressName": mapLocation,
+      // "appointTime": newDate,
       "call": phoneNumber,
       "contractId": contractId,
       "facilitatorId": facilitatorId,
@@ -354,13 +355,14 @@ Page({
       "objectType": 1,
       "principalId": principalId,
       "projectId": projectId,
+      "requestLatitude": latitude ,
+      "requestLongitude": longitude,
       "result": null,
       "status": 0,
       "suggestion": "",
       "title": "",
       "totalCost": 0,
       "userId": userId,
-
       "mdmcAddTaskItemDtoList": [{
         "description": description,
         "deviceId": 0,
@@ -382,6 +384,11 @@ Page({
       if (res.code == 200) {
         wx.showToast({
           title: '添加成功',
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1000)
+          }
         })
       } else {
         wx.showToast({

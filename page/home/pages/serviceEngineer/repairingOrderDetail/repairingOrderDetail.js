@@ -7,14 +7,14 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "维修信息","流程详情"],
+    navTab: ["设备信息", "故障信息", "维修详情", "流程详情"],
     currentNavtab: "2",
     hiddenmodalput: true,
     showSpareParts: false,
   },
   onLoad: function(e) {
-    // var taskId = e.id;
-    var taskId = "1325432543253254134"
+    var taskId = e.id;
+    // var taskId = "1432543543654653655"
     this.setData({
       taskId: taskId
     })
@@ -52,25 +52,41 @@ Page({
     })
   },
 
-//获取所有的备品备件
+  //获取所有的备品备件
   getAllDevices: function() {
-    common.getAllDevices((res)=> {
+    common.getAllDevices((res) => {
       console.log(res);
+      var allDevices = res.result;
+      var allDevicesArray = new Array(allDevices.length).fill(0);
       this.setData({
-        allDevices:res.result
+        allDevices: allDevices,
+        allDevicesArray: allDevicesArray
       })
     })
 
   },
 
-//查询工单下备品备件信息
+  //查询工单下备品备件信息
   getDeviceById: function() {
     var orderInfo = this.data.orderInfo;
     var taskId = orderInfo.id;
-    common.getDeviceById(taskId,1,(res)=> {
+    common.getDeviceById(taskId, 1, (res) => {
+      console.log(res);
+      var deviceOrderList= res.result.deviceOrderList;
+      var allDeviceOrderList = new Array();
+      deviceOrderList.forEach(function(e){
+        var item = e.deviceOrder.items;
+        var items = JSON.parse(item);
+        items.forEach(function(e){
+          allDeviceOrderList.push(e);
+        })
+        
+      })
+      console.log(allDeviceOrderList);
+
       this.setData({
         deviceOrderCount: res.result.deviceOrderCount,
-        deviceOrderList: res.result.deviceOrderList
+        allDeviceOrderList: allDeviceOrderList
       })
     })
 
@@ -173,25 +189,83 @@ Page({
     this.hideModal();
   },
 
-  addSpareParts: function() {
+  addSpareParts: function(e) {
+    var allDevicesArray = this.data.allDevicesArray;
+    var allDevices = this.data.allDevices;
+    var orderInfo = this.data.orderInfo;
 
-  },
+    console.log(allDevices);
 
-  numJianTap: function () {
-    if (this.data.buyNumber > this.data.buyNumMin) {
-      var currentNum = this.data.buyNumber;
-      currentNum--;
-      this.setData({
-        buyNumber: currentNum
+    var items = new Array();
+    console.log(allDevicesArray);
+    allDevicesArray.forEach(function(e) {
+      if (e > 0) {
+        var item = {
+          "count": e,
+          "id": allDevices.id,
+          "manufacture": allDevices.manufacture,
+          "model": allDevices.model,
+          "name": allDevices.name,
+          "type": allDevices.type
+        }
+        items.push(item);
+      }
+    });
+    if(items.length == 0) {
+      wx.showToast({
+        title: '请选择备品备件',
+        icon:'none',
+        duration:1000
+      })
+    } else {
+      var param = {
+        "applicant": orderInfo.maintainerId,
+        "applicantId": orderInfo.maintainerId,
+        "currentApprover": orderInfo.facilitatorId,
+        "currentApproverId": orderInfo.facilitatorId,
+        "objectId": orderInfo.id,
+        "objectType": 1,
+        "items": items
+      }
+
+      console.log(param)
+
+      common.createDeviceOrder(param, (res) => {
+        if(res.code == 200) {
+          this.hideModal();
+          wx.showToast({
+            title: '创建成功',
+          })
+        }
       })
     }
   },
-  numJiaTap: function () {
-    if (this.data.buyNumber < this.data.buyNumMax) {
-      var currentNum = this.data.buyNumber;
-      currentNum++;
+
+  numJianTap: function(e) {
+    var allDevicesArray = this.data.allDevicesArray;
+    var allDevices = this.data.allDevices;
+    var index = e.currentTarget.dataset.index;
+    if (allDevicesArray[index] > 1) {
+      allDevicesArray[index]--;
       this.setData({
-        buyNumber: currentNum
+        allDevicesArray: allDevicesArray
+      })
+    }
+  },
+  numJiaTap: function(e) {
+    var allDevicesArray = this.data.allDevicesArray;
+    var allDevices = this.data.allDevices;
+    var index = e.currentTarget.dataset.index;
+    if (allDevicesArray[index] < allDevices[index].store) {
+      allDevicesArray[index]++;
+      this.setData({
+        allDevicesArray: allDevicesArray
+      })
+    } else {
+      wx.showToast({
+        title: '库存不足',
+        icon: 'none',
+        duration: 1000,
       })
     }
   },

@@ -41,37 +41,33 @@
   <view class="modal-dialog" wx:if="{{showSpareParts}}">
     <view class="modal-title">添加备品备件</view>
     <view class="modal-content">
-      <form bindsubmit="onAddSpareParts" report-submit='true' bindreset="formReset">
+      <form bindsubmit="addSpareParts" report-submit='true' bindreset="formReset">
         <scroll-view scroll-y="true" scroll-with-animation="true" class='scroll-view'>
 
           <view class='section_gap'>
             <view class='section__title sceneDeviceName' wx:if="{{deviceOrderCount > 0}}">已选备品备件</view>
-            <checkbox-group name="linkage">
-              <view wx:for="{{deviceOrderList}}" wx:key="item" class="sectiongap">
-                <label>
-                  <view> {{item.name}} </view>
-                </label>
-              </view>
-            </checkbox-group>
+            <view wx:for="{{allDeviceOrderList}}" wx:key="item" class="sectiongap">
+           
+              <view class="device_name"> {{item.name}}</view>
+              <view class="store">数量:{{item.store}}</view>
+        
+            </view>
           </view>
 
           <view class='section_gap'>
             <view class='section__title sceneDeviceName'>选择备品备件</view>
 
-            <checkbox-group name="linkage">
-              <view wx:for="{{allDevices}}" wx:key="item" class="sectiongap">
-
-                <checkbox value="{{item.id}},{{index}},{{item.manufacture}},{{item.model}},{{item.deviceType}}" /> {{item.name}}
-                <view class="store">库存:{{item.store}}</view>
-                <view class="num_operate">
-                  <view class="num-jian" bindtap="numJianTap">-</view>
-                  <view class="num-input" >
-                    <input type="number" value="{{item.store}}"/>
-                  </view>
-                  <view class="num-jia" bindtap="numJiaTap">+</view>
+            <view wx:for="{{allDevices}}" wx:key="item" class="sectiongap">
+              <view class="device_name"> {{item.name}}</view>
+              <view class="store">库存:{{item.store}}</view>
+              <view class="num_operate">
+                <view class="num-jian" data-index="{{index}}" bindtap="numJianTap">-</view>
+                <view class="num-input">
+                  {{allDevicesArray[index]}}
                 </view>
+                <view class="num-jia" data-index="{{index}}" bindtap="numJiaTap">+</view>
               </view>
-            </checkbox-group>
+            </view>
           </view>
         </scroll-view>
         <view class="modal-footer ">
