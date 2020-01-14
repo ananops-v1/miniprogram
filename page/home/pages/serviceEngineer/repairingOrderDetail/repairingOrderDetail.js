@@ -198,15 +198,15 @@ Page({
 
     var items = new Array();
     console.log(allDevicesArray);
-    allDevicesArray.forEach(function(e) {
+    allDevicesArray.forEach(function(e,index) {
       if (e > 0) {
         var item = {
           "count": e,
-          "id": allDevices.id,
-          "manufacture": allDevices.manufacture,
-          "model": allDevices.model,
-          "name": allDevices.name,
-          "type": allDevices.type
+          "id": allDevices[index].id,
+          "manufacture": allDevices[index].manufacture,
+          "model": allDevices[index].model,
+          "name": allDevices[index].name,
+          "type": allDevices[index].type
         }
         items.push(item);
       }

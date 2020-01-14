@@ -49,7 +49,7 @@
             <view wx:for="{{allDeviceOrderList}}" wx:key="item" class="sectiongap">
            
               <view class="device_name"> {{item.name}}</view>
-              <view class="store">数量:{{item.store}}</view>
+              <view class="store">数量:{{item.count}}</view>
         
             </view>
           </view>

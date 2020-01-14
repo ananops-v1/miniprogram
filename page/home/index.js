@@ -19,7 +19,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderList: Config.orderList
   },
   /**
    * 生命周期函数--监听页面加载
@@ -39,7 +38,7 @@ Page({
     if (userInfo == "") {
       this.setData({
         orderList: null,
-        userRole: app.globalData.userRole,
+        userRole: null,
         repair: null,
         inspection: null
       })
@@ -51,11 +50,11 @@ Page({
       if (userRole == 'user_watcher') {
         statusArray = [12];
       } else if (userRole == 'user_manager') {
-        statusArray = [2, 6,11];
-      } else if (userRole == 'fac_manager') {
-        statusArray = [2, 6, 10];
+        statusArray = [2,8,11];
+      } else if (userRole == 'fac_service') {
+        statusArray = [3,4,7];
       } else if (userRole == 'engineer') {
-        statusArray = [5, 6, 7];
+        statusArray = [5];
       }
       this.getOrderByStatus(statusArray);
     }
@@ -65,14 +64,13 @@ Page({
   getAllstatusOrder: function() {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');
+    var userRole = userInfo.roles[0].roleCode;
     if (userInfo != '') {
-      var userRole = userInfo.roles[0].roleCode;
-      console.log(userRole);
       if (userRole == 'user_watcher') {
         app.globalData.userRole = 0;
       } else if (userRole == 'user_manager') {
         app.globalData.userRole = 1;
-      } else if (userRole == 'fac_manager') {
+      } else if (userRole == 'fac_service') {
         app.globalData.userRole = 2;
       } else if (userRole == 'engineer') {
         app.globalData.userRole = 3;
@@ -83,17 +81,8 @@ Page({
           repair: null,
           inspection: null
         })
-      }
-    } else {
-      app.globalData.userRole = null;
-      _this.setData({
-        userRole: app.globalData.userRole,
-        repair: null,
-        inspection: null
-      })
-    }
+      };
 
-    if (userInfo != '') {
       var param = {
         "id": userInfo.id,
         "orderBy": "string",
@@ -102,15 +91,9 @@ Page({
         "roleCode": userInfo.roles[0].roleCode,
         "status": null
       };
-      console.log(param);
       common.getTaskListByIdAndStatus(param, (res) => {
         var allRepairerOrder = res.result;
-        _this.setData({
-          allRepairerOrder: allRepairerOrder
-        })
-        console.log(allRepairerOrder);
         AUTH.homeInitial(allRepairerOrder);
-        var userRole = userInfo.roles[0].roleCode;
         if (userRole != null) {
           _this.setData({
             userRole: app.globalData.userRole,
@@ -119,6 +102,14 @@ Page({
           })
         }
       });
+
+    } else {
+      app.globalData.userRole = null;
+      _this.setData({
+        userRole: app.globalData.userRole,
+        repair: null,
+        inspection: null
+      })
     }
   },
   getAllstatusInspection:function(){
@@ -130,7 +121,7 @@ Page({
         app.globalData.userRole = 0;
       } else if (userRole == 'user_manager') {
         app.globalData.userRole = 1;
-      } else if (userRole == 'fac_manager') {
+      } else if (userRole == 'fac_service') {
         app.globalData.userRole = 2;
       } else if (userRole == 'engineer') {
         app.globalData.userRole = 3;
@@ -151,7 +142,7 @@ Page({
       })
     }
     if (userInfo != '') {
-      if (userRole == 'fac_manager' || userRole == 'user_manager') {
+      if (userRole == 'fac_service' || userRole == 'user_manager') {
         var param = {
           "role": userRole == 'user_manager'?1:4,
           "userId": userRole == 'user_manager' ? userInfo.id : wx.getStorageSync('userObject').groupId
@@ -195,6 +186,8 @@ Page({
       "status": statusArray
     };
 
+    console.log(param);
+
     common.getTaskListByIdAndStatusArrary(param, (res) => {
       var orderList = res.result;
       var orderListArray = [];
@@ -213,24 +206,6 @@ Page({
       })
     })
   },
-
-  // upper(e) {
-  //   console.log(e)
-  // },
-
-  // lower(e) {
-  //   console.log(e)
-  // },
-
-  // scroll(e) {
-  //   console.log(e)
-  // },
-
-  // scrollToTop() {
-  //   this.setAction({
-  //     scrollTop: 0
-  //   })
-  // },
 
   clickOrder(e) {
     console.log(e.currentTarget.dataset.id)

@@ -60,75 +60,77 @@ function exit() {
 
 function homeInitial(allRepairerOrder) {
   var answer = {
-    'quxiao': 0,
-    'shenhezhong1': 0,
-    'jiedan1': 0,
-    'jiedan2': 0,
-    'zhixing': 0,
-    'beijian': 0,
-    'zhixing2': 0,
-    'shenhezhong2': 0,
-    'daiqueren': 0,
-    'daizhifu': 0,
-    'daipingjia': 0,
-    'wancheng': 0,
-    'reject1': 0,
-    'reject2': 0,
-    'reject3': 0,
-    'reject4': 0,
+    'num1': 0,
+    'num2': 0,
+    'num3': 0,
+    'num4': 0,
+    'num5': 0,
+    'num6': 0,
+    'num7': 0,
+    'num8': 0,
+    'num9': 0,
+    'num10': 0,
+    'num11': 0,
+    'num12': 0,
+    'num13': 0,
+    'num14': 0,
+    'num15': 0,
+    'num16': 0,
   };
   if (allRepairerOrder != null && allRepairerOrder.length > 0) {
     allRepairerOrder.forEach(function(e) {
       if (e.status == 1) {
-        answer.quxiao++;
+        answer.num1++;
       } else if (e.status == 2) {
-        answer.shenhezhong1++;
+        answer.num2++;
       } else if (e.status == 3) {
-        answer.jiedan1++;
+        answer.num3++;
       } else if (e.status == 4) {
-        answer.jiedan2++;
+        answer.num4++;
       } else if (e.status == 5) {
-        answer.zhixing++;
+        answer.num5++;
       } else if (e.status == 6) {
-        answer.beijian++;
+        answer.num6++;
       } else if (e.status == 7) {
-        answer.zhixing2++;
+        answer.num7++;
       } else if (e.status == 8) {
-        answer.shenhezhong2++;
+        answer.num8++;
+      } else if (e.status == 9) {
+        answer.num9++;
       } else if (e.status == 10) {
-        answer.daiqueren++;
+        answer.num10++;
       } else if (e.status == 11) {
-        answer.daizhifu++;
+        answer.num11++;
       } else if (e.status == 12) {
-        answer.daipingjia++;
+        answer.num12++;
       } else if (e.status == 13) {
-        answer.wancheng++;
+        answer.num13++;
       } else if (e.status == 14) {
-        answer.reject1++;
+        answer.num14++;
       } else if (e.status == 15) {
-        answer.reject2++;
+        answer.num15++;
       } else if (e.status == 16) {
-        answer.reject3++;
+        answer.num16++;
       } else if (e.status == 17) {
-        answer.reject4++;
+        answer.num17++;
       }
     });
   }
   //值机员
-  Config.repair[0][1].num = answer.quxiao + answer.shenhezhong1 + answer.jiedan1 + answer.jiedan2;
-  Config.repair[0][2].num = answer.zhixing;
-  Config.repair[0][3].num = answer.daipingjia;
+  Config.repair[0][1].num = answer.num2 + answer.num3 + answer.num4 + answer.num5;
+  Config.repair[0][2].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10 + answer.num11;
+  Config.repair[0][3].num = answer.num12;
   // Config.repair[0][3].num = answer.daiqueren;
   // Config.repair[0][4].num = answer.daipingjia;
   //甲方负责人
-  Config.repair[1][0].num = answer.shenhezhong1 + answer.beijian;
-  Config.repair[1][1].num = answer.daizhifu;
+  Config.repair[1][0].num = answer.num2 + answer.num8;
+  Config.repair[1][1].num = answer.num11;
   //服务商
-  Config.repair[2][0].num = answer.jiedan1 + answer.jiedan2 + answer.reject1;
+  Config.repair[2][0].num = answer.num3 + answer.num4;
   Config.repair[2][1].num = answer.shenhezhong2;
   //维修工
-  Config.repair[3][0].num = answer.jiedan2;
-  Config.repair[3][1].num = answer.zhixing + answer.beijian + answer.zhixing2;
+  Config.repair[3][0].num = answer.num5;
+  Config.repair[3][1].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
 }
 function homeInitInspections(allInspections) {
   var answer = {
@@ -161,12 +163,6 @@ function homeInitInspections(allInspections) {
       }
     });
   }
-  console.log(answer.toBeAccept)
-  console.log(answer.inspecting)
-  console.log(answer.toBeConfirm)
-  console.log(answer.toBePay)
-  console.log(answer.toBeComment)
-  console.log(allInspections)
   //甲方负责人
   Config.inspection[1][1].num = answer.toBeAccept;
   Config.inspection[1][2].num = answer.inspecting;

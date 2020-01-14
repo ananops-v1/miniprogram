@@ -337,12 +337,12 @@ Page({
     var programList = this.data.programList;
     var programIndex = this.data.programIndex;
     var contractId = programList[programIndex].contractId;
-    var facilitatorId = programList[programIndex].partyBId;
+    var facilitatorId = programList[programIndex].bleaderId;
     var projectId = programList[programIndex].id;
     var principalId = _this.data.reviewerId;
 
     var param = {
-      "addressName": mapLocation,
+      "address_name": mapLocation,
       // "appointTime": newDate,
       "call": phoneNumber,
       "contractId": contractId,

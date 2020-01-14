@@ -79,13 +79,11 @@ Page({
           wx.showToast({
             title: "没有相关工单",
             icon: 'none',
-            duration: 2000,
+            duration: 1000,
             success: function () {
               setTimeout(function () {
-                wx.navigateBack({ //返回
-                  delta: 1
-                })
-              }, 2000)
+                wx.navigateBack();
+              }, 1000)
             }
           })
         }
@@ -97,13 +95,11 @@ Page({
         wx.showToast({
           title: "没有相关工单",
           icon: 'none',
-          duration: 2000,
+          duration: 1000,
           success: function () {
             setTimeout(function () {
-              wx.navigateBack({ //返回
-                delta: 1
-              })
-            }, 2000)
+              wx.navigateBack();
+            }, 1000)
           }
         })
       }
@@ -111,9 +107,15 @@ Page({
   },
   pass: function (e) {
     var _this = this;
-    var taskId = this.data.taskId;
+    var taskId = e.currentTarget.dataset.id;
+    var status = e.currentTarget.dataset.status;
+    if (status == 2) {
+      status = 3;
+    } else if(status == 8) {
+      status = 9;
+    }
     var param = {
-      "status": 3,
+      "status": status,
       "statusMsg": "string",
       "taskId": taskId
     }
@@ -126,9 +128,14 @@ Page({
   },
   reject: function (e) {
     var _this = this;
-    var taskId = this.data.taskId;
+    console.log(e);
+    var taskId = e.currentTarget.dataset.id;
+    var status = e.currentTarget.dataset.status;
+    if (status == 2) {
+      status = 14;
+    }
     var param = {
-      "status": 1,
+      "status": status,
       "statusMsg": "string",
       "taskId": taskId
     }

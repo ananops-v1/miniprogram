@@ -12,8 +12,8 @@
           <view class="mp-cell-view">设备位置:{{order.address_name}}</view>
           <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
           <view wx:if="{{order.status!=14}}" class="operation_view">
-            <view class="operation_button" catchtap="receiveOrder" data-id="{{order.id}}" data-projectid="{{order.projectId}}">派单</view>
-            <view class="operation_button" catchtap="rejectOrder" data-id="{{order.id}}">拒绝</view>
+            <view class="operation_button" catchtap="receiveOrder" data-id="{{order.id}}" data-status="{{order.status}}" data-projectid="{{order.projectId}}">派单</view>
+            <view class="operation_button" catchtap="rejectOrder" data-id="{{order.id}}" data-status="{{order.status}}">拒绝</view>
           </view>
         </mp-cell>
       </mp-cells>

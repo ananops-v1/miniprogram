@@ -66,34 +66,6 @@ Page({
     });
   },
 
-  //进度条的状态
-  setPeocessIcon: function () {
-    var index = 0 //记录状态为1的最后的位置
-    var processArr = this.data.processData
-    // console.log("progress", this.data.detailData.progress)
-    for (var i = 0; i < this.data.detailData.progress.length; i++) {
-      var item = this.data.detailData.progress[i]
-      processArr[i].name = item.word
-      if (item.state == 1) {
-        index = i
-        processArr[i].icon = "/imgs/others/process_3.png"
-        processArr[i].start = "#45B2FE"
-        processArr[i].end = "#45B2FE"
-      } else {
-        processArr[i].icon = "/imgs/others/process_1.png"
-        processArr[i].start = "#EFF3F6"
-        processArr[i].end = "#EFF3F6"
-      }
-    }
-    processArr[index].icon = "/imgs/others/process_2.png"
-    processArr[index].end = "#EFF3F6"
-    processArr[0].start = "#fff"
-    processArr[this.data.detailData.progress.length - 1].end = "#fff"
-    this.setData({
-      processData: processArr
-    })
-  },
-
   getTaskById: function () {
 
   },
@@ -108,8 +80,14 @@ Page({
   pass: function (e) {
     var _this = this;
     var taskId = this.data.taskId;
+    var status = this.data.orderInfo.status;
+    if (status == 2) {
+      status = 3;
+    } else if (status == 8) {
+      status = 9;
+    }
     var param = {
-      "status": 3,
+      "status": status,
       "statusMsg": "string",
       "taskId": taskId
     }
@@ -123,8 +101,12 @@ Page({
   reject: function (e) {
     var _this = this;
     var taskId = this.data.taskId;
+    var status = this.data.orderInfo.status;
+    if (status == 2) {
+      status = 14;
+    }
     var param = {
-      "status": 1,
+      "status": status,
       "statusMsg": "string",
       "taskId": taskId
     }

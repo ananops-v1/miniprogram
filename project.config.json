@@ -205,6 +205,13 @@
 					"id": -1,
 					"name": "page/home/pages/serviceEngineer/repairingOrderDetail/repairingOrderDetail",
 					"pathName": "page/home/pages/serviceEngineer/repairingOrderDetail/repairingOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUserManager/toBeConfirm/toBeConfirm",
+					"pathName": "page/home/pages/terminalUserManager/toBeConfirm/toBeConfirm",
 					"scene": null
 				}
 			]
