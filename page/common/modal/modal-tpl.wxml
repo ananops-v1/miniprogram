@@ -86,3 +86,30 @@
     <view class="modal-title">{{allSuggestion}}</view>
   </view>
 </template>
+
+
+<template name="showSpareParts">
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showSpareParts}}"></view>
+  <view class="modal-dialog" wx:if="{{showSpareParts}}">
+    <view class="modal-content">
+      <form bindsubmit="addSpareParts" report-submit='true' bindreset="formReset">
+        <scroll-view scroll-y="true" scroll-with-animation="true" class='scroll-view'>
+
+          <view class='section_gap'>
+            <view class='section__title sceneDeviceName' wx:if="{{deviceOrderCount > 0}}">已选备品备件</view>
+            <view wx:for="{{allDeviceOrderList}}" wx:key="item" class="sectiongap">
+           
+              <view class="device_name"> {{item.name}}</view>
+              <view class="store">数量:{{item.count}}</view>
+        
+            </view>
+          </view>
+        </scroll-view>
+        <!-- <view class="modal-footer ">
+          <button class="btn-cancel" bindtap="onCancel" data-status="cancel ">取消</button>
+          <button formType="submit" class="addSpareParts">确定</button>
+        </view> -->
+      </form>
+    </view>
+  </view>
+</template>

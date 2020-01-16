@@ -1,5 +1,5 @@
 //discovery.js
-import {
+import { 
   Common
 } from '../../../../common/base_model.js'
 
@@ -15,7 +15,8 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "流程详情"],
+    // navTab: ["设备信息", "故障信息", "流程详情"],
+    navTab: ["工单详情", "流程详情"],
     currentNavtab: "0",
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
@@ -43,7 +44,6 @@ Page({
       console.log(res);
       if (res.code == 200) {
         var orderInfo = res.result;
-        console.log(orderInfo);
         this.setData({
           orderInfo: orderInfo
         })
@@ -64,34 +64,6 @@ Page({
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
-  },
-
-  //进度条的状态
-  setPeocessIcon: function() {
-    var index = 0 //记录状态为1的最后的位置
-    var processArr = this.data.processData
-    // console.log("progress", this.data.detailData.progress)
-    for (var i = 0; i < this.data.detailData.progress.length; i++) {
-      var item = this.data.detailData.progress[i]
-      processArr[i].name = item.word
-      if (item.state == 1) {
-        index = i
-        processArr[i].icon = "/imgs/others/process_3.png"
-        processArr[i].start = "#45B2FE"
-        processArr[i].end = "#45B2FE"
-      } else {
-        processArr[i].icon = "/imgs/others/process_1.png"
-        processArr[i].start = "#EFF3F6"
-        processArr[i].end = "#EFF3F6"
-      }
-    }
-    processArr[index].icon = "/imgs/others/process_2.png"
-    processArr[index].end = "#EFF3F6"
-    processArr[0].start = "#fff"
-    processArr[this.data.detailData.progress.length - 1].end = "#fff"
-    this.setData({
-      processData: processArr
-    })
   },
 
   getTaskById: function() {

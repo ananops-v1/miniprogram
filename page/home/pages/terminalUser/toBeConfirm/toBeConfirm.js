@@ -51,7 +51,7 @@ Page({
    */
   onShow: function() {
     AUTH.checkHasLogined();
-    var statusArray = [1, 2, 3, 4];
+    var statusArray = [2,3,4,5];
     this.getOrderByStatus(statusArray);
   },
 

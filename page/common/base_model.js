@@ -121,7 +121,7 @@ class Common extends Base {
 //根据项目Id获取工程师列表
   getEngineersByProjectId(projectId, callback) {
     var params = {
-      url: `/spc/api/engineer/getEngineersByProjectId/${projectId}`,
+      url: `/spc/engineer/getEngineerIdListByProjectId/${projectId}`,
       method: 'POST',
       sCallback: function (data) {
         callback && callback(data);

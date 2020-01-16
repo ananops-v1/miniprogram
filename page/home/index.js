@@ -33,7 +33,6 @@ Page({
    */
   onShow: function() {
     var userInfo = wx.getStorageSync('userInfo');
-    console.log(userInfo);
     app.globalData.userRole = null;
     if (userInfo == "") {
       this.setData({
@@ -186,12 +185,9 @@ Page({
       "status": statusArray
     };
 
-    console.log(param);
-
     common.getTaskListByIdAndStatusArrary(param, (res) => {
       var orderList = res.result;
       var orderListArray = [];
-      console.log(orderList);
       if (orderList != null && orderList.length > 0) {
         for (var i = 0; i < orderList.length; i++) {
           var taskList = orderList[i].taskList;
@@ -200,7 +196,6 @@ Page({
           }
         }
       }
-      console.log(orderListArray);
       this.setData({
         orderList: orderListArray
       })

@@ -11,32 +11,23 @@
       <mp-cells ext-class="my-cells">
         <mp-cell value="设备编号" footer="{{}}">{{}}</mp-cell>
         <mp-cell value="设备名称" footer="{{}}"></mp-cell>
-        <mp-cell value="设备位置" footer="{{orderInfo.address_name}}">{{orderInfo.address_name}}</mp-cell>
-
+        <mp-cell value="设备位置" footer="{{orderInfo.address_name}}">{{orderInfo.addressName}}</mp-cell>
+        <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
+        <mp-cell value="备注信息" footer="{{orderInfo.note}}">{{orderInfo.note}}</mp-cell>
+        <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
+        <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
       </mp-cells>
     </view>
   </view>
 </view>
-<view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-  <view class="page__bd">
-    <mp-cells ext-class="my-cells">
-      <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
-      <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-      <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-      <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-      <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
-      <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-      <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
-    </mp-cells>
+<view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+  <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
+    <view class="orderlog_time">{{item.createdTime}}</view>
+    <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+    <view class="orderlog_content {{index==0?'first':''}}">{{item.movement}},{{item.lastOperator}}</view>
   </view>
 </view>
-  <view class="placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-    <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
-      <view class="orderlog_time">{{item.createdTime}}</view>
-      <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
-      <view class="orderlog_content {{index==0?'first':''}}">{{item.movement}},{{item.lastOperator}}</view>
-    </view>
-  </view>
 
 
 <!-- 

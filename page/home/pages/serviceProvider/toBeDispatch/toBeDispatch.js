@@ -130,8 +130,37 @@ Page({
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     var projectId = e.currentTarget.dataset.projectid;
+    var param = {
+      "status": 4,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+    });
     common.getEngineersByProjectId(projectId, (res) => {
       console.log(res);
+      var repairerList = res.result.map(function (item) {
+        return item['name'];
+      }); 
+      wx.showActionSheet({
+        itemList: repairerList,
+        success(res) {
+          var index = res.tapIndex;
+          console.log(index);
+          var params = {
+            "id": taskId,
+            "status": 5,
+            "maintainerId": repairerList[index].id
+          }
+          common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+            console.log(res);
+          });
+        },
+        fail(res) {
+          console.log(res.errMsg)
+        }
+      })
     });
     // var param = {
     //   "status": 17,

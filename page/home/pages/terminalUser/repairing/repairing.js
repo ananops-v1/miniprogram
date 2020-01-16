@@ -38,7 +38,7 @@ Page({
    */
   onShow: function() {
     AUTH.checkHasLogined();
-    var statusArray = [6, 7, 8, 9];
+    var statusArray = [6, 7, 8, 9,10];
     this.getOrderByStatus(statusArray);
   },
 
@@ -58,7 +58,6 @@ Page({
     common.getTaskListByIdAndStatusArrary(param, (res) => {
       var orderList = res.result;
       var orderListArray = [];
-      console.log(orderList);
       if (orderList != null && orderList.length > 0) {
         for (var i = 0; i < orderList.length; i++) {
           var taskList = orderList[i].taskList;

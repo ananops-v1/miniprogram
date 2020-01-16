@@ -1,16 +1,22 @@
 //app.js
 App({
-  onLaunch: function () {
-  },
+  onLaunch: function() {},
   globalData: {
     userInfo: null,
     userRole: 1
   },
-  showErrorModal: function (content, title) {
+  showErrorModal: function(content, title) {
     wx.showModal({
       title: title || '加载失败',
       content: content || '未知错误',
       showCancel: false
     });
+  },
+  makePhone: function(e) {
+    console.log(e);
+    var phone = e.currentTarget.dataset.phone;
+    wx.makePhoneCall({
+      phoneNumber: phone
+    })
   }
 })

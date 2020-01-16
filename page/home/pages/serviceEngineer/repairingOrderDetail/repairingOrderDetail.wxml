@@ -39,9 +39,8 @@
         <mp-cell value="维修建议" footer="{{suggestionOne}}" bindtap="chooseSuggestion">
           {{suggestionOne}}
         </mp-cell>
-        <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts">
-          <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
-        </mp-cell>
+        <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts"></mp-cell>
+        <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
 
         <modal id="modal" hidden="{{hiddenmodalput}}" title="维修建议" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
           <textarea placeholder="请输入维修建议" bindinput="suggestion" value="{{orderInfo.suggestion}}"></textarea>
