@@ -7,8 +7,8 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "维修详情", "流程详情"],
-    currentNavtab: "2",
+    navTab: ["工单详情", "维修详情", "流程详情"],
+    currentNavtab: "0",
     hiddenmodalput: true,
     showSpareParts: false,
   },
@@ -234,7 +234,7 @@ Page({
         if(res.code == 200) {
           this.hideModal();
           wx.showToast({
-            title: '创建成功',
+            title: '申请成功',
           })
         }
       })

@@ -4,7 +4,7 @@ const AUTH = require('../../../../../util/auth')
 const UTIL = require('../../../../../util/util')
 
 import {
-  Common
+  Common 
 } from '../../../../common/base_model.js';
 
 import {
@@ -30,35 +30,6 @@ Page({
       url: "../toBePayDetail/toBePayDetail?id=" + e.currentTarget.dataset.id,
     })
   },
-
-
-  // //下拉刷新
-  // lower: function(e) {
-  //   wx.showNavigationBarLoading();
-  //   var that = this;
-  //   setTimeout(function() {
-  //     wx.hideNavigationBarLoading();
-  //     that.nextLoad();
-  //   }, 1000);
-  //   console.log("lower")
-  // },
-  // //使用本地 fake 数据实现刷新效果
-  // refresh: function() {
-  //   var feed_data = this.data.orderList;
-  //   this.setData({
-  //     orderList: feed_data,
-  //     orderListLength: feed_data.length
-  //   });
-  // },
-  // //使用本地 fake 数据实现继续加载效果
-  // nextLoad: function() {
-  //   var next_data = this.data.nextdata;
-  //   this.setData({
-  //     orderList: this.data.orderList.concat(next_data),
-  //     orderListLength: this.data.orderListLength + next_data.length
-  //   });
-  // },
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -109,21 +80,33 @@ Page({
           }
         }
         console.log(orderListArray);
+        
 
         this.setData({
           orderList: orderListArray
         })
+
+        if(orderListArray.length == 0) {
+          wx.showToast({
+            title: "没有相关工单",
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.navigateBack();
+              }, 1000)
+            }
+          })
+        }
       } else {
         wx.showToast({
           title: "没有相关工单",
           icon: 'none',
-          duration: 2000,
+          duration: 1000,
           success: function () {
             setTimeout(function () {
-              wx.navigateBack({//返回
-                delta: 1
-              })
-            }, 2000)
+              wx.navigateBack();
+            }, 1000)
           }
         })
       }
@@ -147,10 +130,10 @@ Page({
     var taskId = e.currentTarget.dataset.id;
     var param = {
       "status": 17,
-      "statusMsg": "string",
-      "taskId": taskId
+      "note": "金额有问题",
+      "id": taskId
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+    common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         _this.onShow();

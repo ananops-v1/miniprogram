@@ -3,7 +3,7 @@
      <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
       <scroll-view scroll-y="true" class="container discovery" >
         <mp-cells>
-            <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
+            <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" data-status="{{order.status}}" bindtap="clickOrder">
                 <view slot="title" class="mp-cell-title">
                   <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image"/>
                 </view>

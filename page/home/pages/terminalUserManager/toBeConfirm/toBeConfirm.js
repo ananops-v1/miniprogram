@@ -3,7 +3,7 @@
 const AUTH = require('../../../../../util/auth')
 const UTIL = require('../../../../../util/util')
 
-import {
+import { 
   Common
 } from '../../../../common/base_model.js';
 
@@ -46,7 +46,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2];
+    var statusArray = [2,8];
     this.getOrderByStatus(statusArray);
   },
 
@@ -131,9 +131,7 @@ Page({
     console.log(e);
     var taskId = e.currentTarget.dataset.id;
     var status = e.currentTarget.dataset.status;
-    if (status == 2) {
-      status = 14;
-    }
+    status = 14;
     var param = {
       "status": status,
       "statusMsg": "string",

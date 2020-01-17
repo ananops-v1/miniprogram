@@ -1,54 +1,44 @@
 <!-- 顶部tabbar -->
+<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab ">
-  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="key" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
+  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="itemName" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
   </view>
 </view>
-<!-- tabbar对应的内容 -->
+<!-- tabbar对应的内容 -->.
 <view>
-  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+  <view class="placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="设备编号" footer="{{}}">{{}}</mp-cell>
         <mp-cell value="设备名称" footer="{{}}"></mp-cell>
-        <mp-cell value="设备位置" footer="{{orderInfo.address_name}}">{{orderInfo.address_name}}</mp-cell>
-
+        <mp-cell value="设备位置" footer="{{orderInfo.address_name}}">{{orderInfo.addressName}}</mp-cell>
+        <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
+        <mp-cell value="备注信息" footer="{{orderInfo.note}}">{{orderInfo.note}}</mp-cell>
+        <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
+        <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
       </mp-cells>
     </view>
   </view>
-</view>
-<view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-  <view class="page__bd">
-    <mp-cells ext-class="my-cells">
-      <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
-      <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-      <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-      <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-      <mp-cell value="故障位置" footer="{{}}"></mp-cell>
-      <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
-      <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-      <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
-    </mp-cells>
+  <view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+    <view class="page__bd">
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
+        <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
+        <mp-cell value="维修建议" footer="{{suggestionOne}}" bindtap="showAllSuggestion">{{suggestionOne}}</mp-cell>
+        <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts"></mp-cell>
+        <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
+      </mp-cells>
+    </view>
   </view>
-</view>
+  <view class="placehold" hidden="{{currentNavtab==2 ? '' : true}}">
 
-<view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-  <view class="page__bd">
-    <mp-cells ext-class="my-cells">
-      <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
-      <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-      <mp-cell value="维修建议" footer="{{orderInfo.suggestion}}">{{orderInfo.suggestion}}</mp-cell>
-      <mp-cell value="备品备件" footer=""></mp-cell>
-      <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
-    </mp-cells>
-  </view>
-</view>
-
-<view class="placehold" hidden="{{currentNavtab==3 ? '' : true}}">
-  <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
-    <view class="orderlog_time">{{item.createdTime}}</view>
-    <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
-    <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
+    <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
+      <view class="orderlog_time">{{item.createdTime}}</view>
+      <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+      <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
+    </view>
   </view>
 </view>
 
@@ -60,44 +50,21 @@
   </view>
 </view>
 
-<view class="page-section">
+<!-- <view class="page-section">
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
       <button type="default" plain="true" bindtap="reject">拒绝</button>
     </view>
   </view>
-</view>
-
-<!-- 
-<view class='order_process'>
-  <view class='process_wrap' wx:for="{{processData}}" wx:key="">
-    <view class='process'>
-      <view class='process_line' style="background:{{item.start}}"></view>
-      <image class='process_icon' src="{{item.icon}}"></image>
-      <view class='process_line' style="background:{{item.end}}"></view>
-    </view>
-    <text class='process_name'>{{item.name}}</text>
-  </view>
 </view> -->
 
-<!-- <view class="page-body">
-    <view class="page-section page-section-gap">
 
-      <view class="progress-box">
-        <progress percent="20" show-info stroke-width="3"/>
-      </view>
+<template is="showAllSuggestion" data="{{showAllSuggestion,allSuggestion}}">
+</template>
 
-      <view class="progress-box">
-        <progress percent="40" active stroke-width="3" />
-        <icon class="progress-cancel" type="cancel"></icon>
-      </view>
+<template is="showSpareParts" data="{{showSpareParts,deviceOrderCount,allDeviceOrderList}}">
+</template>
 
-      <view class="progress-box">
-        <progress percent="60" active stroke-width="3" />
-      </view>
 
-      <view class="progress-box">
-        <progress percent="80" color="#10AEFF" active stroke-width="3" />
-      </view>
-    </view>
-  </view> -->
+  <template is="bill" data="{{showBill,totalMoney}}">
+  </template>

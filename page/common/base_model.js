@@ -414,6 +414,21 @@ class Common extends Base {
     };
     this.request(params);
   }
+
+  //处理备品备件订单
+  receiveDevice(param, callback) {
+    var params = {
+      url: '/rdc/deviceOrder/operation',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+  
 }
 
 export {

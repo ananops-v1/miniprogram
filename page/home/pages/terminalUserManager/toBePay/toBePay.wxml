@@ -14,7 +14,7 @@
           <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
           <view class="operation_view">
             <view class="operation_button" catchtap="pay" data-id="{{order.id}}">支付</view>
-            <view class="operation_button" catchtap="reject" data-id="{{order.id}}">拒绝</view>
+            <!-- <view class="operation_button" catchtap="reject" data-id="{{order.id}}">拒绝</view> -->
           </view>
         </mp-cell>
       </mp-cells>

@@ -421,29 +421,34 @@ Page({
   //获取项目相关信息
   gerProject: function() {
     var this_ = this;
-    var userObject = wx.getStorageSync('userObject');
-    console.log(userObject);
-    var groupId = wx.getStorageSync('userObject').groupId;
-    var param = {
-      'groupId': groupId
-    }
-    repair.getProjectByGroupId(param, (res) => { //拿到用户对应的项目，供用户选择
+    var userInfo = wx.getStorageSync('userInfo');
+    var userId = userInfo.id;
+    repair.getUserBossIdBy(userId,(res) => {
       console.log(res);
-      var project = res.result;
-      if (project.length > 0) {
-        var programNameList = [];
-        for (var i = 0; i < project.length; i++) {
-          programNameList.push(project[i].projectName);
-        }
-        this.setData({
-          programList: project,
-          programNameList: programNameList,
-          serviceProvider: project[0].partyBName,
-          reviewer: project[0].aoneName,
-          reviewerId: project[0].aleaderId,
-        })
+      var groupId = res.result;
+      
+      var param = {
+        'groupId': groupId
       }
-    })
+      repair.getProjectByGroupId(param, (res) => { //拿到用户对应的项目，供用户选择
+        console.log(res);
+        var project = res.result;
+        if (project.length > 0) {
+          var programNameList = [];
+          for (var i = 0; i < project.length; i++) {
+            programNameList.push(project[i].projectName);
+          }
+          this.setData({
+            programList: project,
+            programNameList: programNameList,
+            serviceProvider: project[0].partyBName,
+            reviewer: project[0].aoneName,
+            reviewerId: project[0].aleaderId,
+          })
+        }
+      })
+
+    });
   },
 
   //获取服务商相关信息
