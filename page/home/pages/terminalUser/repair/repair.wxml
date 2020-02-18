@@ -254,21 +254,21 @@
           <textarea placeholder="请输入信息详细故障描述" bindinput="describe" value="{{describe}}"></textarea>
         </modal>
         <!--附件栏-->
-        <!-- <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">附件</view>
-          </view>
-          <view class="weui-cell__bd" bindtap="clickUploadImg">
-            <view class="weui-input">上传图片</view>
-          </view>
-          <view class="weui-cell__bd" bindtap="clickUploadVideo">
-            <view class="weui-input">上传视频</view>
+        <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">附件</view>
+              </view>
+              <view class="weui-cell__bd" bindtap="clickUploadImg">
+                <view class="weui-input">上传图片</view>
+              </view>
+              <view class="weui-cell__bd" bindtap="clickUploadVideo">
+                <view class="weui-input">上传视频</view>
+              </view>
+            </view>
           </view>
         </view>
-      </view> -->
-        <!-- </view> -->
 
       </view>
 
