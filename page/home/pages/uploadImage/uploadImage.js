@@ -85,13 +85,25 @@ Page({
   },
   uploadOneByOne(imgPaths, successUp, failUp, count, length) {
     var that = this;
+    var deviceId = new Date().getTime();
+    var token = wx.getStorageSync('tokenInfo').access_token;
     console.log('正在上传第' + count + '张')
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+      url: 'http://www.ananops.com:29995/mdmc/mdmcTask/uploadTaskPicture', //仅为示例，非真实的接口地址
       filePath: imgPaths[count],
-      name: count,//示例，使用顺序给文件命名
+      name: 'file',//示例，使用顺序给文件命名
+      header: {
+        authorization: 'Bearer ' + token,
+        'deviceId': deviceId,
+      },
+      formData: {
+        fileType: 'png',
+        bucketName: 'ananops',
+        filePath: 'mdmcTask'
+      },
       success: function (e) {
         successUp++;//成功+1
+        console.log('success->' + JSON.stringify(e));
       },
       fail: function (e) {
         failUp++;//失败+1
