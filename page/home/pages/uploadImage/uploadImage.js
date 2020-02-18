@@ -1,5 +1,9 @@
 const sourceType = [['camera'], ['album'], ['camera', 'album']]
 const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+import {
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 
 Page({
   onShareAppMessage() {
@@ -86,6 +90,16 @@ Page({
   uploadOneByOne(imgPaths, successUp, failUp, count, length) {
     var that = this;
     console.log('正在上传第' + count + '张')
+    var param = {
+      'userId':wx.getStorageSync('userInfo').id,
+      'userName': wx.getStorageSync('userInfo').userName,
+      'fileType': 'png',
+      'bucketName': 'ananops',
+      'filePath': 'inspectionTask'
+    }
+    common.uploadImcItemPicture(param, (res) => {
+
+    })
     wx.uploadFile({
       url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count],

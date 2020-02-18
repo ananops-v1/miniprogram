@@ -60,6 +60,12 @@
 					"pathName": "page/home/pages/terminalUser/repairingOrderDetail/repairingOrderDetail",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/uploadImage/uploadImage",
+					"pathName": "page/home/pages/uploadImage/uploadImage",
+					"scene": null
 				}
 			]
 		}

@@ -427,7 +427,18 @@ class Common extends Base {
     };
     this.request(params);
   }
-
+  //上传图片
+  uploadImcItemPicture(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/uploadImcItemPicture',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   
 }
 
