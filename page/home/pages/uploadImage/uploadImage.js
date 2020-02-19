@@ -110,7 +110,7 @@ Page({
       formData: {
         userId: wx.getStorageSync('userInfo').id,
         userName: wx.getStorageSync('userInfo').userName,
-        fileType: ' jpg',
+        fileType: 'png',
         bucketName: 'ananops',
         filePath: that.data.filePath
       },
