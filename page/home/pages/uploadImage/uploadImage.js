@@ -14,6 +14,7 @@ Page({
   },
 
   data: {
+    attachmentIds:[],
     imageList: [],
     sourceTypeIndex: 2,
     sourceType: ['拍照', '相册', '拍照或相册'],
@@ -97,7 +98,11 @@ Page({
     var that = this;
     var deviceId = new Date().getTime();
     var token = wx.getStorageSync('tokenInfo').access_token;
-    var attachmentIds=[];
+    var attachmentIds=that.data.attachmentIds;
+    var index = imgPaths[count].lastIndexOf(".");
+    //获取后缀
+    var ext = imgPaths[count].substr(index + 1);
+    console.log('正在上传第' + count + '张')
     console.log('正在上传第' + count + '张')
     wx.uploadFile({
       url: 'http://www.ananops.com:29995/imc/inspectionItem/uploadImcItemPicture', //仅为示例，非真实的接口地址
@@ -110,14 +115,20 @@ Page({
       formData: {
         userId: wx.getStorageSync('userInfo').id,
         userName: wx.getStorageSync('userInfo').userName,
-        fileType: 'png',
+        fileType: ext,
         bucketName: 'ananops',
         filePath: that.data.filePath
       },
       success: function (e) {
         successUp++;//成功+1
         console.log('success->' + JSON.stringify(e));
-        console.log(e);
+        if (typeof(JSON.parse(e.data)[0].attachmentId)!=undefined){
+          console.log(JSON.parse(e.data)[0].attachmentId);
+          attachmentIds.push(JSON.parse(e.data)[0].attachmentId);
+          that.setData({
+            attachmentIds:attachmentIds
+          })
+        }
       },
       fail: function (e) {
         failUp++;//失败+1
@@ -132,20 +143,21 @@ Page({
             icon: 'success',
             duration: 2000
           })
-
+          console.log(attachmentIds)
+          that.updatePrePageData(attachmentIds)
         } else {
           //递归调用，上传下一张
           that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
           console.log('正在上传第' + count + '张');
         }
-      },
-      updatePrePageData: function (attachmentIds) {
-        var pages = getCurrentPages();
-        var prevPage = pages[pages.length - 2];
-        prevPage.setData({
-          attachmentPicIds: attachmentIds
-        })
       }
+    })
+  },
+  updatePrePageData: function (attachmentIds) {
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];
+    prevPage.setData({
+      attachmentPicIds: attachmentIds
     })
   }
 })
