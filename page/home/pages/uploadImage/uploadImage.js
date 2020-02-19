@@ -24,6 +24,12 @@ Page({
     countIndex: 8,
     count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
+  onLoad: function (options) {
+    var that = this
+    that.setData({
+      filePath: options.filePath,
+    })
+  },
   sourceTypeChange(e) {
     this.setData({
       sourceTypeIndex: e.detail.value
@@ -91,19 +97,10 @@ Page({
     var that = this;
     var deviceId = new Date().getTime();
     var token = wx.getStorageSync('tokenInfo').access_token;
+    var attachmentIds=[];
     console.log('正在上传第' + count + '张')
-    var param = {
-      'userId':wx.getStorageSync('userInfo').id,
-      'userName': wx.getStorageSync('userInfo').userName,
-      'fileType': 'png',
-      'bucketName': 'ananops',
-      'filePath': 'inspectionTask'
-    }
-    common.uploadImcItemPicture(param, (res) => {
-
-    })
     wx.uploadFile({
-      url: 'http://www.ananops.com:29995/mdmc/mdmcTask/uploadTaskPicture', //仅为示例，非真实的接口地址
+      url: 'http://www.ananops.com:29995/imc/inspectionItem/uploadImcItemPicture', //仅为示例，非真实的接口地址
       filePath: imgPaths[count],
       name: 'file',//示例，使用顺序给文件命名
       header: {
@@ -111,13 +108,16 @@ Page({
         'deviceId': deviceId,
       },
       formData: {
-        fileType: 'png',
+        userId: wx.getStorageSync('userInfo').id,
+        userName: wx.getStorageSync('userInfo').userName,
+        fileType: ' jpg',
         bucketName: 'ananops',
-        filePath: 'mdmcTask'
+        filePath: that.data.filePath
       },
       success: function (e) {
         successUp++;//成功+1
         console.log('success->' + JSON.stringify(e));
+        console.log(e);
       },
       fail: function (e) {
         failUp++;//失败+1
@@ -132,11 +132,19 @@ Page({
             icon: 'success',
             duration: 2000
           })
+
         } else {
           //递归调用，上传下一张
           that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
           console.log('正在上传第' + count + '张');
         }
+      },
+      updatePrePageData: function (attachmentIds) {
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2];
+        prevPage.setData({
+          attachmentPicIds: attachmentIds
+        })
       }
     })
   }

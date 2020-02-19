@@ -36,6 +36,10 @@ Page({
         staff: '维修人员',
       }
     ],
+    //子巡检的图片数据
+    attachmentPicIds:[],
+    //子巡检的视频数据
+    attachmentVideoIds: [],
     //服务商数据
     providerIndex: 0,
     providerId:0,
@@ -172,6 +176,18 @@ Page({
         isStart: 0
       })
     }
+  },
+  //上传图片
+  clickUploadImg() {
+    wx.navigateTo({
+      url: "../../uploadImage/uploadImage?filePath=inspectionTask",
+    })
+  },
+  //上传视频
+  clickUploadVideo() {
+    wx.navigateTo({
+      url: "../../uploadVideo/uploadVideo",
+    })
   },
   //点击提交
   clickSubmit(e) {
