@@ -7,6 +7,8 @@
     "page/my/pages/login/login",
     "page/my/pages/contact/contact",
     "page/my/pages/ananops/ananops",
+    "page/my/pages/accountsAndSecurity/index",
+    "page/my/pages/accountsAndSecurity/pages/changePassword/changePassword",
     "page/home/pages/all-work-orders/all-work-orders",
     "page/home/pages/uploadImage/uploadImage",
     "page/home/pages/uploadVideo/uploadVideo",

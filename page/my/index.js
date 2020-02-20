@@ -36,10 +36,8 @@ Page({
 
   accountsAndSecurity: function() {
     if (AUTH.checkHasLogined()) {
-      wx.showToast({
-        title: "相关功能开发中",
-        icon: 'none',
-        duration: 2000,
+      wx.navigateTo({
+        url: "../../../../my/pages/accountsAndSecurity/index",
       })
     }
 

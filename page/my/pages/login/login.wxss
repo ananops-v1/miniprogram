@@ -1,7 +1,7 @@
 /* page/my/pages/login/login.wxss */
 /**login.wxss**/
 .container {
-  background: #c0daf7;
+  background: #a0ccff;
   align-items: stretch;
   padding: 0;
   height: 100%;
@@ -121,7 +121,7 @@ form {
   font-size: 13pt;
   line-height: 85rpx;
   height: 85rpx;
-  background: #b1d4fc;
+  background: #a0ccff;
   color: #fff;
   text-align: center;
   border-radius: 5px;

@@ -1,0 +1,8 @@
+<!--page/my/pages/accountsAndSecurity/index.wxml-->
+<view class="my">
+  <view class="my-item flex-wrp">
+    <view class="myitem-name flex-item" bindtap="changePassword">
+      <text>修改密码</text>
+    </view>
+  </view>
+</view>
