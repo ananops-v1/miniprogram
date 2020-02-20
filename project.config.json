@@ -60,6 +60,12 @@
 					"pathName": "page/home/pages/terminalUser/repairingOrderDetail/repairingOrderDetail",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/my/pages/accountsAndSecurity/pages/changePassword/changePassword",
+					"pathName": "page/my/pages/accountsAndSecurity/pages/changePassword/changePassword",
+					"scene": null
 				}
 			]
 		}
