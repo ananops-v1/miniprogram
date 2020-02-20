@@ -22,7 +22,7 @@ Page({
   clickOrder: function(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../toBeDispatchOrderDetail/toBeDispatchOrderDetail?id=" + e.currentTarget.dataset.id,
+      url: "../toBeDispatchOrderDetail/toBeDispatchOrderDetail?id=" + e.currentTarget.dataset.id + "&projectId=" + e.currentTarget.dataset.projectid,
     })
   },
 
@@ -46,7 +46,7 @@ Page({
    */
   onShow: function() {
     AUTH.checkHasLogined();
-    var statusArray = [3, 4, 14];
+    var statusArray = [3, 4];
     this.getOrderByStatus(statusArray);
   },
 
@@ -113,7 +113,7 @@ Page({
     var taskId = e.currentTarget.dataset.id;
     var satus = e.currentTarget.dataset.status;
     var param = {
-      "status": status,
+      "status": 14,
       "statusMsg": "string",
       "taskId": taskId
     }
@@ -153,8 +153,16 @@ Page({
             "status": 5,
             "maintainerId": repairerList[index].id
           }
-          common.modifyTaskStatusByTaskId(taskId, param, (res) => {
-            console.log(res);
+          common.createRepair(params, (res) => {
+            wx.showToast({
+              title: "派单成功",
+              duration: 1000,
+              success: function () {
+                setTimeout(function () {
+                  wx.navigateBack();
+                }, 1000)
+              }
+            })
           });
         },
         fail(res) {

@@ -1,5 +1,9 @@
 const sourceType = [['camera'], ['album'], ['camera', 'album']]
 const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
+import {
+  Common
+} from '../../../../page/common/base_model.js';
+var common = new Common();
 
 Page({
   onShareAppMessage() {
@@ -10,6 +14,8 @@ Page({
   },
 
   data: {
+    attachmentIds:[],
+    inspectionItemIndex:0,
     imageList: [],
     sourceTypeIndex: 2,
     sourceType: ['拍照', '相册', '拍照或相册'],
@@ -19,6 +25,13 @@ Page({
 
     countIndex: 8,
     count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  },
+  onLoad: function (options) {
+    var that = this
+    that.setData({
+      filePath: options.filePath,
+      inspectionItemIndex: options.inspectionItem
+    })
   },
   sourceTypeChange(e) {
     this.setData({
@@ -85,13 +98,39 @@ Page({
   },
   uploadOneByOne(imgPaths, successUp, failUp, count, length) {
     var that = this;
+    var deviceId = new Date().getTime();
+    var token = wx.getStorageSync('tokenInfo').access_token;
+    var attachmentIds=that.data.attachmentIds;
+    var index = imgPaths[count].lastIndexOf(".");
+    //获取后缀
+    var ext = imgPaths[count].substr(index + 1);
+    console.log('正在上传第' + count + '张')
     console.log('正在上传第' + count + '张')
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+      url: 'http://www.ananops.com:29995/imc/inspectionItem/uploadImcItemPicture', //仅为示例，非真实的接口地址
       filePath: imgPaths[count],
-      name: count,//示例，使用顺序给文件命名
+      name: 'file',//示例，使用顺序给文件命名
+      header: {
+        authorization: 'Bearer ' + token,
+        'deviceId': deviceId,
+      },
+      formData: {
+        userId: wx.getStorageSync('userInfo').id,
+        userName: wx.getStorageSync('userInfo').userName,
+        fileType: ext,
+        bucketName: 'ananops',
+        filePath: that.data.filePath
+      },
       success: function (e) {
         successUp++;//成功+1
+        console.log('success->' + JSON.stringify(e));
+        if (typeof(JSON.parse(e.data)[0].attachmentId)!=undefined){
+          console.log(JSON.parse(e.data)[0].attachmentId);
+          attachmentIds.push(Number(JSON.parse(e.data)[0].attachmentId));
+          that.setData({
+            attachmentIds:attachmentIds
+          })
+        }
       },
       fail: function (e) {
         failUp++;//失败+1
@@ -106,12 +145,23 @@ Page({
             icon: 'success',
             duration: 2000
           })
+          console.log(attachmentIds)
+          that.updatePrePageData(attachmentIds)
         } else {
           //递归调用，上传下一张
           that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
           console.log('正在上传第' + count + '张');
         }
       }
+    })
+  },
+  updatePrePageData: function (attachmentIds) {
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];
+    var networksPics=prevPage.data.networksPics
+    networksPics[this.data.inspectionItemIndex].push(attachmentIds)
+    prevPage.setData({
+      networksPics: networksPics
     })
   }
 })

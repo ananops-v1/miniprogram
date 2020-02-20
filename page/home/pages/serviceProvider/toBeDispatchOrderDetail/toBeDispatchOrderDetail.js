@@ -12,16 +12,22 @@ var common = new Common();
 
 Page({
   data: {
-    hiddenmodalput: true,
     navTab: ["设备信息", "故障信息", "工单状态"],
-    currentNavtab: "0",
+    currentNavtab:0,
     workOrderStatus: Config.workOrderStatus,
-    urgentLevel: Config.urgentLevel
+    urgentLevel: Config.urgentLevel,
+    faultLevel: Config.faultLevel,
+    showAllSuggestion: false,
+    showSpareParts: false,
+    hiddenmodalput: true,
   },
   onLoad: function(e) {
+    console.log(e);
     var taskId = e.id;
+    var projectId = e.projectId;
     this.setData({
-      taskId: taskId
+      taskId: taskId,
+      projectId:projectId
     })
   },
 
@@ -66,105 +72,135 @@ Page({
     });
   },
 
-  receiveOrder: function(e) {
-    var _this = this;
+  showAllSuggestion: function (e) {
     var orderInfo = this.data.orderInfo;
-    var taskId = orderInfo.id;
-    var projectId = orderInfo.projectId;
-    common.getEngineersByProjectId(projectId, (res) => {
-      console.log(res);
-      var engineers = res.result;
-      var engineerNameList = [];
-      if (engineers.length > 0) {
-        for (var i = 0; i < engineers.length; i++) {
-          engineerNameList.push(engineers[i].title);
-        }
-      }
-
-      wx.showActionSheet({
-        itemList: engineerNameList,
-        success(res) {
-          console.log(res.tapIndex);
-          // var param = {
-          //   "status": 17,
-          //   "statusMsg": "string",
-          //   "taskId": taskId
-          // }
-          // common.modifyTaskStatusByTaskId(taskId, param, (res) => {
-          //   console.log(res);
-          //   if (res.code == 200) {
-          //     _this.onShow();
-          //   }
-          // })
-
-        },
-        fail(res) {
-          console.log(res.errMsg)
-        }
+    var suggestion = orderInfo.suggestion;
+    if (suggestion.length > 0) {
+      this.setData({
+        showAllSuggestion: true,
+        allSuggestion: suggestion
       })
+    }
+  },
 
-
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function () {
+    this.setData({
+      showAllSuggestion: false,
+      showSpareParts: false,
+      showBill: false,
     });
   },
 
-  reject: function(e) {
-    //调用驳回接口
+  /**
+   * 对话框取消按钮点击事件
+   */
+  onCancel: function () {
+    this.hideModal();
+  },
+
+
+  onAddSpareParts: function () {
+    this.getDeviceById();
+  },
+
+  getDeviceById: function () {
+    var orderInfo = this.data.orderInfo;
+    var taskId = orderInfo.id;
+    common.getDeviceById(taskId, 1, (res) => {
+      console.log(res);
+      var deviceOrderList = res.result.deviceOrderList;
+      var allDeviceOrderList = new Array();
+      deviceOrderList.forEach(function (e) {
+        var item = e.deviceOrder.items;
+        var items = JSON.parse(item);
+        items.forEach(function (e) {
+          allDeviceOrderList.push(e);
+        })
+      })
+      if (allDeviceOrderList.length == 0) {
+        wx.showToast({
+          title: '没有备品备件',
+          icon: 'none'
+        })
+      } else {
+        this.setData({
+          deviceOrderCount: res.result.deviceOrderCount,
+          allDeviceOrderList: allDeviceOrderList,
+          showSpareParts: true
+        })
+      }
+    })
+
+  },
+
+
+
+  rejectOrder: function (e) {
+    var _this = this;
     var taskId = this.data.taskId;
+    var satus = this.data.projectId;
     var param = {
       "status": 14,
       "statusMsg": "string",
       "taskId": taskId
     }
-
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        wx.navigateBack()
+        _this.onShow();
       }
     })
   },
 
-  // reject: function (e) {
-  //   //添加弹出文本框
-  //   this.setData({
-  //     hiddenmodalput: false
-  //   })
-  // },
-
-  // cancel: function () {
-  //   this.setData({
-  //     hiddenmodalput: true,
-  //     reason: ''
-  //   })
-  // },
-
-  // confirm: function (e) {
-  //   this.setData({
-  //     hiddenmodalput: true
-  //   })
-  //   //调用驳回接口
-  //   var taskId = this.data.taskId;
-  //   var param = {
-  //     "status": 15,
-  //     "statusMsg": "string",
-  //     "taskId": taskId
-  //   }
-
-
-  //   common.modifyTaskStatusByTaskId(taskId, param, (res) => {
-  //     console.log(res);
-  //     if (res.code == 200) {
-  //       wx.navigateBack()
-  //     }
-  //   })
-  // },
-
-  // reason: function (e) {
-  //   this.setData({
-  //     reason: e.detail.value
-  //   })
-  // },
-
+  receiveOrder: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var projectId = this.data.projectId;
+    var param = {
+      "status": 4,
+      "statusMsg": "string",
+      "taskId": taskId
+    }
+    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+      console.log(res);
+    });
+    console.log(projectId);
+    common.getEngineersByProjectId(projectId, (res) => {
+      console.log(res);
+      var repairerList = res.result.map(function (item) {
+        return item['name'];
+      });
+      wx.showActionSheet({
+        itemList: repairerList,
+        success(res) {
+          var index = res.tapIndex;
+          console.log(index);
+          var params = {
+            "id": taskId,
+            "status": 5,
+            "maintainerId": repairerList[index].id
+          }
+          common.createRepair(params, (res) => {
+            wx.showToast({
+              title: "派单成功",
+              duration: 1000,
+              success: function () {
+                setTimeout(function () {
+                  wx.navigateBack();
+                }, 1000)
+              }
+            })
+          });
+        },
+        fail(res) {
+          console.log(res.errMsg)
+        }
+      })
+    });
+  },
   makePhone: function(e) {
     console.log(e);
     var phone = e.currentTarget.dataset.phone;

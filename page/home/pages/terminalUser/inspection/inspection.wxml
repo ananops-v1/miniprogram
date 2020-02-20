@@ -197,7 +197,7 @@
           <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
-      <view class="weui-cells weui-cells_after-title" wx:for="{{choosedNetworks}}" wx:for-item="item" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="">
+      <view class="weui-cells weui-cells_after-title" wx:for="{{choosedNetworks}}" wx:for-item="item" wx:for-index="index" wx:key="{{item.id}}" data-id="{{item.id}}" data-index="{{index}}"  bindtap="">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检地点</view>
@@ -212,6 +212,17 @@
           </view>
           <view class="weui-cell__bd">
             <view class="weui-input">{{item.maintainerName}}</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">附件</view>
+          </view>
+          <view class="weui-cell__bd" data-index="{{index}}" bindtap="clickUploadImg">
+            <view class="weui-input">上传图片</view>
+          </view>
+          <view class="weui-cell__bd" bindtap="clickUploadVideo">
+            <view class="weui-input">上传视频</view>
           </view>
         </view>
       </view>

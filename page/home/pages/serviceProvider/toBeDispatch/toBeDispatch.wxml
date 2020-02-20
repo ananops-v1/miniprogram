@@ -3,7 +3,7 @@
     <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
     <scroll-view scroll-y="true" class="container discovery">
       <mp-cells>
-        <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
+        <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" data-projectid="{{order.projectId}}"  bindtap="clickOrder">
           <view slot="title" class="mp-cell-title">
             <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
           </view>
@@ -13,7 +13,7 @@
           <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
           <view wx:if="{{order.status!=14}}" class="operation_view">
             <view class="operation_button" catchtap="receiveOrder" data-id="{{order.id}}" data-status="{{order.status}}" data-projectid="{{order.projectId}}">派单</view>
-            <view class="operation_button" catchtap="rejectOrder" data-id="{{order.id}}" data-status="{{order.status}}">拒绝</view>
+            <!-- <view class="operation_button" catchtap="rejectOrder" data-id="{{order.id}}" data-status="{{order.status}}">拒绝</view> -->
           </view>
         </mp-cell>
       </mp-cells>

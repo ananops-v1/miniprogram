@@ -26,6 +26,20 @@ class Repair extends Base {
     this.request(params);
   }
 
+  //获取boss的groupId
+  getUserBossIdBy(userId, callback) {
+    var params = {
+      url: `/uac/user/getPGIdByUserId/${userId}`,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
   //根据groupId查询所属项目
   getProjectByGroupId(param, callback) {
     var params = {

@@ -22,7 +22,7 @@ Page({
   clickOrder: function(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../toBeCheckOrderDetail/toBeCheckOrderDetail?id=" + e.currentTarget.dataset.id,
+      url: "../toBeCheckOrderDetail/toBeCheckOrderDetail?id=" + e.currentTarget.dataset.id +'',
     })
   },
 

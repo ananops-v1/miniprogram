@@ -15,12 +15,15 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息", "维修详情","流程详情"],
+    navTab: ["工单详情", "维修详情", "流程详情"],
     currentNavtab: "0",
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
     faultLevel: Config.faultLevel,
-    hiddenmodalput: true
+    showAllSuggestion: false,
+    showSpareParts: false,
+    hiddenmodalput: true,
+    showBill: false
   },
 
   onLoad: function (e) {
@@ -66,38 +69,6 @@ Page({
     });
   },
 
-  //进度条的状态
-  setPeocessIcon: function () {
-    var index = 0 //记录状态为1的最后的位置
-    var processArr = this.data.processData
-    // console.log("progress", this.data.detailData.progress)
-    for (var i = 0; i < this.data.detailData.progress.length; i++) {
-      var item = this.data.detailData.progress[i]
-      processArr[i].name = item.word
-      if (item.state == 1) {
-        index = i
-        processArr[i].icon = "/imgs/others/process_3.png"
-        processArr[i].start = "#45B2FE"
-        processArr[i].end = "#45B2FE"
-      } else {
-        processArr[i].icon = "/imgs/others/process_1.png"
-        processArr[i].start = "#EFF3F6"
-        processArr[i].end = "#EFF3F6"
-      }
-    }
-    processArr[index].icon = "/imgs/others/process_2.png"
-    processArr[index].end = "#EFF3F6"
-    processArr[0].start = "#fff"
-    processArr[this.data.detailData.progress.length - 1].end = "#fff"
-    this.setData({
-      processData: processArr
-    })
-  },
-
-  getTaskById: function () {
-
-  },
-
   makePhone: function (e) {
     console.log(e);
     var phone = e.currentTarget.dataset.phone;
@@ -105,36 +76,96 @@ Page({
       phoneNumber: phone
     })
   },
-  
-  pass: function (e) {
-    var _this = this;
-    var taskId = this.data.taskId;
-    var param = {
-      "status": 3,
-      "statusMsg": "string",
-      "taskId": taskId
+  showAllSuggestion: function (e) {
+    var orderInfo = this.data.orderInfo;
+    var suggestion = orderInfo.suggestion;
+    if (suggestion.length > 0) {
+      this.setData({
+        showAllSuggestion: true,
+        allSuggestion: suggestion
+      })
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+  },
+
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function () {
+    this.setData({
+      showAllSuggestion: false,
+      showSpareParts: false,
+      showBill: false,
+    });
+  },
+
+  /**
+   * 对话框取消按钮点击事件
+   */
+  onCancel: function () {
+    this.hideModal();
+  },
+
+
+  onAddSpareParts: function () {
+    this.getDeviceById();
+  },
+
+  getDeviceById: function () {
+    var orderInfo = this.data.orderInfo;
+    var taskId = orderInfo.id;
+    common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
-      if (res.code == 200) {
-        wx.navigateBack();
+      var deviceOrderList = res.result.deviceOrderList;
+      var allDeviceOrderList = new Array();
+      deviceOrderList.forEach(function (e) {
+        var item = e.deviceOrder.items;
+        var items = JSON.parse(item);
+        items.forEach(function (e) {
+          allDeviceOrderList.push(e);
+        })
+      })
+      if (allDeviceOrderList.length == 0) {
+        wx.showToast({
+          title: '没有备品备件',
+          icon: 'none'
+        })
+      } else {
+        this.setData({
+          deviceOrderCount: res.result.deviceOrderCount,
+          allDeviceOrderList: allDeviceOrderList,
+          showSpareParts: true
+        })
       }
     })
+
+  },
+  pay: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    common.getAmountByWorkId(taskId, (res) => {
+      console.log(res);
+      _this.setData({
+        totalMoney: res.result,
+        showBill: true
+      })
+    });
+
   },
   reject: function (e) {
     var _this = this;
-    var taskId = this.data.taskId;
+    var taskId = e.currentTarget.dataset.id;
     var param = {
-      "status": 1,
-      "statusMsg": "string",
-      "taskId": taskId
+      "status": 17,
+      "note": "金额有问题",
+      "id": taskId
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
+    common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        wx.navigateBack();
+        _this.onShow();
       }
     })
-  }
+  },
+
 
 });

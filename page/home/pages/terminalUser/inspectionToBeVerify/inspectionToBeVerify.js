@@ -215,7 +215,7 @@ Page({
     var param = {
       'userId': that.data.userId,
       'status': 0,
-      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2
+      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2
     }
     common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);

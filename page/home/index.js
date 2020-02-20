@@ -33,6 +33,7 @@ Page({
    */
   onShow: function() {
     var userInfo = wx.getStorageSync('userInfo');
+    console.log(userInfo);
     app.globalData.userRole = null;
     if (userInfo == "") {
       this.setData({
@@ -48,9 +49,9 @@ Page({
       var statusArray = new Array();
       if (userRole == 'user_watcher') {
         statusArray = [12];
-      } else if (userRole == 'user_manager') {
+      } else if (userRole == 'user_leader') {
         statusArray = [2,8,11];
-      } else if (userRole == 'fac_service') {
+      } else if (userRole == 'fac_leader') {
         statusArray = [3,4,7];
       } else if (userRole == 'engineer') {
         statusArray = [5];
@@ -67,9 +68,9 @@ Page({
     if (userInfo != '') {
       if (userRole == 'user_watcher') {
         app.globalData.userRole = 0;
-      } else if (userRole == 'user_manager') {
+      } else if (userRole == 'user_leader') {
         app.globalData.userRole = 1;
-      } else if (userRole == 'fac_service') {
+      } else if (userRole == 'fac_leader') {
         app.globalData.userRole = 2;
       } else if (userRole == 'engineer') {
         app.globalData.userRole = 3;
@@ -118,9 +119,9 @@ Page({
     if (userInfo != '') {
       if (userRole == 'user_watcher') {
         app.globalData.userRole = 0;
-      } else if (userRole == 'user_manager') {
+      } else if (userRole == 'user_leader') {
         app.globalData.userRole = 1;
-      } else if (userRole == 'fac_service') {
+      } else if (userRole == 'fac_leader') {
         app.globalData.userRole = 2;
       } else if (userRole == 'engineer') {
         app.globalData.userRole = 3;
@@ -141,10 +142,10 @@ Page({
       })
     }
     if (userInfo != '') {
-      if (userRole == 'fac_service' || userRole == 'user_manager') {
+      if (userRole == 'fac_leader' || userRole == 'user_leader') {
         var param = {
-          "role": userRole == 'user_manager'?1:4,
-          "userId": userRole == 'user_manager' ? userInfo.id : wx.getStorageSync('userObject').groupId
+          "role": userRole == 'user_leader'?1:4,
+          "userId": userRole == 'user_leader' ? userInfo.id : wx.getStorageSync('userObject').groupId
         };
         console.log(param)
         inspection.getAllInspection(param,(res)=>{

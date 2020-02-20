@@ -100,7 +100,7 @@ Page({
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     var param = {
-      "status": 10,
+      "status": 11,
       "id": taskId
     }
     common.createRepair(param, (res) => {
