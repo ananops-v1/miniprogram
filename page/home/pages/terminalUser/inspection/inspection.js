@@ -62,6 +62,7 @@ Page({
     networksNameAll:[],
     networkIndex:0,
     choosedNetworks:[],
+    networksPics:[],
     //甲方联系人数据
     partyAPhoneList: [
       {
@@ -130,10 +131,13 @@ Page({
     networksNameAll.splice(e.detail.value, 1)
     var choosedNetworks = this.data.choosedNetworks
     choosedNetworks.push(obj)
+    var networksPics=this.data.networksPics
+    networksPics.push([])
     this.setData({
       choosedNetworks: choosedNetworks,
       networksAll: networksAll,
       networksNameAll: networksNameAll,
+      networksPics:networksPics,
     })
   },
   //点击选择巡检周期事件
@@ -178,9 +182,10 @@ Page({
     }
   },
   //上传图片
-  clickUploadImg() {
+  clickUploadImg(e) {
+    console.log(e.currentTarget.dataset.index)
     wx.navigateTo({
-      url: "../../uploadImage/uploadImage?filePath=inspectionTask",
+      url: "../../uploadImage/uploadImage?filePath=inspectionTask&&inspectionItem=" + e.currentTarget.dataset.index,
     })
   },
   //上传视频
@@ -192,6 +197,7 @@ Page({
   //点击提交
   clickSubmit(e) {
     console.log('提交');
+    console.log(this.data.networksPics);
     var choosedNetworks=this.data.choosedNetworks;
     var newNetworks=[];
     var tempNetwork={};
@@ -204,6 +210,7 @@ Page({
       tempNetwork["status"] =0
       tempNetwork["count"] =0
       tempNetwork["userId"] = wx.getStorageSync('userInfo').id
+      tempNetwork["attachmentIds"] = this.data.networksPics[i]
       newNetworks.push(tempNetwork);
     }
     console.log(newNetworks);

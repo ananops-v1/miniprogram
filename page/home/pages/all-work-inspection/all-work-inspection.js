@@ -171,7 +171,7 @@ Page({
     })
     var paramProjectId={
       'projectId': options.projectId,
-      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_manager' ? 1 : 2,
+      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
       'status':0,
       'userId': wx.getStorageSync('userInfo').id
     }

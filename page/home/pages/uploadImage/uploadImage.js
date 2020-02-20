@@ -15,6 +15,7 @@ Page({
 
   data: {
     attachmentIds:[],
+    inspectionItemIndex:0,
     imageList: [],
     sourceTypeIndex: 2,
     sourceType: ['拍照', '相册', '拍照或相册'],
@@ -29,6 +30,7 @@ Page({
     var that = this
     that.setData({
       filePath: options.filePath,
+      inspectionItemIndex: options.inspectionItem
     })
   },
   sourceTypeChange(e) {
@@ -124,7 +126,7 @@ Page({
         console.log('success->' + JSON.stringify(e));
         if (typeof(JSON.parse(e.data)[0].attachmentId)!=undefined){
           console.log(JSON.parse(e.data)[0].attachmentId);
-          attachmentIds.push(JSON.parse(e.data)[0].attachmentId);
+          attachmentIds.push(Number(JSON.parse(e.data)[0].attachmentId));
           that.setData({
             attachmentIds:attachmentIds
           })
@@ -156,8 +158,10 @@ Page({
   updatePrePageData: function (attachmentIds) {
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
+    var networksPics=prevPage.data.networksPics
+    networksPics[this.data.inspectionItemIndex].push(attachmentIds)
     prevPage.setData({
-      attachmentPicIds: attachmentIds
+      networksPics: networksPics
     })
   }
 })
