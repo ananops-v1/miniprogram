@@ -7,6 +7,7 @@ Page({
   data: {
     //巡检子项数据
     inspectionItemId:0,
+    inspectionId:0,
     inspectionItem:{},
     navTab: ["网点信息", "进度条","其他信息"],
     currentNavtab: "2",
@@ -14,7 +15,8 @@ Page({
   onLoad: function (options) {
     var that = this
     that.setData({
-      inspectionItemId: options.networkId
+      inspectionItemId: options.inspectionItemId,
+      inspectionId: options.inspectionId
     })
     var param={
       'itemId': that.data.inspectionItemId
@@ -23,6 +25,7 @@ Page({
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检列表成功");
+        console.log(res.result);
         that.setData({
           inspectionItem: res.result
         })
@@ -49,6 +52,16 @@ Page({
           console.log("获取日志成功")
           _this.setData({
             inspectionItemLogs: res.result
+          })
+          var pa = {
+            "itemId": _this.data.inspectionItemId,
+            "taskId":_this.data.inspectionId
+          }
+          common.getImcPicList(pa,(res)=>{
+            console.log(res)
+            if (res.code == 200){
+              console.log("获取图片成功")
+            }
           })
         }
         else {

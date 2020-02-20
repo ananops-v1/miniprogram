@@ -126,7 +126,7 @@ Page({
         console.log('success->' + JSON.stringify(e));
         if (typeof(JSON.parse(e.data)[0].attachmentId)!=undefined){
           console.log(JSON.parse(e.data)[0].attachmentId);
-          attachmentIds.push(Number(JSON.parse(e.data)[0].attachmentId));
+          attachmentIds.push(JSON.parse(e.data)[0].attachmentId);
           that.setData({
             attachmentIds:attachmentIds
           })
@@ -159,7 +159,7 @@ Page({
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
     var networksPics=prevPage.data.networksPics
-    networksPics[this.data.inspectionItemIndex].push(attachmentIds)
+    networksPics[this.data.inspectionItemIndex]=networksPics[this.data.inspectionItemIndex].concat(attachmentIds)
     prevPage.setData({
       networksPics: networksPics
     })

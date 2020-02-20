@@ -10,7 +10,7 @@
     <view class="page__bd">
         <mp-cells ext-class="my-cells">
             <mp-cell value="网点名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
-            <mp-cell value="巡检名称" footer="{{inspectionItem['inspectionTaskId']}}"></mp-cell>
+            <mp-cell value="网点内容" footer="{{inspectionItem['description']}}"></mp-cell>
             <mp-cell value="工程师" footer="{{inspectionItem['maintainerId']}}"></mp-cell>
             <mp-cell value="周期" footer="{{inspectionItem['frequency']}}天每次"></mp-cell>
             <mp-cell value="持续时长" footer="{{inspectionItem['days']}}天"></mp-cell>

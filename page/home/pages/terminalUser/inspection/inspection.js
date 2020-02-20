@@ -210,6 +210,7 @@ Page({
       tempNetwork["status"] =0
       tempNetwork["count"] =0
       tempNetwork["userId"] = wx.getStorageSync('userInfo').id
+      console.log(this.data.networksPics[i]);
       tempNetwork["attachmentIds"] = this.data.networksPics[i]
       newNetworks.push(tempNetwork);
     }

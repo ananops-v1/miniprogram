@@ -107,6 +107,13 @@ Page({
       }
     ]
   },
+  //
+  clickInspectionItem: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../networkDetail/networkDetail?inspectionItemId=' + e.currentTarget.dataset.id +'&&inspectionId='+this.data.inspectionId,
+    })
+  },
   //下拉刷新
   lower: function (e) {
     console.log("lower")
