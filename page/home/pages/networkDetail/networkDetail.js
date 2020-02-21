@@ -61,6 +61,9 @@ Page({
             console.log(res)
             if (res.code == 200){
               console.log("获取图片成功")
+              _this.setData({
+                inspectionItemPics: res.result
+              })
             }
           })
         }

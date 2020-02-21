@@ -22,6 +22,9 @@
           <view class="orderlog_time">{{order.updateTime}}</view>
           <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
           <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
+          <view wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}" class="orderlog_view">
+            <image class="orderlog_image" src="{{pic.url}}"></image>
+          </view>
         </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
