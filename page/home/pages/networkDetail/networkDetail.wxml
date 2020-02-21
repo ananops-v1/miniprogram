@@ -22,9 +22,33 @@
           <view class="orderlog_time">{{order.updateTime}}</view>
           <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
           <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
-          <view wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}" class="orderlog_view">
-            <image class="orderlog_image" src="{{pic.url}}"></image>
+          <view class="weui-uploader__files">
+            <block wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}">
+              <view wx:if="{{index%2==0}}">
+                <image class="orderlog_image" src="/imgs/others/progress.png"></image>
+              </view>
+              <view class="weui-uploader__file">
+                <image class="weui-uploader__img" src="{{pic.url}}" data-src="{{pic.url}}" bindtap="previewImage"></image>
+              </view>
+            </block>
           </view>
+          <!-- <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files">
+                    <block wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}">
+                      <view class="weui-uploader__file">
+                        <image class="weui-uploader__img" src="{{pic.url}}" data-src="{{pic.url}}" bindtap="previewImage"></image>
+                      </view>
+                    </block>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view> -->
         </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">

@@ -35,6 +35,12 @@ Page({
       }
     })
   },
+  previewImage(e) {
+    const current = e.target.dataset.src
+    wx.previewImage({
+      urls: [current]
+    })
+  },
   switchTab: function (e) {
     var index = e.currentTarget.dataset.idx;
     var _this = this;
