@@ -45,7 +45,7 @@ class Common extends Base {
 //根据任务id获取任务详情
   getTaskByTaskId(taskId, callback) {
     var params = {
-      url: `/mdmc/mdmcTask/getTaskByTaskId/${taskId}`,
+      url: `/mdmc/mdmcTask/getTaskDetailByTaskId/${taskId}`,
       sCallback: function (data) {
         callback && callback(data);
       },
