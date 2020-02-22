@@ -12,7 +12,7 @@ Page({
     //项目数据
     programIndex: 0,
     //设备数据
-    deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
+    // deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
     //deviceIndex: 0,
     //日期数据
     date: '2019-12-24',
@@ -35,7 +35,7 @@ Page({
     malfunctionTypeList: ['摄像机', '监视器', 'NVR', '拾音器', '报警', '门禁', '电源', '其他'],
     malfunctionTypeIndex: 0,
     //故障位置数据
-    malfunctionLocList: ["大门", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
+    // malfunctionLocList: ["大门", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
     malfunctionLocIndex: 0,
     //故障名称数据
     malfunctionNameList: ["待确定", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
@@ -69,12 +69,12 @@ Page({
     })
   },
   //选择设备处理事件
-  clickChooseDev: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      deviceIndex: e.detail.value
-    })
-  },
+  // clickChooseDev: function(e) {
+  //   console.log('picker发送选择改变，携带值为', e.detail.value)
+  //   this.setData({
+  //     deviceIndex: e.detail.value
+  //   })
+  // },
   //日期数据更新事件
   bindDateChange(e) {
     this.setData({
@@ -312,6 +312,28 @@ Page({
       deviceTypeIndex: e.detail.value
     })
   },
+
+  getTroubleTypeListAndAddressList:function() {
+    var userId = wx.getStorageSync('userInfo').id;
+    repair.getTroubleTypeListAndAddressList(userId,(res) => {
+      console.log(res);
+      if(res.code == 200) {
+        var troubleAddressList = res.result.troubleAddressList;
+        var malfunctionLocList = [];
+        if (troubleAddressList.length > 0) {
+          for (var i = 0; i < troubleAddressList.length; i++) {
+            malfunctionLocList.push(troubleAddressList[i].troubleAddress);
+          }
+        }
+
+        var troubleTypeList = res.result.troubleTypeList;
+        this.setData({
+          malfunctionTypeList: troubleTypeList,
+          malfunctionLocList: malfunctionLocList
+        })
+      }
+    })
+  },
   //提交处理事件
   clickSubmit() {
     //检查工单填写情况
@@ -332,7 +354,8 @@ Page({
     // this.data.malfunctionTypeList[
     var malfunctionType = _this.data.malfunctionTypeIndex;
     var deviceType = this.data.deviceTypeList[_this.data.deviceTypeIndex];
-
+    var title = this.data.malfunctionLocList[_this.data.malfunctionLocIndex] + this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
+    
     var phoneNumber = this.data.phoneNumber;
     var programList = this.data.programList;
     var programIndex = this.data.programIndex;
@@ -342,25 +365,25 @@ Page({
     var principalId = _this.data.reviewerId;
 
     var param = {
-      "address_name": mapLocation,
-      // "appointTime": newDate,
+      "addressName": mapLocation,
+      "appointTime": newDate,
       "call": phoneNumber,
       "contractId": contractId,
       "facilitatorId": facilitatorId,
       "id": null,
       "level": level,
       "maintainerId":null,
-      "note": "",
+      "note": description,
       "objectId": null,
       "objectType": 1,
       "principalId": principalId,
       "projectId": projectId,
-      "requestLatitude": latitude ,
+      "requestLatitude": latitude,
       "requestLongitude": longitude,
       "result": null,
       "status": 0,
       "suggestion": "",
-      "title": "",
+      "title": title,
       "totalCost": 0,
       "userId": userId,
       "mdmcAddTaskItemDtoList": [{
@@ -416,6 +439,7 @@ Page({
       phoneNumber: userObject.mobileNo
     })
     this.gerProject();
+    this.getTroubleTypeListAndAddressList();
   },
 
   //获取项目相关信息

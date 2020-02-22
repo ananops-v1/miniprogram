@@ -53,6 +53,18 @@ class Repair extends Base {
     this.request(params);
   }
 
+
+  //获取故障列表
+  getTroubleTypeListAndAddressList(userId, callback) {
+    var params = {
+      url: `/mdmc/mdmcTask/getTroubleTypeListAndAddressList?userId=${userId}`,
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
 }
 
 export {

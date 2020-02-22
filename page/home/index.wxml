@@ -159,14 +159,14 @@
           <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
           <scroll-view scroll-y="true" class="container discovery">
             <mp-cells>
-              <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{orderList.id}}" bindtap="clickOrder">
+              <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{orderList.mdmcTask.id}}" bindtap="clickOrder">
                 <view slot="title" class="mp-cell-title">
                   <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
                 </view>
-                <view>{{order.programName}}</view>
-                <view>{{order.deviceName}}</view>
-                <view class="mp-cell-view">设备位置:{{order.address_name}}</view>
-                <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
+                <view>{{order.mdmcTask.programName}}</view>
+                <view>{{order.mdmcTask.deviceName}}</view>
+                <view class="mp-cell-view">设备位置:{{order.mdmcTask.address_name}}</view>
+                <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
               </mp-cell>
             </mp-cells>
           </scroll-view>

@@ -171,7 +171,7 @@
         </view>
 
         <!--选择设备栏-->
-        <view class="page-section">
+        <!-- <view class="page-section">
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
@@ -184,7 +184,7 @@
               </view>
             </view>
           </view>
-        </view>
+        </view> -->
 
         <!--设备类型-->
         <view class="page-section">

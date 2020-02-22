@@ -74,6 +74,12 @@
 					"pathName": "page/home/pages/uploadImage/uploadImage",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/networkDetail/networkDetail",
+					"pathName": "page/home/pages/networkDetail/networkDetail",
+					"scene": null
 				}
 			]
 		}

@@ -26,19 +26,19 @@ Page({
     showBill: false
   },
 
-  onLoad: function (e) {
+  onLoad: function(e) {
     var taskId = e.id;
     this.setData({
       taskId: taskId
     })
   },
 
-  onShow: function () {
+  onShow: function() {
     this.getTaskByTaskId();
   },
 
 
-  getTaskByTaskId: function () {
+  getTaskByTaskId: function() {
 
     var taskId = this.data.taskId;
 
@@ -63,20 +63,20 @@ Page({
     })
   },
 
-  switchTab: function (e) {
+  switchTab: function(e) {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
 
-  makePhone: function (e) {
+  makePhone: function(e) {
     console.log(e);
     var phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
       phoneNumber: phone
     })
   },
-  showAllSuggestion: function (e) {
+  showAllSuggestion: function(e) {
     var orderInfo = this.data.orderInfo;
     var suggestion = orderInfo.suggestion;
     if (suggestion.length > 0) {
@@ -90,7 +90,7 @@ Page({
   /**
    * 隐藏模态对话框
    */
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showAllSuggestion: false,
       showSpareParts: false,
@@ -101,26 +101,26 @@ Page({
   /**
    * 对话框取消按钮点击事件
    */
-  onCancel: function () {
+  onCancel: function() {
     this.hideModal();
   },
 
 
-  onAddSpareParts: function () {
+  onAddSpareParts: function() {
     this.getDeviceById();
   },
 
-  getDeviceById: function () {
+  getDeviceById: function() {
     var orderInfo = this.data.orderInfo;
     var taskId = orderInfo.id;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
       var allDeviceOrderList = new Array();
-      deviceOrderList.forEach(function (e) {
+      deviceOrderList.forEach(function(e) {
         var item = e.deviceOrder.items;
         var items = JSON.parse(item);
-        items.forEach(function (e) {
+        items.forEach(function(e) {
           allDeviceOrderList.push(e);
         })
       })
@@ -139,7 +139,7 @@ Page({
     })
 
   },
-  pay: function (e) {
+  pay: function(e) {
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     common.getAmountByWorkId(taskId, (res) => {
@@ -151,7 +151,7 @@ Page({
     });
 
   },
-  reject: function (e) {
+  reject: function(e) {
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     var param = {
@@ -166,6 +166,19 @@ Page({
       }
     })
   },
+
+  showLocation: function() {
+    const that = this;
+    var latitude = this.data.orderInfo.mdmcTask.requestLatitude;
+    var longitude = this.data.orderInfo.mdmcTask.requestLongitude;
+    var name = this.data.orderInfo.mdmcTask.addressName;
+    wx.openLocation({
+      latitude,
+      longitude,
+      name,
+      scale: 18
+    })
+  }
 
 
 });

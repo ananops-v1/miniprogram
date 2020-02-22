@@ -34,13 +34,16 @@
   margin: 21rpx;
 }
 .orderlog_time {
+  display: inline-block;
   width: 200rpx;
 }
 .orderlog_content {
+  display: inline-block;
   color: grey;
   width: 400rpx;
 }
 .orderlog_content.first {
+  display: inline-block;
   color: orange;
   width: 400rpx;
 }

@@ -1,5 +1,5 @@
 <!-- 顶部tabbar -->
-<view class="top-tab flex-wrp flex-tab " >
+<view class="top-tab flex-wrp flex-tab ">
   <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
   </view>
@@ -8,70 +8,55 @@
 <view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="网点名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
-            <mp-cell value="网点内容" footer="{{inspectionItem['description']}}"></mp-cell>
-            <mp-cell value="工程师" footer="{{inspectionItem['maintainerId']}}"></mp-cell>
-            <mp-cell value="周期" footer="{{inspectionItem['frequency']}}天每次"></mp-cell>
-            <mp-cell value="持续时长" footer="{{inspectionItem['days']}}天"></mp-cell>
-        </mp-cells>
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="网点名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
+        <mp-cell value="网点内容" footer="{{inspectionItem['description']}}"></mp-cell>
+        <mp-cell value="工程师" footer="{{inspectionItem['maintainerId']}}"></mp-cell>
+        <mp-cell value="周期" footer="{{inspectionItem['frequency']}}天每次"></mp-cell>
+        <mp-cell value="持续时长" footer="{{inspectionItem['days']}}天"></mp-cell>
+      </mp-cells>
     </view>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-        <view wx:for="{{inspectionItemLogs}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" class="orderlog_view">
-          <view class="orderlog_time">{{order.updateTime}}</view>
-          <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
-          <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
-          <view class="weui-uploader__files">
-            <block wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}">
-              <view wx:if="{{index%2==0}}">
-                <image class="orderlog_image" src="/imgs/others/progress.png"></image>
-              </view>
-              <view class="weui-uploader__file">
-                <image class="weui-uploader__img" src="{{pic.url}}" data-src="{{pic.url}}" bindtap="previewImage"></image>
-              </view>
-            </block>
-          </view>
-          <!-- <view class="weui-cells">
-          <view class="weui-cell">
-            <view class="weui-cell__bd">
-              <view class="weui-uploader">
-                <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files">
-                    <block wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}">
-                      <view class="weui-uploader__file">
-                        <image class="weui-uploader__img" src="{{pic.url}}" data-src="{{pic.url}}" bindtap="previewImage"></image>
-                      </view>
-                    </block>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view> -->
-        </view>
+    <view wx:for="{{inspectionItemLogs}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}">
+      <view class="orderlog_time">{{order.updateTime}}</view>
+      <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+      <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
+
+
+
+      <view wx:for="{{inspectionItemPics[index].elementImgUrlDtos}}" wx:for-item="pic" wx:key="{{pic.attachmentId}}" data-id="{{pic.attachmentId}}" class= "orderlog_view">
+      <view></view>
+        <image class="orderlog_image" src="/imgs/others/progress.png"></image>
+        <image class="weui-uploader__img" src="{{pic.url}}" data-src="{{pic.url}}" bindtap="previewImage"></image>
+      </view>
+
+
+
+    </view>
   </view>
+
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="故障程度" footer="{{}}"></mp-cell>
-            <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-            <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-            <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-        </mp-cells>
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="故障程度" footer="{{}}"></mp-cell>
+        <mp-cell value="故障等级" footer="{{}}"></mp-cell>
+        <mp-cell value="故障类别" footer="{{}}"></mp-cell>
+        <mp-cell value="故障描述" footer="{{}}"></mp-cell>
+      </mp-cells>
     </view>
   </view>
   <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
     <view class="page__bd">
-        <mp-cells ext-class="my-cells">
-            <mp-cell value="单据状态" footer="{{}}"></mp-cell>
-            <mp-cell value="报修单号" footer="{{}}"></mp-cell>
-            <mp-cell value="审核人" footer="{{}}"></mp-cell>
-            <mp-cell value="审核意见" footer="{{}}"></mp-cell>
-            <mp-cell value="维修人员" footer="{{}}"></mp-cell>
-            <mp-cell value="计划时间" footer="{{}}"></mp-cell>
-            <mp-cell value="处理意见" footer="{{}}"></mp-cell>
-        </mp-cells>
+      <mp-cells ext-class="my-cells">
+        <mp-cell value="单据状态" footer="{{}}"></mp-cell>
+        <mp-cell value="报修单号" footer="{{}}"></mp-cell>
+        <mp-cell value="审核人" footer="{{}}"></mp-cell>
+        <mp-cell value="审核意见" footer="{{}}"></mp-cell>
+        <mp-cell value="维修人员" footer="{{}}"></mp-cell>
+        <mp-cell value="计划时间" footer="{{}}"></mp-cell>
+        <mp-cell value="处理意见" footer="{{}}"></mp-cell>
+      </mp-cells>
     </view>
   </view>
 </view>
