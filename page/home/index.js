@@ -145,7 +145,9 @@ Page({
       if (userRole == 'fac_leader' || userRole == 'user_leader') {
         var param = {
           "role": userRole == 'user_leader'?1:4,
-          "userId": userRole == 'user_leader' ? userInfo.id : wx.getStorageSync('userObject').groupId
+          "userId": userRole == 'user_leader' ? userInfo.id : wx.getStorageSync('userObject').groupId,
+          "pageNum": 0,
+          "pageSize": 100
         };
         console.log(param)
         inspection.getAllInspection(param,(res)=>{

@@ -163,6 +163,7 @@ function homeInitInspections(allInspections) {
       }
     });
   }
+  console.log(answer.toBeVerify)
   //甲方负责人
   Config.inspection[1][1].num = answer.toBeAccept;
   Config.inspection[1][2].num = answer.inspecting;

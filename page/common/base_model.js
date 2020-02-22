@@ -308,7 +308,7 @@ class Common extends Base {
   //更改巡检任务的状态
   modifyTaskStatus(param, callback) {
     var params = {
-      url: '/imc/inspectionTask/modifyTaskStatusByTaskId/' + param.taskId,
+      url: '/imc/inspectionTask/modifyTaskStatusByTaskId',
       data: param,
       method: 'POST',
       sCallback: function (data) {
