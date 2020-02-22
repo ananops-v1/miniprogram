@@ -133,6 +133,19 @@ Page({
         wx.navigateBack();
       }
     })
+  },
+
+    showLocation: function () {
+    const that = this;
+    var latitude = this.data.orderInfo.mdmcTask.requestLatitude;
+    var longitude = this.data.orderInfo.mdmcTask.requestLongitude;
+    var name = this.data.orderInfo.mdmcTask.addressName;
+    wx.openLocation({
+      latitude,
+      longitude,
+      name,
+      scale: 18
+    })
   }
 
 });

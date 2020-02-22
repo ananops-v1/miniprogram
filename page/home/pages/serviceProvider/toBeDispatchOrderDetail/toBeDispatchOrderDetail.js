@@ -13,7 +13,7 @@ var common = new Common();
 Page({
   data: {
     navTab: ["设备信息", "故障信息", "工单状态"],
-    currentNavtab:0,
+    currentNavtab: 0,
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
     faultLevel: Config.faultLevel,
@@ -27,7 +27,7 @@ Page({
     var projectId = e.projectId;
     this.setData({
       taskId: taskId,
-      projectId:projectId
+      projectId: projectId
     })
   },
 
@@ -41,9 +41,10 @@ Page({
     var taskId = this.data.taskId;
 
     common.getTaskByTaskId(taskId, (res) => {
+      console.log(res);
       if (res.code == 200) {
         var orderInfo = res.result;
-        var projectId = orderInfo.projectId;
+        var projectId = orderInfo.mdmcTask.projectId;
         console.log(orderInfo);
         // common.getEngineersByProjectId(projectId,(res) => {
         //   console.log(res);
@@ -72,7 +73,7 @@ Page({
     });
   },
 
-  showAllSuggestion: function (e) {
+  showAllSuggestion: function(e) {
     var orderInfo = this.data.orderInfo;
     var suggestion = orderInfo.suggestion;
     if (suggestion.length > 0) {
@@ -86,7 +87,7 @@ Page({
   /**
    * 隐藏模态对话框
    */
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showAllSuggestion: false,
       showSpareParts: false,
@@ -97,26 +98,26 @@ Page({
   /**
    * 对话框取消按钮点击事件
    */
-  onCancel: function () {
+  onCancel: function() {
     this.hideModal();
   },
 
 
-  onAddSpareParts: function () {
+  onAddSpareParts: function() {
     this.getDeviceById();
   },
 
-  getDeviceById: function () {
+  getDeviceById: function() {
     var orderInfo = this.data.orderInfo;
-    var taskId = orderInfo.id;
+    var taskId = orderInfo.mdmcTask.id;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
       var allDeviceOrderList = new Array();
-      deviceOrderList.forEach(function (e) {
+      deviceOrderList.forEach(function(e) {
         var item = e.deviceOrder.items;
         var items = JSON.parse(item);
-        items.forEach(function (e) {
+        items.forEach(function(e) {
           allDeviceOrderList.push(e);
         })
       })
@@ -138,7 +139,7 @@ Page({
 
 
 
-  rejectOrder: function (e) {
+  rejectOrder: function(e) {
     var _this = this;
     var taskId = this.data.taskId;
     var satus = this.data.projectId;
@@ -155,7 +156,7 @@ Page({
     })
   },
 
-  receiveOrder: function (e) {
+  receiveOrder: function(e) {
     var _this = this;
     var taskId = this.data.taskId;
     var projectId = this.data.projectId;
@@ -170,7 +171,7 @@ Page({
     console.log(projectId);
     common.getEngineersByProjectId(projectId, (res) => {
       console.log(res);
-      var repairerList = res.result.map(function (item) {
+      var repairerList = res.result.map(function(item) {
         return item['name'];
       });
       wx.showActionSheet({
@@ -187,8 +188,8 @@ Page({
             wx.showToast({
               title: "派单成功",
               duration: 1000,
-              success: function () {
-                setTimeout(function () {
+              success: function() {
+                setTimeout(function() {
                   wx.navigateBack();
                 }, 1000)
               }
@@ -208,4 +209,18 @@ Page({
       phoneNumber: phone
     })
   },
+
+  showLocation: function() {
+    const that = this;
+    var latitude = this.data.orderInfo.mdmcTask.requestLatitude;
+    var longitude = this.data.orderInfo.mdmcTask.requestLongitude;
+    var name = this.data.orderInfo.mdmcTask.addressName;
+    wx.openLocation({
+      latitude,
+      longitude,
+      name,
+      scale: 18
+    })
+  }
+
 });

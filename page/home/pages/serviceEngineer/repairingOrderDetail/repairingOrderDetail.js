@@ -72,15 +72,15 @@ Page({
     var taskId = orderInfo.id;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
-      var deviceOrderList= res.result.deviceOrderList;
+      var deviceOrderList = res.result.deviceOrderList;
       var allDeviceOrderList = new Array();
-      deviceOrderList.forEach(function(e){
+      deviceOrderList.forEach(function(e) {
         var item = e.deviceOrder.items;
         var items = JSON.parse(item);
-        items.forEach(function(e){
+        items.forEach(function(e) {
           allDeviceOrderList.push(e);
         })
-        
+
       })
       console.log(allDeviceOrderList);
 
@@ -198,7 +198,7 @@ Page({
 
     var items = new Array();
     console.log(allDevicesArray);
-    allDevicesArray.forEach(function(e,index) {
+    allDevicesArray.forEach(function(e, index) {
       if (e > 0) {
         var item = {
           "count": e,
@@ -211,11 +211,11 @@ Page({
         items.push(item);
       }
     });
-    if(items.length == 0) {
+    if (items.length == 0) {
       wx.showToast({
         title: '请选择备品备件',
-        icon:'none',
-        duration:1000
+        icon: 'none',
+        duration: 1000
       })
     } else {
       var param = {
@@ -231,7 +231,7 @@ Page({
       console.log(param)
 
       common.createDeviceOrder(param, (res) => {
-        if(res.code == 200) {
+        if (res.code == 200) {
           this.hideModal();
           wx.showToast({
             title: '申请成功',
@@ -270,6 +270,18 @@ Page({
     }
   },
 
+  showLocation: function() {
+    const that = this;
+    var latitude = this.data.orderInfo.mdmcTask.requestLatitude;
+    var longitude = this.data.orderInfo.mdmcTask.requestLongitude;
+    var name = this.data.orderInfo.mdmcTask.addressName;
+    wx.openLocation({
+      latitude,
+      longitude,
+      name,
+      scale: 18
+    })
+  }
 
 
 });

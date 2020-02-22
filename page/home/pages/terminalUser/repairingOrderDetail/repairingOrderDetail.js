@@ -16,7 +16,7 @@ Page({
     showAllSuggestion: false,
     showSpareParts: false
   },
-  onLoad: function (e) {
+  onLoad: function(e) {
     // var taskId = e.id;
     var taskId = "803780329000147968";
     this.setData({
@@ -24,20 +24,21 @@ Page({
     })
   },
 
-  onShow: function () {
+  onShow: function() {
     this.getTaskByTaskId();
   },
 
 
 
-  getTaskByTaskId: function () {
+  getTaskByTaskId: function() {
 
     var taskId = this.data.taskId;
 
     common.getTaskByTaskId(taskId, (res) => {
       if (res.code == 200) {
+        console.log(res);
         var orderInfo = res.result;
-        var suggestionOne = orderInfo.suggestion;
+        var suggestionOne = orderInfo.mdmcTask.suggestion;
         if (suggestionOne != null && suggestionOne.length > 15) {
           suggestionOne = suggestionOne.substring(0, 15);
         }
@@ -59,13 +60,13 @@ Page({
     })
   },
 
-  switchTab: function (e) {
+  switchTab: function(e) {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
 
-  showAllSuggestion: function (e) {
+  showAllSuggestion: function(e) {
     var orderInfo = this.data.orderInfo;
     var suggestion = orderInfo.suggestion;
     if (suggestion.length > 0) {
@@ -79,7 +80,7 @@ Page({
   /**
    * 隐藏模态对话框
    */
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showAllSuggestion: false,
       showSpareParts: false
@@ -89,10 +90,10 @@ Page({
   /**
    * 对话框取消按钮点击事件
    */
-  onCancel: function () {
+  onCancel: function() {
     this.hideModal();
   },
-  makePhone: function (e) {
+  makePhone: function(e) {
     console.log(e);
     var phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
@@ -101,21 +102,21 @@ Page({
   },
 
 
-  onAddSpareParts: function () {
+  onAddSpareParts: function() {
     this.getDeviceById();
   },
 
-  getDeviceById: function () {
+  getDeviceById: function() {
     var orderInfo = this.data.orderInfo;
     var taskId = orderInfo.id;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
       var allDeviceOrderList = new Array();
-      deviceOrderList.forEach(function (e) {
+      deviceOrderList.forEach(function(e) {
         var item = e.deviceOrder.items;
         var items = JSON.parse(item);
-        items.forEach(function (e) {
+        items.forEach(function(e) {
           allDeviceOrderList.push(e);
         })
       })
@@ -133,5 +134,17 @@ Page({
       }
     })
 
+  },
+  showLocation: function() {
+    const that = this;
+    var latitude = this.data.orderInfo.mdmcTask.requestLatitude;
+    var longitude = this.data.orderInfo.mdmcTask.requestLongitude;
+    var name = this.data.orderInfo.mdmcTask.addressName;
+    wx.openLocation({
+      latitude,
+      longitude,
+      name,
+      scale: 18
+    })
   }
 });

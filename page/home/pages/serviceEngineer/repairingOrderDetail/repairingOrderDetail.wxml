@@ -10,15 +10,14 @@
   <view class="placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
-
-              <mp-cell value="设备编号" footer="{{}}">{{}}</mp-cell>
-        <mp-cell value="设备名称" footer="{{}}"></mp-cell>
-        <mp-cell value="设备位置" footer="{{orderInfo.address_name}}">{{orderInfo.addressName}}</mp-cell>
-        <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.level]}}">{{urgentLevel[orderInfo.level]}}</mp-cell>
-        <mp-cell value="备注信息" footer="{{orderInfo.note}}">{{orderInfo.note}}</mp-cell>
-        <mp-cell value="预约时间" footer="{{orderInfo.appointTime}}">{{orderInfo.appointTime}}</mp-cell>
-        <mp-cell value="报修人" footer="{{orderInfo.userId}}">{{orderInfo.userId}}</mp-cell>
-        <mp-cell value="联系电话" footer="{{orderInfo.call}}" bindtap="makePhone" data-phone="{{orderInfo.call}}">{{orderInfo.call}}</mp-cell>
+        <mp-cell value="项目名称" footer="{{orderInfo.pmcProjectDto.contractName}}">{{orderInfo.pmcProjectDto.contractName}}</mp-cell>
+        <mp-cell value="公司名称" footer="{{orderInfo.principalInfoDto.groupName}}">{{orderInfo.principalInfoDto.groupName}}</mp-cell>
+        <mp-cell value="故障位置" footer="{{orderInfo.mdmcTask.addressName}}" bindtap="showLocation">{{orderInfo.mdmcTask.addressName}}</mp-cell>
+        <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.mdmcTask.level]}}">{{urgentLevel[orderInfo.mdmcTask.level]}}</mp-cell>
+        <mp-cell value="备注信息" footer="{{orderInfo.mdmcTask.note}}">{{orderInfo.mdmcTask.note}}</mp-cell>
+        <mp-cell value="预约时间" footer="{{orderInfo.mdmcTask.appointTime}}">{{orderInfo.mdmcTask.appointTime}}</mp-cell>
+        <mp-cell value="报修人" footer="{{orderInfo.mdmcTask.creator}}">{{orderInfo.mdmcTask.creator}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.mdmcTask.call}}" bindtap="makePhone" data-phone="{{orderInfo.mdmcTask.call}}">{{orderInfo.mdmcTask.call}}</mp-cell>
       </mp-cells>
     </view>
   </view>
