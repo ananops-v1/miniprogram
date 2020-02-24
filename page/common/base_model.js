@@ -463,6 +463,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //获取巡检指定状态的巡检子项
+  getAllItems(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/getAllItemByTaskIdAndStatus',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 }
 
 export {
