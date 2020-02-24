@@ -1,0 +1,92 @@
+<!-- 顶部tabbar -->
+<view class="top-tab flex-wrp flex-tab " >
+  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
+    {{itemName}}
+  </view>
+</view>
+<!-- tabbar对应的内容 -->.
+<view>
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+    <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="巡检名称" footer="{{inspectionDetail.taskName}}"></mp-cell>
+            <mp-cell value="巡检周期" footer="{{inspectionDetail.frequency}}天"></mp-cell>
+            <mp-cell value="开始时间" footer="{{inspectionDetail.scheduledStartTime}}"></mp-cell>
+            <mp-cell value="计划完成时间" footer="{{inspectionDetail.days}}天"></mp-cell>
+            <mp-cell value="巡检内容" footer="{{xxxx}}"></mp-cell>
+            <mp-cell value="巡检备注" footer="{{inspectionDetail.remark}}"></mp-cell>
+            <mp-cell value="服务商" footer="{{xxxx}}"></mp-cell>
+        </mp-cells>
+    </view>
+    <!-- <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="项目编号" footer="{{}}"></mp-cell>
+            <mp-cell value="项目名称" footer="{{}}"></mp-cell>
+            <mp-cell value="甲方" footer="{{}}"></mp-cell>
+            <mp-cell value="甲方负责人" footer="{{}}"></mp-cell>
+            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
+            <mp-cell value="乙方" footer="{{}}"></mp-cell>
+            <mp-cell value="联系电话" footer="{{}}"></mp-cell>
+        </mp-cells>
+    </view> -->
+  </view>
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+    <view class="page__bd">
+        <view wx:for="{{inspectionLogs}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" class="orderlog_view">
+          <view class="orderlog_time">{{order.updateTime}}</view>
+          <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+          <view class="orderlog_content {{index==0?'first':''}}">{{order.movement}},{{order.lastOperator}}</view>
+        </view>
+    </view>
+  </view>
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
+    <view class="page__bd">
+      <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <mp-cells>
+            <mp-cell wx:for="{{networks}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickInspectionItem">
+                <view slot="title" style="position: relative;margin-right: 10px;">
+                  <image src="/imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
+                </view>
+                <view style="font-size: 13px;color: #888888;">设备位置:{{order.itemName}}</view>
+                <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
+                <view style="font-size: 13px;color: #888888;">维修工程师:{{order.scheduledStartTime}}</view>
+                <view class="operation_view">
+                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickDispatch">分配</view>
+                </view>
+            </mp-cell>
+        </mp-cells>
+      </scroll-view>
+        <!-- <mp-cells ext-class="my-cells">
+            <mp-cell value="故障程度" footer="{{}}"></mp-cell>
+            <mp-cell value="故障等级" footer="{{}}"></mp-cell>
+            <mp-cell value="故障类别" footer="{{}}"></mp-cell>
+            <mp-cell value="故障描述" footer="{{}}"></mp-cell>
+        </mp-cells> -->
+      <!--选择工程师栏-->
+      <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+        <picker bindchange="clickChoosePro" value="{{engineerIndex}}" range="{{engineers}}">
+          <view class="weui-input">{{engineers[engineerIndex].name}}</view>
+        </picker>
+      </view>
+        </view>
+      </view>
+    </view>
+    </view>
+  </view>
+  <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+    <view class="page__bd">
+        <mp-cells ext-class="my-cells">
+            <mp-cell value="单据状态" footer="{{}}"></mp-cell>
+            <mp-cell value="报修单号" footer="{{}}"></mp-cell>
+            <mp-cell value="审核人" footer="{{}}"></mp-cell>
+            <mp-cell value="审核意见" footer="{{}}"></mp-cell>
+            <mp-cell value="维修人员" footer="{{}}"></mp-cell>
+            <mp-cell value="计划时间" footer="{{}}"></mp-cell>
+            <mp-cell value="处理意见" footer="{{}}"></mp-cell>
+        </mp-cells>
+    </view>
+  </view>
+</view>
