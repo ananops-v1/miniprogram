@@ -1,6 +1,9 @@
 @import '../../../../common/lib/common.wxss';
 @import "../../../../common/lib/weui.wxss";
-
+.picker{
+  padding: 19rpx 26rpx;
+  background-color: #FFFFFF;
+}
 .top-tab{
   width: 750rpx;
   height: 100rpx;

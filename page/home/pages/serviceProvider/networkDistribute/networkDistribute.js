@@ -118,14 +118,45 @@ Page({
       url: '../../networkDetail/networkDetail?inspectionItemId=' + e.currentTarget.dataset.id + '&&inspectionId=' + this.data.inspectionId,
     })
   },
-  clickDispatch:function(e){
+  clickDispatch: function (e) {
     console.log(e.currentTarget.dataset.id)
-    var that=this
-    common.getEngineersByProjectId(this.data.projectId,(res)=>{
+    var that = this
+    var engineers=[]
+    var engineerNames=[]
+    common.getEngineersByProjectId(this.data.projectId, (res) => {
       console.log(res)
-      if(res.code==200){
+      if (res.code == 200) {
+        engineers = res.result
         that.setData({
-          engineers:res.result
+          engineers: engineers
+        })
+        for (var i = 0; i < res.result.length;i++){
+          engineerNames.push(engineers[i].name)
+        }
+        wx.showActionSheet({
+          itemList: engineerNames,
+          success(res) {
+            var index = res.tapIndex;
+            console.log(index);
+            var params = {
+              "taskId": e.currentTarget.dataset.id,
+              "engineerId":engineers[index].id
+            }
+            common.distributeEngineer(params, (res) => {
+              wx.showToast({
+                title: "派单成功",
+                duration: 1000,
+                success: function () {
+                  setTimeout(function () {
+                    wx.navigateBack();
+                  }, 1000)
+                }
+              })
+            });
+          },
+          fail(res) {
+            console.log(res.errMsg)
+          }
         })
       }
     })
