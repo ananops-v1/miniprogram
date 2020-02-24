@@ -2,7 +2,7 @@
     <view class="page__bd">
       <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
         <mp-cells>
-            <mp-cell wx:for="{{inspectionItems}}" wx:for-item="order" wx:key="{{order.id}}" data-id="{{order.id}}" bindtap="clickInspectionItem">
+            <mp-cell wx:for="{{inspectionItems}}" wx:for-item="order" wx:for-index="index" wx:key="{{order.id}}" data-id="{{order.id}}" data-inspectionid="{{order.inspectionTaskId}}" bindtap="clickInspectionItem">
                 <view slot="title" style="position: relative;margin-right: 10px;">
                   <image src="../../../../../imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
                 </view>
@@ -11,8 +11,8 @@
                 <view style="font-size: 13px;color: #888888;">设备位置:{{order.malfunctionLoc}}</view>
                 <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
                 <view class="operation_view">
-                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickAccept">完成</view>
-                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickNotAccept">驳回</view>
+                  <view class="operation_button" data-id="{{order.id}}" data-index="{{index}}" catchtap="clickAccept">完成</view>
+                  <!-- <view class="operation_button" data-id="{{order.id}}" catchtap="clickNotAccept">驳回</view> -->
                 </view>
             </mp-cell>
         </mp-cells>

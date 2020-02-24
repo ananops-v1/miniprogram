@@ -14,6 +14,7 @@ Page({
   data: {
     //巡检子项数据
     inspectionItems: [],
+    networksPics: [],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -109,7 +110,7 @@ Page({
   clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
+      url: "../../networkDetail/networkDetail?inspectionItemId=" + e.currentTarget.dataset.id + "&&inspectionId=" + e.currentTarget.dataset.inspectionid,
     })
   },
   //下拉刷新
@@ -138,6 +139,15 @@ Page({
   clickAccept: function (e) {
     console.log(e)
     var _this = this
+    var index = e.currentTarget.dataset.index
+    console.log(index)
+    console.log(_this.data.networksPics)
+    if (_this.data.networksPics[index] == undefined || _this.data.networksPics[index].length == 0){
+      wx.navigateTo({
+        url: "../../uploadImage/uploadImage?filePath=inspectionTask&&inspectionItem=" + e.currentTarget.dataset.index,
+      })
+    }
+    else{
     wx.showModal({
       title: '提示',
       content: '确定接单已完成吗？',
@@ -146,7 +156,8 @@ Page({
           var param = {
             'itemId': e.currentTarget.dataset.id,
             'status': 4,
-            'statusMsg': '等待甲方负责人审核'
+            'statusMsg': '等待甲方负责人审核',
+            'attachmentIds': _this.data.networksPics[index]
           }
           common.modifyItemStatusByItemId(param, (res) => {
             console.log(res)
@@ -165,6 +176,7 @@ Page({
         }
       }
     })
+    }
   },
   clickNotAccept: function (e) {
     console.log("拒绝接单")
@@ -186,6 +198,8 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    var itemsList=[]
+    var itemPics=[]
     var param = {
       'maintainerId': wx.getStorageSync('userInfo').id,
       'status': 3
@@ -194,8 +208,15 @@ Page({
       console.log(res);
       if (res.code == 200) {
         console.log("获取巡检子项列表成功");
+        itemsList = res.result
         that.setData({
-          inspectionItems: res.result
+          inspectionItems: itemsList
+        })
+        for (var i = 0; i < itemsList.length;i++){
+          itemPics.push([])
+        }
+        that.setData({
+          networksPics:itemPics
         })
       }
       else {

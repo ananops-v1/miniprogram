@@ -86,9 +86,7 @@ Page({
         duration: 1500,
         success: function () {
           setTimeout(function () {
-            wx.redirectTo({
-              url: '../inspectionToBeComment/inspectionToBeComment',
-            })
+            wx.navigateBack()
           }, 1500)
         }
       })

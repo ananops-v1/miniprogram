@@ -44,6 +44,8 @@ Page({
   switchTab: function (e) {
     var index = e.currentTarget.dataset.idx;
     var _this = this;
+    console.log(_this.data.inspectionItemId+"hello")
+    console.log(_this.data.inspectionId)
     if (index == 0) {
       console.log("进入子项信息页")
     }

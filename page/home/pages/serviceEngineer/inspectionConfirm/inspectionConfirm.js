@@ -108,7 +108,7 @@ Page({
   clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../../networkDetail/networkDetail?networkId=" + e.currentTarget.dataset.id,
+      url: "../../networkDetail/networkDetail?inspectionItemId=" + e.currentTarget.dataset.id + "&&inspectionId=" + e.currentTarget.dataset.inspectionid,
     })
   },
   //下拉刷新
