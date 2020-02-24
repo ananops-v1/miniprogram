@@ -154,10 +154,21 @@ Page({
           console.log(res)
           console.log("Hello")
           AUTH.homeInitInspections(res.result);
-          _this.setData({
-            userRole: app.globalData.userRole,
-            repair: Config.repair[app.globalData.userRole],
-            inspection: Config.inspection[app.globalData.userRole]
+          var param = {
+            orderBy: "string",
+            pageNum: 0,
+            pageSize: 100
+          }
+          common.getUndistributedItems(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              AUTH.homeInitToBeDispath(res.result.list);
+              _this.setData({
+                userRole: app.globalData.userRole,
+                repair: Config.repair[app.globalData.userRole],
+                inspection: Config.inspection[app.globalData.userRole]
+              })
+            }
           })
         })
       } else if (userRole == 'engineer') {

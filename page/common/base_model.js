@@ -451,7 +451,18 @@ class Common extends Base {
     };
     this.request(params);
   }
-  
+  //获取未分配工程师的巡检子项
+  getUndistributedItems(param, callback) {
+    var params = {
+      url: '/spc/workorder/getAllUnDistributedWorkOrders',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 }
 
 export {

@@ -175,6 +175,9 @@ function homeInitInspections(allInspections) {
   console.log(answer.toBeAccept)
   Config.inspection[2][0].num = answer.toBeAccept;
 }
+function homeInitToBeDispath(undistributedItems){
+  Config.inspection[2][1].num = undistributedItems.length
+}
 function homeInitItems(allItems) {
   console.log(allItems)
   var answer = {
@@ -211,5 +214,6 @@ module.exports = {
   exit: exit,
   homeInitial: homeInitial,
   homeInitInspections: homeInitInspections,
-  homeInitItems: homeInitItems
+  homeInitItems: homeInitItems,
+  homeInitToBeDispath: homeInitToBeDispath
 }
