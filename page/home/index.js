@@ -152,23 +152,30 @@ Page({
         console.log(param)
         inspection.getAllInspection(param,(res)=>{
           console.log(res)
-          console.log("Hello")
           AUTH.homeInitInspections(res.result);
-          var param = {
-            orderBy: "string",
-            pageNum: 0,
-            pageSize: 100
-          }
-          common.getUndistributedItems(param, (res) => {
-            console.log(res)
-            if (res.code == 200) {
-              AUTH.homeInitToBeDispath(res.result.list);
-              _this.setData({
-                userRole: app.globalData.userRole,
-                repair: Config.repair[app.globalData.userRole],
-                inspection: Config.inspection[app.globalData.userRole]
-              })
+          if (userRole == 'fac_leader'){
+            var param = {
+              orderBy: "string",
+              pageNum: 0,
+              pageSize: 100
             }
+            common.getUndistributedItems(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("Hello")
+                AUTH.homeInitToBeDispath(res.result.list);
+                _this.setData({
+                  userRole: app.globalData.userRole,
+                  repair: Config.repair[app.globalData.userRole],
+                  inspection: Config.inspection[app.globalData.userRole]
+                })
+              }
+            })
+          }
+          _this.setData({
+            userRole: app.globalData.userRole,
+            repair: Config.repair[app.globalData.userRole],
+            inspection: Config.inspection[app.globalData.userRole]
           })
         })
       } else if (userRole == 'engineer') {
