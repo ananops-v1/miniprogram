@@ -141,7 +141,7 @@ Page({
   pass: function(e) {
     var _this = this;
     var taskId = this.data.taskId;
-    var status = this.data.orderInfo.status;
+    var status = this.data.orderInfo.mdmcTask.status;
     if (status == 2) {
       status = 3;
     } else if (status == 8) {

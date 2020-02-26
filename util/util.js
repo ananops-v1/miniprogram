@@ -3,17 +3,20 @@ import {
 } from '../page/common/base_model.js';
 var common = new Common();
 
-const formatTime = timestamp => {
+const formatDate = timestamp => {
   var date = new Date(timestamp);
   var Y = date.getFullYear() + '-';
   var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
   var D = date.getDate() + ' ';
+  return Y + M + D;
+}
+const formatTime = timestamp => {
+  var date = new Date(timestamp);
   var h = date.getHours() + ':';
   var m = date.getMinutes() + ':';
   var s = date.getSeconds();
-  return Y + M + D + h + m + s;
+  return h + m + s;
 }
-
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -147,6 +150,7 @@ module.exports = {
   formatTime,
   formatLocation,
   fib,
+  formatDate,
   formatDateTime,
   compareVersion,
   identityFilter,

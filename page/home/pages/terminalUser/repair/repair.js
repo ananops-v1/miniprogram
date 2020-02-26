@@ -15,7 +15,7 @@ Page({
     // deviceList: ['设备1', '设备2', '设备3', '设备4', '设备5', '设备6'],
     //deviceIndex: 0,
     //日期数据
-    date: '2019-12-24',
+    date: '2020-12-24',
     time: '12:01',
     //录音数据
     showRecoder: false,
@@ -343,7 +343,7 @@ Page({
     // this.data.urgentTypeList[
     var level = _this.data.urgentTypeIndex;
     var userId = wx.getStorageSync('userInfo').id;
-    var description = this.data.textContent;
+    var description = this.data.describe;
     if (description == "点击此处添加内容") {
       description = "";
     }
@@ -433,10 +433,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var DATE = UTIL.formatDate(new Date());
+    var TIME = UTIL.formatTime(new Date());
     AUTH.checkHasLogined();
     var userObject = wx.getStorageSync('userObject');
     this.setData({
-      phoneNumber: userObject.mobileNo
+      phoneNumber: userObject.mobileNo,
+      date:DATE,
+      time:TIME
     })
     this.gerProject();
     this.getTroubleTypeListAndAddressList();
@@ -462,12 +466,13 @@ Page({
           for (var i = 0; i < project.length; i++) {
             programNameList.push(project[i].projectName);
           }
+          var programIndex = this.data.programIndex;
           this.setData({
             programList: project,
             programNameList: programNameList,
-            serviceProvider: project[0].partyBName,
-            reviewer: project[0].aoneName,
-            reviewerId: project[0].aleaderId,
+            serviceProvider: project[programIndex].partyBName,
+            reviewer: project[programIndex].aoneName,
+            reviewerId: project[programIndex].aleaderId,
           })
         }
       })

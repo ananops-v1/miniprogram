@@ -211,6 +211,7 @@ Page({
   },
 
   showLocation: function() {
+    console.log(123);
     const that = this;
     var latitude = this.data.orderInfo.mdmcTask.requestLatitude;
     var longitude = this.data.orderInfo.mdmcTask.requestLongitude;

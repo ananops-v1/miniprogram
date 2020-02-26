@@ -30,7 +30,7 @@ Page({
       if (res.code == 200) {
         var orderInfo = res.result;
         console.log(orderInfo);
-        var suggestionOne = orderInfo.suggestion;
+        var suggestionOne = orderInfo.mdmcTask.suggestion;
         if (suggestionOne != null && suggestionOne.length > 15) {
           suggestionOne = suggestionOne.substring(0, 15);
         }
