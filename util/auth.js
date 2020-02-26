@@ -163,6 +163,7 @@ function homeInitInspections(allInspections) {
       }
     });
   }
+  console.log(answer.toBeVerify)
   //甲方负责人
   Config.inspection[1][1].num = answer.toBeAccept;
   Config.inspection[1][2].num = answer.inspecting;
@@ -173,6 +174,9 @@ function homeInitInspections(allInspections) {
   //服务商
   console.log(answer.toBeAccept)
   Config.inspection[2][0].num = answer.toBeAccept;
+}
+function homeInitToBeDispath(undistributedItems){
+  Config.inspection[2][1].num = undistributedItems.length
 }
 function homeInitItems(allItems) {
   console.log(allItems)
@@ -210,5 +214,6 @@ module.exports = {
   exit: exit,
   homeInitial: homeInitial,
   homeInitInspections: homeInitInspections,
-  homeInitItems: homeInitItems
+  homeInitItems: homeInitItems,
+  homeInitToBeDispath: homeInitToBeDispath
 }

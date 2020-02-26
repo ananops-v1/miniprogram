@@ -143,6 +143,13 @@ Config.inspection = [
       icon_url: "/imgs/icon/dispatching.png",
       name: "待接单",
       num: 0
+    },
+    {
+      id: "2",
+      url: "../home/pages/serviceProvider/inspectionDistribute/inspectionDistribute",
+      icon_url: "/imgs/icon/dispatching.png",
+      name: "待分配",
+      num: 0
     }
   ],
   [{//工程师

@@ -147,6 +147,7 @@ Page({
           })
           console.log(attachmentIds)
           that.updatePrePageData(attachmentIds)
+          wx.navigateBack()
         } else {
           //递归调用，上传下一张
           that.uploadOneByOne(imgPaths, successUp, failUp, count, length);

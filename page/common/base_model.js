@@ -308,7 +308,7 @@ class Common extends Base {
   //更改巡检任务的状态
   modifyTaskStatus(param, callback) {
     var params = {
-      url: '/imc/inspectionTask/modifyTaskStatusByTaskId/' + param.taskId,
+      url: '/imc/inspectionTask/modifyTaskStatusByTaskId',
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -451,7 +451,42 @@ class Common extends Base {
     };
     this.request(params);
   }
-  
+  //获取未分配工程师的巡检子项
+  getUndistributedItems(param, callback) {
+    var params = {
+      url: '/spc/workorder/getAllUnDistributedWorkOrders',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //获取巡检指定状态的巡检子项
+  getAllItems(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/getAllItemByTaskIdAndStatus',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //为巡检任务子项分配工程师
+  distributeEngineer(param, callback) {
+    var params = {
+      url: '/spc/workorder/distributeEngineerWithImcOrder',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 }
 
 export {

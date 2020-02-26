@@ -145,17 +145,30 @@ Page({
       if (userRole == 'fac_leader' || userRole == 'user_leader') {
         var param = {
           "role": userRole == 'user_leader'?1:4,
-          "userId": userRole == 'user_leader' ? userInfo.id : wx.getStorageSync('userObject').groupId
+          "userId": userRole == 'user_leader' ? userInfo.id : wx.getStorageSync('userObject').groupId,
+          "pageNum": 0,
+          "pageSize": 100
         };
         console.log(param)
         inspection.getAllInspection(param,(res)=>{
           console.log(res)
           console.log("Hello")
           AUTH.homeInitInspections(res.result);
-          _this.setData({
-            userRole: app.globalData.userRole,
-            repair: Config.repair[app.globalData.userRole],
-            inspection: Config.inspection[app.globalData.userRole]
+          var param = {
+            orderBy: "string",
+            pageNum: 0,
+            pageSize: 100
+          }
+          common.getUndistributedItems(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              AUTH.homeInitToBeDispath(res.result.list);
+              _this.setData({
+                userRole: app.globalData.userRole,
+                repair: Config.repair[app.globalData.userRole],
+                inspection: Config.inspection[app.globalData.userRole]
+              })
+            }
           })
         })
       } else if (userRole == 'engineer') {

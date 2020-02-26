@@ -169,7 +169,7 @@ Page({
           var param = {
             'taskId': e.currentTarget.dataset.id,
             'status': 2,
-            'statusMsg': '巡检待付款'
+            'statusMsg': '等待服务商接单'
           }
           common.modifyTaskStatus(param, (res) => {
             console.log(res)
@@ -181,7 +181,7 @@ Page({
             }
           })
           wx.redirectTo({
-            url: '../inspectionToBeConfirm/inspectionToBeConfirm',
+            url: '../inspectionToBeReceive/inspectionToBeReceive',
           })
         } else if (sm.cancel) {
           console.log('用户点击取消');
