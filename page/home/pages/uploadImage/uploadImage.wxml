@@ -3,7 +3,7 @@
   <view class="page-body">
     <form>
       <view class="page-section">
-        <view class="weui-cells weui-cells_after-title">
+        <!-- <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
             <view class="weui-cell__hd">
               <view class="weui-label">图片来源</view>
@@ -34,7 +34,7 @@
               </picker>
             </view>
           </view>
-        </view>
+        </view> -->
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
@@ -45,7 +45,7 @@
                 </view>
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files">
-                    <block wx:for="{{imageList}}" wx:for-item="image">
+                    <block wx:for="{{imageList}}" wx:key="image" wx:for-item="image">
                       <view class="weui-uploader__file">
                         <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage" bindlongpress="deleteImg"></image>
                       </view>
