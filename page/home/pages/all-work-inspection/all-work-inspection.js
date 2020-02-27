@@ -173,7 +173,10 @@ Page({
       'projectId': options.projectId,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
       'status':0,
-      'userId': wx.getStorageSync('userInfo').id
+      'userId': wx.getStorageSync('userInfo').id,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
     }
     common.getInspectionTaskAll(paramProjectId, (res) => {
       console.log(res);

@@ -202,7 +202,10 @@ Page({
     var itemPics=[]
     var param = {
       'maintainerId': wx.getStorageSync('userInfo').id,
-      'status': 3
+      'status': 3,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
     }
     common.getInspectionItem(param, (res) => {
       console.log(res);

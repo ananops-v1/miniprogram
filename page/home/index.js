@@ -87,7 +87,7 @@ Page({
         "id": userInfo.id,
         "orderBy": "string",
         "pageNum": 0,
-        "pageSize": 0,
+        "pageSize": 100,
         "roleCode": userInfo.roles[0].roleCode,
         "status": null
       };
@@ -180,7 +180,10 @@ Page({
         })
       } else if (userRole == 'engineer') {
         var param = {
-          "maintainerId": userInfo.id
+          "maintainerId": userInfo.id,
+          "orderBy": "string",
+          "pageNum": 0,
+          "pageSize": 100,
         };
         inspection.getAllItems(param,(res)=>{
           console.log(res)
@@ -201,7 +204,7 @@ Page({
       "id": userInfo.id,
       "orderBy": "string",
       "pageNum": 0,
-      "pageSize": 0,
+      "pageSize": 100,
       "roleCode": userInfo.roles[0].roleCode,
       "status": statusArray
     };

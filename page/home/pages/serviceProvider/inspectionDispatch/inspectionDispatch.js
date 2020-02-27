@@ -223,7 +223,10 @@ Page({
     var param = {
       'userId': wx.getStorageSync('userObject').groupId,
       'status': 2,
-      'role': 4
+      'role': 4,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
     }
     common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);
