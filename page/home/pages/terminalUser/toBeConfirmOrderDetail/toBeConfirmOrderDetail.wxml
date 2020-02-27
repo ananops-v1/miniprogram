@@ -17,49 +17,28 @@
         <mp-cell value="预约时间" footer="{{orderInfo.mdmcTask.appointTime}}">{{orderInfo.mdmcTask.appointTime}}</mp-cell>
         <mp-cell value="报修人" footer="{{orderInfo.mdmcTask.creator}}">{{orderInfo.mdmcTask.creator}}</mp-cell>
         <mp-cell value="联系电话" footer="{{orderInfo.mdmcTask.call}}" bindtap="makePhone" data-phone="{{orderInfo.mdmcTask.call}}">{{orderInfo.mdmcTask.call}}</mp-cell>
+
+        <view wx:if="{{taskPictures != null}}">
+          <view class="fujian">附件:</view>
+          <view class="category-detail-box">
+            <block wx:for="{{taskPictures}}" wx:for-item="img" wx:key="img">
+              <!-- 下面存放单个设备的div  -->
+              <view class="category-goods-items">
+                <image class='group-image' bindtap='imageClick' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
+              </view>
+            </block>
+          </view>
+
+        </view>
       </mp-cells>
+
     </view>
   </view>
 </view>
 <view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
   <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
-    <view class="orderlog_time">{{item.createdTime}}</view>
     <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
     <view class="orderlog_content {{index==0?'first':''}}">{{item.movement}},{{item.lastOperator}}</view>
+    <view class="orderlog_time">{{item.createdTime}}</view>
   </view>
 </view>
-
-
-<!-- 
-<view class='order_process'>
-  <view class='process_wrap' wx:for="{{processData}}" wx:key="">
-    <view class='process'>
-      <view class='process_line' style="background:{{item.start}}"></view>
-      <image class='process_icon' src="{{item.icon}}"></image>
-      <view class='process_line' style="background:{{item.end}}"></view>
-    </view>
-    <text class='process_name'>{{item.name}}</text>
-  </view>
-</view> -->
-
-<!-- <view class="page-body">
-    <view class="page-section page-section-gap">
-
-      <view class="progress-box">
-        <progress percent="20" show-info stroke-width="3"/>
-      </view>
-
-      <view class="progress-box">
-        <progress percent="40" active stroke-width="3" />
-        <icon class="progress-cancel" type="cancel"></icon>
-      </view>
-
-      <view class="progress-box">
-        <progress percent="60" active stroke-width="3" />
-      </view>
-
-      <view class="progress-box">
-        <progress percent="80" color="#10AEFF" active stroke-width="3" />
-      </view>
-    </view>
-  </view> -->

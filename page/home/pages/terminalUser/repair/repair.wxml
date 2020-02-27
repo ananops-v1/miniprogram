@@ -263,9 +263,13 @@
               <view class="weui-cell__bd" bindtap="clickUploadImg">
                 <view class="weui-input">上传图片</view>
               </view>
-              <view class="weui-cell__bd" bindtap="clickUploadVideo">
-                <view class="weui-input">上传视频</view>
+              <view class="weui-cell__bd">
+                <view class="weui-input">{{length}}</view>
               </view>
+              <!-- <view class="weui-cell__bd" bindtap="clickUploadVideo">
+                <view class="weui-input">上传视频</view>
+                <view>{{length}}</view>
+              </view> -->
             </view>
           </view>
         </view>

@@ -487,6 +487,37 @@ class Common extends Base {
     };
     this.request(params);
   }
+
+  //根据id和状态返回工单附件
+  getTaskPicture(param, callback) {
+    var params = {
+      url: '/mdmc/mdmcTask/getPictureByTaskIdAndStatus',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+    //根据工单id返回工单附件
+  getTaskPictureById(taskId, callback) {
+  var params = {
+    url: `/mdmc/mdmcTask/getPictureByTaskId?taskId=${taskId}`,
+    sCallback: function (data) {
+      callback && callback(data);
+    },
+    fCallback: function (data) {
+      callback && callback(data);
+    }
+  };
+  this.request(params);
+}
+
 }
 
 export {

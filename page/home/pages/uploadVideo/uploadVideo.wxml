@@ -2,7 +2,7 @@
 <view class="container">
   <view class="page-body">
     <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
+      <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">视频来源</view>
@@ -22,7 +22,7 @@
               <view class="weui-input">{{camera[cameraIndex]}}</view>
             </picker>
           </view>
-        </view>
+        </view> 
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">拍摄长度</view>
@@ -33,7 +33,7 @@
             </picker>
           </view>
         </view>
-      </view>
+      </view> -->
 
       <view class="page-body-info">
         <block wx:if="{{src === ''}}">

@@ -27,8 +27,7 @@ Page({
     count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   onLoad: function (options) {
-    var that = this
-    that.setData({
+    this.setData({
       filePath: options.filePath,
       inspectionItemIndex: options.inspectionItem
     })
@@ -157,10 +156,12 @@ Page({
     })
   },
   updatePrePageData: function (attachmentIds) {
+    var index = this.data.inspectionItemIndex;
+    console.log(index);
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
     var networksPics=prevPage.data.networksPics
-    networksPics[this.data.inspectionItemIndex]=networksPics[this.data.inspectionItemIndex].concat(attachmentIds)
+    networksPics[index]=networksPics[index].concat(attachmentIds)
     prevPage.setData({
       networksPics: networksPics
     })

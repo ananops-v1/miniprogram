@@ -55,6 +55,7 @@ Page({
     }
     var deviceId = _this.data.deviceId;
     login.login(deviceId, param, (res) => {
+      console.log(res);
       if (res != null && res.code == 200) {
         wx.setStorage({
           key: "tokenInfo", //tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等

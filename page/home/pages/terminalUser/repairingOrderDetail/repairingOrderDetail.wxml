@@ -1,4 +1,4 @@
-<!-- 顶部tabbar -->
+<!-- 顶部tabbar --> 
 <import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab ">
   <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="itemName" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
@@ -18,26 +18,39 @@
         <mp-cell value="预约时间" footer="{{orderInfo.mdmcTask.appointTime}}">{{orderInfo.mdmcTask.appointTime}}</mp-cell>
         <mp-cell value="报修人" footer="{{orderInfo.mdmcTask.creator}}">{{orderInfo.mdmcTask.creator}}</mp-cell>
         <mp-cell value="联系电话" footer="{{orderInfo.mdmcTask.call}}" bindtap="makePhone" data-phone="{{orderInfo.mdmcTask.call}}">{{orderInfo.mdmcTask.call}}</mp-cell>
+
+        <view wx:if="{{taskPictures != null}}">
+          <view class="fujian">附件:</view>
+          <view class="category-detail-box">
+            <block wx:for="{{taskPictures}}" wx:for-item="img" wx:key="img">
+              <!-- 下面存放单个设备的div  -->
+              <view class="category-goods-items">
+                <image class='group-image' bindtap='imageClick' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
+              </view>
+            </block>
+          </view>
+
+        </view>
+
       </mp-cells>
     </view>
   </view>
   <view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
-        <mp-cell value="服务商" footer="{{orderInfo.facilitatorId}}">{{orderInfo.facilitatorId}}</mp-cell>
-        <mp-cell value="维修工" footer="{{orderInfo.id}}">{{orderInfo.id}}</mp-cell>
-        <mp-cell value="维修建议" footer="{{suggestionOne}}" bindtap="showAllSuggestion">{{suggestionOne}}</mp-cell>
+        <mp-cell value="服务商" footer="{{orderInfo.pmcProjectDto.partyBName}}">{{orderInfo.pmcProjectDto.partyBName}}</mp-cell>
+        <mp-cell value="维修工" footer="{{orderInfo.engineerDto.name}}">{{orderInfo.engineerDto.name}}</mp-cell>
+        <mp-cell value="维修建议" footer="{{orderInfo.mdmcTask.suggestionOne}}" bindtap="showAllSuggestion">{{orderInfo.mdmcTask.suggestionOne}}</mp-cell>
         <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts"></mp-cell>
-        <mp-cell value="维修结果" footer="{{orderInfo.result}}">{{orderInfo.result}}</mp-cell>
+        <mp-cell value="维修结果" footer="{{orderInfo.mdmcTask.result}}">{{orderInfo.mdmcTask.result}}</mp-cell>
       </mp-cells>
     </view>
   </view>
   <view class="placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-
     <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
-      <view class="orderlog_time">{{item.createdTime}}</view>
       <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
-      <view class="orderlog_content {{index==0?'first':''}}">{{workOrderStatus[item.status]}},{{item.lastOperator}}</view>
+      <view class="orderlog_content {{index==0?'first':''}}">{{item.movement}},{{item.lastOperator}}</view>
+      <view class="orderlog_time">{{item.createdTime}}</view>
     </view>
   </view>
 </view>

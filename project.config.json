@@ -95,6 +95,12 @@
 					"pathName": "page/home/pages/terminalUser/inspection/inspection",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"pathName": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"scene": null
 				}
 			]
 		}

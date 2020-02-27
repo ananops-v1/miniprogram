@@ -534,21 +534,24 @@ input {
 .orderlog_view {
   display: flex;
   justify-content: center;
-  font-size: 35rpx;
+  font-size: 30rpx;
   margin: 21rpx;
 }
 
 .orderlog_time {
-  width: 30%;
+  width: 40%;
 }
 
 .orderlog_content {
   color: grey;
-  
+  width: 40%;
+  margin:0 10rpx 0 10rpx;
 }
 
 .orderlog_content.first {
+  width: 40%;
   color: orange;
+  margin:0 10rpx 0 10rpx;
 }
 
 .orderlog_image {
@@ -560,4 +563,36 @@ input {
 .line{
 margin: 0 auto;
 background-color: #D8D8D8;
+}
+
+
+.category-detail-box {
+  overflow: hidden;
+  padding: 10rpx 10rpx 0rpx;
+  display: flex;
+  justify-content: center;
+  background-color: #fffef9;
+}
+
+.category-main {
+  height: 91%;
+}
+
+.category-goods-items {
+  margin: 5rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border:2rpx solid #bebebe
+}
+
+.group-image {
+  height: 100rpx;
+  width: 100rpx;
+}
+
+.fujian{
+  padding: 16px;
 }

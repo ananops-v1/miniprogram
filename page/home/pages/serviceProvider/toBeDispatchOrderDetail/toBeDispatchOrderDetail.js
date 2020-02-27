@@ -63,6 +63,40 @@ Page({
           orderLogs: res.result
         })
       }
+    });
+    var param = {
+      "taskId": taskId,
+      "status": 2
+    }
+    common.getTaskPicture(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        this.setData({
+          taskPictures: res.result
+        })
+      }
+    });
+    common.getTaskPictureById(taskId, (res) => {
+      if (res.code == 200) {
+        this.setData({
+          taskPicture: res.result["0"].elementImgUrlDtoList
+        })
+      }
+    })
+  },
+
+  imageClick: function (e) {
+    console.log(e);
+    var src = e.currentTarget.dataset.src;
+    var taskPictures = this.data.taskPictures;
+    var pictures = [];
+    for (var i = 0; i < taskPictures.length; i++) {
+      pictures.push(taskPictures[i].url);
+    }
+    console.log(pictures);
+    wx.previewImage({
+      current: src,
+      urls: pictures,
     })
   },
 

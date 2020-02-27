@@ -9,6 +9,7 @@ Page({
   data: {
     deviceNum: 1,
     hiddenmodalput: true,
+    networksPics:[[]],
     //项目数据
     programIndex: 0,
     //设备数据
@@ -289,14 +290,15 @@ Page({
 
   //上传图片
   clickUploadImg() {
+    var networksPics = this.data.networksPics
     wx.navigateTo({
-      url: "../../uploadImage/uploadImage",
+      url: "../../uploadImage/uploadImage?filePath=repairerTask&&inspectionItem=" + 0
     })
   },
   //上传视频
   clickUploadVideo() {
     wx.navigateTo({
-      url: "../../uploadVideo/uploadVideo",
+      url: "../../uploadVideo/uploadVideo?filePath=repairerTask&&inspectionItem=" + 0,
     })
   },
   //选择审核人
@@ -363,10 +365,11 @@ Page({
     var facilitatorId = programList[programIndex].bleaderId;
     var projectId = programList[programIndex].id;
     var principalId = _this.data.reviewerId;
-
+    var networksPics = this.data.networksPics;
     var param = {
       "addressName": mapLocation,
       "appointTime": newDate,
+      "attachmentIdList": networksPics[0],
       "call": phoneNumber,
       "contractId": contractId,
       "facilitatorId": facilitatorId,
@@ -437,10 +440,12 @@ Page({
     var TIME = UTIL.formatTime(new Date());
     AUTH.checkHasLogined();
     var userObject = wx.getStorageSync('userObject');
+    var length = this.data.networksPics[0].length;
     this.setData({
       phoneNumber: userObject.mobileNo,
       date:DATE,
-      time:TIME
+      time:TIME,
+      length:length
     })
     this.gerProject();
     this.getTroubleTypeListAndAddressList();
