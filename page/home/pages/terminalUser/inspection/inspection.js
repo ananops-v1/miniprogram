@@ -235,7 +235,7 @@ Page({
       //   }
       // ],
       "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
-      "principalId": 1,//负责人
+      "principalId": wx.getStorageSync('userInfo').id,//负责人
       "projectId": this.data.programId,
       "remark": this.data.inspectionRemark,//备注
       "scheduledStartTime": this.data.startDate,
@@ -319,7 +319,7 @@ Page({
   initInspectionInfo:function(choosedInspection){
     this.setData({
       cycleTime: choosedInspection.cycleTime,
-      startDate: formatTime(choosedInspection.scheduledStartTime),
+      startDate: choosedInspection.scheduledStartTime,
       inspectionContent: choosedInspection.inspectionContent,
       inspectionRemark: choosedInspection.description,
       isStart: choosedInspection.isNow,

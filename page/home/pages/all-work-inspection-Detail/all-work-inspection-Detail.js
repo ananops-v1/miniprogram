@@ -192,7 +192,10 @@ Page({
     else if (index == 2) {
       console.log("进入网点页")
       var param = {
-        'taskId': _this.data.inspectionId
+        'taskId': _this.data.inspectionId,
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 100,
       }
       common.getAllItemByTaskId(param, (res) => {
         console.log(res)

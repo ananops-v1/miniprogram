@@ -176,7 +176,10 @@ Page({
     var param = {
       'userId': that.data.userId,
       'status': 6,
-      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2
+      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
     }
     common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);

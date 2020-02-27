@@ -140,7 +140,11 @@ Page({
     //调用应用实例的方法获取全局数据
     this.refresh();
     var param = {
-      "maintainerId": wx.getStorageSync("userInfo")['id']
+      "maintainerId": wx.getStorageSync("userInfo")['id'],
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
+      
     }
     common.getItemByMaintainerId(param, (res) => {
       console.log(res)

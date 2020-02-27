@@ -19,7 +19,10 @@ Page({
       inspectionId: options.inspectionId
     })
     var param={
-      'itemId': that.data.inspectionItemId
+      'itemId': that.data.inspectionItemId,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
     }
     common.getItemByItemId(param,(res)=>{
       console.log(res);
