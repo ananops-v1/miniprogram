@@ -191,12 +191,48 @@ class Common extends Base {
     };
     this.request(params);
   }
-
-// <---------------------合同相关api------------------>
+// <---------------------用户相关api------------------>
+  //根据Id查询用户信息
+  getUacUserById(param, callback) {
+    var params = {
+      url: '/uac/user/getUacUserById/' + param.userId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据Id查询工程师信息
+  getSpcEngineerById(param, callback) {
+    var params = {
+      url: '/spc/engineer/getSpcEngineerById/' + param.engineerId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+// <---------------------合同项目相关api------------------>
   //根据groupId查询所属项目
   getProjectByGroupId(param, callback) {
     var params = {
       url: '/pmc/project/getProjectListByGroupId/' + param.groupId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据Id查询项目详情
+  getProjectById(param, callback) {
+    var params = {
+      url: '/pmc/project/getById/' + param.projectId,
       //data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -504,20 +540,34 @@ class Common extends Base {
     this.request(params);
   }
 
-    //根据工单id返回工单附件
+  //根据工单id返回工单附件
   getTaskPictureById(taskId, callback) {
-  var params = {
-    url: `/mdmc/mdmcTask/getPictureByTaskId?taskId=${taskId}`,
-    sCallback: function (data) {
-      callback && callback(data);
-    },
-    fCallback: function (data) {
-      callback && callback(data);
-    }
-  };
-  this.request(params);
-}
-
+    var params = {
+      url: `/mdmc/mdmcTask/getPictureByTaskId?taskId=${taskId}`,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  // <---------------------服务商相关api------------------>
+  getCompanyDetailsById(param, callback) {
+    var params = {
+      url: '/spc/api/company/getCompanyDetailsById/' + param.companyId,
+      //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 }
 
 export {

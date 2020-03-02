@@ -12,6 +12,12 @@ Page({
     currentNavtab: "3",
     //巡检详情信息
     inspectionDetail: {},
+    //项目详情信息
+    projectDetail:{},
+    //甲方负责人详情信息
+    principalDetail:{},
+    //服务商详情信息
+    companyDetail:{},
     //巡检网点信息
     networks: [],
     //巡检日志信息
@@ -140,6 +146,18 @@ Page({
   },
   clickNetwork: function (e) {
   },
+  clickPhoneCall:function(e){
+    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '确定要拨打电话吗？',
+      success: function (sm) {
+        wx.makePhoneCall({
+          phoneNumber: e.currentTarget.dataset.phone 
+        })
+      }
+    })
+  },
   onLoad: function (options) {
     var that = this
     that.setData({
@@ -163,6 +181,42 @@ Page({
             console.log("获取巡检详情成功")
             _this.setData({
               inspectionDetail: res.result
+            })
+            var param={
+              companyId: res.result.facilitatorId
+            }
+            common.getCompanyDetailsById(param,(res)=>{
+              console.log(res)
+              if(res.code==200){
+                console.log("获取服务商详情成功")
+                _this.setData({
+                  companyDetail: res.result
+                })
+              }
+            })
+            var param = {
+              projectId: res.result.projectId
+            }
+            common.getProjectById(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取项目详情成功")
+                _this.setData({
+                  projectDetail: res.result
+                })
+              }
+            })
+            var param = {
+              userId: res.result.principalId
+            }
+            common.getUacUserById(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取甲方负责人详情成功")
+                _this.setData({
+                  principalDetail: res.result
+                })
+              }
             })
           }
           else {

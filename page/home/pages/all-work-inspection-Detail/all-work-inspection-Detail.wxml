@@ -9,13 +9,16 @@
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
         <mp-cells ext-class="my-cells">
+            <mp-cell value="归属项目" footer="{{projectDetail.projectName}}"></mp-cell>
             <mp-cell value="巡检名称" footer="{{inspectionDetail.taskName}}"></mp-cell>
             <mp-cell value="巡检周期" footer="{{inspectionDetail.frequency}}天"></mp-cell>
             <mp-cell value="开始时间" footer="{{inspectionDetail.scheduledStartTime}}"></mp-cell>
             <mp-cell value="计划完成时间" footer="{{inspectionDetail.days}}天"></mp-cell>
             <mp-cell value="巡检内容" footer="{{xxxx}}"></mp-cell>
             <mp-cell value="巡检备注" footer="{{inspectionDetail.remark}}"></mp-cell>
-            <mp-cell value="服务商" footer="{{xxxx}}"></mp-cell>
+            <mp-cell value="甲方负责人" footer="{{principalDetail.userName}}"></mp-cell>
+            <mp-cell value="联系电话" footer="{{principalDetail.mobileNo}}" data-phone="{{principalDetail.mobileNo}}" bindtap="clickPhoneCall"></mp-cell>
+            <mp-cell value="服务商" footer="{{companyDetail.groupName}}"></mp-cell>
         </mp-cells>
     </view>
     <!-- <view class="page__bd">
