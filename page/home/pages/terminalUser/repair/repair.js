@@ -65,7 +65,7 @@ Page({
     this.setData({
       programIndex: index,
       serviceProvider: programList[index].partyBName,
-      reviewer: programList[index].aoneName,
+      reviewer: programList[index].aleaderName,
       reviewerId: programList[index].aleaderId,
     })
   },
@@ -476,7 +476,7 @@ Page({
             programList: project,
             programNameList: programNameList,
             serviceProvider: project[programIndex].partyBName,
-            reviewer: project[programIndex].aoneName,
+            reviewer: project[programIndex].aleaderName,
             reviewerId: project[programIndex].aleaderId,
           })
         }
