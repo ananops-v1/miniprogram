@@ -49,7 +49,7 @@ Page({
     urgentTypeList: ['紧急', '中等', '一般'],
     urgentTypeIndex: 0,
     //故障等级数据
-    malfunctionRankList: ['p0', 'p1', '其他'],
+    malfunctionRankList: ['一级', '二级', '三级', '四级', '五级'],
     malfunctionRankIndex: 0,
     //故障描述数据
     textContent: '点击此处添加内容',
