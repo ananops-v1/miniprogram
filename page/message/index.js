@@ -1,4 +1,8 @@
 // pages/message/message.js
+import {
+  GetMessage
+} from 'index_model.js';
+var getMessage = new GetMessage();
 var util = require('../../util/util.js')
 Page({
   data: {
@@ -49,10 +53,23 @@ Page({
         notify: null
       })
     } else {
+      this._loadRealtimeData(userInfo.id)
       this.setData({
         notify: _this.data.notice
       })
     }
+  },
+  _loadRealtimeData: function (userId) {
+    var _this = this;
+    var sConCb = function (res) { };
+    var fConCb = function () { };
+    //以上为callback
+    let socketTask = getMessage.getRealtimeData(userId, sConCb, fConCb, (data) => {
+      var id = JSON.parse(data).deviceId;
+      //收到服务器端发回数据，更新view层数据
+      var sensorData = JSON.parse(data).data;
+      console.log(sensorData);
+    })
   },
   switchTab: function(e) {
     this.setData({
