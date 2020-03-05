@@ -46,7 +46,7 @@ Page({
     //故障定位数据
     mapLocation: '点击此处选择位置',
     //紧急程度数据
-    urgentTypeList: ['紧急', '中等', '一般'],
+    urgentTypeList: ['非常紧急', '紧急', '一般'],
     urgentTypeIndex: 0,
     //故障等级数据
     malfunctionRankList: ['一级', '二级', '三级', '四级', '五级'],
@@ -210,7 +210,8 @@ Page({
   clickMalfunctionType: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      malfunctionTypeIndex: e.detail.value
+      malfunctionTypeIndex: e.detail.value,
+      malfunctionType: malfunctionTypeList[e.detail.value]
     })
   },
   //选择故障位置
@@ -250,7 +251,7 @@ Page({
   },
   //选择故障等级
   clickMalfunctionRank: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('clickMalfunctionRank picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionRankIndex: e.detail.value
     })
@@ -352,9 +353,9 @@ Page({
     var latitude = this.data.latitude;
     var longitude = this.data.longitude;
     var mapLocation = this.data.mapLocation;
-    var malfunctionRank = this.data.malfunctionRankList[_this.data.malfunctionRankIndex];
-    // this.data.malfunctionTypeList[
-    var malfunctionType = _this.data.malfunctionTypeIndex;
+    var malfunctionRank = this.data.malfunctionRankIndex;
+    var malfunctionType = this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
+    var malfunctionLocation = this.data.malfunctionLocList[_this.data.malfunctionLocIndex];
     var deviceType = this.data.deviceTypeList[_this.data.deviceTypeIndex];
     var title = this.data.malfunctionLocList[_this.data.malfunctionLocIndex] + this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
     
@@ -397,9 +398,10 @@ Page({
         "deviceName": null,
         "deviceType": deviceType,
         "id": null,
-        "level": malfunctionRank,
+        "level": parseInt(malfunctionRank),
         "taskId": 0,
-        "troubleType": malfunctionType
+        "troubleType": malfunctionType,
+        "troubleAddress": malfunctionLocation
       }],
     }
 
