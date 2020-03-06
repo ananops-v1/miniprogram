@@ -102,7 +102,7 @@ class Base {
   realTimeMessageTest(params) {
     var url = this.webSocketUrl + params.url;
     var userId = params.userId;
-    var socketTask = wx.connectSocket({
+    var socketTask =wx.connectSocket({
       url: url,
       success: function (res) {
         params.sConnectCb && params.sConnectCb(res);
@@ -119,6 +119,26 @@ class Base {
       sendSocketMessage('{"userId":"' + userId + '"}');
     });
 
+    var Stomp = require('../../util/stomp.js').Stomp;
+    /**
+     * 定期发送心跳或检测服务器心跳
+     *  The heart-beating is using window.setInterval() to regularly send heart-beats and/or check server heart-beats.
+     *  可看stomp.js的源码（195,207，489行），由于小程序没有window对象，所以我们要调用小程序的定时器api实现
+     */
+    Stomp.setInterval = function (interval, f) {
+      return setInterval(f, interval);
+    };
+    // 结束定时器的循环调用
+    Stomp.clearInterval = function (id) {
+      return clearInterval(id);
+    };
+    var stompClient = Stomp.over(ws);
+    stompClient.connect({}, function (callback) {
+      // 主题订阅
+      stompClient.subscribe('/user/queue/chat', function (body, headers) {
+        console.log('收到群发消息', body);
+      });
+    })
     wx.onSocketClose(function (res) {
       console.log("Disconnected: ");
     });
