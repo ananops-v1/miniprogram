@@ -147,7 +147,7 @@ Page({
 
   getDeviceById: function() {
     var orderInfo = this.data.orderInfo;
-    var taskId = orderInfo.id;
+    var taskId = this.data.taskId;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
@@ -198,6 +198,21 @@ Page({
       console.log(res);
       if (res.code == 200) {
         _this.onShow();
+      }
+    })
+  },
+
+  payBill: function () {
+    var taskId = this.data.taskId;
+    var param = {
+      "status": 12,
+      "id": taskId
+    }
+    common.createRepair(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.hideModal();
+        wx.navigateBack();
       }
     })
   },

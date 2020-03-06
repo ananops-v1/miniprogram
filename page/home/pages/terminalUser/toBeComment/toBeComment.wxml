@@ -1,17 +1,17 @@
 <view class="page">
-    <view class="page__bd">
-      <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-        <mp-cells>
-        <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
+  <view class="page__bd">
+    <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <mp-cells>
+        <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.mdmcTask.id}}" bindtap="clickOrder">
           <view slot="title" class="mp-cell-title">
             <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
           </view>
-          <view>{{order.programName}}</view>
-          <view>{{order.deviceName}}</view>
-          <view class="mp-cell-view">设备位置:{{order.address_name}}</view>
-          <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
+          <view>项目:{{order.pmcProjectDto.contractName}}</view>
+          <view>{{order.mdmcTask.deviceName}}</view>
+          <view class="mp-cell-view">故障位置:{{order.mdmcTask.addressName}}</view>
+          <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
         </mp-cell>
-        </mp-cells>
-      </scroll-view>
-    </view>
+      </mp-cells>
+    </scroll-view>
+  </view>
 </view>

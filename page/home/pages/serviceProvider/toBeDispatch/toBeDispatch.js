@@ -142,7 +142,9 @@ Page({
       console.log(res);
       var repairerList = res.result.map(function (item) {
         return item['name'];
-      }); 
+      });
+      var repairerInfoList = res.result;
+      console.log(repairerList);
       wx.showActionSheet({
         itemList: repairerList,
         success(res) {
@@ -151,16 +153,15 @@ Page({
           var params = {
             "id": taskId,
             "status": 5,
-            "maintainerId": repairerList[index].id
+            "maintainerId": repairerInfoList[index].id
           }
+          console.log(params);
           common.createRepair(params, (res) => {
             wx.showToast({
               title: "派单成功",
               duration: 1000,
               success: function () {
-                setTimeout(function () {
-                  wx.navigateBack();
-                }, 1000)
+                _this.onShow();
               }
             })
           });

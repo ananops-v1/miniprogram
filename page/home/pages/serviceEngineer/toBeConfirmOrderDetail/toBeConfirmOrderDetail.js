@@ -15,7 +15,8 @@ var common = new Common();
 
 Page({
   data: {
-    navTab: ["设备信息", "故障信息"],
+    // navTab: ["设备信息", "故障信息"],
+    navTab: ["故障信息"],
     currentNavtab: "0",
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
@@ -113,7 +114,6 @@ Page({
       "status": 6,
       "id": taskId
     }
-    console.log("<<<<<<<<<<<<<"+param)
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {

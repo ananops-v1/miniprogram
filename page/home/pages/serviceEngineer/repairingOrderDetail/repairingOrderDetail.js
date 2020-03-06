@@ -11,10 +11,12 @@ Page({
     currentNavtab: "0",
     hiddenmodalput: true,
     showSpareParts: false,
+    showRepairResult:false,
+    networksPics: [[]],
   },
   onLoad: function(e) {
     var taskId = e.id;
-    // var taskId = "1432543543654653655"
+    // var taskId = "841235289715252224"
     this.setData({
       taskId: taskId
     })
@@ -22,6 +24,11 @@ Page({
 
   onShow: function() {
     this.getTaskByTaskId();
+    console.log(this.data.networksPics);
+    var length = this.data.networksPics[0].length;
+    this.setData({
+      taskPictures: this.data.networksPics[0]
+    })
   },
 
   getTaskByTaskId: function() {
@@ -34,10 +41,10 @@ Page({
         if (suggestionOne != null && suggestionOne.length > 15) {
           suggestionOne = suggestionOne.substring(0, 15);
         }
-        console.log(suggestionOne);
         this.setData({
           orderInfo: orderInfo,
-          suggestionOne: suggestionOne
+          suggestionOne: suggestionOne,
+          repairResult: orderInfo.mdmcTask.result
         })
       }
     });
@@ -48,6 +55,26 @@ Page({
         this.setData({
           orderLogs: res.result
         })
+      }
+    });
+    var param = {
+      "taskId": taskId,
+      "status": 2
+    }
+    common.getTaskPicture(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        this.setData({
+          taskPictures: res.result
+        })
+      }
+    });
+    common.getTaskPictureById(taskId, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        // this.setData({
+        //   taskPicture: res.result["0"].elementImgUrlDtoList
+        // })
       }
     })
   },
@@ -69,7 +96,7 @@ Page({
   //查询工单下备品备件信息
   getDeviceById: function() {
     var orderInfo = this.data.orderInfo;
-    var taskId = orderInfo.id;
+    var taskId = this.data.taskId;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
@@ -108,9 +135,8 @@ Page({
   },
   confirm: function(e) {
     var _this = this;
-    var orderInfo = this.data.orderInfo;
     var suggestion = this.data.suggestion;
-    var taskId = orderInfo.id;
+    var taskId = this.data.taskId;
     var param = {
       "suggestion": suggestion,
       "id": taskId
@@ -119,18 +145,16 @@ Page({
       console.log(res);
       if (res.code == 200) {
         _this.setData({
-          hiddenmodalput: true
+          hiddenmodalput: true,
+          suggestionOne: suggestion
         })
       }
     });
   },
 
   suggestion: function(e) {
-    var orderInfo = this.data.orderInfo;
-    orderInfo.suggestion = e.detail.value;
     this.setData({
       suggestion: e.detail.value,
-      orderInfo: orderInfo
     })
   },
 
@@ -160,7 +184,7 @@ Page({
   completeOrder: function(e) {
     var _this = this;
     var orderInfo = this.data.orderInfo;
-    var taskId = orderInfo.id;
+    var taskId = this.data.taskId;
     var param = {
       "status": 10,
       "id": taskId
@@ -179,6 +203,7 @@ Page({
   hideModal: function() {
     this.setData({
       showSpareParts: false,
+      showRepairResult:false
     });
   },
 
@@ -281,7 +306,62 @@ Page({
       name,
       scale: 18
     })
-  }
+  },
+
+  showRepairResult:function() {
+    this.setData({
+      showRepairResult:true
+    })
+  },
+
+  addRepairResult:function() {
+    console.log(this.data.orderInfo);
+    console.log(this.data.taskId);
+    console.log(this.data.repairResult);
+    console.log(this.data.networksPics);
+    var taskId = this.data.taskId;
+    var repairResult = this.data.repairResult;
+    var networksPics = this.data.networksPics;
+
+    var param = {
+      "id": taskId,
+      "result": repairResult,
+      "attachmentIdList": networksPics[0]
+    }
+    console.log(param);
+    common.createRepair(param, (res) => {
+      console.log(res);
+    })
+  },
+
+  repairResult:function(e) {
+    this.setData({
+      repairResult:e.detail.value
+    })
+  },
+
+  //上传图片
+  clickUploadImg() {
+    var networksPics = this.data.networksPics
+    wx.navigateTo({
+      url: "../../uploadImage/uploadImage?filePath=repairerTask&&inspectionItem=" + 0
+    })
+  },
+
+  imageClick: function (e) {
+    console.log(e);
+    var src = e.currentTarget.dataset.src;
+    var taskPictures = this.data.taskPictures;
+    var pictures = [];
+    for (var i = 0; i < taskPictures.length; i++) {
+      pictures.push(taskPictures[i].url);
+    }
+    console.log(pictures);
+    wx.previewImage({
+      current: src,
+      urls: pictures,
+    })
+  },
 
 
 });

@@ -185,7 +185,7 @@ Page({
       "objectId": id,
       "objectType": 1,
       "result": "通过",
-      "status": 1,
+      "status": 8,
       "suggestion": "还有更好的",
       "totalPrice": 0
     }

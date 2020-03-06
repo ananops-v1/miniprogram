@@ -208,6 +208,7 @@ Page({
       var repairerList = res.result.map(function(item) {
         return item['name'];
       });
+      var repairerInfoList = res.result;
       wx.showActionSheet({
         itemList: repairerList,
         success(res) {
@@ -216,7 +217,7 @@ Page({
           var params = {
             "id": taskId,
             "status": 5,
-            "maintainerId": repairerList[index].id
+            "maintainerId": repairerInfoList[index].id
           }
           common.createRepair(params, (res) => {
             wx.showToast({

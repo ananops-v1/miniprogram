@@ -100,6 +100,13 @@
 					"id": -1,
 					"name": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
 					"pathName": "page/home/pages/terminalUser/toBeConfirmOrderDetail/toBeConfirmOrderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/home/pages/serviceEngineer/repairingOrderDetail/repairingOrderDetail",
+					"pathName": "page/home/pages/serviceEngineer/repairingOrderDetail/repairingOrderDetail",
 					"scene": null
 				}
 			]
