@@ -12,6 +12,7 @@ class Common extends Base {
   }
 
   createRepair(param, callback) {
+    console.log(">>>>>>>>>>>>" + param);
     var params = {
       url: '/mdmc/mdmcTask/save',
       data: param,

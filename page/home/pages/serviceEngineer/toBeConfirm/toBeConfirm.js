@@ -130,7 +130,7 @@ Page({
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
     var param = {
-      "status": 5,
+      "status": 6,
       "id": taskId
     }
 
