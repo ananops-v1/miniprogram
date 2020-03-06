@@ -2,6 +2,7 @@ class Config {
   constructor() { }
 }
 Config.baseRequestUrl = "https://www.ananops.com/api";
+Config.wsUrl = "ws://www.ananops.com:7079/ws";
 // Config.baseRequestUrl =  "http://10.112.9.107:7979";
 
 Config.repair = [
