@@ -40,16 +40,16 @@ Page({
     malfunctionLocIndex: 0,
     //故障名称数据
     malfunctionNameList: ["待确定", '大厅', '现金柜台', '非现金柜台', '自助银行', '办公区', '网络机房', '监控机房', '其他'],
-    deviceTypeList: ['摄像机', '监视器'],
+    deviceTypeList: ['前端视频设备', '专用报警设备', '实体设备', '楼宇对讲设备', '探测器', '控制器', '传输线路', '路由器和网关', '供电系统', '存储设备', '显示器', '服务器', '操作键盘', '辅助照明', '机械装置', '防护装置', '其他设备'],
     deviceTypeIndex: 0,
     malfunctionNameIndex: 0,
     //故障定位数据
     mapLocation: '点击此处选择位置',
     //紧急程度数据
-    urgentTypeList: ['紧急', '中等', '一般'],
+    urgentTypeList: ['非常紧急', '紧急', '一般'],
     urgentTypeIndex: 0,
     //故障等级数据
-    malfunctionRankList: ['p0', 'p1', '其他'],
+    malfunctionRankList: ['一级', '二级', '三级', '四级', '五级'],
     malfunctionRankIndex: 0,
     //故障描述数据
     textContent: '点击此处添加内容',
@@ -65,7 +65,7 @@ Page({
     this.setData({
       programIndex: index,
       serviceProvider: programList[index].partyBName,
-      reviewer: programList[index].aoneName,
+      reviewer: programList[index].aleaderName,
       reviewerId: programList[index].aleaderId,
     })
   },
@@ -210,7 +210,8 @@ Page({
   clickMalfunctionType: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      malfunctionTypeIndex: e.detail.value
+      malfunctionTypeIndex: e.detail.value,
+      malfunctionType: malfunctionTypeList[e.detail.value]
     })
   },
   //选择故障位置
@@ -250,7 +251,7 @@ Page({
   },
   //选择故障等级
   clickMalfunctionRank: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('clickMalfunctionRank picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionRankIndex: e.detail.value
     })
@@ -352,9 +353,9 @@ Page({
     var latitude = this.data.latitude;
     var longitude = this.data.longitude;
     var mapLocation = this.data.mapLocation;
-    var malfunctionRank = this.data.malfunctionRankList[_this.data.malfunctionRankIndex];
-    // this.data.malfunctionTypeList[
-    var malfunctionType = _this.data.malfunctionTypeIndex;
+    var malfunctionRank = this.data.malfunctionRankIndex;
+    var malfunctionType = this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
+    var malfunctionLocation = this.data.malfunctionLocList[_this.data.malfunctionLocIndex];
     var deviceType = this.data.deviceTypeList[_this.data.deviceTypeIndex];
     var title = this.data.malfunctionLocList[_this.data.malfunctionLocIndex] + this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
     
@@ -397,9 +398,10 @@ Page({
         "deviceName": null,
         "deviceType": deviceType,
         "id": null,
-        "level": malfunctionRank,
+        "level": parseInt(malfunctionRank),
         "taskId": 0,
-        "troubleType": malfunctionType
+        "troubleType": malfunctionType,
+        "troubleAddress": malfunctionLocation
       }],
     }
 
@@ -476,7 +478,7 @@ Page({
             programList: project,
             programNameList: programNameList,
             serviceProvider: project[programIndex].partyBName,
-            reviewer: project[programIndex].aoneName,
+            reviewer: project[programIndex].aleaderName,
             reviewerId: project[programIndex].aleaderId,
           })
         }

@@ -21,14 +21,14 @@
         <mp-cells ext-class="my-cells">
             <mp-cell value="甲方" footer="{{projectInfo.partyAName}}"></mp-cell>
             <mp-cell value="甲方负责人1" footer="{{projectInfo.aoneName}}"></mp-cell>
-            <mp-cell value="电话" footer="{{projectInfo.partyAOne}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyAOne}}" data-phone="{{projectInfo.partyAOne}}" bindtap="clickPhoneCall"></mp-cell>
             <mp-cell value="甲方负责人2" footer="{{projectInfo.atwoName}}"></mp-cell>
-            <mp-cell value="电话" footer="{{projectInfo.partyATwo}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyATwo}}" data-phone="{{projectInfo.partyATwo}}" bindtap="clickPhoneCall"></mp-cell>
             <mp-cell value="甲方负责人3" footer="{{projectInfo.athreeName}}"></mp-cell>
-            <mp-cell value="电话" footer="{{projectInfo.partyAThree}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyAThree}}" data-phone="{{projectInfo.partyAThree}}" bindtap="clickPhoneCall"></mp-cell>
             <mp-cell value="乙方" footer="{{projectInfo.partyBName}}"></mp-cell>
             <mp-cell value="乙方负责人" footer="{{projectInfo.bname}}"></mp-cell>
-            <mp-cell value="电话" footer="{{projectInfo.partyBPhone}}"></mp-cell>
+            <mp-cell value="电话" footer="{{projectInfo.partyBPhone}}" data-phone="{{projectInfo.partyBPhone}}" bindtap="clickPhoneCall"></mp-cell>
         </mp-cells>
     </view>
   </view>

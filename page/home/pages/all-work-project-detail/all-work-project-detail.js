@@ -17,6 +17,18 @@ Page({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
+  clickPhoneCall: function (e) {
+    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '确定要拨打电话吗？',
+      success: function (sm) {
+        wx.makePhoneCall({
+          phoneNumber: e.currentTarget.dataset.phone
+        })
+      }
+    })
+  },
   clickAllInspection:function(e){
     wx.reLaunch({
       url: '../all-work-inspection/all-work-inspection?projectId='+this.data.projectInfo.id,

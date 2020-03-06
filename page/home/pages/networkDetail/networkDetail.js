@@ -9,6 +9,7 @@ Page({
     inspectionItemId:0,
     inspectionId:0,
     inspectionItem:{},
+    maintainerDetail:{},
     navTab: ["网点信息", "进度条","其他信息"],
     currentNavtab: "2",
   },
@@ -38,6 +39,18 @@ Page({
       }
     })
   },
+  clickPhoneCall: function (e) {
+    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '确定要拨打电话吗？',
+      success: function (sm) {
+        wx.makePhoneCall({
+          phoneNumber: e.currentTarget.dataset.phone
+        })
+      }
+    })
+  },
   previewImage(e) {
     const current = e.target.dataset.src
     wx.previewImage({
@@ -51,6 +64,18 @@ Page({
     console.log(_this.data.inspectionId)
     if (index == 0) {
       console.log("进入子项信息页")
+      var param={
+        engineerId: _this.data.inspectionItem.maintainerId
+      }
+      common.getSpcEngineerById(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取工程师详情成功")
+          _this.setData({
+            principalDetail: res.result
+          })
+        }
+      })
     }
     else if (index == 1) {
       console.log("进入进度条页面")

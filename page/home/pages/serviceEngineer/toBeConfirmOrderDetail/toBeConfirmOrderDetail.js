@@ -110,10 +110,11 @@ Page({
     var _this = this;
     var taskId = this.data.taskId;
     var param = {
-      "status": 4,
+      "status": 6,
       "id": taskId
     }
-    common.createRepair(taskId, param, (res) => {
+    console.log("<<<<<<<<<<<<<"+param)
+    common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         wx.navigateBack();

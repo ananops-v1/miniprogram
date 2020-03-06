@@ -11,7 +11,8 @@
       <mp-cells ext-class="my-cells">
         <mp-cell value="网点名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
         <mp-cell value="网点内容" footer="{{inspectionItem['description']}}"></mp-cell>
-        <mp-cell value="工程师" footer="{{inspectionItem['maintainerId']}}"></mp-cell>
+        <mp-cell value="工程师" footer="{{principalDetail.userName}}"></mp-cell>
+        <mp-cell value="联系电话" footer="{{principalDetail.mobileNo}}" data-phone="{{principalDetail.mobileNo}}" bindtap="clickPhoneCall"></mp-cell>
         <mp-cell value="周期" footer="{{inspectionItem['frequency']}}天每次"></mp-cell>
         <mp-cell value="持续时长" footer="{{inspectionItem['days']}}天"></mp-cell>
       </mp-cells>
