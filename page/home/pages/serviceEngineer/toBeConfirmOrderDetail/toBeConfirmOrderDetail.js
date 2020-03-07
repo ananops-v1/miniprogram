@@ -58,6 +58,66 @@ Page({
           orderLogs: res.result
         })
       }
+    });
+    common.getTaskPictureById(taskId, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        var result = res.result;
+        var taskPicture2;
+        var taskPicture10;
+        for (var i = 0; i < result.length; i++) {
+          if (result[i].status == 10) {
+            taskPicture10 = result[i].elementImgUrlDtoList;
+          }
+          if (result[i].status == 2) {
+            taskPicture2 = result[i].elementImgUrlDtoList;
+          }
+        }
+        var taskPicture2length = 0;
+        var taskPicture10length = 0;
+        if (taskPicture2 != undefined) {
+          taskPicture2length = taskPicture2.length;
+        }
+        if (taskPicture2 != undefined) {
+          taskPicture10length = taskPicture10.length;
+        }
+        this.setData({
+          taskPicture2: taskPicture2,
+          taskPicture10: taskPicture10,
+          taskPicture2length: taskPicture2length,
+          taskPicture10length: taskPicture10length,
+        })
+      }
+    })
+  },
+
+  image2Click: function (e) {
+    console.log(e);
+    var src = e.currentTarget.dataset.src;
+    var taskPictures = this.data.taskPicture2;
+    var pictures = [];
+    for (var i = 0; i < taskPictures.length; i++) {
+      pictures.push(taskPictures[i].url);
+    }
+    console.log(pictures);
+    wx.previewImage({
+      current: src,
+      urls: pictures,
+    })
+  },
+
+  image10Click: function (e) {
+    console.log(e);
+    var src = e.currentTarget.dataset.src;
+    var taskPictures = this.data.taskPicture10;
+    var pictures = [];
+    for (var i = 0; i < taskPictures.length; i++) {
+      pictures.push(taskPictures[i].url);
+    }
+    console.log(pictures);
+    wx.previewImage({
+      current: src,
+      urls: pictures,
     })
   },
 

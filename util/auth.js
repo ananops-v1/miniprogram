@@ -130,7 +130,7 @@ function homeInitial(allRepairerOrder) {
   Config.repair[2][1].num = answer.num7;
   //维修工
   Config.repair[3][0].num = answer.num5;
-  Config.repair[3][1].num = answer.num6 + answer.num7 + answer.num8 + answer.num9;
+  Config.repair[3][1].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
 }
 function homeInitInspections(allInspections) {
   var answer = {

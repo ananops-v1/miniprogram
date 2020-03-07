@@ -64,31 +64,58 @@ Page({
         })
       }
     });
-    var param = {
-      "taskId": taskId,
-      "status": 2
-    }
-    common.getTaskPicture(param, (res) => {
+    common.getTaskPictureById(taskId, (res) => {
       console.log(res);
       if (res.code == 200) {
+        var result = res.result;
+        var taskPicture2;
+        var taskPicture10;
+        for (var i = 0; i < result.length; i++) {
+          if (result[i].status == 10) {
+            taskPicture10 = result[i].elementImgUrlDtoList;
+          }
+          if (result[i].status == 2) {
+            taskPicture2 = result[i].elementImgUrlDtoList;
+          }
+        }
+        var taskPicture2length = 0;
+        var taskPicture10length = 0;
+        if (taskPicture2 != undefined) {
+          taskPicture2length = taskPicture2.length;
+        }
+        if (taskPicture10 != undefined) {
+          taskPicture10length = taskPicture10.length;
+        }
         this.setData({
-          taskPictures: res.result
-        })
-      }
-    });
-    common.getTaskPictureById(taskId, (res) => {
-      if (res.code == 200) {
-        this.setData({
-          taskPicture: res.result["0"].elementImgUrlDtoList
+          taskPicture2: taskPicture2,
+          taskPicture10: taskPicture10,
+          taskPicture2length: taskPicture2length,
+          taskPicture10length: taskPicture10length,
         })
       }
     })
+
   },
 
-  imageClick: function (e) {
+  image2Click: function (e) {
     console.log(e);
     var src = e.currentTarget.dataset.src;
-    var taskPictures = this.data.taskPictures;
+    var taskPictures = this.data.taskPicture2;
+    var pictures = [];
+    for (var i = 0; i < taskPictures.length; i++) {
+      pictures.push(taskPictures[i].url);
+    }
+    console.log(pictures);
+    wx.previewImage({
+      current: src,
+      urls: pictures,
+    })
+  },
+
+  image10Click: function (e) {
+    console.log(e);
+    var src = e.currentTarget.dataset.src;
+    var taskPictures = this.data.taskPicture10;
     var pictures = [];
     for (var i = 0; i < taskPictures.length; i++) {
       pictures.push(taskPictures[i].url);
@@ -215,11 +242,11 @@ Page({
           var index = res.tapIndex;
           console.log(index);
           var params = {
-            "id": taskId,
-            "status": 5,
-            "maintainerId": repairerInfoList[index].id
+            "engineerId": taskId,
+            "taskId": repairerInfoList[index].id
           }
-          common.createRepair(params, (res) => {
+          console.log(params);
+          common.distributeEngineer(params, (res) => {
             wx.showToast({
               title: "派单成功",
               duration: 1000,
