@@ -10,14 +10,23 @@ Page({
     inspectionId:0,
     inspectionItem:{},
     maintainerDetail:{},
-    navTab: ["网点信息", "进度条","其他信息"],
+    navTab: ["网点信息", "进度条","巡检结果"],
     currentNavtab: "2",
+    hiddenModal: true,
+    hiddenModal1: true,
+    contentModal1:"未填写信息",
+    hiddenModal2: true,
+    contentModal2: "未填写信息",
+    hiddenModal3: true,
+    contentModal3: "未填写信息",
+    contentModalTemp: "",
   },
   onLoad: function (options) {
     var that = this
+    var userRole = wx.getStorageSync('userInfo').roles[0].roleCode||"engineer"
     that.setData({
-      inspectionItemId: options.inspectionItemId,
-      inspectionId: options.inspectionId
+      inspectionItemId: options.inspectionItemId || "841966829785059328",
+      inspectionId: options.inspectionId || "841966829726339072"
     })
     var param={
       'itemId': that.data.inspectionItemId,
@@ -30,6 +39,16 @@ Page({
       if (res.code == 200) {
         console.log("获取巡检列表成功");
         console.log(res.result);
+        if (res.result.status === 3 && userRole === "engineer"){
+          that.setData({
+            hiddenModal:false
+          })
+        }
+        if(res.result.result!==null){
+          that.setData({
+            contentModal2: res.result.result
+          })
+        }
         that.setData({
           inspectionItem: res.result
         })
@@ -38,6 +57,104 @@ Page({
         console.log("获取巡检列表失败");
       }
     })
+  },
+  clickModal1:function(e){
+    this.setData({
+      hiddenModal1:false
+    })
+  },
+  cancelM1:function(e){
+    this.setData({
+      hiddenModal1: true
+    })
+  },
+  clickModal2: function (e) {
+    this.setData({
+      hiddenModal2: false
+    })
+  },
+  cancelM2: function (e) {
+    this.setData({
+      hiddenModal2: true
+    })
+  },
+  clickModal3: function (e) {
+    this.setData({
+      hiddenModal3: false
+    })
+  },
+  cancelM3: function (e) {
+    this.setData({
+      hiddenModal3: true
+    })
+  },
+  onChangeModal1:function(e){
+    this.setData({
+      contentModalTemp: e.detail.value
+    })
+  },
+  onChangeModal2: function (e) {
+    this.setData({
+      contentModalTemp: e.detail.value
+    })
+  },
+  onChangeModal3: function (e) {
+    this.setData({
+      contentModalTemp: e.detail.value
+    })
+  },
+  confirmM1:function(e){
+    if (this.data.contentModalTemp==""){
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none',
+        duration: 2000//持续的时间
+      })
+    }
+    else{
+      this.setData({
+        hiddenModal1: true,
+        contentModal1: this.data.contentModalTemp
+      })
+    }
+  },
+  confirmM2: function (e) {
+    var that=this
+    if (that.data.contentModalTemp == "") {
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none',
+        duration: 2000//持续的时间
+      })
+    }
+    else{
+      var param={
+        id:that.data.inspectionItem.id,
+        result: that.data.contentModalTemp
+      }
+      common.saveItem(param,(res)=>{
+        console.log(res)
+        that.setData({
+          hiddenModal2: true,
+          contentModal2: that.data.contentModalTemp
+        })
+      })
+    }
+  },
+  confirmM3: function (e) {
+    if (this.data.contentModalTemp == "") {
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none',
+        duration: 2000//持续的时间
+      })
+    }
+    else{
+      this.setData({
+        hiddenModal3: true,
+        contentModal3: this.data.contentModalTemp
+      })
+    }
   },
   clickPhoneCall: function (e) {
     console.log(e)

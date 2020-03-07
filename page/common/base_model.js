@@ -391,6 +391,18 @@ class Common extends Base {
     this.request(params);
   }
 // <---------------------巡检子项相关api------------------>
+  //编辑巡检任务子项记录
+  saveItem(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/save',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //查询工程师下的全部巡检任务子项
   getItemByMaintainerId(param, callback) {
     var params = {

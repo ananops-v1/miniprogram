@@ -39,13 +39,73 @@
 
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
-      <mp-cells ext-class="my-cells">
-        <mp-cell value="故障程度" footer="{{}}"></mp-cell>
-        <mp-cell value="故障等级" footer="{{}}"></mp-cell>
-        <mp-cell value="故障类别" footer="{{}}"></mp-cell>
-        <mp-cell value="故障描述" footer="{{}}"></mp-cell>
-      </mp-cells>
+        <!-- <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">巡检情况</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__value">{{contentModal1}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft" hidden="{{hiddenModal}}">
+                <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="clickModal1">修改</button>
+            </view>
+        </view> -->
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">巡检结果</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__value">{{contentModal2}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft" hidden="{{hiddenModal}}">
+                <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="clickModal2">修改</button>
+            </view>
+        </view>
+        <!-- <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">描述</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__value">{{contentModal3}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft" hidden="{{hiddenModal}}">
+                <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="clickModal3">修改</button>
+            </view>
+        </view> -->
     </view>
+    <modal hidden="{{hiddenModal1}}" title="请输入文本信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelM1" bindconfirm="confirmM1">
+      <view class="textarea-wrp">
+       <textarea bindinput='onChangeModal1' type='text' placeholder="{{contentModal1}}" auto-focus auto-height/>
+      </view>
+    </modal>
+    <modal hidden="{{hiddenModal2}}" title="请输入文本信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelM2" bindconfirm="confirmM2">
+      <view class="textarea-wrp">
+       <textarea bindinput='onChangeModal2' type='text' placeholder="{{contentModal2}}" auto-focus auto-height/>
+      </view>
+    </modal>
+    <modal hidden="{{hiddenModal3}}" title="请输入文本信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelM3" bindconfirm="confirmM3">
+      <view class="textarea-wrp">
+       <textarea bindinput='onChangeModal3' type='text' placeholder="{{contentModal3}}" auto-focus auto-height/>
+      </view>
+    </modal>
+    <!-- <view class="page-section">
+      <view class="page-section-title">输入区域高度自适应，不会出现滚动条</view>
+      <view class="textarea-wrp">
+        <textarea bindblur="bindTextAreaBlur" auto-height />
+      </view>
+    </view> -->
   </view>
   <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
     <view class="page__bd">

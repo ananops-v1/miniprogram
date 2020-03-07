@@ -1,4 +1,5 @@
 @import '../../../common/lib/common.wxss';
+@import "../../../common/modal/modal-tpl.wxss";
 .top-tab{
   width: 750rpx;
   height: 100rpx;
@@ -50,4 +51,15 @@
 .orderlog_image {
   width: 100rpx;
   height: 100rpx;
+}
+textarea {
+    width: 700rpx;
+    padding: 25rpx 0;
+}
+.textarea-wrp {
+    padding: 0 25rpx;
+    background-color: #fff;
+}
+.weui-form-preview{
+    margin-bottom: 25px;
 }
