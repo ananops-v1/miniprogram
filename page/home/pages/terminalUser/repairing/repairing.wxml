@@ -10,6 +10,11 @@
           <view>{{order.mdmcTask.deviceName}}</view>
           <view class="mp-cell-view">故障位置:{{order.mdmcTask.addressName}}</view>
           <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
+
+
+          <view class="operation_view" wx:if="{{order.mdmcTask.status == 10}}">
+            <view class="operation_button" catchtap="confirmService" data-id="{{order.mdmcTask.id}}">确认服务</view>
+          </view>
         </mp-cell>
       </mp-cells>
     </scroll-view>

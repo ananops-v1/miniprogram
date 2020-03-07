@@ -353,6 +353,9 @@ Page({
     var latitude = this.data.latitude;
     var longitude = this.data.longitude;
     var mapLocation = this.data.mapLocation;
+    if (mapLocation == "点击此处选择位置") {
+      mapLocation = "";
+    }
     var malfunctionRank = this.data.malfunctionRankIndex;
     var malfunctionType = this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
     var malfunctionLocation = this.data.malfunctionLocList[_this.data.malfunctionLocIndex];

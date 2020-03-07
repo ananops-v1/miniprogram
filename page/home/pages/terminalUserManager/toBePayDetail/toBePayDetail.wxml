@@ -37,7 +37,7 @@
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="服务商" footer="{{orderInfo.pmcProjectDto.partyBName}}">{{orderInfo.pmcProjectDto.partyBName}}</mp-cell>
-        <mp-cell value="维修工" footer="{{orderInfo.engineerDto.name}}">{{orderInfo.engineerDto.name}}</mp-cell>
+        <mp-cell value="维修工" footer="{{orderInfo.engineerDto.loginName}}">{{orderInfo.engineerDto.name}}</mp-cell>
         <mp-cell value="维修建议" footer="{{orderInfo.mdmcTask.suggestionOne}}" bindtap="showAllSuggestion">{{orderInfo.mdmcTask.suggestionOne}}</mp-cell>
         <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts"></mp-cell>
         <mp-cell value="维修结果" footer="{{orderInfo.mdmcTask.result}}">{{orderInfo.mdmcTask.result}}</mp-cell>

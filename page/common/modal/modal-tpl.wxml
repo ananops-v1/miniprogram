@@ -4,14 +4,14 @@
   <view class="modal-dialog" wx:if="{{showBill}}">
     <view class="modal-title">账单详情</view>
     <view class="modal-content">
-      <form bindsubmit="formSubmit" bindreset="formReset">
+      <form bindsubmit="payBill" bindreset="formReset">
         <view class="section section_gap">
           <view class="section__title">总金额：</view>
           <view>{{totalMoney}}.00元</view>
         </view>
         <view class="modal-footer">
           <button class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</button>
-          <button formType="confirmPay" class="btn-confirm">确定</button>
+          <button formType="submit" class="btn-confirm">确定</button>
         </view>
       </form>
     </view>
@@ -47,10 +47,10 @@
           <view class='section_gap'>
             <view class='section__title sceneDeviceName' wx:if="{{deviceOrderCount > 0}}">已选备品备件</view>
             <view wx:for="{{allDeviceOrderList}}" wx:key="item" class="sectiongap">
-           
+
               <view class="device_name"> {{item.name}}</view>
               <view class="store">数量:{{item.count}}</view>
-        
+
             </view>
           </view>
 
@@ -79,7 +79,6 @@
   </view>
 </template>
 
-<!-- 显示备品备件详情 -->
 <template name="showAllSuggestion">
   <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showAllSuggestion}}"></view>
   <view class="modal-dialog" wx:if="{{showAllSuggestion}}">
@@ -98,10 +97,10 @@
           <view class='section_gap'>
             <view class='section__title sceneDeviceName' wx:if="{{deviceOrderCount > 0}}">已选备品备件</view>
             <view wx:for="{{allDeviceOrderList}}" wx:key="item" class="sectiongap">
-           
+
               <view class="device_name"> {{item.name}}</view>
               <view class="store">数量:{{item.count}}</view>
-        
+
             </view>
           </view>
         </scroll-view>
@@ -109,6 +108,47 @@
           <button class="btn-cancel" bindtap="onCancel" data-status="cancel ">取消</button>
           <button formType="submit" class="addSpareParts">确定</button>
         </view> -->
+      </form>
+    </view>
+  </view>
+</template>
+
+
+<template name="addRepairResult">
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showRepairResult}}"></view>
+  <view class="modal-dialog" wx:if="{{showRepairResult}}">
+    <view class="modal-content">
+      <form bindsubmit="addRepairResult" report-submit='true' bindreset="formReset">
+        <scroll-view scroll-y="true" scroll-with-animation="true" class='scroll-view'>
+
+          <view class="section_gap">
+            <view class="section__title sceneDeviceName">维修结果</view>
+            <input placeholder-class="input-holder" type="text" maxlength="20" focus="true" bindinput="repairResult" class="scene-input" value="{{repairResult}}" placeholder="请输入维修结果" />
+          </view>
+
+
+          <view class="section_gap">
+          <view class="section__title sceneDeviceName" bindtap="clickUploadImg">上传图片</view>
+          </view>
+
+          <view wx:if="{{taskPictures != null}}" class="section_gap">
+            <view class="category-detail-box">
+              <block wx:for="{{taskPictures}}" wx:for-item="img" wx:key="img">
+                <!-- 下面存放单个设备的div  -->
+                <view class="category-goods-items">
+                  <image class='group-image' bindtap='imageClick' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
+                </view>
+              </block>
+            </view>
+          </view>
+
+
+
+        </scroll-view>
+        <view class="modal-footer ">
+          <button class="btn-cancel" bindtap="onCancel" data-status="cancel ">取消</button>
+          <button formType="submit" class="addSpareParts">确定</button>
+        </view>
       </form>
     </view>
   </view>

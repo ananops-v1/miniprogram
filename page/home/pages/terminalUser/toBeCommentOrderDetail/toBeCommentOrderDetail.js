@@ -16,6 +16,7 @@ Page({
     noteNowLen: 0, //备注当前字数
   },
   onLoad: function(options) {
+    console.log(options);
     var taskId = options.id;
     console.log(taskId);
     this.setData({
@@ -53,11 +54,15 @@ Page({
   // 提交清空当前值
   bindSubmit: function() {
     var _this = this;
+    var taskId = this.data.taskId;
+    var userInfo = wx.getStorageSync('userInfo');
+    console.log(userInfo);
+    var userId = userInfo.id;
     var param = {
       "contents": _this.data.content,
       "score": _this.data.starYellow,
-      "taskId": 314,
-      "userId": "782517846944000001"
+      "taskId": taskId,
+      "userId": userId
     }
     console.log(param);
     comment.comment(param,(res) => {

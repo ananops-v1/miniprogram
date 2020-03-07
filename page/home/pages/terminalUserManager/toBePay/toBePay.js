@@ -116,6 +116,9 @@ Page({
   pay: function (e) {
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
+    this.setData({
+      taskId:taskId
+    })
     common.getAmountByWorkId(taskId,(res) => {
       console.log(res);
       _this.setData({
@@ -136,6 +139,21 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
+        _this.onShow();
+      }
+    })
+  },
+
+  payBill:function() {
+    var taskId = this.data.taskId;
+    var param = {
+      "status": 12,
+      "id": taskId
+    }
+    common.createRepair(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        _this.hideModal();
         _this.onShow();
       }
     })
