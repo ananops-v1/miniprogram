@@ -60,7 +60,7 @@ App({
     // 创建一个 WebSocket 连接
     function connect() {
       wx.connectSocket({
-        url: 'wss://www.ananops.com:/wss/ws',
+        url: 'wss://www.ananops.com/wss/ws',
         // header: {
         //   "userId": wx.getStorageSync('userInfo').id
         // },
