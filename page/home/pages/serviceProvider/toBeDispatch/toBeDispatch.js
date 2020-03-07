@@ -151,12 +151,12 @@ Page({
           var index = res.tapIndex;
           console.log(index);
           var params = {
-            "id": taskId,
-            "status": 5,
-            "maintainerId": repairerInfoList[index].id
+            "engineerId": repairerInfoList[index].id ,
+            "taskId": taskId
           }
           console.log(params);
-          common.createRepair(params, (res) => {
+          common.distributeEngineer(params, (res) => {
+            console.log(res);
             wx.showToast({
               title: "派单成功",
               duration: 1000,

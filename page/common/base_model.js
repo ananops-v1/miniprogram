@@ -12,7 +12,6 @@ class Common extends Base {
   }
 
   createRepair(param, callback) {
-    console.log(">>>>>>>>>>>>" + param);
     var params = {
       url: '/mdmc/mdmcTask/save',
       data: param,
@@ -192,6 +191,21 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //分配工程师
+  distributeEngineer(param, callback) {
+      var params = {
+        url: `/spc/workorder/distributeEngineerWithMdmcOrder`,
+        method: 'POST',
+        data: param,
+        sCallback: function (data) {
+          callback && callback(data);
+        },
+        fCallback: function (data) {
+          callback && callback(data);
+        }
+      };
+      this.request(params);
+    }
 // <---------------------用户相关api------------------>
   //根据Id查询用户信息
   getUacUserById(param, callback) {
@@ -527,7 +541,7 @@ class Common extends Base {
   //为巡检任务子项分配工程师
   distributeEngineer(param, callback) {
     var params = {
-      url: '/spc/workorder/distributeEngineerWithImcOrder',
+      url: '/spc/workorder/distributeEngineerWithMdmcOrder',
       data: param,
       method: 'POST',
       sCallback: function (data) {

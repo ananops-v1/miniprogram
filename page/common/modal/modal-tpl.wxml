@@ -121,26 +121,38 @@
       <form bindsubmit="addRepairResult" report-submit='true' bindreset="formReset">
         <scroll-view scroll-y="true" scroll-with-animation="true" class='scroll-view'>
 
-          <view class="section_gap">
-            <view class="section__title sceneDeviceName">维修结果</view>
-            <input placeholder-class="input-holder" type="text" maxlength="20" focus="true" bindinput="repairResult" class="scene-input" value="{{repairResult}}" placeholder="请输入维修结果" />
+          <!-- <view> -->
+            <!-- <view class="sceneDeviceName">维修结果</view>
+            <!-- <input placeholder-class="input-holder" type="text" maxlength="20" focus="true" bindinput="repairResult" class="scene-input" value="{{repairResult}}" placeholder="请输入维修结果" /> 
+            <label class="checkbox">
+              <checkbox-group  bindchange="onChange">
+                <label class="checkbox">
+                  <checkbox value="0" checked="true"/>维修完成
+                </label>
+              </checkbox-group>
+            </label>
+
+          </view> -->
+
+
+          <view>
+            <view class="sceneDeviceName" bindtap="clickUploadImg">点击上传图片</view>
           </view>
 
-
-          <view class="section_gap">
-          <view class="section__title sceneDeviceName" bindtap="clickUploadImg">上传图片</view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">已上传：{{length}}</view>
           </view>
-
+          <!-- 
           <view wx:if="{{taskPictures != null}}" class="section_gap">
             <view class="category-detail-box">
               <block wx:for="{{taskPictures}}" wx:for-item="img" wx:key="img">
-                <!-- 下面存放单个设备的div  -->
+              
                 <view class="category-goods-items">
                   <image class='group-image' bindtap='imageClick' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
                 </view>
               </block>
             </view>
-          </view>
+          </view> -->
 
 
 

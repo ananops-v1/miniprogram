@@ -133,7 +133,7 @@ Page({
       "status": 6,
       "id": taskId
     }
-
+    console.log(param);
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {

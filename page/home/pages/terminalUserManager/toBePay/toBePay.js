@@ -145,6 +145,7 @@ Page({
   },
 
   payBill:function() {
+    var _this = this;
     var taskId = this.data.taskId;
     var param = {
       "status": 12,

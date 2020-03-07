@@ -27,7 +27,7 @@ Page({
     console.log(this.data.networksPics);
     var length = this.data.networksPics[0].length;
     this.setData({
-      taskPictures: this.data.networksPics[0]
+      length: length
     })
   },
 
@@ -38,13 +38,18 @@ Page({
         var orderInfo = res.result;
         console.log(orderInfo);
         var suggestionOne = orderInfo.mdmcTask.suggestion;
+        var resultOne = "";
         if (suggestionOne != null && suggestionOne.length > 15) {
           suggestionOne = suggestionOne.substring(0, 15);
+        }
+        if(orderInfo.mdmcTask.result == 0) {
+          resultOne = "维修完成";
         }
         this.setData({
           orderInfo: orderInfo,
           suggestionOne: suggestionOne,
-          repairResult: orderInfo.mdmcTask.result
+          repairResult: orderInfo.mdmcTask.result,
+          resultOne:resultOne
         })
       }
     });
@@ -57,24 +62,34 @@ Page({
         })
       }
     });
-    var param = {
-      "taskId": taskId,
-      "status": 2
-    }
-    common.getTaskPicture(param, (res) => {
-      console.log(res);
-      if (res.code == 200) {
-        this.setData({
-          taskPictures: res.result
-        })
-      }
-    });
     common.getTaskPictureById(taskId, (res) => {
       console.log(res);
       if (res.code == 200) {
-        // this.setData({
-        //   taskPicture: res.result["0"].elementImgUrlDtoList
-        // })
+        var result = res.result;
+        var taskPicture2;
+        var taskPicture10;
+        for(var i = 0;i < result.length;i++) {
+          if(result[i].status == 10) {
+            taskPicture10 = result[i].elementImgUrlDtoList;
+          }
+          if (result[i].status == 2) {
+            taskPicture2 = result[i].elementImgUrlDtoList;
+          }
+        }
+        var taskPicture2length = 0;
+        var taskPicture10length = 0;
+        if (taskPicture2 != undefined) {
+          taskPicture2length = taskPicture2.length;
+        }
+        if (taskPicture10 != undefined) {
+          taskPicture10length = taskPicture10.length;
+        }
+        this.setData({
+          taskPicture2: taskPicture2,
+          taskPicture10: taskPicture10,
+          taskPicture2length: taskPicture2length,
+          taskPicture10length: taskPicture10length,
+        })
       }
     })
   },
@@ -315,28 +330,36 @@ Page({
   },
 
   addRepairResult:function() {
-    console.log(this.data.orderInfo);
-    console.log(this.data.taskId);
-    console.log(this.data.repairResult);
-    console.log(this.data.networksPics);
     var taskId = this.data.taskId;
     var repairResult = this.data.repairResult;
     var networksPics = this.data.networksPics;
-
+    console.log(networksPics);
     var param = {
       "id": taskId,
-      "result": repairResult,
-      "attachmentIdList": networksPics[0]
+      "result": 0,
+      "attachmentIdList": networksPics[0],
+      "status":10
     }
     console.log(param);
     common.createRepair(param, (res) => {
       console.log(res);
+      if(res.code == 200) {
+        wx.navigateBack();
+      }
     })
   },
 
-  repairResult:function(e) {
+  onChange:function(e) {
+    console.log(e);
+    var result = e.detail.value.length;
+    console.log(result);
+    if(result == 0) {
+      result = 1;
+    } else {
+      result = 0;
+    }
     this.setData({
-      repairResult:e.detail.value
+      repairResult:result
     })
   },
 
@@ -348,10 +371,25 @@ Page({
     })
   },
 
-  imageClick: function (e) {
+  image2Click: function (e) {
     console.log(e);
     var src = e.currentTarget.dataset.src;
-    var taskPictures = this.data.taskPictures;
+    var taskPictures = this.data.taskPicture2;
+    var pictures = [];
+    for (var i = 0; i < taskPictures.length; i++) {
+      pictures.push(taskPictures[i].url);
+    }
+    console.log(pictures);
+    wx.previewImage({
+      current: src,
+      urls: pictures,
+    })
+  },
+
+  image10Click: function (e) {
+    console.log(e);
+    var src = e.currentTarget.dataset.src;
+    var taskPictures = this.data.taskPicture10;
     var pictures = [];
     for (var i = 0; i < taskPictures.length; i++) {
       pictures.push(taskPictures[i].url);
