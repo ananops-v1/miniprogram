@@ -539,9 +539,9 @@ class Common extends Base {
     this.request(params);
   }
   //为巡检任务子项分配工程师
-  distributeEngineer(param, callback) {
+  distributeItemEngineer(param, callback) {
     var params = {
-      url: '/spc/workorder/distributeEngineerWithMdmcOrder',
+      url: '/spc/workorder/distributeEngineerWithImcOrder',
       data: param,
       method: 'POST',
       sCallback: function (data) {

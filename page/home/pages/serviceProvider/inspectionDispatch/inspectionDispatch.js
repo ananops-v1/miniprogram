@@ -163,7 +163,7 @@ Page({
           var param = {
             'taskId': e.currentTarget.dataset.id,
             'status': 3,
-            'statusMsg': '巡检工执行中'
+            'statusMsg': '服务商已接单'
           }
           common.modifyTaskStatus(param, (res) => {
             console.log(res)

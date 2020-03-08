@@ -184,6 +184,7 @@ Page({
       var param={
         engineerId: _this.data.inspectionItem.maintainerId
       }
+      console.log(param)
       common.getSpcEngineerById(param, (res) => {
         console.log(res)
         if (res.code == 200) {

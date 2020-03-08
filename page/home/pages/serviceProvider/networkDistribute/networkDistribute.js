@@ -142,16 +142,20 @@ Page({
               "taskId": e.currentTarget.dataset.id,
               "engineerId":engineers[index].id
             }
-            common.distributeEngineer(params, (res) => {
-              wx.showToast({
-                title: "派单成功",
-                duration: 1000,
-                success: function () {
-                  setTimeout(function () {
-                    wx.navigateBack();
-                  }, 1000)
-                }
-              })
+            console.log(params)
+            common.distributeItemEngineer(params, (res) => {
+              console.log(res)
+              if(res.code==200){
+                wx.showToast({
+                  title: "派单成功",
+                  duration: 1000,
+                  success: function () {
+                    setTimeout(function () {
+                      wx.navigateBack();
+                    }, 1000)
+                  }
+                })
+              }
             });
           },
           fail(res) {
