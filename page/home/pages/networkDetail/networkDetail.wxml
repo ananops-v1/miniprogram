@@ -100,12 +100,6 @@
        <textarea bindinput='onChangeModal3' type='text' placeholder="{{contentModal3}}" auto-focus auto-height/>
       </view>
     </modal>
-    <!-- <view class="page-section">
-      <view class="page-section-title">输入区域高度自适应，不会出现滚动条</view>
-      <view class="textarea-wrp">
-        <textarea bindblur="bindTextAreaBlur" auto-height />
-      </view>
-    </view> -->
   </view>
   <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
     <view class="page__bd">

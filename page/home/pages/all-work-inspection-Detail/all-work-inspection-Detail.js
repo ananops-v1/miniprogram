@@ -9,7 +9,7 @@ Page({
     inspectionId: 0,
     //巡检详情tabbar
     navTab: ["巡检信息", "进度条", "网点", "备品备件"],
-    currentNavtab: "3",
+    currentNavtab: "0",
     //巡检详情信息
     inspectionDetail: {},
     //项目详情信息
@@ -164,6 +164,7 @@ Page({
       inspectionId: options.inspectionId
     })
     //调用应用实例的方法获取全局数据
+    that.switchTab({ currentTarget: { dataset:{idx:that.data.currentNavtab}}})
     that.refresh();
   },
   switchTab: function (e) {
