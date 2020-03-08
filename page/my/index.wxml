@@ -4,7 +4,7 @@
     <view class="avatar flex-item">
       <open-data type="userAvatarUrl" class="userinfo-avatar" default-avatar="/imgs/icon/ananops.png" background-size="cover"></open-data>
     </view>
-    <view class="user-info flex-item">
+    <view class="user-info flex-item" bindtap="login">
       <open-data type="userNickName" class="userinfo-nickname"></open-data>
       <text class="userinfo-nickname">账号:{{userRole}}</text>
     </view>

@@ -218,7 +218,12 @@ Page({
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        wx.navigateBack();
+        wx.showToast({
+          title: '接单成功',
+          success: function () {
+            wx.navigateBack();
+          }
+        })
       }
     })
   },
@@ -235,7 +240,12 @@ Page({
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        wx.navigateBack();
+        wx.showToast({
+          title: '工单已拒绝',
+          success: function () {
+            wx.navigateBack();
+          }
+        })
       }
     })
   },

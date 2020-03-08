@@ -216,8 +216,15 @@ Page({
     }
 
     common.receiveDevice(param,(res) => {
-      console.log(res);
-      wx.navigateBack();
+      if (res.code == 200) {
+        wx.showToast({
+          title: '审核通过',
+          success: function () {
+            wx.navigateBack();
+          }
+        })
+      }
+      
     })
   },
 

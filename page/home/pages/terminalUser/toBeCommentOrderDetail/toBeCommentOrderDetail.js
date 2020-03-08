@@ -69,7 +69,7 @@ Page({
       console.log(res);
       if(res.code == 200) {
         wx.showToast({
-          title: res.message,
+          title: "操作成功",
           duration: 1500,
           success: function () {
             setTimeout(function () {

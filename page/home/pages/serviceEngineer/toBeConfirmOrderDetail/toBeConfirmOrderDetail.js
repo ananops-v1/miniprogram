@@ -177,7 +177,12 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        wx.navigateBack();
+        wx.showToast({
+          title: '接单成功',
+          success: function () {
+            wx.navigateBack();
+          }
+        })
       }
     })
   },
@@ -191,7 +196,12 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        wx.navigateBack();
+        wx.showToast({
+          title: '已拒单',
+          success: function () {
+            wx.navigateBack();
+          }
+        })
       }
     })
   },

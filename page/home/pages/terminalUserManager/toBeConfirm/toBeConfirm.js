@@ -122,7 +122,12 @@ Page({
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.onShow();
+        wx.showToast({
+          title: '接单成功',
+          success: function () {
+            _this.onShow();
+          }
+        })
       }
     })
   },
@@ -140,7 +145,12 @@ Page({
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.onShow();
+        wx.showToast({
+          title: '工单已拒绝',
+          success: function () {
+            _this.onShow();
+          }
+        })
       }
     })
   }

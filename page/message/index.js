@@ -52,12 +52,27 @@ Page({
     var userInfo = wx.getStorageSync('userInfo');
     if (userInfo == "") {
       this.setData({
-        notify: null
+        notify: null,
+        userInfo:null
+      })
+      wx.showModal({
+        title: '提示',
+        content: '需要登陆之后才会展示有关信息，您要前往登陆吗？',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/page/my/pages/login/login',
+            })
+          } else if (res.cancel) {
+
+          }
+        }
       })
     } else {
-      //this._loadRealtimeData(userInfo.id) 
+      //this._loadRealtimeData(userInfo.id)
       _this.setData({
-        notify: _this.data.notice
+        notify: _this.data.notice,
+        userInfo: userInfo
       })
     }
   },

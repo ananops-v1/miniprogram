@@ -48,13 +48,19 @@ Page({
       var userRole = userInfo.roles[0].roleCode;
       var statusArray = new Array();
       if (userRole == 'user_watcher') {
-        statusArray = [12];
+        statusArray = [10,12];
       } else if (userRole == 'user_leader') {
         statusArray = [2,8,11];
       } else if (userRole == 'fac_leader') {
         statusArray = [3,4,7];
       } else if (userRole == 'engineer') {
         statusArray = [5];
+      } else {
+        wx.showToast({
+          title: '当前账号角色不适用',
+          icon:'nonde',
+          duration:1500
+        })
       }
       this.getOrderByStatus(statusArray);
     }
@@ -220,6 +226,7 @@ Page({
           }
         }
       }
+      console.log(orderListArray);
       this.setData({
         orderList: orderListArray
       })
@@ -227,11 +234,44 @@ Page({
   },
 
   clickOrder(e) {
-    console.log(e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: "../../../../home/pages/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
-    })
+    var taskId = e.currentTarget.dataset.id;
+    var status = e.currentTarget.dataset.status;
+    var projectId = e.currentTarget.dataset.projectid;
+    console.log(status);
+    if (status == 10) {
+      console.log(1);
+      wx.navigateTo({
+        url: "/page/home/pages/terminalUser/repairingOrderDetail/repairingOrderDetail?id=" + taskId,
+      })
+    } else if (status == 12) {
+      wx.navigateTo({
+        url: "/page/home/pages/terminalUser/toBeCommentOrderDetail/toBeCommentOrderDetail?id=" + taskId,
+      })
+    } else if (status == 2 || status == 8) {
+      wx.navigateTo({
+        url: "/page/home/pages/terminalUserManager/toBeConfirmDetail/toBeConfirmDetail?id=" + taskId,
+      })
+    } else if (status == 11) {
+      wx.navigateTo({
+        url: "/page/home/pages/terminalUserManager/toBePayDetail/toBePayDetail?id=" + taskId,
+      })
+    } else if (status == 3 || status == 4) {
+      wx.navigateTo({
+        url: "/page/home/pages/serviceProvider/toBeDispatchOrderDetail/toBeDispatchOrderDetail?id=" + taskId + "&projectId=" + projectId,
+      })
+    } else if(status == 7) {
+      wx.navigateTo({
+        url: "/page/home/pages/serviceProvider/toBeCheckOrderDetail/toBeCheckOrderDetail?id=" + taskId,
+      })
+    } else if(status == 5) {
+      wx.navigateTo({
+        url: "/page/home/pages/serviceEngineer/toBeConfirmOrderDetail/toBeConfirmOrderDetail?id=" + e.currentTarget.dataset.id,
+      })
+    }
+
   },
+
+
   kindToggle: function(e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url
@@ -276,5 +316,25 @@ Page({
   _loadAllInfo: function(userId) {
 
   },
+
+  confirmService: function (e) {
+    var _this = this;
+    var taskId = e.currentTarget.dataset.id;
+    var param = {
+      "status": 11,
+      "id": taskId
+    }
+    common.createRepair(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        wx.showToast({
+          title: '操作成功',
+          success:function(){
+            _this.onShow();
+          }
+        })
+      }
+    })
+  }
 
 })

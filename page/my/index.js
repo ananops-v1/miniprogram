@@ -29,9 +29,40 @@ Page({
     }
   },
 
+  login:function() {
+    var userRole = this.data.userRole;
+    if(userRole == "请登录") {
+      wx.navigateTo({
+        url: '/page/my/pages/login/login',
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '您确定要退出账号吗？',
+        success(res) {
+          if (res.confirm) {
+            AUTH.exit();
+          } else if (res.cancel) {
+            
+          }
+        }
+      })
+    }
+  },
+
   exit: function() {
-    AUTH.exit();
-    this.onShow();
+    var _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '您确定要退出账号吗？',
+      success(res) {
+        if (res.confirm) {
+          AUTH.exit();
+          _this.onShow();
+        } else if (res.cancel) {
+        }
+      }
+    })
   },
 
   accountsAndSecurity: function() {

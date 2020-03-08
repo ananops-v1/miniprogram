@@ -106,7 +106,12 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.onShow();
+        wx.showToast({
+          title: '操作成功',
+          success: function () {
+            _this.onShow();
+          }
+        })
       }
     })
   },

@@ -121,7 +121,12 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.onShow();
+        wx.showToast({
+          title: '已拒单',
+          success: function () {
+            setTimeout(function () { wx.navigateBack(); }, 1000);
+          }
+        })
       }
     })
   },
@@ -137,7 +142,12 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.onShow();
+        wx.showToast({
+          title: '接单成功',
+          success: function () {
+            setTimeout(function () { wx.navigateBack(); }, 1000);
+          }
+        })
       }
     })
   },

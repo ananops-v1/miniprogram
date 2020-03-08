@@ -1,6 +1,6 @@
 <import src="../common/head.wxml" />
 
-<view class="container">
+<view class="container" wx:if="{{userRole == 0 || userRole == 1 || userRole == 2 || userRole == 3}}">
   <template is="userInfo" />
   <view class="page-body">
     <!-- 值机员 -->
@@ -144,30 +144,30 @@
     </block>
 
     <!-- <block wx:else>登录查看更多信息</block> -->
- <!-- class="page-section" -->
+    <!-- class="page-section" -->
     <view wx:if="{{orderList != null && orderList.length > 0}}" class="upcoming_view">
       <view class="kind-list-item-hd">
         <view class="kind-list-text">待办事项</view>
-        <!-- <navigator class="list-text" url="pages/all-work-orders/all-work-orders">查看全部待办事项</navigator> -->
-        <!-- <image class="kind-list-img" src="/imgs/icon/arrow.png"></image> -->
       </view>
 
       <view class="page-body-line"></view>
 
       <view class="page">
         <view class="page__bd">
-          <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
           <scroll-view scroll-y="true" class="container discovery">
             <mp-cells>
-              <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{orderList.mdmcTask.id}}" bindtap="clickOrder">
+              <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.mdmcTask.id}}" data-projectid="{{order.mdmcTask.projectId}}" data-status="{{order.mdmcTask.status}}" bindtap="clickOrder">
                 <view slot="title" class="mp-cell-title">
                   <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
                 </view>
-                <view>{{order.mdmcTask.programName}}</view>
-                <view>{{order.mdmcTask.deviceName}}</view>
-                <view class="mp-cell-view">设备位置:{{order.mdmcTask.address_name}}</view>
+                <view>{{order.pmcProjectDto.contractName}}</view>
+                <view class="mp-cell-view">设备位置:{{order.mdmcTask.addressName}}</view>
                 <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
+                <view class="operation_view" wx:if="{{order.mdmcTask.status == 10}}">
+                  <view class="operation_button" catchtap="confirmService" data-id="{{order.mdmcTask.id}}">确认服务</view>
+                </view>
               </mp-cell>
+
             </mp-cells>
           </scroll-view>
         </view>
@@ -176,4 +176,36 @@
     </view>
   </view>
 
+</view>
+
+<view class="container" wx:else>
+  <view class="header">
+    <view class="black-cover"></view>
+    <image class="logo" src="/imgs/icon/bg.png"></image>
+    <image class="title" src="/imgs/icon/title.png"></image>
+  </view>
+  <view class="content">
+    <view class="version">
+      <view class="version-title">
+        <text class="title-name">安安运维</text>
+      </view>
+    </view>
+    <view class="describe" wx:if="{{!showLog}}">
+      <text class="desc-title">简介</text>
+      <view class="desc-list">
+        <text class="desc-list-item" bindtap="goananops">官网：https://www.ananops.com</text>
+      </view>
+      <text class="desc-content">安安运维是依托于北京安全防范行业协会，由安防系统维修维护运营中心直管的互联网运营平台。安安运维平台贯彻协会为会员服务，为行业服务，为政府服务，为社会服务的理念，通过整合优势资源，为有效提升安防系统效能提供综合服务。</text>
+      <text class="desc-content">我们的使命是立足于行业协会资源，规范行业作业流程，统一行业作业标准，变革行业作业模式。</text>
+      <text class="desc-content">我们的愿景是成为安防系统效能提升综合解决方案提供商</text>
+    </view>
+  </view>
+  <view class="footer">
+    <view class="footer-lanshan">
+      <!-- <image src=""></image> -->
+      <text>安安运维</text>
+    </view>
+    <text>安安运维 · 北京市安全防范行业协会</text>
+    <text>Copyright @ {{year}} All Rights Reserved</text>
+  </view>
 </view>

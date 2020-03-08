@@ -212,11 +212,19 @@ page .wx-video-bar{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  margin-right: 10rpx;
 }
 
 .imageCode {
   width: 210rpx;
   height: 100rpx;
+}
 
+.imagecode-box {
+  display: flex;
+}
+
+.refresh-img {
+  width: 40rpx;
+  height: 40rpx;
 }

@@ -68,7 +68,7 @@ Page({
         });
         _this.refreshImagecode();
         wx.showToast({
-          title: res.data.message,
+          title: "用户名或密码错误",
           icon: 'none',
           duration: 2000
         })

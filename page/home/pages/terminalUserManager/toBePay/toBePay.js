@@ -139,7 +139,13 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.onShow();
+        wx.showToast({
+          title: '已拒绝账单',
+          success: function () {
+            _this.hideModal();
+            _this.onShow();
+          }
+        })
       }
     })
   },
@@ -154,8 +160,13 @@ Page({
     common.createRepair(param, (res) => {
       console.log(res);
       if (res.code == 200) {
-        _this.hideModal();
-        _this.onShow();
+        wx.showToast({
+          title: '支付成功',
+          success: function () {
+            _this.hideModal();
+            _this.onShow();
+          }
+        })
       }
     })
   },
