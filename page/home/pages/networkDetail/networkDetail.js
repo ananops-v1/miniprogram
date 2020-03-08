@@ -11,7 +11,7 @@ Page({
     inspectionItem:{},
     maintainerDetail:{},
     navTab: ["网点信息", "进度条","巡检结果"],
-    currentNavtab: "2",
+    currentNavtab: "0",
     hiddenModal: true,
     hiddenModal1: true,
     contentModal1:"未填写信息",
@@ -57,6 +57,7 @@ Page({
         console.log("获取巡检列表失败");
       }
     })
+    that.switchTab({ currentTarget: { dataset: { idx: that.data.currentNavtab } } })
   },
   clickModal1:function(e){
     this.setData({
