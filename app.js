@@ -1,7 +1,7 @@
 //app.js
 App({
   onLaunch: function() {
-    //this.initSocket()
+    this.initSocket()
   },
   globalData: {
     userInfo: null,
@@ -55,15 +55,14 @@ App({
     // 符合WebSocket定义的对象
     var ws = {
       send: sendSocketMessage,
+      onopen: null,
+      onmessage: null,
       close: close
     }
     // 创建一个 WebSocket 连接
     function connect() {
       wx.connectSocket({
-        url: 'wss://www.ananops.com/wss/ws',
-        // header: {
-        //   "userId": wx.getStorageSync('userInfo').id
-        // },
+        url: 'wss://www.ananops.com/wss/ws'
       })
     }
     connect();
@@ -71,7 +70,7 @@ App({
     wx.onSocketOpen(function (res) {
       console.log("WebSocket 连接成功")
       socketConnected = true;
-      ws.onopen();
+      ws.onopen && ws.onopen();
       // 连接成功后，将队列中的消息发送出去
       let queueLength = messageQueue.length
       for (let i = 0; i < queueLength; i++) {
@@ -80,7 +79,8 @@ App({
     })
     // 监听 WebSocket 接受到服务器的消息事件
     wx.onSocketMessage(function (res) {
-      ws.onmessage(res);
+      console.log('收到onmessage事件:', res)
+      ws.onmessage && ws.onmessage(res)
     })
     // 监听 WebSocket 错误事件
     wx.onSocketError(function (res) {
@@ -119,11 +119,13 @@ App({
     const stompClient = Stomp.over(ws);
 
     this.globalData.socketClient = stompClient;
-
     stompClient.connect({
       "userId": wx.getStorageSync('userInfo').id
     }, function (callback) {
-      console.log("Hello"+callback)
+      console.log('Connected: ' + callback);
+      stompClient.subscribe('/user/queue/chat', function (body, headers) {
+        console.log('From MQ:', body);
+      });
     })
   },
 })
