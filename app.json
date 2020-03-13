@@ -54,7 +54,8 @@
     "page/home/pages/serviceEngineer/inspectionChecked/inspectionChecked",
     "page/home/pages/terminalUser/inspectionToBeVerify/inspectionToBeVerify",
     "page/home/pages/serviceProvider/inspectionDistribute/inspectionDistribute",
-    "page/home/pages/serviceProvider/networkDistribute/networkDistribute"
+    "page/home/pages/serviceProvider/networkDistribute/networkDistribute",
+    "page/messageDetail/messageDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

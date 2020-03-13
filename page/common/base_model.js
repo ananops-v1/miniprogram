@@ -55,6 +55,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  getTaskDetailByTaskId(taskId, callback) {
+    var params = {
+      url: '/mdmc/mdmcTask/getTaskDetailByTaskId/' + taskId,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 
   //根据员工id和状态查询工单
   getTaskListByIdAndStatus(param, callback) {
@@ -585,6 +597,37 @@ class Common extends Base {
     var params = {
       url: '/spc/api/company/getCompanyDetailsById/' + param.companyId,
       //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  // <---------------------消息推送相关api------------------>
+  //修改websocket消息的状态
+  changeWebsocketMsgStatus(param, callback) {
+    var params = {
+      url: '/websocket/changeWebsocketMsgStatus',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //查询websocket消息
+  queryWebsocketMsgInfo(param, callback) {
+    var params = {
+      url: '/websocket/queryWebsocketMsgInfo',
+      data: param,
       method: 'POST',
       sCallback: function (data) {
         callback && callback(data);

@@ -128,7 +128,7 @@ Page({
   clickOrder: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: "../all-work-inspection-Detail/all-work-inspection-Detail?id=" + e.currentTarget.dataset.id,
+      url: "../all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=" + e.currentTarget.dataset.id,
     })
   },
   //下拉刷新

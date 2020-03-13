@@ -7,31 +7,31 @@
 <!-- scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
 <scroll-view scroll-y="true" class="container notify withtab" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
   <view class="ctnt0" hidden="{{currentNavtab==0 ? '' : true}}">
-    <view class="notify-item flex-wrp" wx:for="{{notify[0]}}" wx:key="item">
+    <view class="notify-item flex-wrp" wx:for="{{notice[0]}}" wx:key="item">
       <view class="avatar flex-item">
         <image src="{{item.avatar}}"></image>
       </view>
-      <view class="notify-content flex-item">
-        <text class="notify-source">{{item.source}}</text>
-        <text class="notify-title">"{{item.title}}"</text>
+      <view class="notify-content flex-item" bindtap="clickMessage" data-msg="{{item}}">
+        <text class="notify-source">{{item.statusMsg}}</text>
+        <text class="notify-title">{{item.isRead}}</text>
       </view>
     </view>
   </view>
 
   <view class="ctnt0" hidden="{{currentNavtab==1 ? '' : true}}">
-    <view class="notify-item flex-wrp" wx:for="{{notify[1]}}" wx:key="item">
+    <view class="notify-item flex-wrp" wx:for="{{notice[1]}}" wx:key="item">
       <view class="avatar flex-item">
         <image src="{{item.avatar}}"></image>
       </view>
-      <view class="notify-content flex-item">
-        <text class="notify-source">{{item.source}}</text>
-        <text class="notify-title">"{{item.title}}"</text>
+      <view class="notify-content flex-item" bindtap="clickMessage" data-msg="{{item}}">
+        <text class="notify-source">{{item.statusMsg}}</text>
+        <text class="notify-title">{{item.isRead}}</text>
       </view>
     </view>
   </view>
 
   <view class="ctnt0" hidden="{{currentNavtab==2 ? '' : true}}">
-    <view class="notify-item flex-wrp" wx:for="{{notify[2]}}" wx:key="item">
+    <view class="notify-item flex-wrp" wx:for="{{notice[2]}}" wx:key="item">
       <view class="avatar flex-item">
         <image src="{{item.avatar}}"></image>
       </view>

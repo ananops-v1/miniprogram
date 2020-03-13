@@ -253,9 +253,12 @@ Page({
           icon: 'success',
           duration: 2000//持续的时间
         })
-        wx.redirectTo({
-          url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
-        })
+        setTimeout(function () {
+          wx.navigateBack();
+        }, 2000)
+        // wx.redirectTo({
+        //   url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
+        // })
       }
       else{
         console.log("申请巡检失败")

@@ -114,6 +114,13 @@
 					"id": -1,
 					"name": "page/my/pages/login/login",
 					"pathName": "page/my/pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "page/messageDetail/messageDetail",
+					"pathName": "page/messageDetail/messageDetail",
 					"scene": null
 				}
 			]
