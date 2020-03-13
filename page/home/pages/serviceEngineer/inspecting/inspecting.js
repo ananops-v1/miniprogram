@@ -163,14 +163,24 @@ Page({
             console.log(res)
             if (res.code == 200) {
               console.log("修改巡检状态成功")
+              wx.showToast({
+                title: "操作成功",
+                icon: 'none',
+                duration: 2000,
+              })
+              var inspectionItems = _this.data.inspectionItems
+              inspectionItems.splice(e.currentTarget.dataset.idx, 1)
+              _this.setData({
+                inspectionItems: inspectionItems
+              })
             }
             else {
               console.log("修改巡检状态失败")
             }
           })
-          wx.redirectTo({
-            url: '../inspecting/inspecting',
-          })
+          // wx.redirectTo({
+          //   url: '../inspecting/inspecting',
+          // })
         } else if (sm.cancel) {
           console.log('用户点击取消');
         }

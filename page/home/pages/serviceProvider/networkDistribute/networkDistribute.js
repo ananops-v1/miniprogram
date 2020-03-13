@@ -148,7 +148,7 @@ Page({
               if(res.code==200){
                 wx.showToast({
                   title: "派单成功",
-                  duration: 1000,
+                  duration: 2000,
                   success: function () {
                     setTimeout(function () {
                       wx.navigateBack();

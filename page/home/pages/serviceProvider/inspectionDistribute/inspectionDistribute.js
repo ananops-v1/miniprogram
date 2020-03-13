@@ -160,6 +160,31 @@ Page({
     that.setData({
       userId: wx.getStorageSync('userInfo').id
     })
+    // var param = {
+    //   orderBy: "string",
+    //   pageNum: 0,
+    //   pageSize: 100
+    // }
+    // common.getUndistributedItems(param, (res) => {
+    //   console.log(res)
+    //   if (res.code == 200) {
+    //     console.log("获取巡检列表成功");
+    //     that.setData({
+    //       inspectionList: res.result.list
+    //     })
+    //   }
+    //   else{
+    //     console.log("获取巡检列表失败");
+    //   }
+    // })
+    //调用应用实例的方法获取全局数据
+    that.refresh();
+    that.setData({
+      search: that.search.bind(that)
+    })
+  },
+  onShow: function () {
+    var that = this
     var param = {
       orderBy: "string",
       pageNum: 0,
@@ -173,14 +198,9 @@ Page({
           inspectionList: res.result.list
         })
       }
-      else{
+      else {
         console.log("获取巡检列表失败");
       }
     })
-    //调用应用实例的方法获取全局数据
-    that.refresh();
-    that.setData({
-      search: that.search.bind(that)
-    })
-  }
+  },
 });

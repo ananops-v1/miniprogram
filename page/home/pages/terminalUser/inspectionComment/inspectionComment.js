@@ -72,6 +72,16 @@ Page({
           console.log(res)
           if (res.code == 200) {
             console.log("修改巡检状态成功")
+            wx.showToast({
+              title: "评论成功",
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+                setTimeout(function () {
+                  wx.navigateBack({})
+                }, 1000)
+              }
+            })
           }
           else {
             console.log("修改巡检状态失败")
@@ -81,15 +91,6 @@ Page({
       else{
         console.log("评价失败")
       }
-      wx.showToast({
-        title: res.message,
-        duration: 1500,
-        success: function () {
-          setTimeout(function () {
-            wx.navigateBack()
-          }, 1500)
-        }
-      })
     });
   },
 })

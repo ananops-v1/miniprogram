@@ -173,6 +173,34 @@ Page({
     that.setData({
       userId: wx.getStorageSync('userInfo').id
     })
+    // var param = {
+    //   'userId': that.data.userId,
+    //   'status': 6,
+    //   'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
+    //   "orderBy": "string",
+    //   "pageNum": 0,
+    //   "pageSize": 100,
+    // }
+    // common.getInspectionTaskByStatus(param, (res) => {
+    //   console.log(res);
+    //   if (res.code == 200) {
+    //     console.log("获取巡检列表成功");
+    //     that.setData({
+    //       inspectionList: res.result
+    //     })
+    //   }
+    //   else {
+    //     console.log("获取巡检列表失败");
+    //   }
+    // })
+    //调用应用实例的方法获取全局数据
+    that.refresh();
+    that.setData({
+      search: that.search.bind(that)
+    })
+  },
+  onShow:function(){
+    var that = this
     var param = {
       'userId': that.data.userId,
       'status': 6,
@@ -193,10 +221,5 @@ Page({
         console.log("获取巡检列表失败");
       }
     })
-    //调用应用实例的方法获取全局数据
-    that.refresh();
-    that.setData({
-      search: that.search.bind(that)
-    })
-  }
+  },
 });

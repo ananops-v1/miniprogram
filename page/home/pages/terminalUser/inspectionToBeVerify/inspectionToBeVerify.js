@@ -175,14 +175,24 @@ Page({
             console.log(res)
             if (res.code == 200) {
               console.log("修改巡检状态成功")
+              wx.showToast({
+                title: "操作成功",
+                icon: 'none',
+                duration: 2000,
+              })
+              var inspectionList=_this.data.inspectionList
+              inspectionList.splice(e.currentTarget.dataset.idx,1)
+              _this.setData({
+                inspectionList: inspectionList
+              })
             }
             else {
               console.log("修改巡检状态失败")
             }
           })
-          wx.redirectTo({
-            url: '../inspectionToBeReceive/inspectionToBeReceive',
-          })
+          // wx.redirectTo({
+          //   url: '../inspectionToBeReceive/inspectionToBeReceive',
+          // })
         } else if (sm.cancel) {
           console.log('用户点击取消');
         }
@@ -197,7 +207,30 @@ Page({
       success: function (sm) {
         if (sm.confirm) {
           console.log('用户要求驳回');
-          wx.navigateBack();
+          var param = {
+            'taskId': e.currentTarget.dataset.id,
+            'status': -1,
+            'statusMsg': '巡检任务被否决'
+          }
+          common.modifyTaskStatus(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+              wx.showToast({
+                title: "操作成功",
+                icon: 'none',
+                duration: 2000,
+              })
+              var inspectionList = _this.data.inspectionList
+              inspectionList.splice(e.currentTarget.dataset.idx, 1)
+              _this.setData({
+                inspectionList: inspectionList
+              })
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
         } else if (sm.cancel) {
           console.log('用户点击取消');
         }
