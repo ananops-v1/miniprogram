@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "mp-cells": "../home/components/cells/cells",
+    "mp-cell": "../home/components/cell/cell"
+  }
+}
