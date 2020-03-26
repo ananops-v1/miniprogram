@@ -12,7 +12,8 @@ var app = getApp();
 Page({
   data: {
     inputShowed: false,
-    inputVal: ""
+    inputVal: "",
+    orderStates:['审核未通过','待审核','待服务商接单','待分配工程师','待工程师接单','维修中','备件待审核','待用户负责人确认','工程师二次维修','待值机员确认','待用户负责人审核','待评价','订单完成','待重新派单','备件库管理员驳回','用户负责人驳回']
   },
   onLoad() {
     this.setData({

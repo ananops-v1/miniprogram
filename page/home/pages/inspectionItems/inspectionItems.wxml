@@ -10,6 +10,7 @@
                 <view>{{order.description}}</view>
                 <view style="font-size: 13px;color: #888888;">持续时长:{{order.days}}天</view>
                 <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
+                <view style="font-size: 13px;color: red;">报修时间:{{inspectionItemStates[order.status-1]}}</view>
             </mp-cell>
         </mp-cells>
       </scroll-view>

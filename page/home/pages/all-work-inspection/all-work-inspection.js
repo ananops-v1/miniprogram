@@ -15,6 +15,7 @@ Page({
     projectId:0,
     //待确认工单列表
     orderListLength: 8,
+    inspectionStates: ['审核未通过', '待审核', '待分配服务商', '待服务商接单', '服务商已接单', '待结果确认', '待付款', '待评价', '巡检结束'],
     orderList: [
       {
         id: 1,

@@ -7,10 +7,11 @@
                 <view slot="title" class="mp-cell-title">
                   <image src="/imgs/icon/to_be_confirmed.png" class="mp-cell-image"/>
                 </view>
-                <view>{{order.programName}}</view>
+                <view>{{order.title}}</view>
                 <view>{{order.deviceName}}</view>
                 <view class="mp-cell-view">设备位置:{{order.addressName}}</view>
                 <view class="mp-cell-view">报修时间:{{order.appointTime}}</view>
+                <view class="mp-cell-view" style="color:red">当前状态:{{orderStates[order.status-1]}}</view>
             </mp-cell>
         </mp-cells>
       </scroll-view>

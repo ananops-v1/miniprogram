@@ -11,6 +11,7 @@ Page({
   data: {
     //巡检子项数据
     inspectionItems: [],
+    inspectionItemStates: ['待分配', '待接单', '巡检中', '待甲方负责人审核', '巡检结束'],
     //待确认工单列表
     orderListLength: 8,
     orderList: [
