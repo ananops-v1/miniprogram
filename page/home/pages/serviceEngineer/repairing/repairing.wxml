@@ -1,3 +1,4 @@
+<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="page">
   <view class="page__bd">
     <!-- bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" -->
@@ -12,10 +13,12 @@
           <view class="mp-cell-view">故障位置:{{order.mdmcTask.addressName}}</view>
           <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
           <view class="operation_view">
-            <view class="operation_button" catchtap="completeOrder" data-id="{{order.mdmcTask.id}}" data-projectid="{{order.mdmcTask.projectId}}">完成</view>
+            <view class="operation_button" catchtap="clickCompleteOrder" data-id="{{order.mdmcTask.id}}" data-projectid="{{order.mdmcTask.projectId}}">完成</view>
           </view>
         </mp-cell>
       </mp-cells>
     </scroll-view>
   </view>
+  <template is="repairResult" data="{{showEdit,content}}">
+  </template>
 </view>

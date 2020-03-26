@@ -114,6 +114,22 @@ class Common extends Base {
     this.request(params);
   }
 
+  //根据任务id查询对应的子项
+  getItemByTaskId(param, callback) {
+    var params = {
+      url: `/mdmc/mdmcItem/getItemByItemStatusAndTaskId`,
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
   //修改任务状态
   modifyTaskStatusByTaskId(taskId,param, callback) {
     var params = {

@@ -16,7 +16,12 @@ Page({
    */
   data: {
     orderList: [],
-
+    showEdit: false,
+    newName:'',
+    content: {
+      title: "提交维修结果",
+      placeholder: "请这里输入"
+    },
   },
   //点击进入详情
   clickOrder: function (e) {
@@ -95,13 +100,48 @@ Page({
       }
     })
   },
-
-  completeOrder: function (e) {
+  clickCompleteOrder:function(e){
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
+    _this.setData({
+      showEdit:true,
+      newName:'',
+      taskId: taskId
+    })
+  },
+  inputChange: function (event) {
+    var inputValue = event.detail.value;
+    this.data.newName = inputValue;
+  },
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+      newName: ''
+    })
+  },
+  confirmInput:function(e){
+    var submitnewName = this.data.newName.trim();
+    if (submitnewName === "") {
+      wx.showToast({
+        title: '维修结果不能为空',
+        icon: 'none'
+      })
+    } 
+    else {
+      this.setData({
+        showEdit: false
+      })
+      this.completeOrder(this.data.taskId, this.data.newName)
+    }
+  },
+  completeOrder: function (taskId, newName) {
+    console.log(newName)
+    var _this = this;
+    //var taskId = e.currentTarget.dataset.id;
     var param = {
       "status": 10,
-      "id": taskId
+      "id": taskId,
+      "troubleReason": newName
     }
     common.createRepair(param, (res) => {
       console.log(res);

@@ -94,6 +94,17 @@ Page({
         })
       }
     })
+    var param = {
+      "taskId": taskId
+    }
+    common.getItemByTaskId(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        this.setData({
+          taskItemInfo: res.result[0]
+        })
+      }
+    })
 
   },
 
@@ -242,11 +253,12 @@ Page({
           var index = res.tapIndex;
           console.log(index);
           var params = {
-            "engineerId": taskId,
-            "taskId": repairerInfoList[index].id
+            "engineerId": repairerInfoList[index].id,
+            "taskId": taskId
           }
           console.log(params);
           common.distributeEngineer(params, (res) => {
+            console.log(res)
             wx.showToast({
               title: "派单成功",
               duration: 1000,

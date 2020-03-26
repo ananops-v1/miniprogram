@@ -92,6 +92,17 @@ Page({
         })
       }
     })
+    var param = {
+      "taskId": taskId
+    }
+    common.getItemByTaskId(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        this.setData({
+          taskItemInfo: res.result[0]
+        })
+      }
+    })
   },
 
   //获取所有的备品备件

@@ -20,7 +20,7 @@
           <view class="imagecode-box">
           <view class="input-group {{imagecode_focus ? 'active' : ''}}">
             <text class="input-label">验证码</text>
-            <input type="number" cursor-spacing="40" id=imagecode" placeholder="请输入验证码" bindinput="getImagecode" bindfocus="inputFocus" bindblur="inputBlur" value="{{imagecode}}"/>
+            <input type="number" cursor-spacing="40" id="imagecode" placeholder="请输入验证码" bindinput="getImagecode" bindfocus="inputFocus" bindblur="inputBlur" value="{{imagecode}}"/>
           </view>
           
           <view class="imagecode-view">

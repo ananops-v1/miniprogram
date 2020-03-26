@@ -93,6 +93,17 @@ Page({
         })
       }
     })
+    var param = {
+      "taskId": taskId
+    }
+    common.getItemByTaskId(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        this.setData({
+          taskItemInfo: res.result[0]
+        })
+      }
+    })
   },
   image2Click: function (e) {
     console.log(e);
