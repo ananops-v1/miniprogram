@@ -200,6 +200,7 @@ Page({
     })
   },
   clickNotAccept: function (e) {
+    var _this=this
     console.log("结果不通过")
     wx.showModal({
       title: '提示',
