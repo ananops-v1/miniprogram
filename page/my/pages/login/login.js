@@ -15,6 +15,8 @@ Page({
     userid: '',
     passwd: '',
     imagecode: '',
+    imageCode:'',
+    deviceId:'',
     angle: 0
   },
   onReady: function() {
@@ -40,7 +42,11 @@ Page({
   },
 
   onLoad: function() {
-    this.refreshImagecode();
+    var _this=this;
+    _this.setData({
+      imagecode: ''
+    });
+    _this.refreshImagecode();
   },
   login: function() {
     var _this = this;
@@ -57,35 +63,32 @@ Page({
     login.login(deviceId, param, (res) => {
       console.log(res);
       if (res != null && res.code == 200) {
-        wx.setStorage({
-          key: "tokenInfo", //tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
-          data: res.result
-        })
-        _this.getUserInfo(_this.data.userid);
-      } else {
-        _this.setData({
-          imagecode: ''
-        });
-        _this.refreshImagecode();
         wx.showToast({
-          title: "用户名或密码错误",
+          title: "登陆中",
           icon: 'none',
           duration: 2000
         })
+        wx.setStorageSync("tokenInfo", res.result)
+        // wx.setStorage({
+        //   key: "tokenInfo", //tokenInfo为登陆后返回的结果包括accesstoken、过期时间、refreshtoken等
+        //   data: res.result
+        // })
+        _this.getUserInfoFun(_this.data.userid);
       }
     });
   },
-  getUserInfo: function(loginName) {
+  getUserInfoFun:function(loginName) {
     var _this = this
     var param = {
       'loginName': loginName
     }
     getUserInfo.getUserInfoByLoginName(param, (res) => {
       if (res.code == 200) {
-        wx.setStorage({
-          key: "userInfo", //userInfo为用户信息，包括id、roles角色信息等
-          data: res.result
-        })
+        wx.setStorageSync("userInfo", res.result)
+        // wx.setStorage({
+        //   key: "userInfo", //userInfo为用户信息，包括id、roles角色信息等
+        //   data: res.result
+        // })
         _this.getUserObject(res.result.id);
       } else {
         AUTH.exit();
@@ -107,10 +110,11 @@ Page({
     }
     getUserInfo.getUserObjectByUserId(param, (res) => {
       if (res.code == 200) {
-        wx.setStorage({
-          key: "userObject", //userObject为用户完整对象，包括id、groupName、groupId等
-          data: res.result
-        })
+        wx.setStorageSync("userObject", res.result)
+        // wx.setStorage({
+        //   key: "userObject", //userObject为用户完整对象，包括id、groupName、groupId等
+        //   data: res.result
+        // })
         wx.switchTab({
           url: '/page/home/index',
         })
@@ -167,7 +171,7 @@ Page({
       this.setData({
         'passwd_focus': false
       });
-    } else if (e.target.id == 'passwd') {
+    } else if (e.target.id == 'imagecode') {
       this.setData({
         'imagecode_focus': false
       });
@@ -194,7 +198,7 @@ Page({
     this.setData({
       deviceId: deviceId
     });
-    login.getIamgeCode(deviceId, res => {
+    login.getIamgeCode(deviceId, (res) => {
       var imageCode = res.result;
       this.setData({
         imageCode: "data:image/png;charset=utf-8;base64,"+imageCode

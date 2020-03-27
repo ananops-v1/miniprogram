@@ -211,7 +211,7 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       malfunctionTypeIndex: e.detail.value,
-      malfunctionType: malfunctionTypeList[e.detail.value]
+      malfunctionType: this.data.malfunctionTypeList[e.detail.value]
     })
   },
   //选择故障位置
