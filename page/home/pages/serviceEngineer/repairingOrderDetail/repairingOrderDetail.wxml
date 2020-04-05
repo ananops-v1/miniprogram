@@ -46,12 +46,12 @@
         <mp-cell value="维修结果" bindtap="showRepairResult" footer="{{orderInfo.mdmcTask.troubleReason}}">{{orderInfo.mdmcTask.troubleReason}}</mp-cell>
 
         <view wx:if="{{taskPicture10 != null}}">
-          <view class="fujian">附件:</view>
+          <view class="fujian">附件:（长按附件删除）</view>
           <view class="category-detail-box">
             <block wx:for="{{taskPicture10}}" wx:for-item="img" wx:key="img">
               <!-- 下面存放单个设备的div  -->
               <view class="category-goods-items">
-                <image class='group-image' bindtap='image10Click' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
+                <image class='group-image' bindtap='image10Click' bindlongpress='image10Delete' src='{{img.url}}' data-src='{{img.url}}' data-attachmentid='{{img.attachmentId}}' mode="aspectFill"></image>
               </view>
             </block>
           </view>

@@ -335,6 +335,12 @@ Page({
         })
       }
     })
-  }
+  },
+  goananops: function () {
+    console.log(123);
+    wx.navigateTo({
+      url: '../../../../my/pages/ananops/ananops',
+    })
+  },
 
 })

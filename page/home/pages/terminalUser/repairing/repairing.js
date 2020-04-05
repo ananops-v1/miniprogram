@@ -14,7 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    networksPics: [[]],
   },
   //点击进入详情
   clickOrder: function(e) {
@@ -40,6 +40,10 @@ Page({
     AUTH.checkHasLogined();
     var statusArray = [6, 7, 8, 9,10];
     this.getOrderByStatus(statusArray);
+    var taskId = this.data.taskId;
+    if (taskId != null) {
+      this.confirmServiceEnd();
+    }
   },
 
 
@@ -115,20 +119,61 @@ Page({
   confirmService: function(e) {
     var _this = this;
     var taskId = e.currentTarget.dataset.id;
-    var param = {
-      "status": 11,
-      "id": taskId
-    }
-    common.createRepair(param, (res) => {
-      console.log(res);
-      if (res.code == 200) {
-        wx.showToast({
-          title: '操作成功',
-          success: function () {
-            _this.onShow();
-          }
-        })
+    this.setData({
+      taskId:taskId
+    })
+    wx.showModal({
+      title: '提示',
+      content: '确认服务需要上传验证资料，前往上传？',
+      success(res) {
+        if (res.confirm) {
+            wx.navigateTo({
+              url: "../../uploadImage/uploadImage?filePath=repairerTask&&inspectionItem=" + 0
+            })
+        } else if (res.cancel) {
+
+        }
       }
     })
+  },
+
+  confirmServiceEnd:function() {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var networksPics = this.data.networksPics;
+    var param = {
+      "status": 11,
+      "id": taskId,
+      "attachmentIdList": networksPics[0],
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确认服务？',
+      success(res) {
+        if (res.confirm) {
+          common.createRepair(param, (res) => {
+            console.log(res);
+            if (res.code == 200) {
+              wx.showToast({
+                title: '操作成功',
+                success: function () {
+                  _this.setData({
+                    taskId: null,
+                    networksPics: [[]]
+                  })
+                  _this.onShow();
+                }
+              })
+            }
+          })
+        } else if (res.cancel) {
+          _this.setData({
+            taskId:null,
+            networksPics:[[]]
+          })
+        }
+      }
+    })
+
   }
 })

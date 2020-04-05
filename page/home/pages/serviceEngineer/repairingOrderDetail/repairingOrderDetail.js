@@ -11,8 +11,10 @@ Page({
     currentNavtab: "0",
     hiddenmodalput: true,
     showSpareParts: false,
-    showRepairResult:false,
-    networksPics: [[]],
+    showRepairResult: false,
+    networksPics: [
+      []
+    ],
   },
   onLoad: function(e) {
     var taskId = e.id;
@@ -24,15 +26,15 @@ Page({
 
   onShow: function() {
     this.getTaskByTaskId();
-    console.log(this.data.networksPics);
-    var length = this.data.networksPics[0].length;
     this.setData({
-      length: length
+      length: this.data.networksPics[0].length
     })
   },
 
   getTaskByTaskId: function() {
     var taskId = this.data.taskId;
+    var networksPics = this.data.networksPics;
+    console.log(networksPics);
     common.getTaskByTaskId(taskId, (res) => {
       if (res.code == 200) {
         var orderInfo = res.result;
@@ -42,21 +44,19 @@ Page({
         if (suggestionOne != null && suggestionOne.length > 15) {
           suggestionOne = suggestionOne.substring(0, 15);
         }
-        if(orderInfo.mdmcTask.result == 0) {
+        if (orderInfo.mdmcTask.result == 0) {
           resultOne = "维修完成";
         }
         this.setData({
           orderInfo: orderInfo,
           suggestionOne: suggestionOne,
           repairResult: orderInfo.mdmcTask.result,
-          resultOne:resultOne
+          resultOne: resultOne
         })
       }
     });
     common.getTaskLogsByTaskId(taskId, (res) => {
-      console.log(res);
       if (res.code == 200) {
-        console.log(res.result);
         this.setData({
           orderLogs: res.result
         })
@@ -68,8 +68,8 @@ Page({
         var result = res.result;
         var taskPicture2;
         var taskPicture10;
-        for(var i = 0;i < result.length;i++) {
-          if(result[i].status == 10) {
+        for (var i = 0; i < result.length; i++) {
+          if (result[i].status == 10) {
             taskPicture10 = result[i].elementImgUrlDtoList;
           }
           if (result[i].status == 2) {
@@ -83,12 +83,24 @@ Page({
         }
         if (taskPicture10 != undefined) {
           taskPicture10length = taskPicture10.length;
+          taskPicture10.forEach(function(element) {
+            networksPics[0].push(element.attachmentId);
+          })
         }
         this.setData({
           taskPicture2: taskPicture2,
           taskPicture10: taskPicture10,
           taskPicture2length: taskPicture2length,
           taskPicture10length: taskPicture10length,
+          networksPics: networksPics
+        })
+      } else {
+        this.setData({
+          taskPicture2: null,
+          taskPicture10: null,
+          taskPicture2length: 0,
+          taskPicture10length: 0,
+          networksPics:[[]]
         })
       }
     })
@@ -96,7 +108,6 @@ Page({
       "taskId": taskId
     }
     common.getItemByTaskId(param, (res) => {
-      console.log(res)
       if (res.code == 200) {
         this.setData({
           taskItemInfo: res.result[0]
@@ -108,7 +119,6 @@ Page({
   //获取所有的备品备件
   getAllDevices: function() {
     common.getAllDevices((res) => {
-      console.log(res);
       var allDevices = res.result;
       var allDevicesArray = new Array(allDevices.length).fill(0);
       this.setData({
@@ -124,7 +134,6 @@ Page({
     var orderInfo = this.data.orderInfo;
     var taskId = this.data.taskId;
     common.getDeviceById(taskId, 1, (res) => {
-      console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
       var allDeviceOrderList = new Array();
       deviceOrderList.forEach(function(e) {
@@ -135,8 +144,6 @@ Page({
         })
 
       })
-      console.log(allDeviceOrderList);
-
       this.setData({
         deviceOrderCount: res.result.deviceOrderCount,
         allDeviceOrderList: allDeviceOrderList
@@ -156,7 +163,8 @@ Page({
   cancel: function() {
     this.setData({
       hiddenmodalput: true,
-      suggestion: ''
+      suggestion: '',
+      showRepairResult: false
     })
   },
   confirm: function(e) {
@@ -229,7 +237,7 @@ Page({
   hideModal: function() {
     this.setData({
       showSpareParts: false,
-      showRepairResult:false
+      showRepairResult: false
     });
   },
 
@@ -334,13 +342,13 @@ Page({
     })
   },
 
-  showRepairResult:function() {
+  showRepairResult: function() {
     this.setData({
-      showRepairResult:true
+      showRepairResult: true
     })
   },
 
-  addRepairResult:function() {
+  addRepairResult: function() {
     var taskId = this.data.taskId;
     var repairResult = this.data.repairResult;
     var networksPics = this.data.networksPics;
@@ -349,28 +357,35 @@ Page({
       "id": taskId,
       "result": 0,
       "attachmentIdList": networksPics[0],
-      "status":10
+      "status": 10
     }
     console.log(param);
     common.createRepair(param, (res) => {
       console.log(res);
-      if(res.code == 200) {
-        wx.navigateBack();
+      if (res.code == 200) {
+        wx.showToast({
+          title: '维修结果上传成功',
+        })
+        this.setData({
+          networksPics: [[]]
+        });
+        this.cancel();
+        this.onShow();
       }
     })
   },
 
-  onChange:function(e) {
+  onChange: function(e) {
     console.log(e);
     var result = e.detail.value.length;
     console.log(result);
-    if(result == 0) {
+    if (result == 0) {
       result = 1;
     } else {
       result = 0;
     }
     this.setData({
-      repairResult:result
+      repairResult: result
     })
   },
 
@@ -382,7 +397,7 @@ Page({
     })
   },
 
-  image2Click: function (e) {
+  image2Click: function(e) {
     console.log(e);
     var src = e.currentTarget.dataset.src;
     var taskPictures = this.data.taskPicture2;
@@ -397,7 +412,7 @@ Page({
     })
   },
 
-  image10Click: function (e) {
+  image10Click: function(e) {
     console.log(e);
     var src = e.currentTarget.dataset.src;
     var taskPictures = this.data.taskPicture10;
@@ -411,6 +426,54 @@ Page({
       urls: pictures,
     })
   },
+
+  image10Delete: function(e) {
+    var _this = this;
+    var attachmentId = e.currentTarget.dataset.attachmentid;
+    console.log(attachmentId);
+    var networksPics = this.data.networksPics;
+    var newNetworksPics = new Array();
+    networksPics[0].forEach(function(element) {
+      if (element != attachmentId) {
+        newNetworksPics.push(element);
+      }
+    })
+    if (newNetworksPics.length == 0) {
+      newNetworksPics.push(-1);
+    }
+    console.log(newNetworksPics);
+    wx.showModal({
+      title: '提示',
+      content: '你确定要删除此图片吗？',
+      success(res) {
+        if (res.confirm) {
+          var taskId = _this.data.taskId;
+          var repairResult = _this.data.repairResult;
+          if (repairResult == "") {
+            repairResult = "维修完成";
+          }
+          var param = {
+            "id": taskId,
+            "result": 0,
+            "attachmentIdList": newNetworksPics,
+            "status": 10
+          }
+          common.createRepair(param, (res) => {
+            console.log(res);
+            if (res.code == 200) {
+              _this.setData({
+                networksPics: [[]]
+              });
+              _this.onShow();
+            }
+          })
+        } else if (res.cancel) {
+
+        }
+      }
+    })
+
+  }
 
 
 });
