@@ -106,7 +106,7 @@ Page({
     console.log('正在上传第' + count + '张')
     console.log('正在上传第' + count + '张')
     wx.uploadFile({
-      url: 'https://www.ananops.com/api/imc/inspectionItem/uploadImcItemPicture', //仅为示例，非真实的接口地址
+      url: 'https://www.ananops.com/api/imc/inspectionItem/uploadImcItemPicture', 
       filePath: imgPaths[count],
       name: 'file',//示例，使用顺序给文件命名
       header: {

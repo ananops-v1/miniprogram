@@ -4,7 +4,7 @@
     {{itemName}}
   </view>
 </view>
-<!-- tabbar对应的内容 -->.
+<!-- tabbar对应的内容 -->
 <view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">

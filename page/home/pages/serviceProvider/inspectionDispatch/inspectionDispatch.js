@@ -238,6 +238,7 @@ Page({
       "pageNum": 0,
       "pageSize": 100,
     }
+    console.log(param);
     common.getInspectionTaskByStatus(param, (res) => {
       console.log(res);
       if (res.code == 200) {

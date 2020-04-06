@@ -1,5 +1,6 @@
 @import '../../../../common/lib/common.wxss';
 @import "../../../../common/lib/weui.wxss";
+@import "../../../../common/modal/modal-tpl.wxss";
 .picker{
   padding: 19rpx 26rpx;
   background-color: #FFFFFF;
@@ -74,4 +75,16 @@
 .orderlog_image {
   width: 100rpx;
   height: 100rpx;
+}
+.add_btn{
+    width: 100%;
+    position: fixed;
+    bottom: 30rpx;
+}
+.btn{
+    margin-top: 30rpx;
+    width: 450rpx;
+    background: #2D4E95;
+    color: #fff;
+    border-radius: 70rpx;
 }

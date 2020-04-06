@@ -457,6 +457,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //编辑巡检任务子项记录
+  addInspectionItem(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/save',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //根据巡检子项id获得巡检子项详情
   getItemByItemId(param, callback) {
     var params = {

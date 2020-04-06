@@ -1,4 +1,5 @@
 <!--page/home/pages/inspection/inspection.wxml-->
+<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="container">
   <view class="page-body">
     <!--选择项目栏-->
@@ -79,6 +80,16 @@
           </view>
           <view class="weui-cell__bd">
             <view class="weui-input">{{inspectionRemark}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">巡检设备集</view>
+          </view>
+          <view class="weui-cell__bd" bindtap="clickDeviceSets">
+            <view class="weui-input">{{deviceSets}}</view>
           </view>
         </view>
       </view>
@@ -277,5 +288,7 @@
         </view>
       </view>
     </view>
+    <template is="repairResult" data="{{showEdit,content}}">
+    </template>
   </view>
 </view>

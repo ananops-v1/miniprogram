@@ -22,6 +22,19 @@ Page({
     engineers:[],
     //待确认工单列表
     orderListLength: 8,
+    //新增网点数据
+    showEdit: false,
+    newName1: '',
+    newName2: '',
+    newName3: '',
+    content: {
+      title: "新增网点",
+      placeholder1: "此处输入网点名称",
+      placeholder2: "此处输入巡检设备",
+      placeholder3: "此处输入描述"
+    },
+    //子巡检的图片数据
+    networksPics: [[]],
     orderList: [
       {
         id: 1,
@@ -201,6 +214,113 @@ Page({
     //调用应用实例的方法获取全局数据
     that.refresh();
   },
+  onShow:function(){
+    console.log(this.data.networksPics)
+  },
+  clickPhoneCall: function (e) {
+    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '确定要拨打电话吗？',
+      success: function (sm) {
+        wx.makePhoneCall({
+          phoneNumber: e.currentTarget.dataset.phone
+        })
+      }
+    })
+  },
+  clickAddNetwork:function(e) {
+    this.setData({
+      showEdit: true,
+      networksPics:[[]]
+    })
+  },
+  inputChange1: function (event) {
+    var inputValue = event.detail.value;
+    this.data.newName1 = inputValue;
+  },
+  inputChange2: function (event) {
+    var inputValue = event.detail.value;
+    this.data.newName2 = inputValue;
+  },
+  inputChange3: function (event) {
+    var inputValue = event.detail.value;
+    this.data.newName3 = inputValue;
+  },
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+      newName1: '',
+      newName2: '',
+      newName3: ''
+    })
+  },
+  confirmInput: function (e) {
+    var _this=this;
+    if (this.data.newName1.trim() === "") {
+      wx.showToast({
+        title: '网点名称不能为空',
+        icon: 'none'
+      })
+    }
+    else if (this.data.newName2.trim() === ""){
+      wx.showToast({
+        title: '设备不能为空',
+        icon: 'none'
+      })
+    }
+    else if (this.data.newName3.trim() === ""){
+      wx.showToast({
+        title: '网点描述不能为空',
+        icon: 'none'
+      })
+    }
+    else if (this.data.networksPics[0] == [] || this.data.networksPics[0].length==0){
+      wx.showToast({
+        title: '图片未上传',
+        icon: 'none'
+      })
+    }
+    else {
+      console.log(this.data.newName1.trim())
+      console.log(this.data.newName2.trim())
+      console.log(this.data.newName3.trim())
+      this.setData({
+        showEdit: false
+      })
+      var param={
+        "description": this.data.newName3.trim(),
+        "inspectionTaskId": this.data.inspectionId,
+        "itemLatitude": 1,
+        "itemLongitude": 1,
+        "itemName": this.data.newName1.trim(),
+        "status": 1,
+        "count":0,
+        "userId": this.data.inspectionDetail.principalId,
+        "attachmentIds" : this.data.networksPics[0],
+        "scheduledStartTime": this.data.inspectionDetail.scheduledStartTime,
+        "days": this.data.inspectionDetail.days,
+      }
+      console.log(param)
+      common.addInspectionItem(param,(res)=>{
+        console.log(res)
+        if(res.code==200){
+          _this.loadNetworks(_this.data.inspectionId);
+          wx.showToast({
+            title: '添加成功',
+            icon: 'none'
+          })
+        }
+      })
+    }
+  },
+  //上传图片
+  clickUploadImg(e) {
+    console.log(e.currentTarget.dataset.index)
+    wx.navigateTo({
+      url: "../../uploadImage/uploadImage?filePath=inspectionTask&&inspectionItem=" + 0,
+    })
+  },
   switchTab: function (e) {
     var index = e.currentTarget.dataset.idx;
     var _this = this;
@@ -216,6 +336,42 @@ Page({
             console.log("获取巡检详情成功")
             _this.setData({
               inspectionDetail: res.result
+            })
+            var param = {
+              companyId: res.result.facilitatorId
+            }
+            common.getCompanyDetailsById(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取服务商详情成功")
+                _this.setData({
+                  companyDetail: res.result
+                })
+              }
+            })
+            var param = {
+              projectId: res.result.projectId
+            }
+            common.getProjectById(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取项目详情成功")
+                _this.setData({
+                  projectDetail: res.result
+                })
+              }
+            })
+            var param = {
+              userId: res.result.principalId
+            }
+            common.getUacUserById(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取甲方负责人详情成功")
+                _this.setData({
+                  principalDetail: res.result
+                })
+              }
             })
           }
           else {
@@ -244,25 +400,7 @@ Page({
     }
     else if (index == 2) {
       console.log("进入网点页")
-      var param = {
-        "orderBy": "string",
-        "pageNum": 0,
-        "pageSize": 100,
-        "status": 1,
-        "taskId": _this.data.inspectionId
-      }
-      common.getAllItems(param, (res) => {
-        console.log(res)
-        if (res.code == 200) {
-          console.log("获取巡检子项成功")
-          _this.setData({
-            networks: res.result
-          })
-        }
-        else {
-          console.log("获取巡检子项失败")
-        }
-      })
+      _this.loadNetworks(_this.data.inspectionId)
     }
     else if (index == 3) {
 
@@ -271,4 +409,26 @@ Page({
       currentNavtab: index
     });
   },
+  loadNetworks(inspectionId){
+    var _this=this
+    var param = {
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
+      "status": 1,
+      "taskId": inspectionId
+    }
+    common.getAllItems(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        console.log("获取巡检子项成功")
+        _this.setData({
+          networks: res.result
+        })
+      }
+      else {
+        console.log("获取巡检子项失败")
+      }
+    })
+  }
 });

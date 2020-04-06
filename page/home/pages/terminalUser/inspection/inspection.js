@@ -21,6 +21,14 @@ Page({
     programNameList: [],
     programIndex: 0,
     programId:0,
+    //设备集数据
+    deviceSets:"点击填写",
+    showEdit: false,
+    newName: '',
+    content: {
+      title: "提交巡检设备集",
+      placeholder: "请这里输入"
+    },
     //选择设备数据
     deviceList: ['未选择巡检1', '未选择巡检2'],
     deviceIndex: 0,
@@ -168,6 +176,39 @@ Page({
       endTime: e.detail.value
     })
   },
+  //设备集事件
+  clickDeviceSets(e){
+    var _this = this;
+    _this.setData({
+      showEdit: true,
+      newName: '',
+    })
+  },
+  inputChange: function (event) {
+    var inputValue = event.detail.value;
+    this.data.newName = inputValue;
+  },
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+      newName: ''
+    })
+  },
+  confirmInput: function (e) {
+    var submitnewName = this.data.newName.trim();
+    if (submitnewName === "") {
+      wx.showToast({
+        title: '输入不能为空',
+        icon: 'none'
+      })
+    }
+    else {
+      this.setData({
+        showEdit: false,
+        deviceSets: submitnewName
+      })
+    }
+  },
   //点击任务立即执行
   clickImgChoose(e){
     if (this.data.isStart==0){
@@ -222,6 +263,8 @@ Page({
       "facilitatorManagerId": wx.getStorageSync('userInfo').id,//发起巡检的管理员
       "frequency": this.data.cycleTime, //天数
       "userId": wx.getStorageSync('userInfo').id,
+      "content": this.data.deviceSets === "点击填写" ? "" : this.data.deviceSets,
+      "inspectionType":1,//1从巡检方案 2需要用户负责人审核
       "imcAddInspectionItemDtoList": newNetworks,//[
       //   {
       //     "description": this.data.inspectionContent,

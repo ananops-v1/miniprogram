@@ -1,4 +1,5 @@
 <!-- 顶部tabbar -->
+<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab " >
   <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
@@ -9,13 +10,17 @@
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
         <mp-cells ext-class="my-cells">
+            <mp-cell value="归属项目" footer="{{projectDetail.projectName}}"></mp-cell>
             <mp-cell value="巡检名称" footer="{{inspectionDetail.taskName}}"></mp-cell>
             <mp-cell value="巡检周期" footer="{{inspectionDetail.frequency}}天"></mp-cell>
             <mp-cell value="开始时间" footer="{{inspectionDetail.scheduledStartTime}}"></mp-cell>
             <mp-cell value="计划完成时间" footer="{{inspectionDetail.days}}天"></mp-cell>
             <mp-cell value="巡检内容" footer="{{xxxx}}"></mp-cell>
             <mp-cell value="巡检备注" footer="{{inspectionDetail.remark}}"></mp-cell>
-            <mp-cell value="服务商" footer="{{xxxx}}"></mp-cell>
+            <mp-cell value="巡检设备集" footer="{{inspectionDetail.content}}"></mp-cell>
+            <mp-cell value="甲方负责人" footer="{{principalDetail.userName}}"></mp-cell>
+            <mp-cell value="联系电话" footer="{{principalDetail.mobileNo}}" data-phone="{{principalDetail.mobileNo}}" bindtap="clickPhoneCall"></mp-cell>
+            <mp-cell value="服务商" footer="{{companyDetail.groupName}}"></mp-cell>
         </mp-cells>
     </view>
     <!-- <view class="page__bd">
@@ -49,7 +54,7 @@
                 </view>
                 <view style="font-size: 13px;color: #888888;">设备位置:{{order.itemName}}</view>
                 <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
-                <view style="font-size: 13px;color: #888888;">维修工程师:{{order.scheduledStartTime}}</view>
+                <view style="font-size: 13px;color: #888888;">维修工程师:未分配</view>
                 <view class="operation_view">
                   <view class="operation_button" data-id="{{order.id}}" catchtap="clickDispatch">分配</view>
                 </view>
@@ -62,6 +67,9 @@
             <mp-cell value="故障类别" footer="{{}}"></mp-cell>
             <mp-cell value="故障描述" footer="{{}}"></mp-cell>
         </mp-cells> -->
+      <view class='add_btn' bindtap="clickAddNetwork">
+        <button class='btn'>新增网点</button>
+      </view>
     </view>
   </view>
   <view class="ctnt2 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
@@ -77,4 +85,6 @@
         </mp-cells>
     </view>
   </view>
+  <template is="addNetwork" data="{{showEdit,content}}">
+  </template>
 </view>
