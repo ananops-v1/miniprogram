@@ -2,7 +2,7 @@
 const AUTH = require('util/auth.js')
 App({
   onLaunch: function() {
-    //AUTH.exit();
+    AUTH.exit();
   },
   globalData: {
     userInfo: null,
