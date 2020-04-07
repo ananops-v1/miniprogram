@@ -54,10 +54,10 @@ class Repair extends Base {
   }
 
 
-  //获取故障列表
+  //获取故障列表,userId未使用，后台直接从登录用户获取
   getTroubleTypeListAndAddressList(userId, callback) {
     var params = {
-      url: `/mdmc/mdmcTask/getTroubleTypeListAndAddressList?userId=${userId}`,
+      url: `/mdc/dictItem/getSysDictItemList`,
       sCallback: function (data) {
         callback && callback(data);
       }

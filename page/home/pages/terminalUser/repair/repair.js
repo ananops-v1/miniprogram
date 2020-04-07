@@ -321,18 +321,53 @@ Page({
     repair.getTroubleTypeListAndAddressList(userId,(res) => {
       console.log(res);
       if(res.code == 200) {
+        // 接入故障位置数据
         var troubleAddressList = res.result.troubleAddressList;
         var malfunctionLocList = [];
         if (troubleAddressList.length > 0) {
           for (var i = 0; i < troubleAddressList.length; i++) {
-            malfunctionLocList.push(troubleAddressList[i].troubleAddress);
+            malfunctionLocList.push(troubleAddressList[i].name);
+          }
+        }
+        // 接入故障类型数据
+        var troubleTypeList = res.result.troubleTypeList;
+        var troubleTypeNewList = [];
+        if (troubleTypeList.length > 0) {
+          for (var i = 0; i < troubleTypeList.length; i++) {
+            troubleTypeNewList.push(troubleTypeList[i].name);
+          }
+        }
+        // 接入设备类型数据
+        var deviceTypeList = res.result.deviceTypeList;
+        var deviceTypeNewList = [];
+        if (deviceTypeList.length > 0) {
+          for (var i = 0; i < deviceTypeList.length; i++) {
+            deviceTypeNewList.push(deviceTypeList[i].name);
+          }
+        }
+        // 接入故障等级数据
+        var troubleLevelList = res.result.troubleLevelList;
+        var troubleLevelNewList = [];
+        if (troubleLevelList.length > 0) {
+          for (var i = 0; i < troubleLevelList.length; i++) {
+            troubleLevelNewList.push(troubleLevelList[i].name);
+          }
+        }
+        // 接入紧急程度数据
+        var emergencyLevelList = res.result.emergencyLevelList;
+        var emergencyLevelNewList = [];
+        if (emergencyLevelList.length > 0) {
+          for (var i = 0; i < emergencyLevelList.length; i++) {
+            emergencyLevelNewList.push(emergencyLevelList[i].name);
           }
         }
 
-        var troubleTypeList = res.result.troubleTypeList;
         this.setData({
-          malfunctionTypeList: troubleTypeList,
-          malfunctionLocList: malfunctionLocList
+          malfunctionTypeList: troubleTypeNewList,
+          malfunctionLocList: malfunctionLocList,
+          deviceTypeList: deviceTypeNewList,
+          malfunctionRankList: troubleLevelNewList,
+          urgentTypeList: emergencyLevelNewList
         })
       }
     })
