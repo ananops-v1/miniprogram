@@ -194,7 +194,7 @@
       </view>
     </view> -->
     <!--选择巡检地点栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -237,7 +237,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--甲方联系人栏-->
     <!-- <view class="page-section" wx:for="{{partyAPhoneList}}" wx:for-item="item" wx:key="{{item.phone}}" data-id="{{item.phone}}" bindtap="">
       <view class="weui-cells weui-cells_after-title">
