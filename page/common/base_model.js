@@ -262,10 +262,12 @@ class Common extends Base {
 // <---------------------合同项目相关api------------------>
   //根据groupId查询所属项目
   getProjectByGroupId(param, callback) {
+    param.projectType = '巡检项目';
     var params = {
-      url: '/pmc/project/getProjectListByGroupId/' + param.groupId,
+      url: '/pmc/project/getProjectList',
       //data: param,
       method: 'POST',
+      data: param,
       sCallback: function (data) {
         callback && callback(data);
       }

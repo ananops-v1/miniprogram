@@ -42,8 +42,9 @@ class Repair extends Base {
 
   //根据groupId查询所属项目
   getProjectByGroupId(param, callback) {
+    param.projectType = '维修项目';
     var params = {
-      url: '/pmc/project/getProjectListByGroupId/' + param.groupId,
+      url: '/pmc/project/getProjectList',
       data:param,
       method: 'POST',
       sCallback: function (data) {
