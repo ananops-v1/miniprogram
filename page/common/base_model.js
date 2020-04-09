@@ -559,7 +559,7 @@ class Common extends Base {
   //获取未分配工程师的巡检子项
   getUndistributedItems(param, callback) {
     var params = {
-      url: '/spc/workorder/getAllUnDistributedWorkOrders',
+      url: '/imc/inspectionTask/getAllUnDistributedTask',
       data: param,
       method: 'POST',
       sCallback: function (data) {
