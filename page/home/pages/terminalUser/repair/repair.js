@@ -18,6 +18,8 @@ Page({
     //日期数据
     date: '2020-12-24',
     time: '12:01',
+    endDate: '2020-12-24',
+    endTime: '12:01',
     //录音数据
     showRecoder: false,
     recording: false,
@@ -85,6 +87,17 @@ Page({
   bindTimeChange(e) {
     this.setData({
       time: e.detail.value
+    })
+  },
+  //日期数据更新事件
+  bindEndDateChange(e) {
+    this.setData({
+      endDate: e.detail.value
+    })
+  },
+  bindEndTimeChange(e) {
+    this.setData({
+      endTime: e.detail.value
     })
   },
   //录音相关事件
@@ -378,6 +391,8 @@ Page({
     var _this = this;
     var date = this.data.date + " " + this.data.time;
     var newDate = new Date(date).getTime();
+    var endDate = this.data.endDate + " " + this.data.endTime;
+    var newEndDate = new Date(endDate).getTime();
     // this.data.urgentTypeList[
     var level = _this.data.urgentTypeIndex;
     var userId = wx.getStorageSync('userInfo').id;
@@ -408,6 +423,7 @@ Page({
     var param = {
       "addressName": mapLocation,
       "appointTime": newDate,
+      "deadline":newEndDate,
       "attachmentIdList": networksPics[0],
       "call": phoneNumber,
       "contractId": contractId,
@@ -485,6 +501,8 @@ Page({
       phoneNumber: userObject.mobileNo,
       date:DATE,
       time:TIME,
+      endDate:DATE,
+      endTime:TIME,
       length:length
     })
     this.gerProject();
