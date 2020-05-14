@@ -30,7 +30,18 @@
       <view class="title-view">
         <text>基础信息</text>
       </view>
-
+      <view class="page-section">
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">维修名称</view>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" maxlength="20" placeholder="{{taskName}}" bindinput="repairNameInput"/>
+            </view>
+          </view>
+        </view>
+      </view>
       <view class="page-section">
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
@@ -239,7 +250,7 @@
         </view>
 
 
-        <!--故障等级栏-->
+        <!-- 故障等级栏
         <view class="page-section">
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
@@ -253,7 +264,7 @@
               </view>
             </view>
           </view>
-        </view>
+        </view> -->
 
         <!--故障描述栏-->
         <view class="page-section">
@@ -265,6 +276,19 @@
               <view class="weui-cell__bd" bindtap="chooseDescribe">
                 <view wx:if="{{describe}}" class="weui-input">{{describe}}</view>
                 <view wx:else class="weui-input">{{textContent}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!--预算费用栏-->
+        <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">预算费用</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="{{budget}}" bindinput="budgetInput"/>
               </view>
             </view>
           </view>

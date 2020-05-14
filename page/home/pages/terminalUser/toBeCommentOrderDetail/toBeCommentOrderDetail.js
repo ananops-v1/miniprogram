@@ -14,6 +14,9 @@ Page({
     noteMaxLen: 300, // 最多放多少字
     content: "",
     noteNowLen: 0, //备注当前字数
+    confirmMaxLen: 300, // 最多放多少字
+    confirmContent: "",
+    confirmNowLen: 0, //备注当前字数
   },
   onLoad: function(options) {
     console.log(options);
@@ -51,10 +54,23 @@ Page({
       noteNowLen: len
     })
   },
+  // 监听字数
+  confirmTextAreaChange: function (e) {
+    var _this = this
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > _this.data.confirmMaxLen)
+      return;
+    _this.setData({
+      confirmContent: value,
+      confirmNowLen: len
+    })
+  },
   // 提交清空当前值
   bindSubmit: function() {
     var _this = this;
     var taskId = this.data.taskId;
+    var checkContens=_this.data.confirmContent;
     var userInfo = wx.getStorageSync('userInfo');
     console.log(userInfo);
     var userId = userInfo.id;
@@ -62,7 +78,8 @@ Page({
       "contents": _this.data.content,
       "score": _this.data.starYellow,
       "taskId": taskId,
-      "userId": userId
+      "userId": userId,
+      "checkContens": checkContens
     }
     console.log(param);
     comment.comment(param,(res) => {

@@ -9,12 +9,16 @@
   <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
-        <mp-cell value="网点名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
-        <mp-cell value="网点内容" footer="{{inspectionItem['description']}}"></mp-cell>
+        <mp-cell value="任务子项名称" footer="{{inspectionItem['itemName']}}"></mp-cell>
+        <mp-cell value="任务子项内容" footer="{{inspectionItem['description']}}"></mp-cell>
         <mp-cell value="工程师" footer="{{principalDetail.userName}}"></mp-cell>
         <mp-cell value="联系电话" footer="{{principalDetail.mobileNo}}" data-phone="{{principalDetail.mobileNo}}" bindtap="clickPhoneCall"></mp-cell>
         <mp-cell value="周期" footer="{{inspectionItem['frequency']}}天每次"></mp-cell>
         <mp-cell value="持续时长" footer="{{inspectionItem['days']}}天"></mp-cell>
+        <mp-cell value="巡检点位数量" footer="{{inspectionItem['count']}}个"></mp-cell>
+        <mp-cell value="巡检点位位置" footer="{{inspectionItem['location']}}"></mp-cell>
+        <mp-cell value="实际开始时间" footer="{{inspectionItem['actualStartTime']}}"></mp-cell>
+        <mp-cell value="实际完成时间" footer="{{inspectionItem['actualFinishTime']}}"></mp-cell>
       </mp-cells>
     </view>
   </view>
@@ -39,6 +43,43 @@
 
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
+        <view class="weui-form-preview__ft">
+          <radio-group name="radio">
+            <label data-flag="unEdit" bindtap="clickRadioForunEdit"><radio value="radio1" checked="true"/>未填写</label>
+            <label data-flag="isEdit" bindtap="clickRadioForisEdit"><radio value="radio2"/>已填写</label>
+          </radio-group>
+        </view>
+        <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <mp-cells>
+            <mp-cell wx:for="{{invoiceList}}" wx:for-item="invoiceItem" wx:key="{{invoiceItem.id}}" data-id="{{invoiceItem.id}}" bindtap="clickInvoiceItem">
+                <!-- <view slot="title" style="position: relative;margin-right: 10px;">
+                  <image src="/imgs/icon/to_be_confirmed.png" style="width: 50px; height: 50px; display: block"/>
+                </view> -->
+                <view>巡检单编号：{{invoiceItem.id}}</view>
+                <view wx:if="{{invoiceItem.pointName==null}}">点位名称：无</view>
+                <view wx:else>点位名称：{{invoiceItem.pointName}}</view>
+                <view wx:if="{{invoiceItem.pointAddress==null}}">点位地址：无</view>
+                <view wx:else>点位地址：{{invoiceItem.pointAddress}}</view>
+                <view wx:if="{{invoiceItem.inspcResult==null}}" style="font-size: 13px;color: #888888;">巡检结论:无</view>
+                <view wx:else style="font-size: 13px;color: #888888;">巡检结论:{{invoiceItem.inspcResult}}</view>
+                <view wx:if="{{invoiceItem.inspcDate==null}}" style="font-size: 13px;color: #888888;">巡检日期:无</view>
+                <view wx:else style="font-size: 13px;color: #888888;">巡检日期:{{invoiceItem.inspcDate}}</view>
+                <view class="operation_view">
+                  <view wx:if="{{!editFlag}}" class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickEdit">填写</view>
+                  <view wx:else class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickChange">修改</view>
+                  <!-- <view class="operation_button" data-id="{{order.id}}" catchtap="clickNotAccept">驳回</view> -->
+                </view>
+            </mp-cell>
+        </mp-cells>
+      </scroll-view>
+      
+
+    <!-- <view slot="button">
+        <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+    </view> -->
+      <view class="weui-form-preview__ft" wx:if="{{isInspecting}}" catchtap="clickAccept">
+        <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">完成</button>
+      </view>
         <!-- <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
@@ -54,7 +95,7 @@
                 <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="clickModal1">修改</button>
             </view>
         </view> -->
-        <view class="weui-form-preview">
+        <!-- <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">巡检结果</view>
@@ -68,7 +109,7 @@
             <view class="weui-form-preview__ft" hidden="{{hiddenModal}}">
                 <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="clickModal2">修改</button>
             </view>
-        </view>
+        </view> -->
         <!-- <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">

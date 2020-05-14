@@ -2,6 +2,7 @@
 <import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="container">
   <view class="page-body">
+    <view>
     <!--选择项目栏-->
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -17,10 +18,139 @@
           <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">用户负责人</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{aleaderName}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">电话</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">{{aleaderTel}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--服务商-->
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">服务商</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="clickChooseProvider" value="{{providerIndex}}" range="{{providerNameList}}">
+              <view class="weui-input">{{programList[providerIndex].partyBName}}</view>
+            </picker>
+          </view>
+          <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
+        </view>
+      </view>
     </view>
     <!--巡检名称-->
     <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">巡检名称</view>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" maxlength="20" placeholder="{{inspectionName}}" bindinput="inspectionNameInput"/>
+            </view>
+          </view>
+        </view>
+    </view>
+    <!--日期选择器-->
+      <view class="page-section">
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">开始时间</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{date}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
+                <view class="weui-input">{{date}}</view>
+              </picker>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+                <view class="weui-input">{{time}}</view>
+              </picker>
+            </view>
+            <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
+          </view>
+        </view>
+      </view>
+      <!--巡检周期-->
+      <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">巡检周期</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="{{cycleTime}}" bindinput="cycleTimeInput"/>
+              </view>
+              <view class="weui-cell__bd">
+                <view class="weui-input">天</view>
+              </view>
+            </view>
+          </view>
+      </view>
+      <!--持续时间-->
+      <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">持续时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="{{scheduledFinishTime}}" bindinput="scheduledTimeInput"/>
+              </view>
+              <view class="weui-cell__bd">
+                <view class="weui-input">天</view>
+              </view>
+            </view>
+          </view>
+      </view>
+      <!--总点位数-->
+      <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">总点位数</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="{{locNum}}" bindinput="locNumInput"/>
+              </view>
+              <view class="weui-cell__bd">
+                <view class="weui-input">个</view>
+              </view>
+            </view>
+          </view>
+      </view>
+      <!--巡检任务内容-->
+      <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">巡检内容</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" maxlength="50" placeholder="{{inspectionContent}}" bindinput="inspectionContentInput"/>
+              </view>
+            </view>
+          </view>
+      </view>
+      <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检名称</view>
@@ -32,18 +162,21 @@
           </view>
           <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
-      </view>
-      <view class="weui-cells weui-cells_after-title">
+      </view> -->
+      <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检周期</view>
           </view>
           <view class="weui-cell__bd">
-            <view class="weui-input">{{cycleTime}}天</view>
+            <view class="weui-input">{{cycleTime}}</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">天</view>
           </view>
         </view>
-      </view>
-      <view class="weui-cells weui-cells_after-title">
+      </view> -->
+      <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">开始时间</view>
@@ -59,7 +192,10 @@
             <view class="weui-label">计划时间</view>
           </view>
           <view class="weui-cell__bd">
-            <view class="weui-input">{{scheduledFinishTime}}天</view>
+            <view class="weui-input">{{scheduledFinishTime}}</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-input">天</view>
           </view>
         </view>
       </view>
@@ -83,7 +219,21 @@
           </view>
         </view>
       </view>
-      <view class="weui-cells weui-cells_after-title">
+      <!--预算费用栏-->
+          <!-- <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">总点位数</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="{{locNum}}" bindinput="locNumInput" placeholder-style="color: black; font-size: 1.3em;"/>
+              </view>
+              <view class="weui-cell__bd">
+                <view class="weui-input">个</view>
+              </view>
+            </view>
+          </view> -->
+      <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">巡检设备集</view>
@@ -92,8 +242,8 @@
             <view class="weui-input">{{deviceSets}}</view>
           </view>
         </view>
-      </view>
-    </view>
+      </view> -->
+    <!-- </view> -->
     <!--选择巡检周期栏-->
     <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -140,7 +290,7 @@
         </view>
       </view>
     </view> -->
-    <!--任务立即执行-->
+    <!-- 任务立即执行
     <view class="page-section">
       <view class="weui-cells weui-cells_after-title" bindtap="clickImgChoose">
         <view class="weui-cell weui-cell_input">
@@ -150,9 +300,9 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--选择服务商栏-->
-    <view class="page-section">
+    <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -166,7 +316,7 @@
           <image class="img-list" src="../../../../../imgs/icon/downarrow.png"></image>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--巡检内容栏-->
     <!-- <view class="page-section">
       <view class="weui-cells weui-cells_after-title">
@@ -290,5 +440,6 @@
     </view>
     <template is="repairResult" data="{{showEdit,content}}">
     </template>
+    </view>
   </view>
 </view>

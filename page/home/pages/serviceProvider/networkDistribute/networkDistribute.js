@@ -9,7 +9,7 @@ Page({
     inspectionId: 0,
     projectId:0,
     //巡检详情tabbar
-    navTab: ["巡检信息", "进度条", "网点", "备品备件"],
+    navTab: ["巡检信息", "进度条", "点位", "备品备件"],
     currentNavtab: "0",
     //巡检详情信息
     inspectionDetail: {},
@@ -23,15 +23,18 @@ Page({
     //待确认工单列表
     orderListLength: 8,
     //新增网点数据
+    isAdditional:true,
     showEdit: false,
     newName1: '',
     newName2: '',
     newName3: '',
+    newLocsNum:1,
     content: {
       title: "新增网点",
       placeholder1: "此处输入网点名称",
       placeholder2: "此处输入巡检设备",
-      placeholder3: "此处输入描述"
+      placeholder3: "此处输入描述",
+      locsNum:1
     },
     //子巡检的图片数据
     networksPics: [[]],
@@ -124,7 +127,7 @@ Page({
       }
     ]
   },
-  //
+  
   clickInspectionItem: function (e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
@@ -136,15 +139,21 @@ Page({
     var that = this
     var engineers=[]
     var engineerNames=[]
-    common.getEngineersByProjectId(this.data.projectId, (res) => {
+    var param={
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
+      "position": "engineer"
+    }
+    common.queryListByGroupId(param, (res) => {
       console.log(res)
       if (res.code == 200) {
-        engineers = res.result
+        engineers = res.result.list
         that.setData({
           engineers: engineers
         })
-        for (var i = 0; i < res.result.length;i++){
-          engineerNames.push(engineers[i].name)
+        for (var i = 0; i < res.result.list.length;i++){
+          engineerNames.push(engineers[i].userName)
         }
         wx.showActionSheet({
           itemList: engineerNames,
@@ -247,6 +256,10 @@ Page({
     var inputValue = event.detail.value;
     this.data.newName3 = inputValue;
   },
+  inputLocNumChange: function (event) {
+    var inputValue = event.detail.value;
+    this.data.newLocsNum = inputValue;
+  },
   onCancel: function (e) {
     this.setData({
       showEdit: false,
@@ -295,7 +308,7 @@ Page({
         "itemLongitude": 1,
         "itemName": this.data.newName1.trim(),
         "status": 1,
-        "count":0,
+        "count":this.data.newLocsNum,
         "userId": this.data.inspectionDetail.principalId,
         "attachmentIds" : this.data.networksPics[0],
         "scheduledStartTime": this.data.inspectionDetail.scheduledStartTime,
@@ -310,6 +323,11 @@ Page({
             title: '添加成功',
             icon: 'none'
           })
+          if (_this.data.inspectionDetail.pointSum <= _this.data.inspectionDetail.alreadyPoint + _this.data.newLocsNum) {
+            _this.setData({
+              isAdditional: false
+            })
+          }
         }
       })
     }
@@ -373,6 +391,11 @@ Page({
                 })
               }
             })
+            if (_this.data.inspectionDetail.pointSum <= _this.data.inspectionDetail.alreadyPoint){
+              _this.setData({
+                isAdditional: false
+              })
+            }
           }
           else {
             console.log("获取巡检详情失败")

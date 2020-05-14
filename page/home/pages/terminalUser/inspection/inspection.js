@@ -1,4 +1,5 @@
 // page/home/pages/inspection/inspection.js
+const UTIL = require('../../../../../util/util.js')
 import {
   formatTime
 } from '../../../../../util/util.js'
@@ -12,10 +13,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    locNum: 0,
     //巡检名称数据
+    inspectionName:'请输入巡检名称',
     inspectionList: [],
     inspectionNameList: [],
     inspectionIndex:0,
+    //时期数据
+    date:'',
+    time:'',
     //项目数据
     programList: [],
     programNameList: [],
@@ -29,6 +35,9 @@ Page({
       title: "提交巡检设备集",
       placeholder: "请这里输入"
     },
+    //用户负责人数据
+    aleaderName:'',
+    aleaderTel:'',
     //选择设备数据
     deviceList: ['未选择巡检1', '未选择巡检2'],
     deviceIndex: 0,
@@ -60,7 +69,7 @@ Page({
     //计划完成时间
     scheduledFinishTime:0,
     //巡检内容
-    inspectionContent:'',
+    inspectionContent:'请输入巡检内容',
     //巡检备注
     inspectionRemark: '',
     //立即执行
@@ -95,6 +104,31 @@ Page({
       phone: '13012345678'
     },
   },
+  cycleTimeInput:function(e){
+    this.setData({
+      cycleTime: e.detail.value
+    })
+  },
+  locNumInput:function(e){
+    this.setData({
+      locNum: e.detail.value
+    })
+  },
+  inspectionNameInput:function(e){
+    this.setData({
+      inspectionName: e.detail.value
+    })
+  },
+  scheduledTimeInput:function(e){
+    this.setData({
+      scheduledFinishTime: e.detail.value
+    })
+  },
+  inspectionContentInput:function(e){
+    this.setData({
+      inspectionContent: e.detail.value
+    })
+  },
   //点击选择服务商事件
   clickChooseProvider: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -111,7 +145,9 @@ Page({
       programIndex: e.detail.value,
       programId: programId,
       providerId: this.data.programList[e.detail.value].partyBId,
-      providerIndex: e.detail.value
+      providerIndex: e.detail.value,
+      aleaderName: this.data.programList[e.detail.value].aleaderName,
+      aleaderTel: this.data.programList[e.detail.value].aleaderTel
     })
     this.initTable(programId);
   },
@@ -153,6 +189,17 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       cycleIndex: e.detail.value
+    })
+  },
+  //日期数据更新事件
+  bindDateChange(e) {
+    this.setData({
+      date: e.detail.value
+    })
+  },
+  bindTimeChange(e) {
+    this.setData({
+      time: e.detail.value
     })
   },
   //日期数据更新事件
@@ -238,86 +285,129 @@ Page({
   //点击提交
   clickSubmit(e) {
     console.log('提交');
-    console.log(this.data.networksPics);
-    var choosedNetworks=this.data.choosedNetworks;
-    var newNetworks=[];
-    var tempNetwork={};
-    for (var i = 0; i < choosedNetworks.length;i++){
-      tempNetwork["description"] = choosedNetworks[i]["description"]
-      tempNetwork["itemLatitude"] =1
-      tempNetwork["itemLongitude"] =1
-      tempNetwork["itemName"] = choosedNetworks[i]["itemName"]
-      tempNetwork["maintainerId"] = choosedNetworks[i]["maintainerId"]
-      tempNetwork["status"] =0
-      tempNetwork["count"] =0
-      tempNetwork["userId"] = wx.getStorageSync('userInfo').id
-      console.log(this.data.networksPics[i]);
-      tempNetwork["attachmentIds"] = this.data.networksPics[i]
-      newNetworks.push(tempNetwork);
+    if (this.data.inspectionName.length == 0 || this.data.inspectionName == '请输入巡检名称'){
+      wx.showToast({
+        title: "巡检名称为必填项",
+        icon: 'none',
+        duration: 2000,
+      })
     }
-    console.log(newNetworks);
-    var param = {
-      "days": this.data.scheduledFinishTime,//周期
-      "facilitatorId": this.data.providerId,//服务商
-      "facilitatorGroupId": this.data.providerId,
-      "facilitatorManagerId": wx.getStorageSync('userInfo').id,//发起巡检的管理员
-      "frequency": this.data.cycleTime, //天数
-      "userId": wx.getStorageSync('userInfo').id,
-      "content": this.data.deviceSets === "点击填写" ? "" : this.data.deviceSets,
-      "inspectionType":1,//1从巡检方案 2需要用户负责人审核
-      "imcAddInspectionItemDtoList": newNetworks,//[
-      //   {
-      //     "description": this.data.inspectionContent,
-      //     "itemLatitude": 1,//默认
-      //     "itemLongitude": 1,//默认
-      //     "itemName": "天信楼支行",
-      //     "maintainerId": 1,//维修工
-      //     "status": 0, 
-      //     "count": 0,
-      //     "userId": wx.getStorageSync('userInfo').id
-      //   }
-      // ],
-      "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
-      "principalId": wx.getStorageSync('userInfo').id,//负责人
-      "projectId": this.data.programId,
-      "remark": this.data.inspectionRemark,//备注
-      "scheduledStartTime": this.data.startDate,
-      "status": 0,
-      "taskName": this.data.inspectionNameList[this.data.inspectionIndex],
-      "totalCost": 100//合同总花费
-    };
-    console.log(param);
-    common.inspectionSave(param,(res)=>{
-      console.log(res)
-      if (res.code==200){
-        console.log("申请巡检成功")
-        wx.showToast({
-          title: '申请巡检成功',
-          icon: 'success',
-          duration: 2000//持续的时间
-        })
-        setTimeout(function () {
-          wx.navigateBack();
-        }, 2000)
-        // wx.redirectTo({
-        //   url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
-        // })
+    else if (this.data.cycleTime===0){
+      wx.showToast({
+        title: "巡检周期为必填项",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+    else if (this.data.scheduledFinishTime===0){
+      wx.showToast({
+        title: "持续时间为必填项",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+    else if (this.data.locNum===0){
+      wx.showToast({
+        title: "总点位数为必填项",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+    else if (this.data.inspectionContent.length == 0 || this.data.inspectionContent =='请输入巡检内容'){
+      wx.showToast({
+        title: "巡检内容为必填项",
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+    else{
+      console.log(this.data.networksPics);
+      var choosedNetworks = this.data.choosedNetworks;
+      var newNetworks = [];
+      var tempNetwork = {};
+      for (var i = 0; i < choosedNetworks.length; i++) {
+        tempNetwork["description"] = choosedNetworks[i]["description"]
+        tempNetwork["itemLatitude"] = 1
+        tempNetwork["itemLongitude"] = 1
+        tempNetwork["itemName"] = choosedNetworks[i]["itemName"]
+        tempNetwork["maintainerId"] = choosedNetworks[i]["maintainerId"]
+        tempNetwork["status"] = 0
+        tempNetwork["count"] = 0
+        tempNetwork["userId"] = wx.getStorageSync('userInfo').id
+        console.log(this.data.networksPics[i]);
+        tempNetwork["attachmentIds"] = this.data.networksPics[i]
+        newNetworks.push(tempNetwork);
       }
-      else{
-        console.log("申请巡检失败")
-        wx.showToast({
-          title: '申请巡检失败',
-          icon: 'fail',
-          duration: 2000//持续的时间
-        })
-      }
-    })
+      console.log(newNetworks);
+      var param = {
+        "days": this.data.scheduledFinishTime,//周期
+        "facilitatorId": this.data.providerId,//服务商
+        "facilitatorGroupId": this.data.providerId,
+        "facilitatorManagerId": wx.getStorageSync('userInfo').id,//发起巡检的管理员
+        "frequency": this.data.cycleTime, //天数
+        "userId": wx.getStorageSync('userInfo').id,
+        "content": this.data.inspectionContent,//this.data.deviceSets === "点击填写" ? "" : this.data.deviceSets,
+        "inspectionType": 1,//1从巡检方案 2需要用户负责人审核
+        "imcAddInspectionItemDtoList": newNetworks,//[
+        //   {
+        //     "description": this.data.inspectionContent,
+        //     "itemLatitude": 1,//默认
+        //     "itemLongitude": 1,//默认
+        //     "itemName": "天信楼支行",
+        //     "maintainerId": 1,//维修工
+        //     "status": 0, 
+        //     "count": 0,
+        //     "userId": wx.getStorageSync('userInfo').id
+        //   }
+        // ],
+        "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
+        "principalId": wx.getStorageSync('userInfo').id,//负责人
+        "projectId": this.data.programId,
+        "remark": this.data.inspectionRemark,//备注
+        "scheduledStartTime": this.data.date + ' ' + this.data.time,
+        "status": 0,
+        "taskName": this.data.inspectionName,//this.data.inspectionNameList[this.data.inspectionIndex],
+        "totalCost": 100//合同总花费
+      };
+      console.log(param);
+      common.inspectionSave(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("申请巡检成功")
+          wx.showToast({
+            title: '申请巡检成功',
+            icon: 'success',
+            duration: 2000//持续的时间
+          })
+          setTimeout(function () {
+            wx.navigateBack();
+          }, 2000)
+          // wx.redirectTo({
+          //   url: '/page/home/pages/all-work-inspection-Detail/all-work-inspection-Detail?inspectionId=' + res.result.id
+          // })
+        }
+        else {
+          console.log("申请巡检失败")
+          wx.showToast({
+            title: '申请巡检失败',
+            icon: 'fail',
+            duration: 2000//持续的时间
+          })
+        }
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var this_=this;
+    var this_ = this;
+    var DATE = UTIL.formatDate(new Date());
+    var TIME = UTIL.formatTime(new Date());
+    this_.setData({
+      date: DATE,
+      time: TIME,
+    })
     var groupId = wx.getStorageSync('userObject').groupId;
     var param={
       'groupId':groupId
@@ -337,7 +427,9 @@ Page({
         programId:res[0].id,
         providerNameList: providerNameList,
         providerIndex:0,
-        providerId: res[0].partyBId
+        providerId: res[0].partyBId,
+        aleaderName: res[0].aleaderName,
+        aleaderTel: res[0].aleaderTel,
       })
       this_.initTable(res[0].id)
     })
@@ -364,12 +456,12 @@ Page({
   },
   initInspectionInfo:function(choosedInspection){
     this.setData({
-      cycleTime: choosedInspection.cycleTime,
+      // cycleTime: choosedInspection.cycleTime,
       startDate: choosedInspection.scheduledStartTime,
-      inspectionContent: choosedInspection.inspectionContent,
+      // inspectionContent: choosedInspection.inspectionContent,
       inspectionRemark: choosedInspection.description,
       isStart: choosedInspection.isNow,
-      scheduledFinishTime: choosedInspection.scheduledFinishTime
+      // scheduledFinishTime: choosedInspection.scheduledFinishTime
     })
   },
   initWebsiteInfo: function (choosedInspection){

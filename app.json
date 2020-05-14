@@ -55,7 +55,8 @@
     "page/home/pages/terminalUser/inspectionToBeVerify/inspectionToBeVerify",
     "page/home/pages/serviceProvider/inspectionDistribute/inspectionDistribute",
     "page/home/pages/serviceProvider/networkDistribute/networkDistribute",
-    "page/messageDetail/messageDetail"
+    "page/messageDetail/messageDetail",
+    "page/home/pages/invoice/invoice"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

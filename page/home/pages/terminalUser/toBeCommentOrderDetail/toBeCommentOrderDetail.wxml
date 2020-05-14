@@ -1,4 +1,16 @@
 <view class="comment_title">
+  <view>验收服务内容：</view>
+</view>
+<view class="weui-cells_after-title">
+    <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" bindinput="confirmTextAreaChange" placeholder="请输入维修任务验收内容" style="height: 8em" value="{{confirmContent}}" maxlength="{{confirmMaxLen}}" focus />
+      <view class="weui-textarea-counter">{{confirmNowLen}}/{{confirmMaxLen}}</view>
+    </view>
+    </view>
+    </view>
+<view class="comment_title">
+  
   <view>服务评价：</view>
   <view>
     <block wx:for="{{starYellow}}" wx:key="index">

@@ -1,6 +1,6 @@
 /* page/home/pages/terminalUser/inspection/inspection.wxss */
 @import "../../../../common/lib/weui.wxss";
-@import "../../../../common/modal/modal-tpl.wxss";
+/* @import "../../../../common/modal/modal-tpl.wxss"; */
 /* 日期选择器 */
 .picker{
   padding: 19rpx 26rpx;

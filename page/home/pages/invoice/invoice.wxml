@@ -1,0 +1,98 @@
+<!--page/home/pages/invoice/invoice.wxml-->
+<mp-form-page title="系统维护保养巡检记录表:">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells>
+            <mp-cell title="点位名称:" ext-class="">
+                <input wx:if="{{invoiceDetails.pointName==null}}" class="weui-input" placeholder="请输入点位名称" bindinput="pointNameInput"/>
+                <input wx:else class="weui-input" value="{{invoiceDetails.pointName}}" bindinput="pointNameInput"/>
+            </mp-cell>
+            <mp-cell title="点位地址:" ext-class="">
+                <input wx:if="{{invoiceDetails.pointAddress==null}}" class="weui-input" placeholder="请输入点位地址" bindinput="pointAddressInput"/>
+                <input wx:else class="weui-input" value="{{invoiceDetails.pointAddress}}" bindinput="pointAddressInput"/>
+            </mp-cell>
+            <mp-cell title="巡检单位:" ext-class="">
+                <view class="weui-input">{{invoiceDetails.inspcCompany}}</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+      <mp-form-page title="设备统计：">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells wx:for="{{invoiceDetails.assetList}}" wx:for-item="assetItem" wx:for-index="index" wx:key="{{assetItem.id}}" title="设备信息:">
+            <mp-cell has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
+                <textarea class="weui-textarea" value="{{assetItem.device}}" style="height: 3.3em" data-index="{{index}}" bindinput="deviceInfoInput"></textarea>
+                <view class="weui-textarea-counter">0/200</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+      <mp-form-page title="常规巡检详情：">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells wx:for="{{invoiceDetails.inspcDetailList}}" wx:for-item="inspcDetailItem" wx:for-index="index" wx:key="{{inspcDetailItem.id}}">
+            <mp-cell title="巡检内容：" ext-class="">
+                <view class="weui-input">{{inspcDetailItem.itemContent}}</view>
+            </mp-cell>
+            <mp-cell title="本次情况：" ext-class="">
+                <radio-group name="radio">
+                  <label wx:if="{{inspcDetailItem.itemState=='Y'}}" bindtap="clickRight" data-index="{{index}}"><radio checked="true" value="radio1"/>正常</label>
+                  <label wx:else bindtap="clickRight" data-index="{{index}}"><radio value="radio1"/>正常</label>
+                  <label wx:if="{{inspcDetailItem.itemState=='N'}}" bindtap="clickError" data-index="{{index}}"><radio checked="true" value="radio2"/>异常</label>
+                  <label wx:else bindtap="clickError" data-index="{{index}}"><radio value="radio2"/>异常</label>
+                </radio-group>
+            </mp-cell>
+            <mp-cell title="处理结果：" ext-class="">
+                <input wx:if="{{inspcDetailItem.itemResult==null}}" class="weui-input" placeholder="请输入内容" data-index="{{index}}" bindinput="itemResultInput"/>
+                <input wx:else class="weui-input" value="{{inspcDetailItem.itemResult}}" data-index="{{index}}" bindinput="itemResultInput"/>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+      <mp-form-page title="确认内容：">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells>
+            <mp-cell title="巡检结论：" ext-class="">
+                <input wx:if="{{invoiceDetails.feedback.inspcResult==null}}" class="weui-input" placeholder="请输入内容" bindinput="inspectionResultInput"/>
+                <input wx:else class="weui-input" value="{{invoiceDetails.feedback.inspcResult}}" bindinput="inspectionResultInput"/>
+            </mp-cell>
+            <mp-cell wx:if="{{invoiceDetails.feedback.inspcDate==null}}" prop="date" title="巡检日期：" ext-class="">
+                <view class="weui-cell__bd">
+                  <picker mode="date" value="{{inspectionDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
+                    <view class="weui-input">{{inspectionDate}}</view>
+                  </picker>
+                </view>
+            </mp-cell>
+            <mp-cell wx:else prop="date" title="巡检日期：" ext-class="">
+                <view class="weui-cell__bd">
+                  <picker mode="date" value="{{loadedDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
+                    <view class="weui-input">{{loadedDate}}</view>
+                  </picker>
+                </view>
+            </mp-cell>
+            <mp-cell wx:if="{{invoiceDetails.feedback.inspcDate==null}}" prop="date" title="巡检时间：" ext-class="">
+                <view class="weui-cell__bd">
+                  <picker mode="time" value="{{inspectionTime}}" bindchange="bindTimeChange">
+                    <view class="weui-input">{{inspectionTime}}</view>
+                  </picker>
+                </view>
+            </mp-cell>
+            <mp-cell wx:else prop="date" title="巡检时间：" ext-class="">
+                <view class="weui-cell__bd">
+                  <picker mode="time" value="{{loadedTime}}" bindchange="bindTimeChange">
+                    <view class="weui-input">{{loadedTime}}</view>
+                  </picker>
+                </view>
+            </mp-cell>
+            <mp-cell title="用户确认：" ext-class="">
+                <view wx:if="{{inspcDetailItem.feedback.userConfirm==null}}" class="weui-input">未确认</view>
+                <view wx:else class="weui-input">{{inspcDetailItem.feedback.userConfirm}}</view>
+            </mp-cell>
+            <mp-cell title="工程师：" ext-class="">
+                <view class="weui-input">{{invoiceDetails.feedback.engineer}}</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+<view class="weui-form-preview__ft" bindtap="clickComplete">
+  <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">完成</button>
+</view>
+      

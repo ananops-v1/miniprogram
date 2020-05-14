@@ -11,14 +11,28 @@
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="项目名称" footer="{{orderInfo.pmcProjectDto.contractName}}">{{orderInfo.pmcProjectDto.contractName}}</mp-cell>
+        <mp-cell value="维修任务名称" footer="{{orderInfo.mdmcTask.title}}">{{orderInfo.mdmcTask.title}}</mp-cell>
         <mp-cell value="公司名称" footer="{{orderInfo.principalInfoDto.groupName}}">{{orderInfo.principalInfoDto.groupName}}</mp-cell>
         <mp-cell value="故障类型" footer="{{taskItemInfo.troubleType}}">{{taskItemInfo.troubleType}}</mp-cell>
         <mp-cell value="故障位置" footer="{{orderInfo.mdmcTask.addressName}}" bindtap="showLocation">{{orderInfo.mdmcTask.addressName}}</mp-cell>
         <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.mdmcTask.level]}}">{{urgentLevel[orderInfo.mdmcTask.level]}}</mp-cell>
-        <mp-cell value="备注信息" footer="{{orderInfo.mdmcTask.note}}">{{orderInfo.mdmcTask.note}}</mp-cell>
+        <!-- <mp-cell value="备注信息" footer="{{orderInfo.mdmcTask.note}}">{{orderInfo.mdmcTask.note}}</mp-cell> -->
+        <mp-cell value="状态" footer="{{orderStates[orderInfo.mdmcTask.status-1].name}}">{{orderStates[orderInfo.mdmcTask.status-1].name}}</mp-cell>
+        <mp-cell value="预计花费" footer="{{orderInfo.mdmcTask.totalCost}}">{{orderInfo.mdmcTask.totalCost}}</mp-cell>
         <mp-cell value="预约时间" footer="{{orderInfo.mdmcTask.appointTime}}">{{orderInfo.mdmcTask.appointTime}}</mp-cell>
+        <mp-cell value="截止时间" footer="{{orderInfo.mdmcTask.deadline}}">{{orderInfo.mdmcTask.deadline}}</mp-cell>
+        <mp-cell value="计划开始时间" footer="{{orderInfo.mdmcTask.scheduledStartTime}}">{{orderInfo.mdmcTask.scheduledStartTime}}</mp-cell>
+        <mp-cell value="计划结束时间" footer="{{orderInfo.mdmcTask.scheduledFinishTime}}">{{orderInfo.mdmcTask.scheduledFinishTime}}</mp-cell>
         <mp-cell value="报修人" footer="{{orderInfo.mdmcTask.creator}}">{{orderInfo.mdmcTask.creator}}</mp-cell>
         <mp-cell value="联系电话" footer="{{orderInfo.mdmcTask.call}}" bindtap="makePhone" data-phone="{{orderInfo.mdmcTask.call}}">{{orderInfo.mdmcTask.call}}</mp-cell>
+        <mp-cell value="审核人" footer="{{orderInfo.pmcProjectDto.aleaderName}}">{{orderInfo.pmcProjectDto.aleaderName}}</mp-cell>
+        <mp-cell value="联系电话" footer="{{orderInfo.pmcProjectDto.aleaderTel}}" bindtap="makePhone" data-phone="{{orderInfo.pmcProjectDto.aleaderTel}}">{{orderInfo.pmcProjectDto.aleaderTel}}</mp-cell>
+        <mp-cell value="实际开始时间" footer="{{orderInfo.mdmcTask.actualStartTime}}">{{orderInfo.mdmcTask.actualStartTime}}</mp-cell>
+        <mp-cell value="实际结束时间" footer="{{orderInfo.mdmcTask.actualFinishTime}}">{{orderInfo.mdmcTask.actualFinishTime}}</mp-cell>
+        <mp-cell value="故障产生原因" footer="{{orderInfo.mdmcTask.troubleReason}}">{{orderInfo.mdmcTask.troubleReason}}</mp-cell>
+        <mp-cell value="故障维修结果" footer="{{orderInfo.mdmcTask.result}}">{{orderInfo.mdmcTask.result}}</mp-cell>
+        <mp-cell value="故障维修建议" footer="{{orderInfo.mdmcTask.suggestion}}">{{orderInfo.mdmcTask.suggestion}}</mp-cell>
+        <mp-cell value="作业超时原因" footer="{{orderInfo.mdmcTask.delayReason}}">{{orderInfo.mdmcTask.delayReason}}</mp-cell>
 
         <view wx:if="{{taskPictures2 != null}}">
           <view class="fujian">附件:</view>

@@ -59,15 +59,19 @@
     <view class="modal-title">{{content.title}}</view>
     <view class="drawer_content"> 
       <view class="top grid"> 
-        <label class="title col-0">网点名称</label> 
+        <label class="title col-0">子项任务名称</label> 
         <input class="input_base input_h30 col-1" name="networkName" type="text" maxlength="20" focus="true" bindinput="inputChange1" placeholder="{{content.placeholder1}}"></input> 
       </view> 
       <view class="top grid"> 
-        <label class="title col-0">设备</label> 
+        <label class="title col-0">巡检点位位置</label> 
         <input class="input_base input_h30 col-1" name="networkDevice" type="text" maxlength="20" bindinput="inputChange2" placeholder="{{content.placeholder2}}"></input> 
-      </view> 
+      </view>
       <view class="top grid"> 
-        <label class="title col-0">网点描述</label> 
+        <label class="title col-0">巡检点位数量</label> 
+        <input class="input_base input_h30 col-1" name="networkDevice" type="number" bindinput="inputLocNumChange" placeholder="{{content.locsNum}}"></input> 
+      </view>  
+      <view class="top grid"> 
+        <label class="title col-0">任务内容描述</label> 
         <input class="input_base input_h30 col-1" name="networkScrib" type="text" maxlength="100" bindinput="inputChange3" placeholder="{{content.placeholder3}}"></input> 
       </view>
       <view class="top grid"> 

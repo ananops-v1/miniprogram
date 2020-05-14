@@ -299,6 +299,17 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //删除巡检
+  deleteTaskByTaskId(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/deleteTaskByTaskId/' + param.taskId,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //根据项目查询对应的所有巡检任务
   getInspectionTaskAll(param, callback) {
     var params = {
@@ -622,11 +633,68 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //查询巡检单据列表
+  queryInvoiceList(param, callback) {
+    var params = {
+      url: '/imc/itemInvoice/queryInvoiceList',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据巡检单据的ID，获取对应的巡检单据内容详情
+  queryDetailsById(param, callback) {
+    var params = {
+      url: '/imc/itemInvoice/queryDetailsById/' + param.invoiceId,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //保存更新巡检单数据
+  itemInvoiceSave(param, callback) {
+    var params = {
+      url: '/imc/itemInvoice/save',
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   // <---------------------服务商相关api------------------>
   getCompanyDetailsById(param, callback) {
     var params = {
       url: '/spc/api/company/getCompanyDetailsById/' + param.companyId,
       //data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  queryListByGroupId(param, callback) {
+    var params = {
+      url: '/spc/engineer/queryListByGroupId',
+      data: param,
       method: 'POST',
       sCallback: function (data) {
         callback && callback(data);

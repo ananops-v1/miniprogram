@@ -238,6 +238,45 @@ Page({
       }
     })
   },
+  clickDelete:function(e){
+    var _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          var param = {
+            'taskId': e.currentTarget.dataset.id
+          }
+          common.deleteTaskByTaskId(param,(res)=>{
+            console.log(res)
+            if (res.code == 200){
+              wx.showToast({
+                title: "删除成功",
+                icon: 'none',
+                duration: 2000,
+              })
+              var inspectionList = _this.data.inspectionList
+              inspectionList.splice(e.currentTarget.dataset.idx, 1)
+              _this.setData({
+                inspectionList: inspectionList
+              })
+            }
+            else{
+              wx.showToast({
+                title: "删除失败",
+                icon: 'none',
+                duration: 2000,
+              })
+              console.log("修改巡检状态失败")
+            }
+          })
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -7,6 +7,9 @@ import {
 var repair = new Repair();
 Page({
   data: {
+    //维修名称
+    taskName: "请在此输入",
+    budget:0,
     deviceNum: 1,
     hiddenmodalput: true,
     networksPics:[[]],
@@ -58,6 +61,18 @@ Page({
     //审核人数据
     reviewerList: ['张三', '李四'],
     reviewerIndex: 0,
+  },
+  //编辑维修名称事件
+  repairNameInput:function(e){
+    this.setData({
+      taskName: e.detail.value
+    })
+  },
+  //编辑预算
+  budgetInput:function(e){
+    this.setData({
+      budget: e.detail.value
+    })
   },
   //选择项目处理事件
   clickChoosePro: function(e) {
@@ -413,6 +428,8 @@ Page({
     var title = this.data.malfunctionLocList[_this.data.malfunctionLocIndex] + this.data.malfunctionTypeList[_this.data.malfunctionTypeIndex];
     
     var phoneNumber = this.data.phoneNumber;
+    var taskName = this.data.taskName;
+    var budget = this.data.budget;
     var programList = this.data.programList;
     var programIndex = this.data.programIndex;
     var contractId = programList[programIndex].contractId;
@@ -442,14 +459,14 @@ Page({
       "status": 0,
       "suggestion": "",
       "title": title,
-      "totalCost": 0,
+      "totalCost": budget,
       "userId": userId,
       "mdmcAddTaskItemDtoList": [{
         "description": description,
         "deviceId": 0,
         "deviceLatitude": latitude,
         "deviceLongitude": longitude,
-        "deviceName": null,
+        "deviceName": taskName,
         "deviceType": deviceType,
         "id": null,
         "level": parseInt(malfunctionRank),

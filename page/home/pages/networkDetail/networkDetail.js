@@ -10,7 +10,7 @@ Page({
     inspectionId:0,
     inspectionItem:{},
     maintainerDetail:{},
-    navTab: ["网点信息", "进度条","巡检结果"],
+    navTab: ["网点信息", "进度条","巡检单据"],
     currentNavtab: "0",
     hiddenModal: true,
     hiddenModal1: true,
@@ -20,6 +20,9 @@ Page({
     hiddenModal3: true,
     contentModal3: "未填写信息",
     contentModalTemp: "",
+    isInspecting:false,
+    invoiceList:[],
+    editFlag:false,
   },
   onLoad: function (options) {
     var that = this
@@ -39,6 +42,11 @@ Page({
       if (res.code == 200) {
         console.log("获取巡检列表成功");
         console.log(res.result);
+        if (res.result.status === 3){
+          that.setData({
+            isInspecting:true
+          })
+        }
         if (res.result.status === 3 && userRole === "engineer"){
           that.setData({
             hiddenModal:false
@@ -52,12 +60,48 @@ Page({
         that.setData({
           inspectionItem: res.result
         })
+        var param = {
+          engineerId: that.data.inspectionItem.maintainerId
+        }
+        common.getSpcEngineerById(param, (res) => {
+          console.log(res)
+          if (res.code == 200) {
+            console.log("获取工程师详情成功")
+            that.setData({
+              principalDetail: res.result
+            })
+          }
+        })
       }
       else {
         console.log("获取巡检列表失败");
       }
     })
     that.switchTab({ currentTarget: { dataset: { idx: that.data.currentNavtab } } })
+  },
+  clickEdit:function(e){
+    console.log(e)
+    wx.navigateTo({
+      url: "../invoice/invoice?isEdit=false&&invoiceId=" + e.currentTarget.dataset.id,
+    })
+  },
+  clickChange:function(e){
+    console.log(e)
+    wx.navigateTo({
+      url: "../invoice/invoice?isEdit=true&&invoiceId=" + e.currentTarget.dataset.id,
+    })
+  },
+  clickRadioForunEdit:function(e){
+    this.loadInvoiceList("N");
+    this.setData({
+      editFlag:false
+    })
+  },
+  clickRadioForisEdit: function (e) {
+    this.loadInvoiceList("Y");
+    this.setData({
+      editFlag: true
+    })
   },
   clickModal1:function(e){
     this.setData({
@@ -178,11 +222,9 @@ Page({
   switchTab: function (e) {
     var index = e.currentTarget.dataset.idx;
     var _this = this;
-    console.log(_this.data.inspectionItemId+"hello")
-    console.log(_this.data.inspectionId)
     if (index == 0) {
       console.log("进入子项信息页")
-      var param={
+      var param = {
         engineerId: _this.data.inspectionItem.maintainerId
       }
       console.log(param)
@@ -228,9 +270,23 @@ Page({
       })
     }
     else if (index == 2) {
+      console.log("进入巡检单据页面")
+      _this.loadInvoiceList("N");
     }
     _this.setData({
       currentNavtab: index
     });
+  },
+  loadInvoiceList: function (editFlag){
+    var param = {
+      "itemId": this.data.inspectionItemId,
+      "status": editFlag
+    }
+    common.queryInvoiceList(param, (res) => {
+      console.log(res)
+      this.setData({
+        invoiceList: res.result
+      })
+    })
   },
 });
