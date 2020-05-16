@@ -1,0 +1,87 @@
+/* page/home/pages/invoice/invoice.wxss */
+@import '../../../common/lib/common.wxss';
+@import '../../../common/lib/weui2.wxss';
+@import "../../../common/modal/modal-tpl.wxss";
+.top-tab{
+  width: 750rpx;
+  height: 100rpx;
+  background: #2D4E95;
+  color: #8CCEFD;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  box-shadow: 0 2px 2px #bebebe;
+  margin: 0 0 8rpx 0;
+  z-index: 9999;
+}
+
+.toptab.active{
+  color: #ffffff;
+  border-bottom: solid 2px #ffffff;
+}
+.activity{
+  width: 750rpx;
+  height: 375rpx;
+}
+.activity image{
+  width: 750rpx;
+  height: 375rpx;
+}
+.placehold{
+  font-size: 28rpx;
+  padding: 80rpx 0;
+}
+.orderlog_view {
+  display: flex;
+  justify-content: center;
+  font-size: 35rpx;
+  margin: 21rpx;
+}
+.orderlog_time {
+  display: inline-block;
+  width: 200rpx;
+}
+.orderlog_content {
+  display: inline-block;
+  color: grey;
+  width: 400rpx;
+}
+.orderlog_content.first {
+  display: inline-block;
+  color: orange;
+  width: 400rpx;
+}
+.orderlog_image {
+  width: 100rpx;
+  height: 100rpx;
+}
+textarea {
+    width: 700rpx;
+    padding: 25rpx 0;
+}
+.textarea-wrp {
+    padding: 0 25rpx;
+    background-color: #fff;
+}
+.weui-form-preview{
+    margin-bottom: 25px;
+}
+.mini-btn{
+    margin: 0 32px;
+}
+.operation_view {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  padding: 10rpx 10rpx 10rpx;
+  height: auto !important;
+  overflow: hidden;
+}
+.operation_button {
+  width: 120rpx;
+  border-radius: 38rpx;
+  border: 1rpx solid rgb(102, 102, 102);
+  color: grey;
+  background-color: white;
+  text-align: center;
+  margin: 5rpx;
+}

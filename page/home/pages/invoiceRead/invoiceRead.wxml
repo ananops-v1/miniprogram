@@ -1,0 +1,87 @@
+<!--page/home/pages/invoice/invoice.wxml-->
+<mp-form-page title="系统维护保养巡检记录表:">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells>
+            <mp-cell title="点位名称:" ext-class="">
+                <view class="weui-input">{{invoiceDetails.pointName}}</view>
+            </mp-cell>
+            <mp-cell title="点位地址:" ext-class="">
+                <view class="weui-input">{{invoiceDetails.pointAddress}}</view>
+            </mp-cell>
+            <mp-cell title="巡检单位:" ext-class="">
+                <view class="weui-input">{{invoiceDetails.inspcCompany}}</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+      <mp-form-page title="设备统计：">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells wx:for="{{invoiceDetails.assetList}}" wx:for-item="assetItem" wx:for-index="index" wx:key="{{assetItem.id}}" title="设备信息:">
+            <mp-cell has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
+                <view class="weui-input" style="height: 3.3em">{{assetItem.device}}</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+      <mp-form-page title="常规巡检详情：">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells wx:for="{{invoiceDetails.inspcDetailList}}" wx:for-item="inspcDetailItem" wx:for-index="index" wx:key="{{inspcDetailItem.id}}">
+            <mp-cell title="巡检内容：" ext-class="">
+                <view class="weui-input">{{inspcDetailItem.itemContent}}</view>
+            </mp-cell>
+            <mp-cell title="本次情况：" ext-class="">
+                <radio-group name="radio">
+                  <label wx:if="{{inspcDetailItem.itemState=='Y'}}" data-index="{{index}}"><radio checked="true" value="radio1"/>正常</label>
+                  <label wx:else data-index="{{index}}"><radio value="radio1"/>正常</label>
+                  <label wx:if="{{inspcDetailItem.itemState=='N'}}" data-index="{{index}}"><radio checked="true" value="radio2"/>异常</label>
+                  <label wx:else data-index="{{index}}"><radio value="radio2"/>异常</label>
+                </radio-group>
+            </mp-cell>
+            <mp-cell title="处理结果：" ext-class="">
+                <view class="weui-input">{{inspcDetailItem.itemResult}}</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
+      <mp-form-page title="确认内容：">
+      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+        <mp-cells>
+            <mp-cell title="巡检结论：" ext-class="">
+                <view class="weui-input">{{invoiceDetails.feedback.inspcResult}}</view>
+            </mp-cell>
+            <mp-cell wx:if="{{invoiceDetails.feedback.inspcDate==null}}" prop="date" title="巡检日期：" ext-class="">
+                <view class="weui-cell__bd">
+                    <view class="weui-input">{{inspectionDate}}</view>
+                </view>
+            </mp-cell>
+            <mp-cell wx:else prop="date" title="巡检日期：" ext-class="">
+                <view class="weui-cell__bd">
+                  
+                    <view class="weui-input">{{loadedDate}}</view>
+                  
+                </view>
+            </mp-cell>
+            <mp-cell wx:if="{{invoiceDetails.feedback.inspcDate==null}}" prop="date" title="巡检时间：" ext-class="">
+                <view class="weui-cell__bd">
+                 
+                    <view class="weui-input">{{inspectionTime}}</view>
+                  
+                </view>
+            </mp-cell>
+            <mp-cell wx:else prop="date" title="巡检时间：" ext-class="">
+                <view class="weui-cell__bd">
+                  
+                    <view class="weui-input">{{loadedTime}}</view>
+                
+                </view>
+            </mp-cell>
+            <mp-cell title="用户确认：" ext-class="">
+                <view wx:if="{{inspcDetailItem.feedback.userConfirm==null}}" class="weui-input">未确认</view>
+                <view wx:else class="weui-input">{{inspcDetailItem.feedback.userConfirm}}</view>
+            </mp-cell>
+            <mp-cell title="工程师：" ext-class="">
+                <view class="weui-input">{{invoiceDetails.feedback.engineer}}</view>
+            </mp-cell>
+        </mp-cells>
+      </mp-form>
+      </mp-form-page>
