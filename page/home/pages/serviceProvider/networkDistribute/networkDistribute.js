@@ -9,7 +9,7 @@ Page({
     inspectionId: 0,
     projectId:0,
     //巡检详情tabbar
-    navTab: ["巡检信息", "进度条", "点位", "备品备件"],
+    navTab: ["巡检信息", "进度条", "子巡检", "备品备件"],
     currentNavtab: "0",
     //巡检详情信息
     inspectionDetail: {},
@@ -32,7 +32,7 @@ Page({
     content: {
       title: "新增网点",
       placeholder1: "此处输入网点名称",
-      placeholder2: "此处输入巡检设备",
+      placeholder2: "此处输入巡检位置",
       placeholder3: "此处输入描述",
       locsNum:1
     },
@@ -162,10 +162,10 @@ Page({
             console.log(index);
             var params = {
               "taskId": e.currentTarget.dataset.id,
-              "engineerId":engineers[index].id
+              "engineerId": engineers[index].userId
             }
             console.log(params)
-            common.distributeItemEngineer(params, (res) => {
+            common.distributeEngineerWithImcOrder(params, (res) => {
               console.log(res)
               if(res.code==200){
                 wx.showToast({

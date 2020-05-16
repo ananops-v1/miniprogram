@@ -95,6 +95,13 @@ Config.inspection = [
     name: "巡检申请"
   },
   {
+      id: "7",
+      url: "../home/pages/terminalUser/inspectionToBeVerify/inspectionToBeVerify",
+      icon_url: "/imgs/icon/inspection_comment.png",
+      name: "待审核",
+      num: 0
+  },
+  {
     id: "2",
     url: "../home/pages/terminalUser/inspectionToBeReceive/inspectionToBeReceive",
     icon_url: "/imgs/icon/dispatching.png",
@@ -108,9 +115,16 @@ Config.inspection = [
     name: "巡检中",
     num: 0
   },
+  // {
+  //   id: "4",
+  //   url: "../home/pages/terminalUser/inspectionToBeConfirm/inspectionToBeConfirm",
+  //   icon_url: "/imgs/icon/inspection_confirm.png",
+  //   name: "结果确认",
+  //   num: 0
+  // },
   {
     id: "4",
-    url: "../home/pages/terminalUser/inspectionToBeConfirm/inspectionToBeConfirm",
+    url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",
     icon_url: "/imgs/icon/inspection_confirm.png",
     name: "结果确认",
     num: 0
@@ -122,20 +136,13 @@ Config.inspection = [
     name: "待付款",
     num: 0
   },
-  {
-    id: "6",
-    url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",
-    icon_url: "/imgs/icon/inspection_comment.png",
-    name: "待评价",
-    num: 0
-  },
-  {
-    id: "7",
-    url: "../home/pages/terminalUser/inspectionToBeVerify/inspectionToBeVerify",
-    icon_url: "/imgs/icon/inspection_comment.png",
-    name: "待审核",
-    num: 0
-  }
+  // {
+  //   id: "6",
+  //   url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",
+  //   icon_url: "/imgs/icon/inspection_comment.png",
+  //   name: "待评价",
+  //   num: 0
+  // }
   ],
   [
     {//服务商
@@ -151,36 +158,43 @@ Config.inspection = [
       icon_url: "/imgs/icon/dispatching.png",
       name: "待处理",
       num: 0
-    }
+    },
+    {
+      id: "3",
+      url: "../home/pages/serviceProvider/inspectionCompleted/inspectionCompleted",
+      icon_url: "/imgs/icon/inspection_pay.png",
+      name: "已完成",
+      num: 0
+    },
   ],
   [{//工程师
     id: "1",
     url: "../home/pages/serviceEngineer/inspectionConfirm/inspectionConfirm",
     icon_url: "/imgs/icon/inspection_confirm.png",
-    name: "待确认",
+    name: "待接单",
     num: 0
   },
   {
     id: "2",
     url: "../home/pages/serviceEngineer/inspecting/inspecting",
     icon_url: "/imgs/icon/inspecting.png",
-    name: "巡检中",
+    name: "已接单",
     num: 0
   },
   {
     id: "3",
     url: "../home/pages/serviceEngineer/inspectionCheck/inspectionCheck",
     icon_url: "/imgs/icon/inspection_pay.png",
-    name: "待通过",
+    name: "已完成",
     num: 0
   },
-  {
-    id: "4",
-    url: "../home/pages/serviceEngineer/inspectionChecked/inspectionChecked",
-    icon_url: "/imgs/icon/inspectionItemChecked.png",
-    name: "已通过",
-    num: 0
-  }
+  // {
+  //   id: "4",
+  //   url: "../home/pages/serviceEngineer/inspectionChecked/inspectionChecked",
+  //   icon_url: "/imgs/icon/inspectionItemChecked.png",
+  //   name: "已通过",
+  //   num: 0
+  // }
   ]
 ],
 

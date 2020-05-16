@@ -14,6 +14,8 @@ Page({
     noteMaxLen: 300, // 最多放多少字
     content: "",
     noteNowLen: 0, //备注当前字数
+    confirmContent:"",
+    confirmContentLen:0
   },
   onLoad: function (options) {
     var taskId = options.id;
@@ -37,7 +39,17 @@ Page({
       starGrey: 5 - starYellow
     })
   },
-
+  bindConfirmTextChange:function(e) {
+    var _this = this
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > _this.data.noteMaxLen)
+      return;
+    _this.setData({
+      confirmContent: value,
+      confirmContentLen: len
+    })
+  },
   // 监听字数
   bindTextAreaChange: function (e) {
     var _this = this
@@ -54,18 +66,22 @@ Page({
   bindSubmit: function () {
     var _this = this;
     var param = {
+      "checkContens":_this.data.confirmContent,
       "contents": _this.data.content,
       "score": _this.data.starYellow,
       "inspectionTaskId": _this.data.taskId,
-      "principalId": wx.getStorageSync('userInfo').id
+      "principalId": wx.getStorageSync('userInfo').id,
+      "status":5,
+      "taskId": _this.data.taskId,
+      "userId": wx.getStorageSync('userInfo').id
     }
-    common.saveComment(param, (res) => {
+    common.confirmRating(param, (res) => {
       console.log(res);
       if (res.code == 200) {
         console.log("评价成功")
         var param = {
           'taskId': _this.data.taskId,
-          'status': 7,
+          'status': 5,
           'statusMsg': '已评价'
         }
         common.modifyTaskStatus(param, (res) => {

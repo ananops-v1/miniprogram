@@ -397,6 +397,21 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //巡检任务确认
+  confirmRating(param, callback) {
+    var params = {
+      url: '/imc/inspectionReview/confirmRating',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //更改巡检任务的状态
   modifyTaskStatus(param, callback) {
     var params = {
@@ -470,6 +485,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //查询工程师下的已接单巡检任务子项
+  getAllAcceptedItemList(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/getAllAcceptedItemListByMaintainer',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //编辑巡检任务子项记录
   addInspectionItem(param, callback) {
     var params = {
@@ -510,6 +537,18 @@ class Common extends Base {
   modifyItemStatusByItemId(param, callback) {
     var params = {
       url: '/imc/inspectionItem/modifyItemStatusByItemId',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //提交巡检结果相关信息
+  putResultByItemId(param, callback) {
+    var params = {
+      url: '/imc/inspectionItem/putResultByItemId',
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -579,6 +618,30 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //获取所有待处理的巡检子项
+  getAllUnDistributedTask(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/getAllUnDistributedTask',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //获取所有已完成的巡检子项
+  getAllFinishedTaskByFacilitatorId(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/getAllFinishedTaskByFacilitatorId',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //获取巡检指定状态的巡检子项
   getAllItems(param, callback) {
     var params = {
@@ -593,6 +656,18 @@ class Common extends Base {
   }
   //为巡检任务子项分配工程师
   distributeItemEngineer(param, callback) {
+    var params = {
+      url: '/spc/workorder/distributeEngineerWithImcOrder',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //分配巡检类型工单信息中的工程师信息,状态
+  distributeEngineerWithImcOrder(param, callback) {
     var params = {
       url: '/spc/workorder/distributeEngineerWithImcOrder',
       data: param,
@@ -666,6 +741,7 @@ class Common extends Base {
   itemInvoiceSave(param, callback) {
     var params = {
       url: '/imc/itemInvoice/save',
+      data: param,
       method: 'POST',
       sCallback: function (data) {
         callback && callback(data);

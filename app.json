@@ -56,7 +56,9 @@
     "page/home/pages/serviceProvider/inspectionDistribute/inspectionDistribute",
     "page/home/pages/serviceProvider/networkDistribute/networkDistribute",
     "page/messageDetail/messageDetail",
-    "page/home/pages/invoice/invoice"
+    "page/home/pages/invoice/invoice",
+    "page/home/pages/invoiceRead/invoiceRead",
+    "page/home/pages/serviceProvider/inspectionCompleted/inspectionCompleted"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

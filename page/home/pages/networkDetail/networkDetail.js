@@ -1,4 +1,5 @@
 //discovery.js
+const UTIL = require('../../../../util/util.js')
 import {
   Common
 } from '../../../../page/common/base_model.js';
@@ -21,11 +22,101 @@ Page({
     contentModal3: "未填写信息",
     contentModalTemp: "",
     isInspecting:false,
+    allEdit:false,
     invoiceList:[],
     editFlag:false,
+    showEdit: false,
+    content: {
+      title: "完成该巡检任务信息",
+      subTitleStartDate: "实际开始时间",
+      subTitleEndDate: "实际结束时间",
+      startDate:"",
+      startTime:"",
+      endDate: "",
+      endTime: "",
+    },
+    networksPics: [
+      []
+    ],
+  },
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+    })
+  },
+  confirmInput: function (e) {
+    var that=this
+    console.log(this.data.networksPics)
+    if (this.data.networksPics[0].length==0){
+      wx.showToast({
+        title: '请上传巡检图片',
+        icon: 'none',
+        duration: 2000//持续的时间
+      })
+    }
+    else{
+      var param = {
+        "actualFinishTime": this.data.content.startDate + ' ' + this.data.content.startTime,
+        "actualStartTime": this.data.content.endDate + ' ' + this.data.content.endTime,
+        "attachmentIds": this.data.networksPics[0],
+        "itemId": this.data.inspectionItemId,
+        "status": 4
+      }
+      common.putResultByItemId(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          wx.showToast({
+            title: "操作成功",
+            icon: 'none',
+            duration: 2000,
+          })
+          that.setData({
+            showEdit: false,
+          })
+          wx.navigateBack()
+        }
+      })
+    }
+  },
+  clickAccept: function (e) {
+    this.setData({
+      showEdit: true,
+    })
+  },
+  onShow:function(){
+    var _this=this
+    if (wx.getStorageSync('userInfo').roles[0].roleCode != "engineer") {
+      _this.loadInvoiceList("Y");
+    }
+    else {
+      if (_this.data.inspectionItem.status==3){
+        _this.setData({
+          editFlag: false
+        })
+        _this.loadInvoiceList("N");
+      }
+      else{
+        _this.setData({
+          editFlag: true
+        })
+        _this.loadInvoiceList("Y");
+      }
+    }
   },
   onLoad: function (options) {
     var that = this
+    var DATE = UTIL.formatDate(new Date());
+    var TIME = UTIL.formatTime(new Date());
+    var content=that.data.content
+    content.startDate = DATE
+    content.endDate = DATE
+    content.startTime = TIME
+    content.endTime = TIME
+    that.setData({
+      content: content,
+      userRole: wx.getStorageSync('userInfo').roles[0].roleCode
+    })
+    console.log(content)
     var userRole = wx.getStorageSync('userInfo').roles[0].roleCode||"engineer"
     that.setData({
       inspectionItemId: options.inspectionItemId || "841966829785059328",
@@ -78,6 +169,51 @@ Page({
       }
     })
     that.switchTab({ currentTarget: { dataset: { idx: that.data.currentNavtab } } })
+  },
+  bindStartDateChange:function(e){
+    var that = this
+    var content = that.data.content
+    content.startDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindStartTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.startTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindEndDateChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindEndTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  //上传图片
+  clickUploadImg() {
+    var networksPics = this.data.networksPics
+    wx.navigateTo({
+      url: "../uploadImage/uploadImage?filePath=inspectionTask&&inspectionItem=" + 0
+    })
+  },
+  clickRead: function (e) {
+    console.log(e)
+    wx.navigateTo({
+      url: "../invoiceRead/invoiceRead?invoiceId=" + e.currentTarget.dataset.id,
+    })
   },
   clickEdit:function(e){
     console.log(e)
@@ -271,22 +407,44 @@ Page({
     }
     else if (index == 2) {
       console.log("进入巡检单据页面")
-      _this.loadInvoiceList("N");
+      if (wx.getStorageSync('userInfo').roles[0].roleCode != "engineer") {
+        _this.loadInvoiceList("Y");
+      }
+      else{
+        if (_this.data.inspectionItem.status == 3) {
+          _this.setData({
+            editFlag: false
+          })
+          _this.loadInvoiceList("N");
+        }
+        else {
+          _this.setData({
+            editFlag: true
+          })
+          _this.loadInvoiceList("Y");
+        }
+      }
     }
     _this.setData({
       currentNavtab: index
     });
   },
   loadInvoiceList: function (editFlag){
+    var _this=this
     var param = {
-      "itemId": this.data.inspectionItemId,
+      "itemId": _this.data.inspectionItemId,
       "status": editFlag
     }
     common.queryInvoiceList(param, (res) => {
       console.log(res)
-      this.setData({
+      _this.setData({
         invoiceList: res.result
       })
+      if (editFlag == "N" && res.result.length==0){
+        _this.setData({
+          allEdit:true
+        })
+      }
     })
   },
 });

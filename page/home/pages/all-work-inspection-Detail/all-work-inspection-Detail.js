@@ -8,7 +8,7 @@ Page({
     //巡检Id
     inspectionId: 0,
     //巡检详情tabbar
-    navTab: ["巡检信息", "进度条", "点位", "备品备件"],
+    navTab: ["巡检信息", "进度条", "子巡检", "备品备件"],
     currentNavtab: "0",
     //巡检详情信息
     inspectionDetail: {},

@@ -141,7 +141,8 @@ function homeInitInspections(allInspections) {
     'toBeConfirm': 0,
     'toBePay': 0,
     'toBeComment': 0,
-    'toBeVerify': 0
+    'toBeVerify': 0,
+    'completed': 0
   };
   if (allInspections != null && allInspections.length > 0) {
     allInspections.forEach(function (e) {
@@ -161,20 +162,23 @@ function homeInitInspections(allInspections) {
         answer.toBePay++;
       } else if (e.status == 6) {
         answer.toBeComment++;
+      } else if (e.status == 7){
+        answer.completed++;
       }
     });
   }
   console.log(answer.toBeVerify)
   //甲方负责人
-  Config.inspection[1][1].num = answer.toBeAccept;
-  Config.inspection[1][2].num = answer.inspecting;
-  Config.inspection[1][3].num = answer.toBeConfirm;
-  Config.inspection[1][4].num = answer.toBePay;
-  Config.inspection[1][5].num = answer.toBeComment;
-  Config.inspection[1][6].num = answer.toBeVerify;
+  Config.inspection[1][1].num = answer.toBeVerify;
+  Config.inspection[1][2].num = answer.toBeAccept;
+  Config.inspection[1][3].num = answer.inspecting;
+  Config.inspection[1][4].num = answer.toBeConfirm;
+  Config.inspection[1][5].num = answer.toBePay;
+  // Config.inspection[1][5].num = answer.toBeComment;
   //服务商
   console.log(answer.toBeAccept)
   Config.inspection[2][0].num = answer.toBeAccept;
+  Config.inspection[2][2].num = answer.completed;
 }
 function homeInitToBeDispath(undistributedItems){
   Config.inspection[2][1].num = undistributedItems.length
@@ -198,16 +202,16 @@ function homeInitItems(allItems) {
         answer.inspecting++;
       } else if (e.status == 4) {
         answer.toBeCheck++;
-      } else if (e.status == 5) {
-        answer.checked++;
-      }
+       } //else if (e.status == 5) {
+      //   answer.checked++;
+      // }
     });
   }
   //维修工
   Config.inspection[3][0].num = answer.toBeAccept;
   Config.inspection[3][1].num = answer.inspecting;
   Config.inspection[3][2].num = answer.toBeCheck;
-  Config.inspection[3][3].num = answer.checked;
+  // Config.inspection[3][3].num = answer.checked;
 }
 
 module.exports = {

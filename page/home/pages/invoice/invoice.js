@@ -28,8 +28,9 @@ Page({
    */
   onLoad: function (options) {
     var _this=this
-    var DATE = UTIL.formatDate(new Date());
-    var TIME = UTIL.formatTime(new Date());
+    var DATETIME = new Date()
+    var DATE = UTIL.formatDate(DATETIME);
+    var TIME = UTIL.formatTime(DATETIME);
     _this.setData({
       inspectionDate: DATE,
       inspectionTime: TIME,
@@ -77,7 +78,7 @@ Page({
   deviceInfoInput:function(e){
     var index = e.currentTarget.dataset.index;
     var deviceInfo=this.data.deviceInfo
-    deviceInfo[index] = e.detail.value
+    deviceInfo[index].device = e.detail.value
     this.setData({
       deviceInfo: deviceInfo
     })
@@ -127,10 +128,16 @@ Page({
   clickComplete(e){
     var param={}
     var feedBack = {}
+    var dateTime = (this.data.inspectionDate + ' ' + this.data.inspectionTime).trim().split(/\s+/)
     feedBack.engineer = this.data.invoiceDetails.feedback.engineer
     feedBack.userConfirm = this.data.invoiceDetails.feedback.userConfirm
     feedBack.inspcResult = this.data.inspectionResult
-    feedBack.inspcDate = this.data.inspectionDate + ' ' + this.data.inspectionTime
+    if (dateTime[1].trim().split(":").length==2){
+      feedBack.inspcDate = dateTime[0] + ' ' + dateTime[1]+':00'
+    }
+    else{
+      feedBack.inspcDate = dateTime[0] + ' ' + dateTime[1]
+    }
     param.assetList = this.data.deviceInfo
     param.feedback = feedBack
     param.inspcDetailList = this.data.inspcDetailList
@@ -142,9 +149,18 @@ Page({
     param.schemaId = "832415946738240926" //this.data.invoiceDetails.schemaId
     param.templateId = this.data.invoiceDetails.templateId
     console.log(param)
-    common.itemInvoiceSave(JSON.stringify(param),(res)=>{
+    common.itemInvoiceSave(param,(res)=>{
       console.log(res)
-
+      if (res.code==200){
+        wx.navigateBack();
+      }
+      else{
+        wx.showToast({
+          title: "提交失败",
+          icon: 'none',
+          duration: 2000,
+        })
+      }
     })
   },
   /**

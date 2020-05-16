@@ -1,4 +1,5 @@
 <!-- 顶部tabbar -->
+<import src="../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab ">
   <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
@@ -43,10 +44,14 @@
 
   <view class="ctnt1 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <view class="page__bd">
-        <view class="weui-form-preview__ft">
-          <radio-group name="radio">
+        <view wx:if="{{userRole=='engineer'}}" class="weui-form-preview__ft">
+          <radio-group wx:if="{{!editFlag}}" name="radio">
             <label data-flag="unEdit" bindtap="clickRadioForunEdit"><radio value="radio1" checked="true"/>未填写</label>
             <label data-flag="isEdit" bindtap="clickRadioForisEdit"><radio value="radio2"/>已填写</label>
+          </radio-group>
+          <radio-group wx:else name="radio">
+            <label data-flag="unEdit" bindtap="clickRadioForunEdit"><radio value="radio1"/>未填写</label>
+            <label data-flag="isEdit" bindtap="clickRadioForisEdit"><radio value="radio2" checked="true"/>已填写</label>
           </radio-group>
         </view>
         <scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
@@ -65,8 +70,9 @@
                 <view wx:if="{{invoiceItem.inspcDate==null}}" style="font-size: 13px;color: #888888;">巡检日期:无</view>
                 <view wx:else style="font-size: 13px;color: #888888;">巡检日期:{{invoiceItem.inspcDate}}</view>
                 <view class="operation_view">
-                  <view wx:if="{{!editFlag}}" class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickEdit">填写</view>
-                  <view wx:else class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickChange">修改</view>
+                  <view wx:if="{{!editFlag && userRole=='engineer' && inspectionItem.status==3}}" class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickEdit">填写</view>
+                  <view wx:elif="{{editFlag && userRole=='engineer' && inspectionItem.status==3}}" class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickChange">修改</view>
+                  <view wx:else class="operation_button" data-id="{{invoiceItem.id}}" data-index="{{index}}" catchtap="clickRead">查看</view>
                   <!-- <view class="operation_button" data-id="{{order.id}}" catchtap="clickNotAccept">驳回</view> -->
                 </view>
             </mp-cell>
@@ -77,7 +83,7 @@
     <!-- <view slot="button">
         <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
     </view> -->
-      <view class="weui-form-preview__ft" wx:if="{{isInspecting}}" catchtap="clickAccept">
+      <view class="weui-form-preview__ft" wx:if="{{isInspecting && allEdit}}" catchtap="clickAccept">
         <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">完成</button>
       </view>
         <!-- <view class="weui-form-preview">
@@ -155,4 +161,6 @@
       </mp-cells>
     </view>
   </view>
+  <template is="completeInspection" data="{{showEdit,content}}">
+  </template>
 </view>

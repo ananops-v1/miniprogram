@@ -1,3 +1,12 @@
+<view class="star_view">验收服务内容：</view>
+<view class="weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" bindinput="bindConfirmTextChange" placeholder="请输入维修任务验收内容" style="height: 8em" value="{{confirmContent}}" maxlength="{{noteMaxLen}}" focus />
+      <view class="weui-textarea-counter">{{confirmContentLen}}/{{noteMaxLen}}</view>
+    </view>
+  </view>
+</view>
 <view class="star_view">服务评价：</view>
 <block wx:for="{{starYellow}}" wx:key="index">
   <image catchtap='score' id='{{index+1}}' data-in='yellow' src='/imgs/others/star@yellow.png'></image>
@@ -9,7 +18,7 @@
 <view class="weui-cells_after-title">
   <view class="weui-cell">
     <view class="weui-cell__bd">
-      <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="请给出您的宝贵意见，我们会做的更好" style="height: 8em" value="{{content}}" maxlength="{{noteMaxLen}}" focus />
+      <textarea class="weui-textarea" bindinput="bindTextAreaChange" placeholder="请给出您的宝贵意见，我们会做的更好" style="height: 8em" value="{{content}}" maxlength="{{noteMaxLen}}" />
       <view class="weui-textarea-counter">{{noteNowLen}}/{{noteMaxLen}}</view>
     </view>
   </view>

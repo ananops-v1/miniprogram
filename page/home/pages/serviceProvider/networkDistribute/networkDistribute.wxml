@@ -73,7 +73,7 @@
             <mp-cell value="故障描述" footer="{{}}"></mp-cell>
         </mp-cells> -->
       <view wx:if="{{isAdditional}}" class='add_btn' bindtap="clickAddNetwork">
-        <button class='btn'>新增点位</button>
+        <button class='btn'>新增子巡检</button>
       </view>
     </view>
   </view>

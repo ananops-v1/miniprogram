@@ -206,6 +206,31 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  onShow: function(){
+    AUTH.checkHasLogined();
+    var that = this
+    var itemsList = []
+    var param = {
+      'maintainerId': wx.getStorageSync('userInfo').id,
+      'status': 3,
+      "orderBy": "string",
+      "pageNum": 0,
+      "pageSize": 100,
+    }
+    common.getInspectionItem(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log("获取巡检子项列表成功");
+        itemsList = res.result
+        that.setData({
+          inspectionItems: itemsList
+        })
+      }
+      else {
+        console.log("获取巡检子项列表失败");
+      }
+    })
+  },
   onLoad: function (options) {
     var that = this
     var itemsList=[]
@@ -245,13 +270,6 @@ Page({
    */
   onReady: function () {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    AUTH.checkHasLogined();
   },
 
   /**

@@ -70,7 +70,7 @@
             </mp-cell>
             <mp-cell wx:if="{{invoiceDetails.feedback.inspcDate==null}}" prop="date" title="巡检时间：" ext-class="">
                 <view class="weui-cell__bd">
-                  <picker mode="time" value="{{inspectionTime}}" bindchange="bindTimeChange">
+                  <picker mode="time" value="{{inspectionTime}}" start="00:00:00" end="23:59:59" bindchange="bindTimeChange">
                     <view class="weui-input">{{inspectionTime}}</view>
                   </picker>
                 </view>
@@ -93,6 +93,5 @@
       </mp-form>
       </mp-form-page>
 <view class="weui-form-preview__ft" bindtap="clickComplete">
-  <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">完成</button>
+  <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">提交</button>
 </view>
-      

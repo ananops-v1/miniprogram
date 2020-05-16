@@ -203,7 +203,7 @@ Page({
     var that = this
     var param = {
       'userId': that.data.userId,
-      'status': 6,
+      'status': 4,
       'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
       "orderBy": "string",
       "pageNum": 0,

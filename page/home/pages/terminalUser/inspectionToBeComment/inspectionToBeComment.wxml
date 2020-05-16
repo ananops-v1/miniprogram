@@ -11,7 +11,7 @@
                 <view style="font-size: 13px;color: #888888;">开始时间:{{order.scheduledStartTime}}</view>
                 <view style="font-size: 13px;color: #888888;">计划时间:{{order.days}}天</view>
                 <view class="operation_view">
-                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickToDoComment">去评价</view>
+                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickToDoComment">确认</view>
                 </view>
             </mp-cell>
         </mp-cells>

@@ -347,8 +347,8 @@ Page({
         "frequency": this.data.cycleTime, //天数
         "userId": wx.getStorageSync('userInfo').id,
         "content": this.data.inspectionContent,//this.data.deviceSets === "点击填写" ? "" : this.data.deviceSets,
-        "inspectionType": 1,//1从巡检方案 2需要用户负责人审核
-        "imcAddInspectionItemDtoList": newNetworks,//[
+        "inspectionType":2,//1从巡检方案 2需要用户负责人审核
+        // "imcAddInspectionItemDtoList": newNetworks,//[
         //   {
         //     "description": this.data.inspectionContent,
         //     "itemLatitude": 1,//默认
@@ -360,14 +360,14 @@ Page({
         //     "userId": wx.getStorageSync('userInfo').id
         //   }
         // ],
-        "inspectionType": this.data.programList[this.data.programIndex].isContract,//合同0 非1
         "principalId": wx.getStorageSync('userInfo').id,//负责人
         "projectId": this.data.programId,
-        "remark": this.data.inspectionRemark,//备注
+        // "remark": this.data.inspectionRemark,//备注
         "scheduledStartTime": this.data.date + ' ' + this.data.time,
-        "status": 0,
+        // "status": 0,
         "taskName": this.data.inspectionName,//this.data.inspectionNameList[this.data.inspectionIndex],
-        "totalCost": 100//合同总花费
+        // "totalCost": 100, //合同总花费
+        "pointSum":this.data.locNum
       };
       console.log(param);
       common.inspectionSave(param, (res) => {

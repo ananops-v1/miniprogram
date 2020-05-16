@@ -168,7 +168,7 @@ Page({
         if (sm.confirm) {
           var param = {
             'taskId': e.currentTarget.dataset.id,
-            'status': 6,
+            'status': 7,
             'statusMsg': '待评价'
           }
           common.modifyTaskStatus(param, (res) => {
