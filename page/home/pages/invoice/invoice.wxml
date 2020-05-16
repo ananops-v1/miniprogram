@@ -1,7 +1,7 @@
 <!--page/home/pages/invoice/invoice.wxml-->
-<mp-form-page title="系统维护保养巡检记录表:">
+<mp-form-page title="巡检单">
       <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells>
+        <mp-cells title="系统维护保养巡检记录表:">
             <mp-cell title="点位名称:" ext-class="">
                 <input wx:if="{{invoiceDetails.pointName==null}}" class="weui-input" placeholder="请输入点位名称" bindinput="pointNameInput"/>
                 <input wx:else class="weui-input" value="{{invoiceDetails.pointName}}" bindinput="pointNameInput"/>
@@ -14,21 +14,13 @@
                 <view class="weui-input">{{invoiceDetails.inspcCompany}}</view>
             </mp-cell>
         </mp-cells>
-      </mp-form>
-      </mp-form-page>
-      <mp-form-page title="设备统计：">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells wx:for="{{invoiceDetails.assetList}}" wx:for-item="assetItem" wx:for-index="index" wx:key="{{assetItem.id}}" title="设备信息:">
+        <mp-cells title="设备统计：" wx:for="{{invoiceDetails.assetList}}" wx:for-item="assetItem" wx:for-index="index" wx:key="{{assetItem.id}}" title="设备信息:">
             <mp-cell has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
                 <textarea class="weui-textarea" value="{{assetItem.device}}" style="height: 3.3em" data-index="{{index}}" bindinput="deviceInfoInput"></textarea>
                 <view class="weui-textarea-counter">0/200</view>
             </mp-cell>
         </mp-cells>
-      </mp-form>
-      </mp-form-page>
-      <mp-form-page title="常规巡检详情：">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells wx:for="{{invoiceDetails.inspcDetailList}}" wx:for-item="inspcDetailItem" wx:for-index="index" wx:key="{{inspcDetailItem.id}}">
+        <mp-cells title="常规巡检详情：" wx:for="{{invoiceDetails.inspcDetailList}}" wx:for-item="inspcDetailItem" wx:for-index="index" wx:key="{{inspcDetailItem.id}}">
             <mp-cell title="巡检内容：" ext-class="">
                 <view class="weui-input">{{inspcDetailItem.itemContent}}</view>
             </mp-cell>
@@ -45,11 +37,7 @@
                 <input wx:else class="weui-input" value="{{inspcDetailItem.itemResult}}" data-index="{{index}}" bindinput="itemResultInput"/>
             </mp-cell>
         </mp-cells>
-      </mp-form>
-      </mp-form-page>
-      <mp-form-page title="确认内容：">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells>
+        <mp-cells title="确认内容：">
             <mp-cell title="巡检结论：" ext-class="">
                 <input wx:if="{{invoiceDetails.feedback.inspcResult==null}}" class="weui-input" placeholder="请输入内容" bindinput="inspectionResultInput"/>
                 <input wx:else class="weui-input" value="{{invoiceDetails.feedback.inspcResult}}" bindinput="inspectionResultInput"/>

@@ -438,10 +438,10 @@ Page({
       "orderBy": "string",
       "pageNum": 0,
       "pageSize": 100,
-      "status": 1,
+      // "status": 1,
       "taskId": inspectionId
     }
-    common.getAllItems(param, (res) => {
+    common.getAllItemByTaskId(param, (res) => {
       console.log(res)
       if (res.code == 200) {
         console.log("获取巡检子项成功")

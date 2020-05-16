@@ -1,7 +1,7 @@
 <!--page/home/pages/invoice/invoice.wxml-->
-<mp-form-page title="系统维护保养巡检记录表:">
+<mp-form-page title="巡检单">
       <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells>
+        <mp-cells title="系统维护保养巡检记录表:">
             <mp-cell title="点位名称:" ext-class="">
                 <view class="weui-input">{{invoiceDetails.pointName}}</view>
             </mp-cell>
@@ -12,40 +12,26 @@
                 <view class="weui-input">{{invoiceDetails.inspcCompany}}</view>
             </mp-cell>
         </mp-cells>
-      </mp-form>
-      </mp-form-page>
-      <mp-form-page title="设备统计：">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells wx:for="{{invoiceDetails.assetList}}" wx:for-item="assetItem" wx:for-index="index" wx:key="{{assetItem.id}}" title="设备信息:">
+        <mp-cells title="设备统计：" wx:for="{{invoiceDetails.assetList}}" wx:for-item="assetItem" wx:for-index="index" wx:key="{{assetItem.id}}" title="设备信息:">
             <mp-cell has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-                <view class="weui-input" style="height: 3.3em">{{assetItem.device}}</view>
+                <text class="detail_text"  style="height: 3.3em" style="white-space:pre-wrap">{{assetItem.device}}</text>
             </mp-cell>
         </mp-cells>
-      </mp-form>
-      </mp-form-page>
-      <mp-form-page title="常规巡检详情：">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells wx:for="{{invoiceDetails.inspcDetailList}}" wx:for-item="inspcDetailItem" wx:for-index="index" wx:key="{{inspcDetailItem.id}}">
+        <mp-cells title="常规巡检详情：" wx:for="{{invoiceDetails.inspcDetailList}}" wx:for-item="inspcDetailItem" wx:for-index="index" wx:key="{{inspcDetailItem.id}}">
             <mp-cell title="巡检内容：" ext-class="">
                 <view class="weui-input">{{inspcDetailItem.itemContent}}</view>
             </mp-cell>
             <mp-cell title="本次情况：" ext-class="">
                 <radio-group name="radio">
-                  <label wx:if="{{inspcDetailItem.itemState=='Y'}}" data-index="{{index}}"><radio checked="true" value="radio1"/>正常</label>
-                  <label wx:else data-index="{{index}}"><radio value="radio1"/>正常</label>
-                  <label wx:if="{{inspcDetailItem.itemState=='N'}}" data-index="{{index}}"><radio checked="true" value="radio2"/>异常</label>
-                  <label wx:else data-index="{{index}}"><radio value="radio2"/>异常</label>
+                  <label wx:if="{{inspcDetailItem.itemState=='Y'}}" data-index="{{index}}"><view class="weui-input">正常</view></label>
+                  <label wx:if="{{inspcDetailItem.itemState=='N'}}" data-index="{{index}}"><view class="weui-input">异常</view></label>
                 </radio-group>
             </mp-cell>
             <mp-cell title="处理结果：" ext-class="">
                 <view class="weui-input">{{inspcDetailItem.itemResult}}</view>
             </mp-cell>
         </mp-cells>
-      </mp-form>
-      </mp-form-page>
-      <mp-form-page title="确认内容：">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells>
+        <mp-cells title="确认内容：">
             <mp-cell title="巡检结论：" ext-class="">
                 <view class="weui-input">{{invoiceDetails.feedback.inspcResult}}</view>
             </mp-cell>

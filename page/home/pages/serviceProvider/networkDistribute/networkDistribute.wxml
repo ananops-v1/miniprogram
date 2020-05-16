@@ -59,9 +59,10 @@
                 </view>
                 <view style="font-size: 13px;color: #888888;">设备位置:{{order.itemName}}</view>
                 <view style="font-size: 13px;color: #888888;">报修时间:{{order.scheduledStartTime}}</view>
-                <view style="font-size: 13px;color: #888888;">维修工程师:未分配</view>
+                <view wx:if="{{order.status==1}}" style="font-size: 13px;color: #888888;">状态:未分配</view>
+                <view wx:else style="font-size: 13px;color: #888888;">状态:已分配</view>
                 <view class="operation_view">
-                  <view class="operation_button" data-id="{{order.id}}" catchtap="clickDispatch">分配</view>
+                  <view wx:if="{{order.status==1}}" class="operation_button" data-id="{{order.id}}" catchtap="clickDispatch">分配</view>
                 </view>
             </mp-cell>
         </mp-cells>
