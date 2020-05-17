@@ -241,10 +241,15 @@ Page({
       console.log(res);
     });
     console.log(projectId);
-    common.getEngineersByProjectId(projectId, (res) => {
+    var query = {
+      "pageNum": 0,
+      "pageSize": 0,
+      "position": "engineer"
+    };
+    common.queryListByGroupId(query, (res) => {
       console.log(res);
-      var repairerList = res.result.map(function(item) {
-        return item['name'];
+      var repairerList = res.result.list.map(function(item) {
+        return item['loginName'];
       });
       var repairerInfoList = res.result;
       wx.showActionSheet({

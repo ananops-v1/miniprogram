@@ -138,12 +138,17 @@ Page({
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
     });
-    common.getEngineersByProjectId(projectId, (res) => {
+    var query = {
+      "pageNum": 0,
+      "pageSize": 0,
+      "position": "engineer"
+    };
+    common.queryListByGroupId(query, (res) => {
       console.log(res);
-      var repairerList = res.result.map(function (item) {
-        return item['name'];
+      var repairerList = res.result.list.map(function (item) {
+        return item['loginName'];
       });
-      var repairerInfoList = res.result;
+      var repairerInfoList = res.result.list;
       console.log(repairerList);
       wx.showActionSheet({
         itemList: repairerList,
