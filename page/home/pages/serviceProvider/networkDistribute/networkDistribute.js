@@ -288,12 +288,12 @@ Page({
         icon: 'none'
       })
     }
-    else if (this.data.networksPics[0] == [] || this.data.networksPics[0].length==0){
-      wx.showToast({
-        title: '图片未上传',
-        icon: 'none'
-      })
-    }
+    // else if (this.data.networksPics[0] == [] || this.data.networksPics[0].length==0){
+    //   wx.showToast({
+    //     title: '图片未上传',
+    //     icon: 'none'
+    //   })
+    // }
     else {
       console.log(this.data.newName1.trim())
       console.log(this.data.newName2.trim())
