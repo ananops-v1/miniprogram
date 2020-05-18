@@ -242,7 +242,12 @@ Page({
         wx.showToast({
           title: "操作成功",
           icon: 'none',
-          duration: 2000,
+          duration: 1000,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1000)
+          }
         })
       }
     });
