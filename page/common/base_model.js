@@ -11,6 +11,20 @@ class Common extends Base {
     super()
   }
 
+  repairConfirmComment(param, callback) {
+    var params = {
+      url: '/mdmc/mdmcReview/save',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   createRepair(param, callback) {
     var params = {
       url: '/mdmc/mdmcTask/save',
@@ -390,6 +404,30 @@ class Common extends Base {
   getInspectionTaskByStatus(param, callback) {
     var params = {
       url: '/imc/inspectionTask/getTaskByUserIdAndStatus',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据用户（1：甲方负责人，2：服务商）的id查询对应的巡检任务
+  getTaskListByUserId(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/getTaskListByUserId',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //获取全部当前服务商的巡检任务
+  getAllTaskByFacilitatorId(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/getAllTaskByFacilitatorId',
       data: param,
       method: 'POST',
       sCallback: function (data) {

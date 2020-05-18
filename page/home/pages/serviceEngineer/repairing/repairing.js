@@ -103,6 +103,7 @@ Page({
         _this.setData({
           showEdit: false
         })
+        _this.onShow()
       });
     }
   },

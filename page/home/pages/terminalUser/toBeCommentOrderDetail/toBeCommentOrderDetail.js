@@ -79,7 +79,8 @@ Page({
       "score": _this.data.starYellow,
       "taskId": taskId,
       "userId": userId,
-      "checkContens": checkContens
+      "checkContens": checkContens,
+      "status": 11
     }
     console.log(param);
     comment.comment(param,(res) => {

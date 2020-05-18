@@ -15,7 +15,7 @@ Page({
     currentNavtab: "0",
     hiddenModal: true,
     hiddenModal1: true,
-    contentModal1:"未填写信息",
+    contentModal1: "未填写信息", 
     hiddenModal2: true,
     contentModal2: "未填写信息",
     hiddenModal3: true,
@@ -47,14 +47,7 @@ Page({
   confirmInput: function (e) {
     var that=this
     console.log(this.data.networksPics)
-    if (this.data.networksPics[0].length==0){
-      wx.showToast({
-        title: '请上传巡检图片',
-        icon: 'none',
-        duration: 2000//持续的时间
-      })
-    }
-    else{
+    
       var param = {
         "actualFinishTime": this.data.content.startDate + ' ' + this.data.content.startTime,
         "actualStartTime": this.data.content.endDate + ' ' + this.data.content.endTime,
@@ -76,7 +69,6 @@ Page({
           wx.navigateBack()
         }
       })
-    }
   },
   clickAccept: function (e) {
     this.setData({

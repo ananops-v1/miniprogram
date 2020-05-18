@@ -15,7 +15,7 @@ Page({
     projectId:0,
     //待确认工单列表
     orderListLength: 8,
-    inspectionStates: ['审核未通过', '待审核', '待分配服务商', '待服务商接单', '服务商已接单', '待结果确认', '待付款', '待评价', '巡检结束'],
+    inspectionStates: ['审核未通过', '待审核', '待分配服务商', '待服务商接单', '服务商已接单', '待结果确认', '待付款', '巡检结束'],
     orderList: [
       {
         id: 1,
@@ -165,32 +165,75 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {  
+  onLoad: function (options) {
     var that = this
-    that.setData({
-      projectId: options.projectId
-    })
-    var paramProjectId={
-      'projectId': options.projectId,
-      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
-      'status':0,
-      'userId': wx.getStorageSync('userInfo').id,
-      "orderBy": "string",
-      "pageNum": 0,
-      "pageSize": 100,
+    if (wx.getStorageSync("userInfo").roles[0].roleCode == "user_leader") {
+      var param = {
+        "userId": wx.getStorageSync("userInfo")['id'],
+        "role": 1,
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 100,
+
+      }
+      common.getTaskListByUserId(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取巡检列表成功");
+          that.setData({
+            inspectionList: res.result.list
+          })
+        }
+        else {
+          console.log("获取巡检列表失败");
+        }
+      })
     }
-    common.getInspectionTaskAll(paramProjectId, (res) => {
-      console.log(res);
-      if(res.code==200){
-        console.log("获取巡检列表成功");
-        that.setData({
-          inspectionList:res.result
-        })
+    else if (wx.getStorageSync("userInfo").roles[0].roleCode == "fac_leader") {
+      var param = {
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 100,
+
       }
-      else{
-        console.log("获取巡检列表失败");
-      }
-    })
+      common.getAllTaskByFacilitatorId(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取巡检列表成功");
+          that.setData({
+            inspectionList: res.result.list
+          })
+        }
+        else {
+          console.log("获取巡检列表失败");
+        }
+      })
+    }  
+    // var that = this
+    // that.setData({
+    //   projectId: options.projectId
+    // })
+    // var paramProjectId={
+    //   'projectId': options.projectId,
+    //   'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
+    //   'status':0,
+    //   'userId': wx.getStorageSync('userInfo').id,
+    //   "orderBy": "string",
+    //   "pageNum": 0,
+    //   "pageSize": 100,
+    // }
+    // common.getInspectionTaskAll(paramProjectId, (res) => {
+    //   console.log(res);
+    //   if(res.code==200){
+    //     console.log("获取巡检列表成功");
+    //     that.setData({
+    //       inspectionList:res.result
+    //     })
+    //   }
+    //   else{
+    //     console.log("获取巡检列表失败");
+    //   }
+    // })
     //调用应用实例的方法获取全局数据
     that.refresh();
     that.setData({

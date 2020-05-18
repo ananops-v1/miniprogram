@@ -11,7 +11,7 @@
                 <view>每{{order.frequency}}天</view>
                 <view style="font-size: 13px;color: #888888;">开始时间:{{order.scheduledStartTime}}</view>
                 <view style="font-size: 13px;color: #888888;">计划时间:{{order.days}}天</view>
-                <view style="font-size: 13px;color: red;">当前状态:{{inspectionStates[order.status+1]}}</view>
+                <view style="font-size: 13px;color: red;">当前状态:{{inspectionStates[order.status]}}</view>
             </mp-cell>
         </mp-cells>
       </scroll-view>

@@ -47,7 +47,7 @@
       <view class="page-section">
         <view class="kind-list-item-hd">
           <view class="kind-list-text">我的巡检</view>
-          <navigator class="list-text" url="pages/all-work-project/all-work-project">查看全部任务</navigator>
+          <navigator class="list-text" url="pages/all-work-inspection/all-work-inspection">查看全部任务</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
         <view class="page-body-line"></view>
@@ -87,7 +87,7 @@
       <view class="page-section">
         <view class="kind-list-item-hd">
           <view class="kind-list-text">我的巡检</view>
-          <navigator class="list-text" url="pages/all-work-project/all-work-project">查看全部任务</navigator>
+          <navigator class="list-text" url="pages/all-work-inspection/all-work-inspection">查看全部任务</navigator>
           <image class="kind-list-img" src="/imgs/icon/arrow.png"></image>
         </view>
         <view class="page-body-line"></view>
@@ -161,7 +161,7 @@
                   <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
                 </view>
                 <view>{{order.pmcProjectDto.contractName}}</view>
-                <view class="mp-cell-view">设备位置:{{order.mdmcTask.addressName}}</view>
+                <view class="mp-cell-view">任务名称:{{order.mdmcTask.title}}</view>
                 <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
                 <view class="operation_view" wx:if="{{order.mdmcTask.status == 10}}">
                   <view class="operation_button" catchtap="confirmService" data-id="{{order.mdmcTask.id}}">确认服务</view>

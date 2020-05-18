@@ -313,6 +313,7 @@ Page({
         "attachmentIds" : this.data.networksPics[0],
         "scheduledStartTime": this.data.inspectionDetail.scheduledStartTime,
         "days": this.data.inspectionDetail.days,
+        "frequency": this.data.inspectionDetail.frequency
       }
       console.log(param)
       common.addInspectionItem(param,(res)=>{

@@ -247,7 +247,7 @@ Page({
     var _this = this;
     var taskId = this.data.taskId;
     var param = {
-      "status": 12,
+      "status": 13,
       "id": taskId
     }
     common.createRepair(param, (res) => {

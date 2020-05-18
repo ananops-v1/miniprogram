@@ -140,25 +140,26 @@ Page({
     var that = this
     //调用应用实例的方法获取全局数据
     this.refresh();
-    var param = {
-      "maintainerId": wx.getStorageSync("userInfo")['id'],
-      "orderBy": "string",
-      "pageNum": 0,
-      "pageSize": 100,
-      
-    }
-    common.getItemByMaintainerId(param, (res) => {
-      console.log(res)
-      if (res.code == 200) {
-        console.log("获取巡检子项列表成功");
-        that.setData({
-          inspectionItems: res.result
-        })
+      var param = {
+        "maintainerId": wx.getStorageSync("userInfo")['id'],
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 100,
+
       }
-      else {
-        console.log("获取巡检子项列表失败");
-      }
-    })
+      common.getItemByMaintainerId(param, (res) => {
+        console.log(res)
+        if (res.code == 200) {
+          console.log("获取巡检子项列表成功");
+          that.setData({
+            inspectionItems: res.result
+          })
+        }
+        else {
+          console.log("获取巡检子项列表失败");
+        }
+      })
+    
   },
 
   /**
