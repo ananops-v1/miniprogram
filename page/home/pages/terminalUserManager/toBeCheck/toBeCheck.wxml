@@ -1,13 +1,12 @@
 <!-- 顶部tabbar -->
-<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab ">
-  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="itemName" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
+  <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="key" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
   </view>
 </view>
-<!-- tabbar对应的内容 -->.
+<!-- tabbar对应的内容 -->
 <view>
-  <view class="placehold" hidden="{{currentNavtab==0 ? '' : true}}">
+  <view class="ctnt1 placehold" hidden="{{currentNavtab==0 ? '' : true}}">
     <view class="page__bd">
       <mp-cells ext-class="my-cells">
         <mp-cell value="项目名称" footer="{{orderInfo.pmcProjectDto.contractName}}">{{orderInfo.pmcProjectDto.contractName}}</mp-cell>
@@ -34,74 +33,27 @@
         <mp-cell value="故障维修建议" footer="{{orderInfo.mdmcTask.suggestion}}">{{orderInfo.mdmcTask.suggestion}}</mp-cell>
         <mp-cell value="作业超时原因" footer="{{orderInfo.mdmcTask.delayReason}}">{{orderInfo.mdmcTask.delayReason}}</mp-cell>
 
-        <view wx:if="{{taskPictures2 != null}}">
+        <view wx:if="{{taskPictures != null}}">
           <view class="fujian">附件:</view>
           <view class="category-detail-box">
-            <block wx:for="{{taskPictures2}}" wx:for-item="img" wx:key="img">
+            <block wx:for="{{taskPictures}}" wx:for-item="img" wx:key="img">
               <!-- 下面存放单个设备的div  -->
               <view class="category-goods-items">
                 <image class='group-image' bindtap='imageClick' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
               </view>
             </block>
           </view>
+
         </view>
       </mp-cells>
-    </view>
-  </view>
-  <view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-    <view class="page__bd">
-      <mp-cells ext-class="my-cells">
-        <mp-cell value="服务商" footer="{{orderInfo.pmcProjectDto.partyBName}}">{{orderInfo.pmcProjectDto.partyBName}}</mp-cell>
-        <mp-cell value="维修工" footer="{{orderInfo.engineerDto.loginName}}">{{orderInfo.engineerDto.name}}</mp-cell>
-        <mp-cell value="维修建议" footer="{{orderInfo.mdmcTask.suggestionOne}}" bindtap="showAllSuggestion">{{orderInfo.mdmcTask.suggestionOne}}</mp-cell>
-        <mp-cell value="备品备件" footer="{{}}" bindtap="onAddSpareParts"></mp-cell>
-        <mp-cell value="维修结果" footer="{{orderInfo.mdmcTask.result}}">{{orderInfo.mdmcTask.result}}</mp-cell>
-        <view wx:if="{{taskPicture10 != null}}">
-          <view class="fujian">附件:</view>
-          <view class="category-detail-box">
-            <block wx:for="{{taskPicture10}}" wx:for-item="img" wx:key="img">
-              <!-- 下面存放单个设备的div  -->
-              <view class="category-goods-items">
-                <image class='group-image' bindtap='image10Click' src='{{img.url}}' data-src='{{img.url}}' mode="aspectFill"></image>
-              </view>
-            </block>
-          </view>
-        </view>
-      </mp-cells>
-    </view>
-  </view>
-  <view class="placehold" hidden="{{currentNavtab==2 ? '' : true}}">
-    <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
-      <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
-      <view class="orderlog_content {{index==0?'first':''}}">{{item.movement}},{{item.lastOperator}}</view>
-      <view class="orderlog_time">{{item.createdTime}}</view>
+
     </view>
   </view>
 </view>
-
-<view class="page-section">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
-      <button type="default" plain="true" bindtap="receiveOrder">接单</button>
-    </view>
+<view class="placehold" hidden="{{currentNavtab==1 ? '' : true}}">
+  <view wx:for="{{orderLogs}}" wx:key="item" class="orderlog_view">
+    <image class="orderlog_image" src="{{index == 0?'/imgs/others/progress_first.png':'/imgs/others/progress.png'}}"></image>
+    <view class="orderlog_content {{index==0?'first':''}}">{{item.movement}},{{item.lastOperator}}</view>
+    <view class="orderlog_time">{{item.createdTime}}</view>
   </view>
 </view>
-
-<!-- <view class="page-section">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
-      <button type="default" plain="true" bindtap="reject">拒接</button>
-    </view>
-  </view>
-</view> -->
-
-<!-- <modal id="modal" hidden="{{hiddenmodalput}}" title="拒接原因" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-  <textarea placeholder="请输入拒接单原因" bindinput="reason" value="{{reason}}"></textarea>
-</modal> -->
-
-
-<template is="showAllSuggestion" data="{{showAllSuggestion,allSuggestion}}">
-</template>
-
-<template is="showSpareParts" data="{{showSpareParts,deviceOrderCount,allDeviceOrderList}}">
-</template>

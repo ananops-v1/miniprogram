@@ -29,7 +29,7 @@ class Common extends Base {
 //返回全部工单列表
   getTask(param, callback) {
     var params = {
-      url: '/mdmcTask/getTaskList',
+      url: '/mdmc/mdmcTask/getTaskList',
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -88,6 +88,22 @@ class Common extends Base {
   getTaskLogsByTaskId(taskId, callback) {
     var params = {
       url: `/mdmc/mdmcTask/getTaskLogs/${taskId}`,
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+  //根据id和设备状态组查询列表
+  getTaskListByIdAndStatusArrary(param, callback) {
+    var params = {
+      url: `/mdmc/mdmcTask/getTaskListByIdAndStatusArrary`,
+      data: param,
+      method: 'POST',
       sCallback: function (data) {
         callback && callback(data);
       },

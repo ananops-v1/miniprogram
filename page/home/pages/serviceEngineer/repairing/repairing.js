@@ -20,8 +20,16 @@ Page({
     newName:'',
     content: {
       title: "提交维修结果",
-      placeholder: "请这里输入"
+      errorReason: "请输入故障原因",
+      errorResult: "请输入维修结果",
+      errorSuggest: "请输入维修建议",
+      delayReason: "请输入未按时完成原因",
+      startDate: "",
+      startTime: "",
+      endDate: "",
+      endTime: "",
     },
+    networksPics: [[]],
   },
   //点击进入详情
   clickOrder: function (e) {
@@ -30,11 +38,155 @@ Page({
       url: "../repairingOrderDetail/repairingOrderDetail?id=" + e.currentTarget.dataset.id,
     })
   },
-
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+    })
+  },
+  confirmInput: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var endTime = "";
+    var temp = _this.data.content.endTime.trim().split(":")
+    if (temp.length == 2) {
+      endTime = temp[0] + ':' + temp[1] + ':00'
+    }
+    else {
+      endTime = temp[0] + ':' + temp[1] + ':' + temp[2]
+    }
+    var startTime = "";
+    var temp = _this.data.content.startTime.trim().split(":")
+    if (temp.length == 2) {
+      startTime = temp[0] + ':' + temp[1] + ':00'
+    }
+    else {
+      startTime = temp[0] + ':' + temp[1] + ':' + temp[2]
+    }
+    var params = {
+      "id": taskId,
+      "actualStartTime": _this.data.content.startDate + ' ' + startTime,
+      "actualFinishTime": _this.data.content.endDate + ' ' + endTime,
+      "delayReason": _this.data.content.delayReason,
+      "status": 10,
+      "result": _this.data.content.errorResult,
+      "suggestion": _this.data.content.errorSuggest,
+      "troubleReason": _this.data.content.errorReason,
+      "attachmentIdList": _this.data.networksPics[0]
+    }
+    console.log(params)
+    if (_this.data.content.errorResult == "请输入维修结果" || _this.data.content.errorResult.length==0){
+      wx.showToast({
+        title: "请输入维修结果",
+        duration: 2000,
+      })
+    }
+    else if (_this.data.content.errorSuggest == "请输入维修建议" || _this.data.content.errorSuggest.length == 0){
+      wx.showToast({
+        title: "请输入维修建议",
+        duration: 2000,
+      })
+    } 
+    else if (_this.data.content.errorReason == "请输入故障原因" || _this.data.content.errorReason.length == 0){
+      wx.showToast({
+        title: "请输入故障原因",
+        duration: 2000,
+      })
+    }
+    else{
+      console.log(params);
+      common.createRepair(params, (res) => {
+        console.log(res)
+        wx.showToast({
+          title: "提交成功",
+          duration: 2000,
+        })
+        _this.setData({
+          showEdit: false
+        })
+      });
+    }
+  },
+  inputChange1: function (e) {
+    var content = this.data.content
+    content.errorReason = e.detail.value
+    this.setData({
+      content:content
+    })
+  },
+  inputChange2: function (e) {
+    var content = this.data.content
+    content.errorResult = e.detail.value
+    this.setData({
+      content: content
+    })
+  },
+  inputChange3: function (e) {
+    var content = this.data.content
+    content.errorSuggest = e.detail.value
+    this.setData({
+      content: content
+    })
+  },
+  inputChange4: function (e) {
+    var content = this.data.content
+    content.delayReason = e.detail.value
+    this.setData({
+      content: content
+    })
+  },
+  bindStartDateChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.startDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindStartTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.startTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindEndDateChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindEndTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  //上传图片
+  clickUploadImg(e) {
+    console.log(e.currentTarget.dataset.index)
+    wx.navigateTo({
+      url: "../../uploadImage/uploadImage?filePath=repairTask&&inspectionItem=" + 0,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var DATE = UTIL.formatDate(new Date());
+    var TIME = UTIL.formatTime(new Date());
+    var content = this.data.content
+    content.endDate = DATE
+    content.endTime = TIME
+    content.startDate = DATE
+    content.startTime = TIME
+    this.setData({
+      content: content
+    })
     //调用应用实例的方法获取全局数据
     // this.refresh();
   },
@@ -52,7 +204,7 @@ Page({
   onShow: function () {
     AUTH.checkHasLogined();
     //var statusArray = [6,7,8,9,10];
-    var statusArray = [6, 7, 8, 9];
+    var statusArray = [6];
     this.getOrderByStatus(statusArray);
   },
 
@@ -106,35 +258,15 @@ Page({
     var taskId = e.currentTarget.dataset.id;
     _this.setData({
       showEdit:true,
-      newName:'',
-      taskId: taskId
+      taskId: taskId,
+      networksPics: [[]]
     })
   },
   inputChange: function (event) {
     var inputValue = event.detail.value;
     this.data.newName = inputValue;
   },
-  onCancel: function (e) {
-    this.setData({
-      showEdit: false,
-      newName: ''
-    })
-  },
-  confirmInput:function(e){
-    var submitnewName = this.data.newName.trim();
-    if (submitnewName === "") {
-      wx.showToast({
-        title: '维修结果不能为空',
-        icon: 'none'
-      })
-    } 
-    else {
-      this.setData({
-        showEdit: false
-      })
-      this.completeOrder(this.data.taskId, this.data.newName)
-    }
-  },
+  
   completeOrder: function (taskId, newName) {
     console.log(newName)
     var _this = this;

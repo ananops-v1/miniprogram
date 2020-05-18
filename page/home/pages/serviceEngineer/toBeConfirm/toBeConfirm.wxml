@@ -8,14 +8,13 @@
             <image src="../../../../../imgs/icon/to_be_confirmed.png" class="mp-cell-image" />
           </view>
           <view>项目:{{order.pmcProjectDto.contractName}}</view>
-          <view>{{order.mdmcTask.deviceName}}</view>
-          <view class="mp-cell-view">故障位置:{{order.mdmcTask.addressName}}</view>
+          <view class="mp-cell-view">任务名称:{{order.mdmcTask.title}}</view>
           <view class="mp-cell-view">报修时间:{{order.mdmcTask.appointTime}}</view>
 
-          <view class="operation_view">
+          <!-- <view class="operation_view">
             <view class="operation_button" catchtap="receiveOrder" data-id="{{order.mdmcTask.id}}" data-projectid="{{order.mdmcTask.projectId}}">接单</view>
             <view class="operation_button" catchtap="rejectOrder" data-id="{{order.mdmcTask.id}}">拒绝</view>
-          </view>
+          </view> -->
 
         </mp-cell>
       </mp-cells>

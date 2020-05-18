@@ -119,19 +119,21 @@ function homeInitial(allRepairerOrder) {
 
   //1 初始状态 2 甲方负责人审核 3 服务商接单 4 分配工程师 5 工程师接单 6 维修中，7（备品审核），8（审核通过），9，10（完成），11（确认结果） 12（已支付） 13 待评价
   //值机员
-  Config.repair[0][1].num = answer.num2 + answer.num3 + answer.num4 + answer.num5;
-  Config.repair[0][2].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
-  Config.repair[0][3].num = answer.num12;
+  Config.repair[0][1].num = answer.num2;
+  // Config.repair[0][2].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
+  Config.repair[0][2].num = answer.num10;
   //甲方负责人
-  Config.repair[1][0].num = answer.num2 + answer.num8;
-  Config.repair[1][1].num = answer.num11;
+  Config.repair[1][0].num = answer.num2;
+  Config.repair[1][1].num = answer.num8;
+  Config.repair[1][2].num = answer.num11;
   //服务商
-  Config.repair[2][0].num = answer.num3 + answer.num4;
-  Config.repair[2][1].num = answer.num7;
+  Config.repair[2][0].num = answer.num3;
+  Config.repair[2][1].num = answer.num4;
+  Config.repair[2][2].num = answer.num7;
   //维修工
   Config.repair[3][0].num = answer.num5;
   // Config.repair[3][1].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
-  Config.repair[3][1].num = answer.num6 + answer.num7 + answer.num8 + answer.num9;
+  Config.repair[3][1].num = answer.num6;
 }
 function homeInitInspections(allInspections) {
   var answer = {

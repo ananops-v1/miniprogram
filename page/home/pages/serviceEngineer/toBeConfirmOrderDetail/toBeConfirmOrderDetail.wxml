@@ -1,4 +1,5 @@
 <!-- 顶部tabbar -->
+<import src="../../../../common/modal/modal-tpl.wxml" />
 <view class="top-tab flex-wrp flex-tab ">
   <view class="toptab flex-item {{currentNavtab==idx ? 'active' : ''}}" wx:for="{{navTab}}" wx:key="key" wx:for-index="idx" wx:for-item="itemName" data-idx="{{idx}}" bindtap="switchTab">
     {{itemName}}
@@ -86,6 +87,9 @@
     </view>
   </view>
 </view>
+
+<template is="engineerReceiveOrder" data="{{showEdit,content}}">
+</template>
 
 <!-- 
 <view class='order_process'>

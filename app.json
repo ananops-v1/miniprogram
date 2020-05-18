@@ -58,7 +58,10 @@
     "page/messageDetail/messageDetail",
     "page/home/pages/invoice/invoice",
     "page/home/pages/invoiceRead/invoiceRead",
-    "page/home/pages/serviceProvider/inspectionCompleted/inspectionCompleted"
+    "page/home/pages/serviceProvider/inspectionCompleted/inspectionCompleted",
+    "page/home/pages/terminalUserManager/toBeCheck/toBeCheck",
+    "page/home/pages/serviceProvider/toBeDistribute/toBeDistribute",
+    "page/home/pages/serviceProvider/toBeDistributeDetail/toBeDistributeDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

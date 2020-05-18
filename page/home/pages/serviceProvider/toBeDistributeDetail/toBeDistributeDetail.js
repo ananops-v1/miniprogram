@@ -1,4 +1,5 @@
 //discovery.js
+const UTIL = require('../../../../../util/util.js')
 import {
   Common
 } from '../../../../common/base_model.js'
@@ -20,9 +21,43 @@ Page({
     showAllSuggestion: false,
     showSpareParts: false,
     hiddenmodalput: true,
+    showEdit:false,
+    content: {
+      title: "分配工程师",
+      subTitleEngineer:"工程师",
+      engineerName:"点击选择",
+      subTitleStartDate:"最晚维修日期",
+      subTitleStartTime: "最晚维修时间",
+      endDate:"",
+      endTime:""
+    },
   },
-  onLoad: function(e) {
+  bindStartDateChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindStartTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  onLoad: function (e) {
     console.log(e);
+    var DATE = UTIL.formatDate(new Date());
+    var TIME = UTIL.formatTime(new Date());
+    var content = this.data.content
+    content.endDate = DATE
+    content.endTime = TIME
+    this.setData({
+      content: content
+    })
     var taskId = e.id;
     var projectId = e.projectId;
     this.setData({
@@ -31,12 +66,12 @@ Page({
     })
   },
 
-  onShow: function() {
+  onShow: function () {
     this.getTaskByTaskId();
   },
 
 
-  getTaskByTaskId: function() {
+  getTaskByTaskId: function () {
 
     var taskId = this.data.taskId;
 
@@ -139,13 +174,13 @@ Page({
   },
 
 
-  switchTab: function(e) {
+  switchTab: function (e) {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
     });
   },
 
-  showAllSuggestion: function(e) {
+  showAllSuggestion: function (e) {
     var orderInfo = this.data.orderInfo;
     var suggestion = orderInfo.suggestion;
     if (suggestion.length > 0) {
@@ -159,7 +194,7 @@ Page({
   /**
    * 隐藏模态对话框
    */
-  hideModal: function() {
+  hideModal: function () {
     this.setData({
       showAllSuggestion: false,
       showSpareParts: false,
@@ -170,26 +205,26 @@ Page({
   /**
    * 对话框取消按钮点击事件
    */
-  onCancel: function() {
+  onCancel: function () {
     this.hideModal();
   },
 
 
-  onAddSpareParts: function() {
+  onAddSpareParts: function () {
     this.getDeviceById();
   },
 
-  getDeviceById: function() {
+  getDeviceById: function () {
     var orderInfo = this.data.orderInfo;
     var taskId = orderInfo.mdmcTask.id;
     common.getDeviceById(taskId, 1, (res) => {
       console.log(res);
       var deviceOrderList = res.result.deviceOrderList;
       var allDeviceOrderList = new Array();
-      deviceOrderList.forEach(function(e) {
+      deviceOrderList.forEach(function (e) {
         var item = e.deviceOrder.items;
         var items = JSON.parse(item);
-        items.forEach(function(e) {
+        items.forEach(function (e) {
           allDeviceOrderList.push(e);
         })
       })
@@ -211,7 +246,7 @@ Page({
 
 
 
-  rejectOrder: function(e) {
+  rejectOrder: function (e) {
     var _this = this;
     var taskId = this.data.taskId;
     var satus = this.data.projectId;
@@ -227,7 +262,12 @@ Page({
       }
     })
   },
-  receiveOrder:function(e){
+  distributeEngineer:function(e){
+    this.setData({
+      showEdit:true
+    })
+  },
+  receiveOrder: function (e) {
     var _this = this;
     var taskId = this.data.taskId;
     var projectId = this.data.projectId;
@@ -238,7 +278,7 @@ Page({
     }
     common.modifyTaskStatusByTaskId(taskId, param, (res) => {
       console.log(res);
-      if(res.code==200){
+      if (res.code == 200) {
         wx.showToast({
           title: "操作成功",
           icon: 'none',
@@ -247,18 +287,45 @@ Page({
       }
     });
   },
-  receiveAndDispatchOrder: function(e) {
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+    })
+  },
+  confirmInput: function (e) {
     var _this = this;
     var taskId = this.data.taskId;
-    var projectId = this.data.projectId;
-    var param = {
-      "status": 4,
-      "statusMsg": "string",
-      "taskId": taskId
+    var endTime="";
+    var temp = _this.data.content.endTime.trim().split(":")
+    if (temp.length == 2) {
+      endTime = temp[0] + ':' + temp[1] + ':00'
     }
-    common.modifyTaskStatusByTaskId(taskId, param, (res) => {
-      console.log(res);
+    else {
+      endTime = temp[0] + ':' + temp[1] + ':' + temp[2]
+    }
+    var params = {
+      "maintainerId": _this.data.maintainerId,
+      "id": taskId,
+      "deadline": _this.data.content.endDate+' '+endTime,
+      "status": 5
+    }
+    console.log(params);
+    common.createRepair(params, (res) => {
+      console.log(res)
+      wx.showToast({
+        title: "派单成功",
+        duration: 1000,
+        success: function () {
+          setTimeout(function () {
+            wx.navigateBack();
+          }, 1000)
+        }
+      })
     });
+  },
+  receiveAndDispatchOrder: function (e) {
+    var _this = this;
+    var projectId = this.data.projectId;
     console.log(projectId);
     var query = {
       "pageNum": 0,
@@ -267,32 +334,21 @@ Page({
     };
     common.queryListByGroupId(query, (res) => {
       console.log(res);
-      var repairerList = res.result.list.map(function(item) {
+      var repairerList = res.result.list.map(function (item) {
         return item['loginName'];
       });
-      var repairerInfoList = res.result;
+      var repairerInfoList = res.result.list;
+      var content=_this.data.content
       wx.showActionSheet({
         itemList: repairerList,
         success(res) {
           var index = res.tapIndex;
           console.log(index);
-          var params = {
-            "engineerId": repairerInfoList[index].id,
-            "taskId": taskId
-          }
-          console.log(params);
-          common.distributeEngineer(params, (res) => {
-            console.log(res)
-            wx.showToast({
-              title: "派单成功",
-              duration: 1000,
-              success: function() {
-                setTimeout(function() {
-                  wx.navigateBack();
-                }, 1000)
-              }
-            })
-          });
+          content.engineerName = repairerList[index]
+          _this.setData({
+            maintainerId: repairerInfoList[index].userId,
+            content:content
+          })
         },
         fail(res) {
           console.log(res.errMsg)
@@ -300,7 +356,7 @@ Page({
       })
     });
   },
-  makePhone: function(e) {
+  makePhone: function (e) {
     console.log(e);
     var phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
@@ -308,7 +364,7 @@ Page({
     })
   },
 
-  showLocation: function() {
+  showLocation: function () {
     console.log(123);
     const that = this;
     var latitude = this.data.orderInfo.mdmcTask.requestLatitude;

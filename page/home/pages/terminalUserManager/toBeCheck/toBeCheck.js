@@ -3,7 +3,7 @@
 const AUTH = require('../../../../../util/auth')
 const UTIL = require('../../../../../util/util')
 
-import { 
+import {
   Common
 } from '../../../../common/base_model.js';
 
@@ -46,7 +46,7 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    var statusArray = [2];
+    var statusArray = [8];
     this.getOrderByStatus(statusArray);
   },
 
@@ -150,7 +150,7 @@ Page({
     var status = e.currentTarget.dataset.status;
     if (status == 2) {
       status = 3;
-    } else if(status == 8) {
+    } else if (status == 8) {
       status = 9;
     }
     var param = {

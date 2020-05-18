@@ -11,6 +11,8 @@ import {
   Util
 } from '../../../../../util/util.js';
 
+const UTIL = require('../../../../../util/util.js')
+
 var common = new Common();
 
 Page({
@@ -21,10 +23,131 @@ Page({
     workOrderStatus: Config.workOrderStatus,
     urgentLevel: Config.urgentLevel,
     faultLevel: Config.faultLevel,
-    hiddenmodalput: true
+    hiddenmodalput: true,
+    showEdit: false,
+    content: {
+      title: "任务评估反馈",
+      subTitleEngineer: "紧急程度:",
+      engineerName: "点击选择",
+      subTitleStartDate: "计划开始日期",
+      subTitleStartTime: "计划开始时间",
+      startDate: "",
+      startTime: "",
+      subTitleEndDate: "计划结束日期",
+      subTitleEndTime: "计划结束时间",
+      endDate: "",
+      endTime: ""
+    },
+    level:0,
   },
-
+  onCancel: function (e) {
+    this.setData({
+      showEdit: false,
+    })
+  },
+  confirmInput: function (e) {
+    var _this = this;
+    var taskId = this.data.taskId;
+    var endTime = "";
+    var temp = _this.data.content.endTime.trim().split(":")
+    if (temp.length == 2) {
+      endTime = temp[0] + ':' + temp[1] + ':00'
+    }
+    else {
+      endTime = temp[0] + ':' + temp[1] + ':' + temp[2]
+    }
+    var startTime = "";
+    var temp = _this.data.content.startTime.trim().split(":")
+    if (temp.length == 2) {
+      startTime = temp[0] + ':' + temp[1] + ':00'
+    }
+    else {
+      startTime = temp[0] + ':' + temp[1] + ':' + temp[2]
+    }
+    var params = {
+      "id": taskId,
+      "scheduledStartTime": _this.data.content.startDate + ' ' +startTime,
+      "scheduledFinishTime": _this.data.content.endDate+' '+endTime,
+      "status": 6,
+      "level": _this.data.level
+    }
+    console.log(params);
+    common.createRepair(params, (res) => {
+      console.log(res)
+      wx.showToast({
+        title: "接单成功",
+        duration: 1000,
+        success: function () {
+          setTimeout(function () {
+            wx.navigateBack();
+          }, 1000)
+        }
+      })
+    });
+  },
+  bindStartDateChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.startDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindStartTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.startTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindEndDateChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endDate = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  bindEndTimeChange: function (e) {
+    var that = this
+    var content = that.data.content
+    content.endTime = e.detail.value
+    that.setData({
+      content: content
+    })
+  },
+  receiveAndDispatchOrder: function (e) {
+    var _this = this;
+      var repairerList=['不紧急','一般','紧急','非常紧急']
+      var content=_this.data.content
+      wx.showActionSheet({
+        itemList: repairerList,
+        success(res) {
+          var index = res.tapIndex;
+          console.log(index);
+          content.engineerName = repairerList[index]
+          _this.setData({
+            level: index+1,
+            content: content
+          })
+        },
+        fail(res) {
+          console.log(res.errMsg)
+        }
+      })
+  },
   onLoad: function (e) {
+    var DATE = UTIL.formatDate(new Date());
+    var TIME = UTIL.formatTime(new Date());
+    var content = this.data.content
+    content.endDate = DATE
+    content.endTime = TIME
+    content.startDate = DATE
+    content.startTime = TIME
+    this.setData({
+      content: content
+    })
     var taskId = e.id;
     this.setData({
       taskId: taskId
@@ -180,22 +303,25 @@ Page({
 
   pass: function (e) {
     var _this = this;
-    var taskId = this.data.taskId;
-    var param = {
-      "status": 6,
-      "id": taskId
-    }
-    common.createRepair(param, (res) => {
-      console.log(res);
-      if (res.code == 200) {
-        wx.showToast({
-          title: '接单成功',
-          success: function () {
-            wx.navigateBack();
-          }
-        })
-      }
+    _this.setData({
+      showEdit: true
     })
+    // var taskId = this.data.taskId;
+    // var param = {
+    //   "status": 6,
+    //   "id": taskId
+    // }
+    // common.createRepair(param, (res) => {
+    //   console.log(res);
+    //   if (res.code == 200) {
+    //     wx.showToast({
+    //       title: '接单成功',
+    //       success: function () {
+    //         wx.navigateBack();
+    //       }
+    //     })
+    //   }
+    // })
   },
   reject: function (e) {
     var _this = this;

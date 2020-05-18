@@ -51,19 +51,19 @@ Page({
    */
   onShow: function() {
     AUTH.checkHasLogined();
-    var statusArray = [2,3,4,5];
+    var statusArray = [2];
     this.getOrderByStatus(statusArray);
   },
 
 
-  getOrderByStatus: function(statusArray) {
+  getOrderByStatus: function (statusArray) {
     var _this = this;
     var userInfo = wx.getStorageSync('userInfo');
     var param = {
       "id": userInfo.id,
-      "orderBy": "string",
+      "orderBy": "appointTime",
       "pageNum": 0,
-      "pageSize": 0,
+      "pageSize": 100,
       "roleCode": userInfo.roles[0].roleCode,
       "status": statusArray
     };
