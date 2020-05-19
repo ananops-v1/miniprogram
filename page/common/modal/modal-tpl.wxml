@@ -7,7 +7,7 @@
       <form bindsubmit="payBill" bindreset="formReset">
         <view class="section section_gap">
           <view class="section__title">总金额：</view>
-          <view>{{totalMoney}}.00元</view>
+          <view>xxxx.xx元</view>
         </view>
         <view class="modal-footer">
           <button class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</button>
