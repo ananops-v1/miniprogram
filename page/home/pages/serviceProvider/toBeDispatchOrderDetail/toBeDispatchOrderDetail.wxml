@@ -12,7 +12,7 @@
       <mp-cells ext-class="my-cells">
         <mp-cell value="项目名称" footer="{{orderInfo.pmcProjectDto.contractName}}">{{orderInfo.pmcProjectDto.contractName}}</mp-cell>
         <mp-cell value="维修任务名称" footer="{{orderInfo.mdmcTask.title}}">{{orderInfo.mdmcTask.title}}</mp-cell>
-        <mp-cell value="公司名称" footer="{{orderInfo.principalInfoDto.groupName}}">{{orderInfo.principalInfoDto.groupName}}</mp-cell>
+        <mp-cell value="组织名称" footer="{{orderInfo.principalInfoDto.groupName}}">{{orderInfo.principalInfoDto.groupName}}</mp-cell>
         <mp-cell value="故障类型" footer="{{taskItemInfo.troubleType}}">{{taskItemInfo.troubleType}}</mp-cell>
         <mp-cell value="故障位置" footer="{{orderInfo.mdmcTask.addressName}}" bindtap="showLocation">{{orderInfo.mdmcTask.addressName}}</mp-cell>
         <mp-cell value="紧急程度" footer="{{urgentLevel[orderInfo.mdmcTask.level]}}">{{urgentLevel[orderInfo.mdmcTask.level]}}</mp-cell>
