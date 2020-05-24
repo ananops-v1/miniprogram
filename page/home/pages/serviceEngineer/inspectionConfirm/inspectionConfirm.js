@@ -183,7 +183,30 @@ Page({
       success: function (sm) {
         if (sm.confirm) {
           console.log('用户要求驳回');
-          wx.navigateBack();
+          var param = {
+            'itemId': e.currentTarget.dataset.id,
+            'status': 1,
+            'statusMsg': '拒单后'
+          }
+          common.modifyItemStatusByItemId(param, (res) => {
+            console.log(res)
+            if (res.code == 200) {
+              console.log("修改巡检状态成功")
+              wx.showToast({
+                title: "操作成功",
+                icon: 'none',
+                duration: 2000,
+              })
+              var inspectionItems = _this.data.inspectionItems
+              inspectionItems.splice(e.currentTarget.dataset.idx, 1)
+              _this.setData({
+                inspectionItems: inspectionItems
+              })
+            }
+            else {
+              console.log("修改巡检状态失败")
+            }
+          })
         } else if (sm.cancel) {
           console.log('用户点击取消');
         }
@@ -209,6 +232,18 @@ Page({
         that.setData({
           inspectionItems: res.result
         })
+        if (res.result.length == 0) {
+          wx.showToast({
+            title: "没有相关巡检",
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.navigateBack();
+              }, 1000)
+            }
+          })
+        }
       }
       else {
         console.log("获取巡检子项列表失败");

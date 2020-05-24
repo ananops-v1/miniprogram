@@ -106,10 +106,26 @@ Page({
     ]
   },
   search: function (value) {
+    var that=this
     return new Promise((resolve, reject) => {
       if (this.data.i % 2 === 0) {
+        var param = {
+          "orderBy": "string",
+          "pageNum": 0,
+          "pageSize": 100,
+          "taskName": value,
+          "userId": wx.getStorageSync("userInfo")['id'],
+          'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2
+        }
+        common.getTaskListByStatus(param,(res)=>{
+          console.log(res.result)
+          console.log("获取搜索结果列表")
+          that.setData({
+            inspectionList: res.result.list
+          })
+        })
         setTimeout(() => {
-          resolve([{ text: '搜索结果', value: 1 }, { text: '搜索结果2', value: 2 }])
+          resolve([{ text: '搜索结果', value: 1 }])
         }, 200)
       } else {
         setTimeout(() => {
@@ -170,7 +186,7 @@ Page({
     if (wx.getStorageSync("userInfo").roles[0].roleCode == "user_leader") {
       var param = {
         "userId": wx.getStorageSync("userInfo")['id'],
-        "role": 1,
+        "role": wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
         "orderBy": "string",
         "pageNum": 0,
         "pageSize": 100,

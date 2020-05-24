@@ -22,6 +22,7 @@ Page({
     networks: [],
     //巡检日志信息
     inspectionLogs: [],
+    inspectionReview:"",
     //待确认工单列表
     orderListLength: 8,
     orderList: [
@@ -216,6 +217,18 @@ Page({
                 console.log("获取甲方负责人详情成功")
                 _this.setData({
                   principalDetail: res.result
+                })
+              }
+            })
+            var param = {
+              taskId: _this.data.inspectionId
+            }
+            common.getReviewByTaskId(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取评价信息成功")
+                _this.setData({
+                  inspectionReview: res.result
                 })
               }
             })

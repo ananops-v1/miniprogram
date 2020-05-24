@@ -61,7 +61,8 @@
     "page/home/pages/serviceProvider/inspectionCompleted/inspectionCompleted",
     "page/home/pages/terminalUserManager/toBeCheck/toBeCheck",
     "page/home/pages/serviceProvider/toBeDistribute/toBeDistribute",
-    "page/home/pages/serviceProvider/toBeDistributeDetail/toBeDistributeDetail"
+    "page/home/pages/serviceProvider/toBeDistributeDetail/toBeDistributeDetail",
+    "page/home/pages/terminalUser/completed/completed"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F1F1F1",

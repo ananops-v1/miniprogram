@@ -223,6 +223,14 @@ Page({
         })
       }
     })
+    common.getReview(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        this.setData({
+          taskReviewInfo: res.result
+        })
+      }
+    })
   },
 
   image2Click: function (e) {
@@ -327,7 +335,7 @@ Page({
     var _this = this;
     var taskId = this.data.taskId;
     var param = {
-      "status": 15,
+      "status": 4,
       "id": taskId
     }
     common.createRepair(param, (res) => {

@@ -216,6 +216,18 @@ Page({
         that.setData({
           inspectionList: res.result
         })
+        if (res.result.length == 0) {
+          wx.showToast({
+            title: "没有相关巡检",
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.navigateBack();
+              }, 1000)
+            }
+          })
+        }
       }
       else {
         console.log("获取巡检列表失败");

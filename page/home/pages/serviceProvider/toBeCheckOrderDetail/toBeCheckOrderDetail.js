@@ -104,6 +104,14 @@ Page({
         })
       }
     })
+    common.getReview(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        this.setData({
+          taskReviewInfo: res.result
+        })
+      }
+    })
   },
   image2Click: function (e) {
     console.log(e);

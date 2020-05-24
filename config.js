@@ -34,12 +34,19 @@ Config.repair = [
   //   num: 0,
   // },
   {
-    id: "4",
+    id: "3",
     url: "../home/pages/terminalUser/toBeComment/toBeComment",
     icon_url: "/imgs/icon/comment.png",
     name: "待确认",
     num: 0,
-  }
+  },
+    {
+      id: "4",
+      url: "../home/pages/terminalUser/completed/completed",
+      icon_url: "/imgs/icon/inspection_pay.png",
+      name: "已完成",
+      num: 0,
+    }
   ],
   [{ //管理员
     id: "1",
@@ -61,7 +68,14 @@ Config.repair = [
     icon_url: "/imgs/icon/pending_payment.png",
     name: "待支付",
     num: 0,
-  }
+  },
+    {
+      id: "4",
+      url: "../home/pages/terminalUser/completed/completed",
+      icon_url: "/imgs/icon/inspection_pay.png",
+      name: "已完成",
+      num: 0,
+    }
   ],
   [{ //服务商
     id: "1",
@@ -80,7 +94,14 @@ Config.repair = [
     url: "../home/pages/serviceProvider/toBeCheck/toBeCheck",
     icon_url: "/imgs/icon/to_be_confirmed.png",
     name: "备件审核"
-  }
+  },
+    {
+      id: "4",
+      url: "../home/pages/terminalUser/completed/completed",
+      icon_url: "/imgs/icon/inspection_pay.png",
+      name: "已完成",
+      num: 0,
+    }
   ],
   [{ //工程师
     id: "1",
@@ -93,7 +114,14 @@ Config.repair = [
     url: "../home/pages/serviceEngineer/repairing/repairing",
     icon_url: "/imgs/icon/in_maintenance.png",
     name: "维修中"
-  }
+  },
+    {
+      id: "3",
+      url: "../home/pages/terminalUser/completed/completed",
+      icon_url: "/imgs/icon/inspection_pay.png",
+      name: "已完成",
+      num: 0,
+    }
   ]
 ]
 
@@ -148,6 +176,13 @@ Config.inspection = [
     name: "待付款",
     num: 0
   },
+    {
+      id: "6",
+      url: "../home/pages/serviceProvider/inspectionCompleted/inspectionCompleted",
+      icon_url: "/imgs/icon/inspection_pay.png",
+      name: "已完成",
+      num: 0
+    },
   // {
   //   id: "6",
   //   url: "../home/pages/terminalUser/inspectionToBeComment/inspectionToBeComment",

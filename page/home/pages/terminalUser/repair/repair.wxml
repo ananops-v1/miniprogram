@@ -151,7 +151,7 @@
             <view class="weui-cell__hd">
               <view class="weui-label">故障定位</view>
             </view>
-            <view class="weui-cell__bd" bindtap="chooseLocation">
+            <view class="weui-cell__bd" bindtap="toChooseLocation">
               <view class="weui-input">{{mapLocation}}</view>
             </view>
           </view>

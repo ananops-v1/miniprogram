@@ -122,18 +122,22 @@ function homeInitial(allRepairerOrder) {
   Config.repair[0][1].num = answer.num2;
   // Config.repair[0][2].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
   Config.repair[0][2].num = answer.num10;
+  Config.repair[0][3].num = answer.num13;
   //甲方负责人
   Config.repair[1][0].num = answer.num2;
   Config.repair[1][1].num = answer.num8;
   Config.repair[1][2].num = answer.num11;
+  Config.repair[1][3].num = answer.num13;
   //服务商
   Config.repair[2][0].num = answer.num3;
   Config.repair[2][1].num = answer.num4;
   Config.repair[2][2].num = answer.num7;
+  Config.repair[2][3].num = answer.num13;
   //维修工
   Config.repair[3][0].num = answer.num5;
   // Config.repair[3][1].num = answer.num6 + answer.num7 + answer.num8 + answer.num9 + answer.num10;
   Config.repair[3][1].num = answer.num6;
+  Config.repair[3][2].num = answer.num13;
 }
 function homeInitInspections(allInspections) {
   var answer = {
@@ -176,6 +180,7 @@ function homeInitInspections(allInspections) {
   Config.inspection[1][3].num = answer.inspecting;
   Config.inspection[1][4].num = answer.toBeConfirm;
   Config.inspection[1][5].num = answer.toBePay;
+  Config.inspection[1][6].num = answer.completed;
   // Config.inspection[1][5].num = answer.toBeComment;
   //服务商
   console.log(answer.toBeAccept)

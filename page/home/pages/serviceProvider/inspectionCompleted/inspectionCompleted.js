@@ -230,13 +230,25 @@ Page({
     that.setData({
       userId: wx.getStorageSync('userInfo').id
     })
-    var param = {
-      'userId': wx.getStorageSync('userObject').groupId,
-      'status': 7,
-      'role': 4,
-      "orderBy": "string",
-      "pageNum": 0,
-      "pageSize": 100,
+    if (wx.getStorageSync('userInfo').roles[0].roleCode=="user_leader"){
+      var param = {
+        'userId': wx.getStorageSync('userObject').id,
+        'status': 7,
+        'role': 1,
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 100,
+      }
+    }
+    else if (wx.getStorageSync('userInfo').roles[0].roleCode == "fac_leader"){
+      var param = {
+        'userId': wx.getStorageSync('userObject').groupId,
+        'status': 7,
+        'role': 4,
+        "orderBy": "string",
+        "pageNum": 0,
+        "pageSize": 100,
+      }
     }
     console.log(param);
     common.getInspectionTaskByStatus(param, (res) => {
@@ -246,6 +258,18 @@ Page({
         that.setData({
           inspectionList: res.result
         })
+        if (res.result.length == 0) {
+          wx.showToast({
+            title: "没有相关巡检",
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.navigateBack();
+              }, 1000)
+            }
+          })
+        }
       }
       else {
         console.log("获取巡检列表失败");

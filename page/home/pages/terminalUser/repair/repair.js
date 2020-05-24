@@ -257,16 +257,60 @@ Page({
     })
   },
   //选择故障定位
-  chooseLocation() {
-    const that = this
+  toChooseLocation:function(e) {
+    var that = this
+    that.chooseLocation()
+    // wx.chooseLocation({
+    //   success:function(res) {
+    //     console.log(res)
+    //     that.setData({
+    //       mapLocation: res.address,
+    //       latitude: res.latitude,
+    //       longitude: res.longitude
+    //     })
+    //   },
+    //   fail: function (res) {
+    //     console.log('fail', res);
+    //   }
+    // })
+  },
+  chooseLocation: function () {
+    let _this = this;
     wx.chooseLocation({
       success(res) {
-        console.log(res)
-        that.setData({
+        _this.setData({
           mapLocation: res.address,
           latitude: res.latitude,
           longitude: res.longitude
         })
+      },
+      fail(e) {
+        wx.showToast({
+          title: "请在右上角--设置--位置信息 设置允许",
+          icon: 'none',
+          duration: 4000
+        })
+      }
+    })
+  },
+  getLocation: function () {
+    let _this = this;
+    wx.getSetting({
+      success(res) {
+        // 判断定位的授权
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              _this.chooseLocation();
+            },
+            fail(errMsg) {
+              wx.showToast({ title: JSON.stringify(errMsg), icon: 'none' })
+            }
+          })
+        } else {
+          _this.chooseLocation();
+        }
       }
     })
   },

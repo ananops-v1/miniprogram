@@ -392,6 +392,18 @@ Page({
                 })
               }
             })
+            var param = {
+              taskId: _this.data.inspectionId
+            }
+            common.getReviewByTaskId(param, (res) => {
+              console.log(res)
+              if (res.code == 200) {
+                console.log("获取评价信息成功")
+                _this.setData({
+                  inspectionReview: res.result
+                })
+              }
+            })
             if (_this.data.inspectionDetail.pointSum <= _this.data.inspectionDetail.alreadyPoint){
               _this.setData({
                 isAdditional: false

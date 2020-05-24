@@ -17,8 +17,8 @@ Page({
     showSpareParts: false
   },
   onLoad: function(e) {
-    // var taskId = e.id;
-    var taskId = "803780329000147968";
+    var taskId = e.id;
+    // var taskId = "803780329000147968";
     this.setData({
       taskId: taskId
     })

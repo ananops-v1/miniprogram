@@ -25,6 +25,20 @@ class Common extends Base {
     };
     this.request(params);
   }
+  getReview(param, callback) {
+    var params = {
+      url: '/mdmc/mdmcReview/getReview?taskId=' + param.taskId,
+      // data: param,
+      method: 'GET',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   createRepair(param, callback) {
     var params = {
       url: '/mdmc/mdmcTask/save',
@@ -44,6 +58,21 @@ class Common extends Base {
   getTask(param, callback) {
     var params = {
       url: '/mdmc/mdmcTask/getTaskList',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据用户id和维修任务名称模糊查询列表
+  getTaskListByUserIdAndTaskName(param, callback) {
+    var params = {
+      url: '/mdmc/mdmcTask/getTaskListByUserIdAndTaskName',
       data: param,
       method: 'POST',
       sCallback: function (data) {
@@ -352,6 +381,18 @@ class Common extends Base {
     };
     this.request(params);
   }
+  //根据巡检任务的状态查询对应的任务
+  getTaskListByStatus(param, callback) {
+    var params = {
+      url: '/imc/inspectionTask/getTaskListByStatus',
+      data: param,
+      method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
   //根据项目Id获取某个巡检任务
   getTasksByProjectId(param, callback) {
     var params = {
@@ -442,6 +483,21 @@ class Common extends Base {
       url: '/imc/inspectionReview/save',
       data: param,
       method: 'POST',
+      sCallback: function (data) {
+        callback && callback(data);
+      },
+      fCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+  //根据巡检任务ID，获取巡检任务对应的评论
+  getReviewByTaskId(param, callback) {
+    var params = {
+      url: '/imc/inspectionReview/getReviewByTaskId/' + param.taskId,
+      // data: param,
+      method: 'GET',
       sCallback: function (data) {
         callback && callback(data);
       },

@@ -75,6 +75,29 @@ Page({
         // })
         _this.getUserInfoFun(_this.data.userid);
       }
+      else{
+        if (res.data.message == "内部异常"){
+          wx.showToast({
+            title: "用户账号输入错误",
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        else if (res.data.message == "Bad credentials"){
+          wx.showToast({
+            title: "用户密码输入错误",
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        else{
+          wx.showToast({
+            title: "验证码输入错误或过期",
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
     });
   },
   getUserInfoFun:function(loginName) {

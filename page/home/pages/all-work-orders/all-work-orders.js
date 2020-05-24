@@ -11,6 +11,7 @@ var common = new Common();
 var app = getApp();
 Page({
   data: {
+    i: 0,
     inputShowed: false,
     inputVal: "",
     orderStates: ['审核未通过', '待审核', '待服务商接单', '待分配工程师', '待工程师接单', '维修中', '备件待审核', '待用户负责人确认', '工程师二次维修', '待值机员确认', '待用户负责人审核', '待评价', '工单完成', '待重新派单', '待服务商重新派单','备件库管理员驳回','用户负责人驳回']
@@ -20,11 +21,32 @@ Page({
       search: this.search.bind(this)
     })
   },
+  //点击进入详情
+  clickOrder: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: "../all-work-orders-Detail/all-work-orders-Detail?id=" + e.currentTarget.dataset.id,
+    })
+  },
   search: function (value) {
     return new Promise((resolve, reject) => {
       if (this.data.i % 2 === 0) {
+        var param = {
+          "orderBy": "string",
+          "pageNum": 0,
+          "pageSize": 100,
+          "taskName": value,
+          "userId": wx.getStorageSync("userInfo")['id']
+        }
+        common.getTaskListByUserIdAndTaskName(param, (res) => {
+          console.log(res.result)
+          console.log("获取搜索结果列表")
+          this.setData({
+            orderList: res.result.list
+          })
+        })
         setTimeout(() => {
-          resolve([{ text: '搜索结果', value: 1 }, { text: '搜索结果2', value: 2 }])
+          resolve([{ text: '搜索结果', value: 1 }])
         }, 200)
       } else {
         setTimeout(() => {

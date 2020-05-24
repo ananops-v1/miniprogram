@@ -22,6 +22,7 @@ Page({
     showSpareParts: false,
     hiddenmodalput: true,
     showEdit:false,
+    maintainerId:"",
     content: {
       title: "分配工程师",
       subTitleEngineer:"工程师",
@@ -137,6 +138,14 @@ Page({
       if (res.code == 200) {
         this.setData({
           taskItemInfo: res.result[0]
+        })
+      }
+    })
+    common.getReview(param, (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        this.setData({
+          taskReviewInfo: res.result
         })
       }
     })
@@ -309,19 +318,27 @@ Page({
       "deadline": _this.data.content.endDate+' '+endTime,
       "status": 5
     }
-    console.log(params);
-    common.createRepair(params, (res) => {
-      console.log(res)
+    if (_this.data.maintainerId == "" || _this.data.maintainerId.length==0){
       wx.showToast({
-        title: "派单成功",
-        duration: 1000,
-        success: function () {
-          setTimeout(function () {
-            wx.navigateBack();
-          }, 1000)
-        }
+        title: "请选择工程师",
+        duration: 2000
       })
-    });
+    }
+    else{
+      console.log(params);
+      common.createRepair(params, (res) => {
+        console.log(res)
+        wx.showToast({
+          title: "派单成功",
+          duration: 1000,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1000)
+          }
+        })
+      });
+    }
   },
   receiveAndDispatchOrder: function (e) {
     var _this = this;

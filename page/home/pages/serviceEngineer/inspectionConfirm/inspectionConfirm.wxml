@@ -12,7 +12,7 @@
                 <view style="font-size: 13px;color: #888888;">报修时间：{{order.scheduledStartTime}}</view>
                 <view class="operation_view">
                   <view class="operation_button" data-id="{{order.id}}" data-idx="{{index}}" catchtap="clickAccept">接单</view>
-                  <!-- <view class="operation_button" data-id="{{order.id}}" data-idx="{{index}}" catchtap="clickNotAccept">驳回</view> -->
+                  <view class="operation_button" data-id="{{order.id}}" data-idx="{{index}}" catchtap="clickNotAccept">拒单</view>
                 </view>
             </mp-cell>
         </mp-cells>
