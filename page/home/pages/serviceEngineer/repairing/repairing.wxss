@@ -1,6 +1,7 @@
 @import '../../../../common/lib/common.wxss';
 @import "../../../../common/modal/modal-tpl.wxss";
-.container{
+.container {
+  height:1500rpx
 }
 .blue {
   background: blue;

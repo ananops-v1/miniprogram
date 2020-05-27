@@ -330,6 +330,13 @@ Page({
             })
           }
         }
+        else{
+          wx.showToast({
+            title: '提示：新建子任务失败，请联系用户管理员为本巡检项目关联巡检单模板',
+            icon: 'none',
+            duration: 5000,
+          })
+        }
       })
     }
   },

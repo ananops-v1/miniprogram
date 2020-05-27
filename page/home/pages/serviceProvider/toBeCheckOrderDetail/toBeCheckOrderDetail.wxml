@@ -19,8 +19,8 @@
         <mp-cell wx:if="{{orderInfo.pmcProjectDto.isContract==1}}" value="是否签署合同" footer="是">是</mp-cell>
         <mp-cell wx:else value="是否签署合同" footer="否">否</mp-cell>
         <mp-cell value="维修任务名称" footer="{{orderInfo.mdmcTask.title}}">{{orderInfo.mdmcTask.title}}</mp-cell>
-        <mp-cell value="用户公司名称" footer="{{orderInfo.pmcProjectDto.groupName}}">{{orderInfo.pmcProjectDto.groupName}}</mp-cell>
-        <mp-cell value="服务商公司名称" footer="{{orderInfo.principalInfoDto.partyBName}}">{{orderInfo.principalInfoDto.partyBName}}</mp-cell>
+        <mp-cell value="用户公司名称" footer="{{orderInfo.pmcProjectDto.partyAName}}">{{orderInfo.pmcProjectDto.partyAName}}</mp-cell>
+        <mp-cell value="服务商公司名称" footer="{{orderInfo.pmcProjectDto.partyBName}}">{{orderInfo.pmcProjectDto.partyBName}}</mp-cell>
         <mp-cell value="服务商24小时移动电话" footer="{{orderInfo.pmcProjectDto.partyBPhone}}">{{orderInfo.pmcProjectDto.partyBPhone}}</mp-cell>
         <mp-cell value="服务商24小时值班电话" footer="{{orderInfo.pmcProjectDto.partyBTel}}">{{orderInfo.pmcProjectDto.partyBTel}}</mp-cell>
         <mp-cell value="服务商24小时联系邮箱" footer="{{orderInfo.pmcProjectDto.partyBEmail}}">{{orderInfo.pmcProjectDto.partyBEmail}}</mp-cell>

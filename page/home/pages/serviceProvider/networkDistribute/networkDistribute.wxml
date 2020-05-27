@@ -29,7 +29,7 @@
             <mp-cell value="用户相关联系人3" footer="{{projectDetail.athreeName}}">{{projectDetail.athreeName}}</mp-cell>
             <mp-cell value="联系电话" footer="{{projectDetail.partyAThree}}" bindtap="makePhone" data-phone="{{projectDetail.partyAThree}}">{{projectDetail.partyAThree}}</mp-cell>
             <mp-cell value="巡检名称" footer="{{inspectionDetail.taskName}}"></mp-cell>
-            <mp-cell value="用户公司名称" footer="{{projectDetail.aoneName}}">{{projectDetail.aoneName}}</mp-cell>
+            <mp-cell value="用户公司名称" footer="{{projectDetail.partyAName}}">{{projectDetail.partyAName}}</mp-cell>
             <mp-cell value="巡检周期" footer="{{inspectionDetail.frequency}}天"></mp-cell>
             <mp-cell value="开始时间" footer="{{inspectionDetail.scheduledStartTime}}"></mp-cell>
             <mp-cell value="计划完成时间" footer="{{inspectionDetail.days}}天"></mp-cell>

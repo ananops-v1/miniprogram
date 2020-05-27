@@ -11,9 +11,14 @@ Page({
   data: {
     //巡检子项数据
     inspectionItems: [],
+    inspectionItemsLength:0,
     inspectionItemStates: ['待分配', '待接单', '巡检中', '待甲方负责人审核', '巡检结束'],
     //待确认工单列表
     orderListLength: 8,
+    orderBy: "string",
+    pageNum: 1,
+    pageSize: 10,
+    canLoadMore: true,
     orderList: [
       {
         id: 1,
@@ -112,26 +117,96 @@ Page({
   },
   //下拉刷新
   lower: function (e) {
-    wx.showNavigationBarLoading();
-    var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
+    if (this.data.canLoadMore) {
+      console.log("lower")
+      wx.showNavigationBarLoading();
+      var that = this;
+      setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+      console.log("lower")
+    }
+    else {
+      wx.showToast({
+        title: "已加载全部",
+        duration: 2000,
+      })
+    }
   },
   //使用本地 fake 数据实现刷新效果
   refresh: function () {
-    var feed_data = this.data.orderList;
-    this.setData({
-      orderList: feed_data,
-      orderListLength: feed_data.length
-    });
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.loadInspectionItemData(resolve)
+    }).then(function (feed_data) {
+      console.log(feed_data)
+      var inspectionItemsLength = feed_data.length
+      if (inspectionItemsLength < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
+        })
+      }
+      that.setData({
+        inspectionItems: feed_data,
+        inspectionItemsLength: inspectionItemsLength
+      });
+      if (inspectionItemsLength == 0) {
+        wx.showToast({
+          title: "没有相关巡检子项",
+          icon: 'none',
+          duration: 1000,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1000)
+          }
+        })
+      }
+    })
   },
   //使用本地 fake 数据实现继续加载效果
   nextLoad: function () {
-    var next_data = this.data.nextdata;
-    this.setData({
-      orderList: this.data.orderList.concat(next_data),
-      orderListLength: this.data.orderListLength + next_data.length
-    });
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.loadInspectionItemData(resolve)
+    }).then(function (next_data) {
+      console.log(that.data.pageNum)
+      console.log(next_data)
+      if (next_data.length < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
+        })
+      }
+      that.setData({
+        inspectionItems: that.data.inspectionItems.concat(next_data),
+        inspectionItemsLength: that.data.inspectionItemsLength + next_data.length
+      });
+    })
+  },
+  loadInspectionItemData: function (resolve) {
+    var that = this
+    var pageNum = that.data.pageNum
+    that.setData({
+      userId: wx.getStorageSync('userInfo').id
+    })
+    var param = {
+      "maintainerId": wx.getStorageSync("userInfo")['id'],
+      "orderBy": that.data.orderBy,
+      "pageNum": pageNum,
+      "pageSize": that.data.pageSize,
+    }
+    common.getItemByMaintainerId(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log("获取巡检子项列表成功");
+        pageNum++;
+        resolve(res.result)
+        that.setData({
+          pageNum: pageNum
+        })
+      }
+      else {
+        console.log("获取巡检子项列表失败");
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -139,27 +214,10 @@ Page({
   onLoad: function (options) {
     var that = this
     //调用应用实例的方法获取全局数据
+    that.setData({
+      pageNum: 1
+    })
     this.refresh();
-      var param = {
-        "maintainerId": wx.getStorageSync("userInfo")['id'],
-        "orderBy": "string",
-        "pageNum": 0,
-        "pageSize": 100,
-
-      }
-      common.getItemByMaintainerId(param, (res) => {
-        console.log(res)
-        if (res.code == 200) {
-          console.log("获取巡检子项列表成功");
-          that.setData({
-            inspectionItems: res.result
-          })
-        }
-        else {
-          console.log("获取巡检子项列表失败");
-        }
-      })
-    
   },
 
   /**

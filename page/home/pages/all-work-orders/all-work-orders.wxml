@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__bd">
     <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
-<scroll-view scroll-y="true" class="container discovery" >
+<scroll-view scroll-y="true" class="container discovery" bindscrolltolower="lower">
         <mp-cells>
             <mp-cell wx:for="{{orderList}}" wx:for-item="order" wx:key="order" data-id="{{order.id}}" bindtap="clickOrder">
                 <view slot="title" class="mp-cell-title">

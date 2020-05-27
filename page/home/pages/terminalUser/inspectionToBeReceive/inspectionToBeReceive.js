@@ -12,6 +12,10 @@ Page({
     userId: 0,
     //待确认工单列表
     orderListLength: 8,
+    orderBy: "string",
+    pageNum: 1,
+    pageSize: 10,
+    canLoadMore: true,
     orderList: [
       {
         id: 1,
@@ -130,27 +134,98 @@ Page({
   },
   //下拉刷新
   lower: function (e) {
-    console.log("lower")
-    wx.showNavigationBarLoading();
-    var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
+    if (this.data.canLoadMore) {
+      console.log("lower")
+      wx.showNavigationBarLoading();
+      var that = this;
+      setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+      console.log("lower")
+    }
+    else {
+      wx.showToast({
+        title: "已加载全部巡检",
+        duration: 2000,
+      })
+    }
   },
   //使用本地 fake 数据实现刷新效果
   refresh: function () {
-    var feed_data = this.data.orderList;
-    this.setData({
-      orderList: feed_data,
-      orderListLength: feed_data.length
-    });
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.loadInspectionData(resolve)
+    }).then(function (feed_data) {
+      console.log(feed_data)
+      var inspectionListLength = feed_data.length
+      if (inspectionListLength < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
+        })
+      }
+      that.setData({
+        inspectionList: feed_data,
+        inspectionListLength: inspectionListLength
+      });
+      if (inspectionListLength == 0) {
+        wx.showToast({
+          title: "没有相关巡检",
+          icon: 'none',
+          duration: 1000,
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1000)
+          }
+        })
+      }
+    })
   },
   //使用本地 fake 数据实现继续加载效果
   nextLoad: function () {
-    var next_data = this.data.nextdata;
-    this.setData({
-      orderList: this.data.orderList.concat(next_data),
-      orderListLength: this.data.orderListLength + next_data.length
-    });
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.loadInspectionData(resolve)
+    }).then(function (next_data) {
+      console.log(that.data.pageNum)
+      console.log(next_data)
+      if (next_data.length < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
+        })
+      }
+      that.setData({
+        inspectionList: that.data.inspectionList.concat(next_data),
+        inspectionListLength: that.data.inspectionListLength + next_data.length
+      });
+    })
+  },
+  loadInspectionData: function (resolve) {
+    var that = this
+    var pageNum = that.data.pageNum
+    that.setData({
+      userId: wx.getStorageSync('userInfo').id
+    })
+    var param = {
+      'userId': that.data.userId,
+      'status': 2,
+      'role': wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
+      "orderBy": that.data.orderBy,
+      "pageNum": pageNum,
+      "pageSize": that.data.pageSize,
+    }
+    common.getInspectionTaskByStatus(param, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        console.log("获取巡检列表成功");
+        pageNum++;
+        resolve(res.result)
+        that.setData({
+          pageNum: pageNum
+        })
+      }
+      else {
+        console.log("获取巡检列表失败");
+      }
+    })
   },
   clickInspection: function (e) {
     console.log(e.currentTarget.dataset.id)
@@ -163,42 +238,10 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    that.setData({
-      userId: wx.getStorageSync('userInfo').id
-    })
-    var param = {
-      'userId': that.data.userId,
-      'status':2,
-      'role': wx.getStorageSync('userInfo').roles[0].roleCode =='user_leader'?1:2,
-      "orderBy": "string",
-      "pageNum": 0,
-      "pageSize": 100,
-    }
-    common.getInspectionTaskByStatus(param, (res) => {
-      console.log(res);
-      if (res.code == 200) {
-        console.log("获取巡检列表成功");
-        that.setData({
-          inspectionList: res.result
-        })
-        if (res.result.length == 0) {
-          wx.showToast({
-            title: "没有相关巡检",
-            icon: 'none',
-            duration: 1000,
-            success: function () {
-              setTimeout(function () {
-                wx.navigateBack();
-              }, 1000)
-            }
-          })
-        }
-      }
-      else {
-        console.log("获取巡检列表失败");
-      }
-    })
     //调用应用实例的方法获取全局数据
+    that.setData({
+      pageNum: 1
+    })
     that.refresh();
     that.setData({
       search: that.search.bind(that)

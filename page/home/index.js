@@ -97,7 +97,7 @@ Page({
         "status": null
       };
       common.getTaskListByIdAndStatus(param, (res) => {
-        var allRepairerOrder = res.result;
+        var allRepairerOrder = res.result.list;
         AUTH.homeInitial(allRepairerOrder);
         if (userRole != null) {
           _this.setData({

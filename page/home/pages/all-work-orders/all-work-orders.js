@@ -14,7 +14,13 @@ Page({
     i: 0,
     inputShowed: false,
     inputVal: "",
-    orderStates: ['审核未通过', '待审核', '待服务商接单', '待分配工程师', '待工程师接单', '维修中', '备件待审核', '待用户负责人确认', '工程师二次维修', '待值机员确认', '待用户负责人审核', '待评价', '工单完成', '待重新派单', '待服务商重新派单','备件库管理员驳回','用户负责人驳回']
+    orderStates: ['审核未通过', '待审核', '待服务商接单', '待分配工程师', '待工程师接单', '维修中', '备件待审核', '待用户负责人确认', '工程师二次维修', '待值机员确认', '待用户负责人审核', '待评价', '工单完成', '待重新派单', '待服务商重新派单','备件库管理员驳回','用户负责人驳回'],
+    orderList:[],
+    orderListLength:0,
+    orderBy: "string",
+    pageNum: 1,
+    pageSize: 10,
+    canLoadMore: true,
   },
   onLoad() {
     this.setData({
@@ -83,30 +89,47 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined();
-    this.getOrderByStatus(null);
+    // this.getOrderByStatus(null);
+    this.setData({
+      pageNum: 1
+    })
+    this.refresh();
   },
 
-
-  getOrderByStatus: function (status) {
-    var _this = this;
-    var userInfo = wx.getStorageSync('userInfo');
-    var param = {
-      "id": userInfo.id,
-      "orderBy": "string",
-      "pageNum": 0,
-      "pageSize": 100,
-      "roleCode": userInfo.roles[0].roleCode,
-      "status": status
-    };
-
-    common.getTaskListByIdAndStatus(param, (res) => {
-      var orderList = res.result;
-      console.log(orderList);
-      if (orderList != null && orderList.length > 0) {
-        this.setData({
-          orderList: orderList
+  //下拉刷新
+  lower: function (e) {
+    if (this.data.canLoadMore) {
+      console.log("lower")
+      wx.showNavigationBarLoading();
+      var that = this;
+      setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+      console.log("lower")
+    }
+    else {
+      wx.showToast({
+        title: "已加载全部维修",
+        duration: 2000,
+      })
+    }
+  },
+  //使用本地 fake 数据实现刷新效果
+  refresh: function () {
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.getOrderByStatus(null,resolve)
+    }).then(function (feed_data) {
+      console.log(feed_data)
+      var orderListLength = feed_data.length
+      if (orderListLength < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
         })
-      } else {
+      }
+      that.setData({
+        orderList: feed_data,
+        orderListLength: orderListLength
+      });
+      if (orderListLength==0){
         wx.showToast({
           title: "没有工单",
           icon: 'none',
@@ -117,6 +140,52 @@ Page({
             }, 2000)
           }
         })
+      }
+    })
+  },
+  //使用本地 fake 数据实现继续加载效果
+  nextLoad: function () {
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.getOrderByStatus(null,resolve)
+    }).then(function (next_data) {
+      console.log(that.data.pageNum)
+      console.log(next_data)
+      if (next_data.length < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
+        })
+      }
+      that.setData({
+        orderList: that.data.orderList.concat(next_data),
+        orderListLength: that.data.orderListLength + next_data.length
+      });
+    })
+  },
+  getOrderByStatus: function (status,resolve) {
+    var _this = this;
+    var pageNum = _this.data.pageNum
+    var userInfo = wx.getStorageSync('userInfo');
+    var param = {
+      "id": userInfo.id,
+      "orderBy": _this.data.orderBy,
+      "pageNum": _this.data.pageNum,
+      "pageSize": _this.data.pageSize,
+      "roleCode": userInfo.roles[0].roleCode,
+      "status": status
+    };
+
+    common.getTaskListByIdAndStatus(param, (res) => {
+      if(res.code==200){
+        pageNum++;
+        var orderList = res.result.list;
+        console.log(orderList);
+        if (orderList != null && orderList.length > 0) {
+          resolve(orderList)
+          _this.setData({
+            pageNum: pageNum
+          })
+        }
       }
     })
   }

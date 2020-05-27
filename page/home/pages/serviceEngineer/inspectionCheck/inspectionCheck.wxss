@@ -2,3 +2,6 @@
 .mini-btn{
     margin: 0 32px;
 }
+.container {
+  height:1500rpx
+}

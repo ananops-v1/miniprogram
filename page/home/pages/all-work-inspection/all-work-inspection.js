@@ -16,6 +16,10 @@ Page({
     //待确认工单列表
     orderListLength: 8,
     inspectionStates: ['审核未通过', '待审核', '待分配服务商', '待服务商接单', '服务商已接单', '待结果确认', '待付款', '巡检结束'],
+    orderBy: "string",
+    pageNum: 1,
+    pageSize: 10,
+    canLoadMore:true,
     orderList: [
       {
         id: 1,
@@ -150,27 +154,106 @@ Page({
   },
   //下拉刷新
   lower: function (e) {
-    console.log("lower")
-    wx.showNavigationBarLoading();
-    var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
+    if (this.data.canLoadMore){
+      console.log("lower")
+      wx.showNavigationBarLoading();
+      var that = this;
+      setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+      console.log("lower")
+    }
+    else{
+      wx.showToast({
+        title: "已加载全部巡检",
+        duration: 2000,
+      })
+    }
   },
   //使用本地 fake 数据实现刷新效果
   refresh: function () {
-    var feed_data = this.data.orderList;
-    this.setData({
-      orderList: feed_data,
-      orderListLength: feed_data.length
-    });
+    var that=this
+    new Promise(function(resolve,reject){
+      that.loadInspectionData(resolve)
+    }).then(function (feed_data){
+      console.log(feed_data)
+      var inspectionListLength = feed_data.length
+      if (inspectionListLength < that.data.pageSize){
+        that.setData({
+          canLoadMore:false
+        })
+      }
+      that.setData({
+        inspectionList: feed_data,
+        inspectionListLength: inspectionListLength
+      });
+    })
   },
   //使用本地 fake 数据实现继续加载效果
   nextLoad: function () {
-    var next_data = this.data.nextdata;
-    this.setData({
-      orderList: this.data.orderList.concat(next_data),
-      orderListLength: this.data.orderListLength + next_data.length
-    });
+    var that = this
+    new Promise(function (resolve, reject) {
+      that.loadInspectionData(resolve)
+    }).then(function (next_data) {
+      console.log(that.data.pageNum)
+      console.log(next_data)
+      if (next_data.length < that.data.pageSize) {
+        that.setData({
+          canLoadMore: false
+        })
+      }
+      that.setData({
+        inspectionList: that.data.inspectionList.concat(next_data),
+        inspectionListLength: that.data.inspectionListLength + next_data.length
+      });
+    })
+  },
+  loadInspectionData: function (resolve){
+    var that = this
+    var pageNum = that.data.pageNum
+    if(wx.getStorageSync("userInfo").roles[0].roleCode == "user_leader") {
+  var param = {
+    "userId": wx.getStorageSync("userInfo")['id'],
+    "role": wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
+    "orderBy": that.data.orderBy,
+    "pageNum": that.data.pageNum,
+    "pageSize": that.data.pageSize,
+
+  }
+  common.getTaskListByUserId(param, (res) => {
+    console.log(res)
+    if (res.code == 200) {
+      console.log("获取巡检列表成功");
+      pageNum++;
+      resolve(res.result.list)
+      that.setData({
+        pageNum: pageNum
+      })
+    }
+    else {
+      console.log("获取巡检列表失败");
+    }
+  })
+}
+    else if (wx.getStorageSync("userInfo").roles[0].roleCode == "fac_leader") {
+  var param = {
+    "orderBy": that.data.orderBy,
+    "pageNum": that.data.pageNum,
+    "pageSize": that.data.pageSize,
+  }
+  common.getAllTaskByFacilitatorId(param, (res) => {
+    console.log(res)
+    if (res.code == 200) {
+      console.log("获取巡检列表成功");
+      pageNum++;
+      resolve(res.result.list)
+      that.setData({
+        pageNum: pageNum
+      })
+    }
+    else {
+      console.log("获取巡检列表失败");
+    }
+  })
+}  
   },
   clickInspection:function(e){
     console.log(e.currentTarget.dataset.id)
@@ -183,48 +266,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    if (wx.getStorageSync("userInfo").roles[0].roleCode == "user_leader") {
-      var param = {
-        "userId": wx.getStorageSync("userInfo")['id'],
-        "role": wx.getStorageSync('userInfo').roles[0].roleCode == 'user_leader' ? 1 : 2,
-        "orderBy": "string",
-        "pageNum": 0,
-        "pageSize": 100,
-
-      }
-      common.getTaskListByUserId(param, (res) => {
-        console.log(res)
-        if (res.code == 200) {
-          console.log("获取巡检列表成功");
-          that.setData({
-            inspectionList: res.result.list
-          })
-        }
-        else {
-          console.log("获取巡检列表失败");
-        }
-      })
-    }
-    else if (wx.getStorageSync("userInfo").roles[0].roleCode == "fac_leader") {
-      var param = {
-        "orderBy": "string",
-        "pageNum": 0,
-        "pageSize": 100,
-
-      }
-      common.getAllTaskByFacilitatorId(param, (res) => {
-        console.log(res)
-        if (res.code == 200) {
-          console.log("获取巡检列表成功");
-          that.setData({
-            inspectionList: res.result.list
-          })
-        }
-        else {
-          console.log("获取巡检列表失败");
-        }
-      })
-    }  
     // var that = this
     // that.setData({
     //   projectId: options.projectId
@@ -251,9 +292,13 @@ Page({
     //   }
     // })
     //调用应用实例的方法获取全局数据
+    that.setData({
+      pageNum: 1
+    })
     that.refresh();
     that.setData({
       search: that.search.bind(that)
     })
   }
+  
 });
